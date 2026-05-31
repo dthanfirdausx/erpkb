@@ -1,0 +1,185 @@
+{
+  "asalData": "S",
+  "asuransi": 0,
+  "bruto": 87654,
+  "cif": 7654321,
+  "disclaimer": "1",
+  "flagCurah": "2",
+  "flagMigas": "1",
+  "fob": 750.5,
+  "freight": 329.25,
+  "idPengguna": "ABCDE",
+  "jabatanTtd": "MANAGER",
+  "jumlahKontainer": 1,
+  "kodeAsuransi": "LN",
+  "kodeCaraBayar": "9",
+  "kodeCaraDagang": "1",
+  "kodeDokumen": "30",
+  "kodeIncoterm": "FOB",
+  "kodeJenisEkspor": "1", 
+  "kodeJenisNilai": "",
+  "kodeJenisProsedur": "",
+  "kodeKantor": "040300",
+  "kodeKantorEkspor": "040300",
+  "kodeKantorMuat": "040300",
+  "kodeKantorPeriksa": "040300",
+  "kodeKategoriEkspor": "21",
+  "kodeLokasi": "2",
+  "kodeNegaraTujuan": "SA",
+  "kodePelBongkar": "SAJED",
+  "kodePelEkspor": "IDTPP",
+  "kodePelMuat": "IDTPP",
+  "kodePelTujuan": "SAJED",
+  "kodePembayar": "BYR01",
+  "kodeTps": "TPS1",
+  "kodeValuta": "USD",
+  "kotaTtd": "JAKARTA",
+  "namaTtd": "AGUS",
+  "ndpbm": 14250,
+  "netto": 16.75,
+  "nilaiMaklon": 242.5,
+  "nomorAju": "301017INA9G220220525000025",
+  "seri": 1,
+  "tanggalAju": "2021-12-25",
+  "tanggalEkspor": "2021-12-25",
+  "tanggalPeriksa": "2021-12-25",
+  "tanggalTtd": "2021-12-25",
+  "totalDanaSawit": 111.25,
+  "barang": [
+    {
+      "cif": 0,
+      "cifRupiah": 0,
+      "fob": 7654000,
+      "hargaEkspor": 0,
+      "hargaPatokan": 0,
+      "hargaPerolehan": 0,
+      "hargaSatuan": 4.56,
+      "jumlahKemasan": 1,
+      "jumlahSatuan": 12,
+      "kodeAsalBahanBaku": "0",
+      "kodeBarang": "BARANG 1",
+      "kodeDaerahAsal": "3175",
+      "kodeDokumen": "30",
+      "kodeJenisKemasan": "VL",
+      "kodeNegaraAsal": "ID",
+      "kodeSatuanBarang": "KGM",
+      "merk": "MERK BARANG 1",
+      "ndpbm": 14250,
+      "netto": 335.5,
+      "nilaiBarang": 0,
+      "nilaiDanaSawit": 0,
+      "posTarif": "12345678",
+      "seriBarang": 1,
+      "spesifikasiLain": "SPEK BARANG 1",
+      "tipe": "TIPE BARANG 1",
+      "ukuran": "UKURAN BARANG 1",
+      "uraian": "URAIAN BARANG 1",
+      "volume": 388.5,
+      "barangDokumen": [
+        {
+          "seriDokumen": 1
+        }
+      ],
+      "barangPemilik": [],
+      "barangTarif": []
+    }
+  ],
+  "entitas": [
+    {
+      "alamatEntitas": "SULAWESI  UTARA",
+      "kodeEntitas": "2",
+      "kodeJenisIdentitas": "5",
+      "namaEntitas": "PT ABS",
+      "nibEntitas": "1111111111",
+      "nomorIdentitas": "123456789",
+      "seriEntitas": 2
+    },
+    {
+      "alamatEntitas": "SULAWESI  UTARA",
+      "kodeEntitas": "7",
+      "kodeJenisIdentitas": "5",
+      "namaEntitas": "PT ABS",
+      "nibEntitas": "1111111111",
+      "nomorIdentitas": "123456789",
+      "seriEntitas": 13
+    },
+    {
+      "alamatEntitas": "JEDDAH",
+      "kodeEntitas": "8",
+      "kodeNegara": "SA",
+      "namaEntitas": "XYZ COMPANY",
+      "seriEntitas": 8
+    },
+    {
+      "alamatEntitas": "JEDDAH",
+      "kodeEntitas": "6",
+      "kodeNegara": "SA",
+      "namaEntitas": "XYZ COMPANY",
+      "seriEntitas": 6
+    }
+  ],
+  "kemasan": [
+    {
+      "jumlahKemasan": 123,
+      "kodeJenisKemasan": "CT",
+      "merkKemasan": "ABCD",
+      "seriKemasan": 1
+    }
+  ],
+  "kontainer": [
+    {
+      "kodeTipeKontainer": "1",
+      "kodeUkuranKontainer": "20",
+      "nomorKontainer": "ABCD2227441",
+      "seriKontainer": 1,
+      "kodeJenisKontainer": "4"
+    }
+  ],
+  "dokumen": [
+    {
+      "idDokumen": "1",
+      "kodeDokumen": "380",
+      "nomorDokumen": "001/INV/III/22",
+      "seriDokumen": 2,
+      "tanggalDokumen": "2021-12-25"
+    },
+    {
+      "idDokumen": "2",
+      "kodeDokumen": "217",
+      "nomorDokumen": "001/PL/III/22",
+      "seriDokumen": 3,
+      "tanggalDokumen": "2021-12-25"
+    }
+  ],
+  "pengangkut": [
+    {
+      "kodeBendera": "ID",
+      "namaPengangkut": "ABC",
+      "nomorPengangkut": "VOY 123",
+      "kodeCaraAngkut": "1",
+      "seriPengangkut": 1
+    }
+  ],
+  "bankDevisa": [
+    {
+      "kodeBank": "9",
+      "seriBank": 1
+    }
+  ],
+  "kesiapanBarang": [
+    {
+      "kodeJenisBarang": "1",
+      "kodeJenisGudang": "2",
+      "namaPic": "AGUS",
+      "alamat": "JAKARTA",
+      "nomorTelpPic": "081111111111",
+      "lokasiSiapPeriksa": "JAKARTA",
+      "kodeCaraStuffing": "7",
+      "kodeJenisPartOf": "2",
+      "tanggalPkb": "2021-12-25",
+      "waktuSiapPeriksa": "2022-11-22T11:00:00.000Z",
+      "jumlahContainer20": 825,
+      "jumlahContainer40": 181
+    }
+  ]
+}

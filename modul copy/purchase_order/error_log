@@ -1,0 +1,206 @@
+[10-Aug-2025 22:07:39 Asia/Jakarta] PHP Fatal error:  Call to a member function bind_param() on boolean in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 67
+[10-Aug-2025 22:08:07 Asia/Jakarta] PHP Fatal error:  Call to a member function bind_param() on boolean in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 67
+[10-Aug-2025 22:10:54 Asia/Jakarta] PHP Fatal error:  Call to a member function bind_param() on boolean in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 67
+[10-Aug-2025 22:21:19 Asia/Jakarta] PHP Fatal error:  Call to a member function bind_param() on boolean in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 67
+[10-Aug-2025 22:22:21 Asia/Jakarta] PHP Fatal error:  Call to a member function bind_param() on boolean in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 67
+[10-Aug-2025 22:24:54 Asia/Jakarta] PHP Warning:  mysqli_stmt::bind_param(): Number of elements in type definition string doesn't match number of bind variables in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 95
+[10-Aug-2025 22:31:54 Asia/Jakarta] PHP Notice:  Undefined variable: mysqli in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 12
+[10-Aug-2025 22:31:54 Asia/Jakarta] PHP Fatal error:  Call to a member function prepare() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 12
+[10-Aug-2025 22:31:56 Asia/Jakarta] PHP Notice:  Undefined variable: mysqli in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 12
+[10-Aug-2025 22:31:56 Asia/Jakarta] PHP Fatal error:  Call to a member function prepare() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 12
+[10-Aug-2025 22:32:16 Asia/Jakarta] PHP Fatal error:  Call to undefined method mysqli_stmt::get_result() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 20
+[07-Sep-2025 14:31:55 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 37
+[07-Sep-2025 14:32:32 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:32:32 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 37
+[07-Sep-2025 14:32:33 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 81
+[07-Sep-2025 14:32:33 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:32:33 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 37
+[07-Sep-2025 14:33:01 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:33:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 37
+[07-Sep-2025 14:33:02 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 81
+[07-Sep-2025 14:33:02 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:33:02 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 37
+[07-Sep-2025 14:36:24 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:36:24 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 37
+[07-Sep-2025 14:36:25 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 81
+[07-Sep-2025 14:36:25 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:36:25 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 37
+[07-Sep-2025 14:37:07 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:37:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:37:08 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 81
+[07-Sep-2025 14:37:08 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:37:08 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:37:30 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 81
+[07-Sep-2025 14:37:30 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:37:30 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:38:13 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:38:13 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:38:14 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 81
+[07-Sep-2025 14:38:14 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:38:14 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:39:00 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:39:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:39:00 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 81
+[07-Sep-2025 14:39:00 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/inc/Dtable.php on line 105
+[07-Sep-2025 14:39:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:40:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$seller_name in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 48
+[07-Sep-2025 14:40:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$seller_name in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 48
+[07-Sep-2025 14:40:59 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_data.php on line 39
+[07-Sep-2025 14:52:37 Asia/Jakarta] PHP Fatal error:  Call to undefined method Database::fetch_custom() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 12
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 51
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 52
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 54
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 55
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 56
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 57
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 58
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 66
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 67
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 68
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 69
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 70
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 76
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 77
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 78
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 79
+[07-Sep-2025 14:52:55 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 99
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 52
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 54
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 55
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 56
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 57
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 58
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 59
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 67
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 68
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 69
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 70
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 71
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 77
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 78
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 79
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 80
+[07-Sep-2025 14:55:09 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 100
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 52
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 54
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 55
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 56
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 57
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 58
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 59
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 67
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 68
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 69
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 70
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 71
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 77
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 78
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 79
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Notice:  Trying to get property of non-object in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 80
+[07-Sep-2025 14:55:11 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 100
+[07-Sep-2025 14:55:37 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:55:37 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 100
+[07-Sep-2025 14:55:48 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:55:48 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 100
+[07-Sep-2025 14:56:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:56:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 100
+[07-Sep-2025 14:56:27 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 100
+[07-Sep-2025 14:56:39 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:56:39 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$name in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 106
+[07-Sep-2025 14:56:40 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 14:56:40 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$name in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 106
+[07-Sep-2025 14:56:57 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:00:40 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:00:41 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:00:51 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:00:52 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:00:55 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:01:11 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:01:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:01:42 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:01:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[07-Sep-2025 15:01:48 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$po_number in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/cetak_po.php on line 53
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: po_no in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 96
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: season in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 97
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: po_date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 98
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: supplier in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 99
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: supplier_address in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 100
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: issue_by in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 101
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: trade_terms in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 102
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: payment in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 103
+[08-Sep-2025 11:59:27 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 111
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: po_no in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 96
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: season in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 97
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: po_date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 98
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: supplier in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 99
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: supplier_address in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 100
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: issue_by in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 101
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: trade_terms in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 102
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: payment in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 103
+[08-Sep-2025 11:59:40 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 111
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: po_no in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 96
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: season in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 97
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: po_date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 98
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: supplier in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 99
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: supplier_address in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 100
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: issue_by in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 101
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: trade_terms in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 102
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: payment in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 103
+[08-Sep-2025 12:02:22 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 111
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: po_no in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 96
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: season in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 97
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: po_date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 98
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: supplier in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 99
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: supplier_address in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 100
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: issue_by in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 101
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: trade_terms in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 102
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: payment in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 103
+[08-Sep-2025 12:02:28 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 111
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: po_no in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 96
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: season in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 97
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: po_date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 98
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: supplier in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 99
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: supplier_address in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 100
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: issue_by in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 101
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: trade_terms in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 102
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: payment in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 103
+[08-Sep-2025 12:04:02 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 111
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: po_no in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 96
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: season in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 97
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: po_date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 98
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: supplier in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 99
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: supplier_address in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 100
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: issue_by in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 101
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: trade_terms in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 102
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: payment in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 103
+[08-Sep-2025 12:04:06 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 111
+[08-Sep-2025 15:12:32 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 129
+[08-Sep-2025 15:12:42 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 129
+[08-Sep-2025 15:13:43 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 126
+[08-Sep-2025 15:32:46 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 115
+[08-Sep-2025 15:42:44 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 115
+[08-Sep-2025 15:43:41 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 115
+[08-Sep-2025 16:07:41 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 143
+[08-Sep-2025 16:07:41 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:07:41 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:07:41 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:07:41 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:08:03 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:08:03 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:08:03 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:08:03 Asia/Jakarta] PHP Notice:  Undefined variable: no_po in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[08-Sep-2025 16:08:24 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'o' (T_STRING), expecting ')' in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 171
+[24-Sep-2025 08:29:49 Asia/Jakarta] PHP Notice:  Undefined offset: 1 in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 10
+[24-Oct-2025 11:04:45 Asia/Jakarta] PHP Notice:  Undefined index: date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 70
+[24-Oct-2025 11:04:46 Asia/Jakarta] PHP Notice:  Undefined index: date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 93
+[24-Oct-2025 11:05:05 Asia/Jakarta] PHP Notice:  Undefined index: date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 70
+[24-Oct-2025 11:05:05 Asia/Jakarta] PHP Notice:  Undefined index: date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 93
+[24-Oct-2025 11:08:02 Asia/Jakarta] PHP Notice:  Undefined offset: 1 in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 10
+[24-Oct-2025 11:08:55 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 57
+[24-Oct-2025 11:08:55 Asia/Jakarta] PHP Notice:  Undefined index: date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 70
+[24-Oct-2025 11:08:55 Asia/Jakarta] PHP Notice:  Undefined index: date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 93
+[24-Oct-2025 11:08:55 Asia/Jakarta] PHP Notice:  Undefined index: date in /home/pwimtmyb/public_html/inkaber/hamparan/modul/purchase_order/purchase_order_action.php on line 93

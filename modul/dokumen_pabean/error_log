@@ -1,0 +1,68 @@
+[30-Apr-2026 16:15:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[30-Apr-2026 16:15:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[04-May-2026 09:46:51 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[04-May-2026 09:46:52 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1501
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:25 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1501
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:39 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:46 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[14-May-2026 09:59:46 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1501
+[14-May-2026 09:59:46 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 09:59:46 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:46 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:47 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 09:59:47 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 09:59:47 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:10 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[14-May-2026 10:00:10 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1501
+[14-May-2026 10:00:11 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 10:00:11 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:11 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:11 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 10:00:11 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:11 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:55 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[14-May-2026 10:00:56 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 10:00:56 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:56 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 10:00:56 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:00:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:04:13 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[14-May-2026 10:04:13 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[14-May-2026 10:04:13 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[14-May-2026 10:04:13 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[15-May-2026 08:23:36 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[15-May-2026 08:23:36 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[15-May-2026 08:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[15-May-2026 08:23:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[15-May-2026 08:23:36 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1731
+[15-May-2026 08:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[15-May-2026 08:23:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[28-May-2026 16:18:43 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1489
+[28-May-2026 16:18:43 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1489
+[28-May-2026 16:18:43 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[28-May-2026 16:18:43 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[28-May-2026 16:18:43 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1772
+[28-May-2026 16:18:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[28-May-2026 16:18:43 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[28-May-2026 16:20:19 Asia/Jakarta] PHP Notice:  Undefined index: nilai in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1446
+[28-May-2026 16:20:19 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1772
+[28-May-2026 16:20:19 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[28-May-2026 16:20:19 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[28-May-2026 16:20:19 Asia/Jakarta] PHP Notice:  Trying to get property 'access_token' of non-object in /home/gblb6816/public_html/new/inc/function.php on line 1772
+[28-May-2026 16:20:20 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$data in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119
+[28-May-2026 16:20:20 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/dokumen_pabean/dokumen_pabean_action.php on line 1119

@@ -1,0 +1,9 @@
+delete from incoming_outgoing where generate='1';
+delete from incoming_outgoing_detail where generate='1';
+delete from outgoing_terima where generate='1';
+delete from outgoing_terima_detail where generate='1';
+
+delete from produksi where generate='1';
+delete from produksi_detail where generate='1';
+delete from produksi_terima where generate='1';
+delete from produksi_terima_detail where generate='1';

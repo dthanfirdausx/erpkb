@@ -1,0 +1,100 @@
+[08-Sep-2025 11:25:01 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '0' (T_LNUMBER), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_data.php on line 39
+[22-Sep-2025 05:47:22 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '0' (T_LNUMBER), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_data.php on line 41
+[22-Sep-2025 06:08:04 Asia/Jakarta] PHP Fatal error:  Call to undefined function get_no_si() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 236
+[22-Sep-2025 06:08:50 Asia/Jakarta] PHP Fatal error:  Call to undefined function toRomawi() in /home/pwimtmyb/public_html/inkaber/hamparan/inc/function.php on line 109
+[22-Sep-2025 06:09:24 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 246
+[22-Sep-2025 06:10:14 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ')' in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 247
+[22-Sep-2025 06:10:33 Asia/Jakarta] PHP Fatal error:  Call to undefined function info_pt() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 3
+[22-Sep-2025 06:11:05 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 5
+[22-Sep-2025 06:11:06 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 5
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cdob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 85
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$pbob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 90
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cdob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 85
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$pbob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 90
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cdob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 85
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$pbob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 90
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:06 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:14:06 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:06 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:39 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:14:39 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:39 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:40 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:14:40 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:40 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:57 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:57 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[30-Sep-2025 12:28:36 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_ci.php on line 134
+[30-Sep-2025 12:29:31 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_ci.php on line 142
+[30-Sep-2025 12:42:32 Asia/Jakarta] PHP Notice:  Undefined offset: -1 in /home/pwimtmyb/public_html/inkaber/hamparan/inc/function.php on line 791
+[01-Oct-2025 11:20:05 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[14-Oct-2025 16:24:17 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[15-Oct-2025 07:16:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[15-Oct-2025 14:49:00 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_pi.php on line 4
+[15-Oct-2025 14:59:38 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 10:24:11 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 11:29:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 11:30:41 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 12:33:41 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 12:34:19 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 245
+[16-Oct-2025 12:34:35 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 245
+[16-Oct-2025 13:32:43 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 13:33:04 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 13:33:24 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 14:12:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 14:18:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 05:38:25 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 05:39:10 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 05:41:23 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 10:22:32 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:32 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:41 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:41 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:44 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:44 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:45 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:45 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:46 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:46 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[20-Oct-2025 11:36:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_pi.php on line 101
+[21-Oct-2025 14:20:57 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[21-Oct-2025 14:20:57 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[21-Oct-2025 14:21:07 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[21-Oct-2025 14:21:07 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:50:16 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 318
+[24-Oct-2025 14:50:16 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 328
+[24-Oct-2025 14:52:55 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:52:55 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 330
+[24-Oct-2025 14:53:46 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:53:46 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 330
+[24-Oct-2025 14:54:26 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:54:26 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 330
+[24-Oct-2025 15:02:42 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[24-Oct-2025 15:02:42 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[24-Oct-2025 15:11:24 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[24-Oct-2025 15:11:24 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[24-Oct-2025 15:11:57 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[24-Oct-2025 15:11:57 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[04-Nov-2025 16:22:58 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[04-Nov-2025 16:22:58 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[09-Nov-2025 22:40:22 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[09-Nov-2025 22:40:22 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[09-Nov-2025 22:40:34 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[09-Nov-2025 22:40:34 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[09-Nov-2025 22:41:07 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[30-Mar-2026 11:39:51 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 252
+[30-Mar-2026 11:39:54 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 252
+[30-Mar-2026 11:40:14 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 252

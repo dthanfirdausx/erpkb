@@ -1,0 +1,18 @@
+.head {
+    background: #32c5d2;
+    color: #fff;
+}
+img.item-pic.icon {
+    height: 28px;
+}
+a.item-name.primary-link.judul-pengumuman {
+    color: #f7a506;
+}
+.general-item-list>.item>.isi-pengumuman {
+    color: #555;
+}
+.posted {
+    margin-bottom: -9px;
+    margin-top: 4px;
+    font-weight: 100;
+}

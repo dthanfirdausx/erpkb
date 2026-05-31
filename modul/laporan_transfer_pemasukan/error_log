@@ -1,0 +1,9 @@
+[19-May-2026 16:01:36 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 16:01:36 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 16:01:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/laporan_transfer_pemasukan/laporan_transfer_pemasukan_data.php on line 52
+[19-May-2026 16:10:17 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 16:10:17 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 16:10:17 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/laporan_transfer_pemasukan/laporan_transfer_pemasukan_data.php on line 52
+[20-May-2026 08:25:19 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 08:25:19 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 08:25:19 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/laporan_transfer_pemasukan/laporan_transfer_pemasukan_data.php on line 52

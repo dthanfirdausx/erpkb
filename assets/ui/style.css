@@ -1,0 +1,54 @@
+body{
+background:#f1f5f9;
+font-family:Inter;
+}
+
+.sidebar{
+width:240px;
+height:100vh;
+position:fixed;
+background:#0f172a;
+color:white;
+}
+
+.sidebar .logo{
+padding:20px;
+}
+
+.sidebar ul{
+list-style:none;
+padding:0;
+}
+
+.sidebar ul li a{
+display:block;
+padding:12px 20px;
+color:#cbd5f1;
+text-decoration:none;
+}
+
+.sidebar ul li a:hover{
+background:#334155;
+}
+
+.topbar{
+height:60px;
+background:white;
+border-bottom:1px solid #e5e7eb;
+margin-left:240px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+}
+
+.main-content{
+margin-left:240px;
+padding:25px;
+}
+
+.card{
+border:none;
+border-radius:12px;
+box-shadow:0 4px 14px rgba(0,0,0,0.05);
+}

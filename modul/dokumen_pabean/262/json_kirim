@@ -1,0 +1,195 @@
+{
+  "asalData": "S",
+  "asuransi": 0,
+  "bruto": 87654,
+  "cif": 7654321,
+  "disclaimer": "1",
+  "freight": "2",
+  "hargaPenyerahan": "1",
+  "jabatanTtd": 750.5,
+  "jumlahKontainer": 329.25,
+  "kodeDokumen": "ABCDE",
+  "kodeKantor": "MANAGER",
+  "kodeTujuanPengiriman": 1,
+  "kodeValuta": "LN",
+  "kotaTtd": "9",
+  "namaTtd": "1",
+  "ndpbm": "30",
+  "netto": "FOB",
+  "nik": "1",
+  "nilaiBarang": "",
+  "nomorAju": "",
+  "seri": "040300",
+  "tanggalAju": "040300",
+  "tanggalTtd": "040300",
+  "biayaTambahan": "040300",
+  "biayaPengurang": "21",
+  "vd": "2",
+  "uangMuka": "SA",
+  "entitas": [
+    {
+      "alamatEntitas": "SULAWESI  UTARA",
+      "kodeEntitas": "2",
+      "kodeJenisApi": "5",
+      "kodeJenisIdentitas": "PT ABS",
+      "kodeStatus": "1111111111",
+      "namaEntitas": "123456789",
+      "nibEntitas": 2,
+      "nomorIdentitas": ,
+      "nomorIjinEntitas": ,
+      "seriEntitas": ,
+      "tanggalIjinEntitas": ,
+
+    },
+    {
+      "alamatEntitas": "SULAWESI  UTARA",
+      "kodeEntitas": "7",
+      "kodeJenisIdentitas": "5",
+      "kodeStatus": "PT ABS",
+      "namaEntitas": "1111111111",
+      "nomorIdentitas": "123456789",
+      "seriEntitas": 13
+    },
+    {
+      "alamatEntitas": "JEDDAH",
+      "kodeEntitas": "8",
+      "kodeJenisIdentitas": "SA",
+      "kodeStatus": "XYZ COMPANY",
+      "namaEntitas": 8,
+      "nomorIdentitas": 8,
+      "seriEntitas": 8,
+
+    },
+  ],
+   "dokumen": [
+    {
+      "idDokumen": "1",
+      "kodeDokumen": "380",
+      "kodeFasilitas": "001/INV/III/22",
+      "nomorDokumen": 2,
+      "seriDokumen": "2021-12-25",
+      "tanggalDokumen": "2021-12-25"
+    }
+  ],
+  "pengangkut": [
+    {
+      "idPengangkut": "ID",
+      "kodeCaraAngkut": "ABC",
+      "seriPengangkut": "VOY 123",
+    }
+  ],
+   "kemasan": [
+    {
+      "jumlahKemasan": 123,
+      "kodeJenisKemasan": "CT",
+      "merkKemasan": "ABCD",
+      "seriKemasan": 1
+    }
+  ],
+   "kontainer": [
+    {
+      "kodeJenisKontainer": "1",
+      "kodeTipeKontainer": "20",
+      "kodeUkuranKontainer": "ABCD2227441",
+      "nomorKontainer": 1,
+      "seriKontainer": "4"
+    }
+  ],
+   "jaminan": [
+    {
+      "idJaminan": "1",
+      "nomorBpj": "20",
+      "tanggalBpj": "ABCD2227441",
+      "kodeJenisJaminan": 1,
+      "nomorJaminan": "4",
+      "tanggalJaminan": "4"
+      "tanggalJatuhTempo": "4",
+      "penjamin": "4",
+      "nilaiJaminan": "4",
+    }
+  ],
+   "pungutan": [
+    {
+      "idPungutan": "1",
+      "kodeFasilitasTarif": "20",
+      "kodeJenisPungutan": "ABCD2227441",
+      "nilaiPungutan": 1
+    }
+  ],
+  "barang": [
+    {
+      "cif": 0,
+      "hargaEkspor": 0,
+      "hargaPenyerahan": 7654000,
+      "isiPerKemasan": 0,
+      "jumlahKemasan": 0,
+      "jumlahSatuan": 0,
+      "kodeAsalBarang": 4.56,
+      "kodeBarang": 1,
+      "kodeDokumen": 12,
+      "kodeJenisKemasan": "0",
+      "kodeNegaraAsal": "BARANG 1",
+      "kodeSatuanBarang": "3175",
+      "merk": "30",
+      "netto": "VL",
+      "nilaiBarang": "ID",
+      "posTarif": "KGM",
+      "seriBarang": "MERK BARANG 1",
+      "spesifikasiLain": 14250,
+      "tipe": 335.5,
+      "ukuran": 0,
+      "uraian": 0,
+      "cifRupiah": "12345678",
+      "hargaPerolehan": 1,
+      "kodeAsalBahanBaku": "SPEK BARANG 1",
+      "ndpbm": "TIPE BARANG 1",
+      "uangMuka": "UKURAN BARANG 1",
+      "nilaiJasa": "URAIAN BARANG 1",
+      "bahanBaku": [
+        {
+          "cif": 1,
+          "cifRupiah": 1,
+          "hargaPenyerahan": 1,
+          "hargaPerolehan": 1,
+          "jumlahSatuan": 1,
+          "kodeSatuanBarang": 1,
+          "kodeAsalBahanBaku": 1,
+          "kodeBarang": 1,
+          "kodeDokAsal": 1,
+          "kodeKantor": 1,
+          "merkBarang": 1,
+          "ndpbm": 1,
+          "netto": 1,
+          "nomorDaftarDokAsal": 1,
+          "posTarif": 1,
+          "seriBahanBaku": 1,
+          "seriBarang": 1,
+          "seriBarangDokAsal": 1,
+          "seriIjin": 1,
+          "spesifikasiLainBarang": 1,
+          "tanggalDaftarDokAsal": 1,
+          "tipeBarang": 1,
+          "ukuranBarang": 1,
+          "uraianBarang": 1,
+          "nilaiJasa": 1,
+          "bahanBakuTarif": [
+          {
+            "seriBahanBaku": 1,
+            "kodeJenisPungutan": 1,
+            "kodeAsalBahanBaku": 1,
+            "kodeFasilitasTarif": 1,
+            "kodeSatuanBarang": 1,
+            "nilaiBayar": 1,
+            "nilaiFasilitas": 1,
+            "nilaiSudahDilunasi": 1,
+            "tarif": 1,
+            "tarifFasilitas": 1,
+            "jumlahSatuan": 1,
+            "kodeJenisTarif": 1,
+            "jumlahKemasan": 1,
+          }
+        ]
+      ],
+    }
+  ]
+}

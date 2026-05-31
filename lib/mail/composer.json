@@ -1,0 +1,16 @@
+{
+    "name": "my tool",
+    "description": "my tool",
+    "require": {
+        "squizlabs/php_codesniffer": "3.*",
+        "google/apiclient": "dev-master",
+        "pear/mail_mime": "dev-master",
+        "pear/mail_mime-decode": "dev-master",
+        "pear/pear_exception": "dev-master",
+        "friendsofphp/php-cs-fixer" : "dev-master"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable"
+}

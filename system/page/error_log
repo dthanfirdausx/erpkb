@@ -1,0 +1,505 @@
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: required in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 76
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: col_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 162
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 254
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: required in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 273
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 273
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: from in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: on_value in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: on_name in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: from_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: on_name_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: alowed in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: width in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: height in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: yes_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: no_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined offset: 3 in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 348
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: input_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1958
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chained in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: update_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1963
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: detail_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1964
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_input_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1966
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_update_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1967
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: dtable_array in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2389
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: column_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2395
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined index: join_cond in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2452
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 2
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 27
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 46
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 121
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: query_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: join in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 535
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 571
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 573
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 597
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 690
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 692
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 716
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 793
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 814
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 816
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 840
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 934
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 958
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1028
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 1041
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1066
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 1085
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 1159
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: bottom_pagination in /home/u5116884/public_html/dashboard/system/page/template.php on line 1245
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1312
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1313
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1314
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1315
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1319
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1320
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1321
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1322
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1324
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1325
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1329
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1330
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1331
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1346
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1349
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1350
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1351
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1353
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_delete_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1354
+[03-Sep-2018 09:47:07 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal_update in /home/u5116884/public_html/dashboard/system/page/template.php on line 1356
+[03-Sep-2018 09:48:54 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[03-Sep-2018 09:54:55 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[03-Sep-2018 12:57:47 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[03-Sep-2018 12:58:20 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[03-Sep-2018 13:08:15 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[08-Sep-2018 05:55:30 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[08-Sep-2018 06:00:12 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[08-Sep-2018 23:02:43 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: write_required_rule in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 101
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: write_required_message in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 108
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: col_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 162
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 254
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined index: from_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined index: on_name_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined index: alowed in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined index: width in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined index: height in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined index: yes_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined index: no_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: input_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1958
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chained in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: update_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1963
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: detail_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1964
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_input_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1966
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_update_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1967
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined offset: 3 in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 348
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: dtable_array in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2389
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: column_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2395
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: join in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2453
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 2
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 27
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 46
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 121
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: query_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 535
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1028
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 1041
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1066
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 1085
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 1159
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: bottom_pagination in /home/u5116884/public_html/dashboard/system/page/template.php on line 1245
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1312
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1313
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1314
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1315
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1319
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1320
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1321
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1322
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1324
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1325
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1329
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1330
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1331
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1346
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1349
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1350
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1351
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1353
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_delete_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1354
+[08-Sep-2018 23:02:54 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal_update in /home/u5116884/public_html/dashboard/system/page/template.php on line 1356
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: required in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 76
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: col_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 162
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 254
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: required in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 273
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 273
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: from in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: on_value in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: on_name in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: from_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: on_name_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: alowed in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: width in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: height in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined offset: 3 in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 348
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: input_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1958
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chained in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: update_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1963
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: detail_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1964
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_input_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1966
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_update_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1967
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1186
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: col in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2472
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined index: join_cond in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2474
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: query_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2506
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 2
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 27
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 46
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 121
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: column_def in /home/u5116884/public_html/dashboard/system/page/template.php on line 251
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: column_head in /home/u5116884/public_html/dashboard/system/page/template.php on line 443
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: disable_search in /home/u5116884/public_html/dashboard/system/page/template.php on line 447
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: set_numbering in /home/u5116884/public_html/dashboard/system/page/template.php on line 449
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: group_by in /home/u5116884/public_html/dashboard/system/page/template.php on line 458
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: query_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: join in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: create_number in /home/u5116884/public_html/dashboard/system/page/template.php on line 471
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: dtable_array in /home/u5116884/public_html/dashboard/system/page/template.php on line 472
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 535
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 571
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 573
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 597
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 690
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 692
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 716
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 793
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 814
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 816
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 840
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 934
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 958
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1028
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 1041
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1066
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 1085
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 1159
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: bottom_pagination in /home/u5116884/public_html/dashboard/system/page/template.php on line 1245
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1312
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1313
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1314
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1315
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1319
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1320
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1321
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1324
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1325
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1329
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1330
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1331
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1346
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1349
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1350
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1351
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_delete_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1354
+[10-Sep-2018 15:18:49 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal_update in /home/u5116884/public_html/dashboard/system/page/template.php on line 1356
+[26-Sep-2018 00:41:36 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[26-Sep-2018 00:42:06 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: write_required_rule in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 101
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: write_required_message in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 108
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: col_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 162
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 254
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: from in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: on_value in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: on_name in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: from_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: on_name_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: alowed in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: width in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: height in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: yes_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: no_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: input_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1958
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chained in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: update_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1963
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: detail_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1964
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_input_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1966
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_update_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1967
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: dtable_array in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2389
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: column_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2395
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined index: join_cond in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2452
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 2
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 27
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 46
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 121
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: query_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: join in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 535
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1028
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 1041
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1066
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 1085
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 1159
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: bottom_pagination in /home/u5116884/public_html/dashboard/system/page/template.php on line 1245
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1312
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1313
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1314
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1315
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1319
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1320
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1321
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1322
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1324
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1325
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1329
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1330
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1331
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1346
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1349
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1350
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1351
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1353
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_delete_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1354
+[05-Jul-2019 16:56:27 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal_update in /home/u5116884/public_html/dashboard/system/page/template.php on line 1356
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: primary_key in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 8
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: dipilih1 in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 25
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: required in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 76
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: dipilih1 in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 160
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 160
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 188
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 196
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: key_dipilih_column in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 205
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  natcasesort() expects parameter 1 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 167
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  reset() expects parameter 1 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 168
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 172
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 232
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  implode(): Invalid arguments passed in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 232
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: key_dipilih_result_data_original in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 233
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 234
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  array_combine() expects parameter 1 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 237
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 242
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: primary_key in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 245
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: label1 in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 251
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 251
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: dipilih in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 259
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 259
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: label in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 264
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  array_filter() expects parameter 1 to be array, null given in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 264
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 264
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: required in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 273
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 273
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: type in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 279
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 279
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: from in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 286
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: on_value in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 291
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: on_name in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 296
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: from_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: on_name_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: alowed in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 315
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: width in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: height in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: yes_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: no_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: dtable_array in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2398
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: column_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2400
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: key in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2402
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: create_number in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2410
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: join_cond in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2452
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 2
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 27
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 46
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 121
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: head_no in /home/u5116884/public_html/dashboard/system/page/template.php on line 195
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/template.php on line 195
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_modal_edit in /home/u5116884/public_html/dashboard/system/page/template.php on line 232
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: head_no in /home/u5116884/public_html/dashboard/system/page/template.php on line 414
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/template.php on line 415
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: set_numbering in /home/u5116884/public_html/dashboard/system/page/template.php on line 449
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: order_by in /home/u5116884/public_html/dashboard/system/page/template.php on line 452
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined index: order_by_type in /home/u5116884/public_html/dashboard/system/page/template.php on line 455
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: query_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: join in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: i_init in /home/u5116884/public_html/dashboard/system/page/template.php on line 465
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: i_increment in /home/u5116884/public_html/dashboard/system/page/template.php on line 475
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_element in /home/u5116884/public_html/dashboard/system/page/template.php on line 534
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 535
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 571
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/template.php on line 572
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 573
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 597
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/template.php on line 640
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: edit_data_modal in /home/u5116884/public_html/dashboard/system/page/template.php on line 644
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: update_element in /home/u5116884/public_html/dashboard/system/page/template.php on line 652
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 690
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/template.php on line 691
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 692
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 716
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/template.php on line 759
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_element in /home/u5116884/public_html/dashboard/system/page/template.php on line 792
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 793
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_choosen in /home/u5116884/public_html/dashboard/system/page/template.php on line 814
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/template.php on line 815
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 816
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 840
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/template.php on line 882
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: update_element in /home/u5116884/public_html/dashboard/system/page/template.php on line 916
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/template.php on line 933
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: js_validate in /home/u5116884/public_html/dashboard/system/page/template.php on line 934
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: required_js in /home/u5116884/public_html/dashboard/system/page/template.php on line 958
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/template.php on line 1001
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: detail_element in /home/u5116884/public_html/dashboard/system/page/template.php on line 1027
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1028
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 1041
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1066
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 1085
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 1159
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: head_no in /home/u5116884/public_html/dashboard/system/page/template.php on line 1236
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/template.php on line 1237
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: bottom_pagination in /home/u5116884/public_html/dashboard/system/page/template.php on line 1245
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1312
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1313
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1314
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1315
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_input_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1317
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1319
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1320
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1321
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1322
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1324
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1325
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1329
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1330
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1331
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1346
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_update_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1347
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_file in /home/u5116884/public_html/dashboard/system/page/template.php on line 1349
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1350
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1351
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1353
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_delete_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1354
+[20-Jul-2019 23:21:01 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal_update in /home/u5116884/public_html/dashboard/system/page/template.php on line 1356
+[20-Jul-2019 23:21:47 Asia/Jakarta] PHP Notice:  Undefined index: primary_key in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 8
+[20-Jul-2019 23:21:47 Asia/Jakarta] PHP Notice:  Undefined index: dipilih1 in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 25
+[20-Jul-2019 23:22:13 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[20-Jul-2019 23:29:37 Asia/Jakarta] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; PclZip has a deprecated constructor in /home/u5116884/public_html/dashboard/inc/lib/pclzip.lib.php on line 190
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: write_required_rule in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 101
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: write_required_message in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 108
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: col_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 162
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: table_header in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 254
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined index: from_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 302
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined index: on_name_checkbox in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 307
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined index: width in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 320
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined index: height in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 324
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined index: yes_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 329
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined index: no_val in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 333
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: input_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1958
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chained in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: input_js_chaining in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1959
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: js_date_input in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: update_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1963
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: detail_element in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1964
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_input_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1966
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_update_action in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1967
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_file_in in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1755
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_file in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1768
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: js_date in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 1961
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: dtable_array in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2389
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: column_head in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2395
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: join in /home/u5116884/public_html/dashboard/system/page/input_page.php on line 2453
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 2
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 27
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 46
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 121
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: query_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 460
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: input_gallery in /home/u5116884/public_html/dashboard/system/page/template.php on line 535
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1028
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: gallery_detail_top in /home/u5116884/public_html/dashboard/system/page/template.php on line 1041
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: button_gallery_detail in /home/u5116884/public_html/dashboard/system/page/template.php on line 1066
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: album_title in /home/u5116884/public_html/dashboard/system/page/template.php on line 1085
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: query_album_on_list in /home/u5116884/public_html/dashboard/system/page/template.php on line 1159
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: bottom_pagination in /home/u5116884/public_html/dashboard/system/page/template.php on line 1245
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1312
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1314
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: if_input_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1315
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1320
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_in in /home/u5116884/public_html/dashboard/system/page/template.php on line 1321
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1322
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1324
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: input_multi_image_action in /home/u5116884/public_html/dashboard/system/page/template.php on line 1325
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1329
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager_delete in /home/u5116884/public_html/dashboard/system/page/template.php on line 1330
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox in /home/u5116884/public_html/dashboard/system/page/template.php on line 1346
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimager in /home/u5116884/public_html/dashboard/system/page/template.php on line 1350
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_uimagef in /home/u5116884/public_html/dashboard/system/page/template.php on line 1351
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: if_boolean in /home/u5116884/public_html/dashboard/system/page/template.php on line 1353
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_delete_normal in /home/u5116884/public_html/dashboard/system/page/template.php on line 1354
+[20-Jul-2019 23:36:26 Asia/Jakarta] PHP Notice:  Undefined variable: for_action_checkbox_normal_update in /home/u5116884/public_html/dashboard/system/page/template.php on line 1356

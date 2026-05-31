@@ -1,0 +1,216 @@
+{
+  "asalData": "S",
+  "asuransi": 10,
+  "bruto": 350.71,
+  "cif": 1234567.89,
+  "fob": 0,
+  "freight": 0,
+  "hargaPenyerahan": 0,
+  "jabatanTtd": "MANAGER",
+  "jumlahKontainer": 1,
+  "kodeAsuransi": "LN",
+  "kodeDokumen": "23",
+  "kodeIncoterm": "CIF",
+  "kodeKantor": "051000",
+  "kodeKantorBongkar": "020900",
+  "kodePelBongkar": "IDDUM",
+  "kodePelMuat": "CNHSK",
+  "kodePelTransit": "CNHSK",
+  "kodeTps": "G001",
+  "kodeTujuanTpb": "1",
+  "kodeTujuanPu": "11",
+  "kodeValuta": "CNY",
+  "kotaTtd": "JAKARTA",
+  "namaTtd": "AGUS",
+  "ndpbm": 1234.56,
+  "netto": 342.71,
+  "nik": "3213432353444",
+  "nilaiBarang": 0,
+  "nomorAju": "301017INA9G220220525000040",
+  "nomorBc11": "1234",
+  "posBc11": "2333",
+  "seri": 0,
+  "subposBc11": "001",
+  "tanggalBc11": "2021-12-25",
+  "tanggalTiba": "2021-12-25",
+  "tanggalTtd": "2021-12-25",
+  "biayaTambahan": 0,
+  "biayaPengurang": 0,
+  "kodeKenaPajak": "1",
+  "barang": [
+    {
+      "idBarang": "B001",
+      "asuransi": 0,
+      "cif": 1234000.89,
+      "diskon": 0,
+      "fob": 0,
+      "freight": 0,
+      "hargaEkspor": 0,
+      "hargaPenyerahan": 0,
+      "hargaSatuan": 345.67,
+      "isiPerKemasan": 0,
+      "jumlahKemasan": 1,
+      "jumlahSatuan": 30,
+      "kodeBarang": "B001",
+      "kodeDokumen": "11",
+      "kodeKategoriBarang": "01",
+      "kodeJenisKemasan": "1A",
+      "kodeNegaraAsal": "ID",
+      "kodePerhitungan": "0",
+      "kodeSatuanBarang": "6",
+      "merk": "tst",
+      "netto": 123,
+      "nilaiBarang": 199,
+      "nilaiTambah": 0,
+      "posTarif": "",
+      "seriBarang": "1",
+      "spesifikasiLain": "",
+      "ukuran": "oo",
+      "uraian": "test barang",
+      "ndpbm": 222,
+      "cifRupiah": 100,
+      "hargaPerolehan": 200,
+      "kodeAsalBahanBaku": "0",
+      "barangDokumen": [
+        {
+          "seriDokumen": "1"
+        }
+      ],
+      "barangTarif": [
+        {
+          "jumlahSatuan": 1,
+          "kodeFasilitasTarif": "1",
+          "kodeJenisPungutan": "BM",
+          "kodeJenisTarif": "1",
+          "kodeSatuanBarang": "1",
+          "nilaiBayar": 123456.78,
+          "nilaiFasilitas": 0,
+          "nilaiSudahDilunasi": 0,
+          "seriBarang": 1,
+          "tarif": 0,
+          "tarifFasilitas": 100
+        },
+        {
+          "jumlahSatuan": 1,
+          "kodeFasilitasTarif": "1",
+          "kodeJenisPungutan": "PPN",
+          "kodeJenisTarif": "1",
+          "nilaiSudahDilunasi": 0,
+          "nilaiBayar": 123456.78,
+          "nilaiFasilitas": 0,
+          "seriBarang": 1,
+          "tarif": 10,
+          "tarifFasilitas": 100
+        },
+        {
+          "jumlahSatuan": 1,
+          "kodeFasilitasTarif": "1",
+          "kodeJenisPungutan": "PPH",
+          "kodeJenisTarif": "1",
+          "nilaiBayar": 123456.78,
+          "nilaiSudahDilunasi": 0,
+          "nilaiFasilitas": 0,
+          "seriBarang": 1,
+          "tarif": 2.5,
+          "tarifFasilitas": 100
+        },
+        {
+          "kodeJenisTarif": 1,
+          "jumlahSatuan": "1",
+          "kodeFasilitasTarif": "PPH",
+          "kodeJenisPungutan": "1",
+          "nilaiBayar": 123456.78,
+          "seriBarang": 0,
+          "tarif": 0,
+          "tarifFasilitas": 1,
+          "nilaiFasilitas": 2.5
+        }
+      ]
+    }
+  ],
+  "entitas": [
+    {
+      "alamatEntitas": "JAKARTA",
+      "kodeEntitas": "1",
+      "kodeJenisIdentitas": "3",
+      "namaEntitas": "IMPORTIR",
+      "nibEntitas": "1234567890123",
+      "nomorIdentitas": "123456789012345",
+      "seriEntitas": 1,
+      "nomorIjinEntitas": "47/WBC.10/2019",
+      "tanggalIjinEntitas": "2012-05-11"
+    },
+    {
+      "alamatEntitas": "JAKARTA",
+      "kodeEntitas": "5",
+      "kodeNegara": "ID",
+      "namaEntitas": "PEMILIK",
+      "seriEntitas": 2
+    },
+    {
+      "alamatEntitas": "SINGAPURA",
+      "kodeEntitas": "7",
+      "kodeJenisApi": "API",
+      "kodeNegara": "SG",
+      "kodeJenisIdentitas": "5",
+      "kodeStatus": "0",
+      "namaEntitas": "PENGIRIM",
+      "nomorIdentitas": "421233433434",
+      "nomorIjinEntitas": "09129102",
+      "tanggalIjinEntitas": "2021-09-09",
+      "seriEntitas": 3
+    }
+  ],
+  "kemasan": [
+    {
+      "jumlahKemasan": 1,
+      "kodeJenisKemasan": "PK",
+      "merkKemasan": "MERK ABC",
+      "seriKemasan": 1
+    }
+  ],
+  "kontainer": [
+    {
+      "kodeJenisKontainer": "4",
+      "kodeTipeKontainer": "99",
+      "kodeUkuranKontainer": "40",
+      "nomorKontainer": "ABCD1234567",
+      "seriKontainer": 1
+    }
+  ],
+  "dokumen": [
+    {
+      "idDokumen": "1",
+      "kodeDokumen": "380",
+      "nomorDokumen": "INVOICE 01",
+      "seriDokumen": 1,
+      "tanggalDokumen": "2021-12-25"
+    },
+    {
+      "idDokumen": "3",
+      "kodeDokumen": "705",
+      "kodeFasilitas": "",
+      "nomorDokumen": "HOUSE BL/AWB 01",
+      "seriDokumen": 3,
+      "tanggalDokumen": "2021-12-25"
+    },
+    {
+      "idDokumen": "4",
+      "kodeDokumen": "860",
+      "kodeFasilitas": "54",
+      "namaFasilitas": "Preferensi Tarif Importasi Asean-China (ACFTA)",
+      "nomorDokumen": "ACFTA 01",
+      "seriDokumen": 4,
+      "tanggalDokumen": "2021-12-25"
+    }
+  ],
+  "pengangkut": [
+    {
+      "kodeBendera": "CN",
+      "namaPengangkut": "PENGANGKUT",
+      "nomorPengangkut": "1234",
+      "kodeCaraAngkut": "1",
+      "seriPengangkut": 1
+    }
+  ]
+}

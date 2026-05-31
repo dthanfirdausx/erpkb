@@ -1,0 +1,763 @@
+[20-Nov-2025 23:47:04 Asia/Jakarta] PHP Warning:  json_decode() expects parameter 1 to be string, array given in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 13
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 60
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 60
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 00:23:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$jenis in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 62
+[21-Nov-2025 01:19:03 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 12
+[21-Nov-2025 01:19:55 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 12
+[21-Nov-2025 01:19:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 12
+[21-Nov-2025 01:20:22 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 12
+[21-Nov-2025 01:20:23 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 12
+[21-Nov-2025 01:24:55 Asia/Jakarta] PHP Notice:  Undefined index: no_sj in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 114
+[21-Nov-2025 01:27:12 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE), expecting :: (T_PAAMAYIM_NEKUDOTAYIM) in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 134
+[21-Nov-2025 01:27:25 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 127
+[21-Nov-2025 01:33:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama_pt in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 87
+[17-Dec-2025 17:22:00 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$vehicle_no in /home/sjowwhcq/public_html/modul/packing_list/print.php on line 163
+[31-Mar-2026 12:34:05 Asia/Jakarta] PHP Notice:  Undefined index: jenis_dokpab_1 in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 139
+[31-Mar-2026 12:34:05 Asia/Jakarta] PHP Notice:  Undefined index: jumlah_1 in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 140
+[31-Mar-2026 12:34:05 Asia/Jakarta] PHP Notice:  Undefined index: jumlah_1 in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 143
+[31-Mar-2026 12:34:05 Asia/Jakarta] PHP Warning:  A non-numeric value encountered in /home/sjowwhcq/public_html/modul/packing_list/packing_list_action.php on line 143
+[04-May-2026 07:08:56 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_data.php on line 38
+[04-May-2026 07:09:03 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_data.php on line 38
+[04-May-2026 07:09:03 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_data.php on line 38
+[04-May-2026 07:09:53 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_data.php on line 38
+[04-May-2026 07:10:19 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_data.php on line 38
+[04-May-2026 07:57:25 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 145
+[04-May-2026 07:58:59 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 144
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:33:15 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:33:19 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:33:19 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:33:19 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:33:19 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:43 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:50 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[06-May-2026 16:36:53 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[06-May-2026 16:37:22 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 107
+[06-May-2026 16:37:22 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:37:22 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:37:22 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:37:22 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:12 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 107
+[06-May-2026 16:38:12 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:12 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:12 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:12 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:14 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 107
+[06-May-2026 16:38:14 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:14 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:14 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:14 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:16 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 107
+[06-May-2026 16:38:16 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:16 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:16 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:16 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 107
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 107
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:17 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:20 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 107
+[06-May-2026 16:38:20 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:20 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:20 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:20 Asia/Jakarta] PHP Notice:  A non well formed numeric value encountered in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 128
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:38:31 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[06-May-2026 16:39:02 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[06-May-2026 16:39:37 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[07-May-2026 16:46:04 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[09-May-2026 21:35:47 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[09-May-2026 21:39:10 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$material_name in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 147
+[09-May-2026 21:39:10 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_po in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 159
+[09-May-2026 21:39:10 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 165
+[09-May-2026 21:39:10 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_packing in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 245
+[09-May-2026 21:39:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$material_name in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 147
+[09-May-2026 21:39:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_po in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 159
+[09-May-2026 21:39:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 165
+[09-May-2026 21:39:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_packing in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 245
+[09-May-2026 21:40:41 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 114
+[09-May-2026 21:42:48 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$material_name in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 147
+[09-May-2026 21:42:48 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_po in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 159
+[09-May-2026 21:42:48 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 165
+[09-May-2026 21:42:48 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_packing in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 245
+[09-May-2026 21:50:35 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$material_name in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 164
+[09-May-2026 21:50:35 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_po in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 176
+[09-May-2026 21:50:35 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 182
+[09-May-2026 21:51:21 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:21 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:21 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:21 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:22 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 62
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 63
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$packing in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 65
+[09-May-2026 21:51:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$remark in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 67
+[09-May-2026 22:01:33 Asia/Jakarta] PHP Notice:  Undefined variable: res in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 13
+[09-May-2026 22:02:43 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file, expecting case (T_CASE) or default (T_DEFAULT) or '}' in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 435
+[09-May-2026 22:02:43 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file, expecting case (T_CASE) or default (T_DEFAULT) or '}' in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 435
+[09-May-2026 22:03:49 Asia/Jakarta] PHP Notice:  Undefined variable: res in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 13
+[09-May-2026 22:03:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 78
+[09-May-2026 22:04:29 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 121
+[09-May-2026 22:08:45 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 117
+[09-May-2026 22:10:09 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$harga_jual in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 118
+[09-May-2026 22:15:02 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 241
+[09-May-2026 22:15:02 Asia/Jakarta] PHP Notice:  Undefined index: lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 266
+[09-May-2026 22:15:02 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type null in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 266
+[09-May-2026 22:15:02 Asia/Jakarta] PHP Notice:  Undefined variable: harga in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 287
+[09-May-2026 22:15:02 Asia/Jakarta] PHP Notice:  Undefined variable: nilai in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 288
+[09-May-2026 22:15:02 Asia/Jakarta] PHP Notice:  Undefined variable: berat in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 289
+[09-May-2026 22:15:02 Asia/Jakarta] PHP Notice:  Undefined variable: berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 291
+[09-May-2026 22:15:36 Asia/Jakarta] PHP Notice:  Undefined index: pemilik in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 241
+[09-May-2026 22:15:36 Asia/Jakarta] PHP Notice:  Undefined index: lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 266
+[09-May-2026 22:15:36 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type null in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 266
+[09-May-2026 22:15:36 Asia/Jakarta] PHP Notice:  Undefined variable: harga in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 287
+[09-May-2026 22:15:36 Asia/Jakarta] PHP Notice:  Undefined variable: nilai in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 288
+[09-May-2026 22:15:36 Asia/Jakarta] PHP Notice:  Undefined variable: berat in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 289
+[09-May-2026 22:15:36 Asia/Jakarta] PHP Notice:  Undefined variable: berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 291
+[09-May-2026 22:15:52 Asia/Jakarta] PHP Notice:  Undefined variable: harga in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 287
+[09-May-2026 22:15:52 Asia/Jakarta] PHP Notice:  Undefined variable: nilai in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 288
+[09-May-2026 22:15:52 Asia/Jakarta] PHP Notice:  Undefined variable: berat in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 289
+[09-May-2026 22:15:52 Asia/Jakarta] PHP Notice:  Undefined variable: berat2 in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 291
+[09-May-2026 22:15:52 Asia/Jakarta] PHP Notice:  Undefined variable: lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 292
+[09-May-2026 22:16:36 Asia/Jakarta] PHP Notice:  Undefined variable: lot_no in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 290
+[09-May-2026 22:17:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$material_name in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 164
+[09-May-2026 22:17:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_po in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 176
+[09-May-2026 22:17:58 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 182
+[09-May-2026 22:18:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_po in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 176
+[09-May-2026 22:18:26 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 182
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'no_sj' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 60
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'nama' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 158
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'material_name' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 164
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'no_po' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 170
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'qty_po' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 176
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'cust_material_code' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 182
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'no_packing_list' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 188
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'tgl_sj' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 194
+[09-May-2026 22:27:14 Asia/Jakarta] PHP Notice:  Trying to get property 'qty_packing' of non-object in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 262
+[09-May-2026 22:27:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_po in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 176
+[09-May-2026 22:27:18 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 182
+[09-May-2026 22:30:09 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cust_material_code in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 200
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 526
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 527
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 538
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 539
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 541
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 542
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2676
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2764
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2768
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2780
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3034
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3166
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3168
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3169
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3460
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3461
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3936
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3942
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3998
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 4001
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 884
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 884
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 885
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 885
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 812
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 813
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 816
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 819
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 824
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type int in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type int in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 265
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 266
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 267
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1023
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1045
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1050
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1056
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1059
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1074
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1175
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1175
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 321
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 324
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 562
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 612
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Worksheet.php on line 879
+[09-May-2026 22:41:54 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 446
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 526
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 527
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 538
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 539
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 541
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 542
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2676
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2764
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2768
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2780
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3034
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3166
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3168
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3169
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3460
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3461
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3936
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3942
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3998
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 4001
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 884
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 884
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 885
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 885
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 812
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 813
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 816
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 819
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 824
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type int in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type int in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 265
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 266
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 267
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1023
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1045
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1050
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1056
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1059
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1074
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1175
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1175
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 321
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 324
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 561
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 611
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Worksheet.php on line 879
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 288
+[09-May-2026 22:47:01 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 446
+[09-May-2026 22:47:21 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type int in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:47:21 Asia/Jakarta] PHP Notice:  Trying to access array offset on value of type int in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 526
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 527
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 538
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 539
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 541
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 542
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2676
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2764
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2768
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2780
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3034
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3166
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3168
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3169
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3460
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3461
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3936
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3942
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3998
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 4001
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 884
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 884
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 885
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/ReferenceHelper.php on line 885
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 812
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 813
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 816
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 819
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 824
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 265
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 266
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php:3460) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 267
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1023
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1045
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1050
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1056
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1059
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1074
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1175
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Parser.php on line 1175
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 321
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 324
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 561
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation/Functions.php on line 611
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Workbook.php on line 667
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Writer/Excel5/Worksheet.php on line 879
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 288
+[09-May-2026 22:49:33 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 446
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Notice:  Undefined variable: data in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php:82) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 265
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php:82) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 266
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php:82) in /home/gblb6816/public_html/new/modul/packing_list/download.php on line 267
+[09-May-2026 22:50:20 Asia/Jakarta] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 288
+[09-May-2026 22:52:12 Asia/Jakarta] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 288
+[11-May-2026 14:48:54 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[11-May-2026 14:48:54 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[12-May-2026 14:55:52 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[12-May-2026 14:55:52 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[13-May-2026 11:27:11 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[13-May-2026 11:27:11 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[13-May-2026 11:54:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 95
+[13-May-2026 11:54:36 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 150
+[13-May-2026 11:56:28 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 99
+[13-May-2026 11:56:28 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$qty_packing in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 202
+[13-May-2026 11:59:42 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$logo_print in /home/gblb6816/public_html/new/modul/packing_list/print.php on line 166
+[14-May-2026 05:57:51 Asia/Jakarta] PHP Notice:  Undefined variable: text in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:51 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:51 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:51 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:51 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:52 Asia/Jakarta] PHP Notice:  Undefined variable: text in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:52 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:52 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:52 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40
+[14-May-2026 05:57:52 Asia/Jakarta] PHP Notice:  Array to string conversion in /home/gblb6816/public_html/new/modul/packing_list/packing_list_action.php on line 40

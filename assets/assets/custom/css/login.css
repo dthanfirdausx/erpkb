@@ -1,0 +1,412 @@
+ .preloader { position: fixed; left: 0; top: 0; z-index: 999; width: 100%; height: 100%; overflow: visible; background: rgba(247, 113, 77, 0.08) url('../img/hourglass.svg') no-repeat center center; }
+ .preloader:before {
+    content: 'Text inserted before via CSS';
+    font-size: 30px; 
+    z-index: 9999;
+    color: red;
+}
+ .page-header.navbar .page-logo {
+   float: left;
+   display: block;
+   width: 283px;
+   height: 46px;
+   padding-left: 20px;
+   padding-right: 20px;
+} 
+ .page-header.navbar .page-logo .logo-default {
+    margin: 7px 0 0;
+    float: left;
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-family: "Open Sans",sans-serif !important;
+ }   
+@media (max-width: 767px){
+   .page-header.navbar .page-logo {
+     width: auto;
+     padding-right: 10px;
+    } 
+}
+@media (max-width: 767px){
+   .page-header.navbar .page-logo .logo-default {
+      font-size: 24px;
+      margin: 10px 0 0;
+      color: #fff;
+    } 
+}
+.page-content-white .page-content .page-bar {
+    border-bottom: 1px solid #e7ecf1;
+    background: #99b43f;
+    color: #ffff;
+}
+.page-container-bg-solid .page-bar .page-breadcrumb>li>a, .page-container-bg-solid .page-bar .page-breadcrumb>li>span, .page-content-white .page-bar .page-breadcrumb>li>a, .page-content-white .page-bar .page-breadcrumb>li>span {
+    color: #fafcfb;
+}
+
+.info_login{
+    padding-top: 17px;
+}
+.img>img {
+    width: 119px;
+    float: left;
+    margin-right: 5px;
+    margin-top: -21px;
+}
+.logo_univ {
+    float: left;
+    margin-top: 26px;
+    padding-right: 5px;
+}
+.thumb-logo {
+    width: 61px;
+    height: auto;
+}
+h3.page-title.integrasi {
+    /* margin: 0 auto; */
+    /* color: red; */
+    font-size: 15px !important;
+    color: #99b43f !important;
+}
+h3.page-title.instansi {
+    margin-top: -23px !important;
+    font-size: 24px !important;
+}
+small.system {
+    color: #99b43f !important;
+}
+small.instansi-ket {
+  font-size: 24px;
+}
+h3.page-title.sistem-informasi {
+    margin-top: -32px !important;
+}
+
+/*mobile display*/
+@media (min-width: 100px) and (max-width: 360px) {
+  .logo_univ {
+    width: 100%;
+    margin-top: 26px;
+    padding-right: 5px;
+  }
+  .thumb-logo {
+    display: block !important;
+    margin: auto !important;
+    width: 38%;
+    text-align: center;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .icon-login{
+    display: block;
+    margin:  auto;
+  }
+  .form-actions{
+    width: 100%;
+  }
+  button.btn.green.uppercase {
+      width: 100%;
+  }
+  h3.page-title.integrasi {
+    font-size: 21px !important;
+    color: #f7a506 !important;
+    text-align: -webkit-center;
+    margin-bottom: 4px !important;
+  }
+  small.system {
+    font-size: 21px !important;
+    font-weight: bold;
+  }
+  h3.page-title.instansi {
+    text-align: center;
+    font-size: 31px !important;
+    /* margin-top: -3px; */
+    padding-top: -2px;
+  }
+  small.instansi-ket {
+      font-size: 24px !important;
+  }
+  h3.page-title.sistem-informasi {
+    text-align: center;
+    /* margin-top: 0px !important; */
+    margin-top: -21px !important;
+  }
+}
+
+@media (min-width: 361px) and (max-width: 412px) {
+  .logo_univ {
+    width: 100%;
+    margin-top: 26px;
+    padding-right: 5px;
+  }
+  .thumb-logo {
+    display: block !important;
+    margin: auto !important;
+    width: 38%;
+    text-align: center;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .icon-login{
+    display: block;
+    margin:  auto;
+  }
+  .form-actions{
+    width: 100%;
+  }
+  button.btn.green.uppercase {
+      width: 100%;
+  }
+  h3.page-title.integrasi {
+    font-size: 21px !important;
+    color: #f7a506 !important;
+    text-align: -webkit-center;
+    margin-bottom: 4px !important;
+  }
+  small.system {
+    font-size: 21px !important;
+    font-weight: bold;
+  }
+  h3.page-title.instansi {
+    text-align: center;
+    font-size: 31px !important;
+    /* margin-top: -3px; */
+    padding-top: -2px;
+  }
+  small.instansi-ket {
+      font-size: 24px !important;
+  }
+  h3.page-title.sistem-informasi {
+    text-align: center;
+    /* margin-top: 0px !important; */
+    margin-top: -21px !important;
+  }
+}
+@media (min-width: 413px) and (max-width: 412px) {
+  .logo_univ {
+    width: 100%;
+    margin-top: 26px;
+    padding-right: 5px;
+  }
+  .thumb-logo {
+    display: block !important;
+    margin: auto !important;
+    width: 38%;
+    text-align: center;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .icon-login{
+     display: block;
+     margin:  auto;
+  }
+  .form-actions{
+    width: 100%;
+  }
+  button.btn.green.uppercase {
+      width: 100%;
+  }
+  h3.page-title.integrasi {
+    font-size: 21px !important;
+    color: #f7a506 !important;
+    text-align: -webkit-center;
+    margin-bottom: 4px !important;
+  }
+  small.system {
+    font-size: 21px !important;
+    font-weight: bold;
+  }
+  h3.page-title.instansi {
+    text-align: center;
+    font-size: 31px !important;
+    /* margin-top: -3px; */
+    padding-top: -2px;
+  }
+  small.instansi-ket {
+      font-size: 24px !important;
+  }
+  h3.page-title.sistem-informasi {
+    text-align: center;
+    /* margin-top: 0px !important; */
+    margin-top: -21px !important;
+  }
+}
+.portlet.light.bordered.dash {
+    border: 1px solid #ffffff!important;
+    background: #E3EDC9;
+}
+/* nt-example1 */
+
+
+#nt-example1-container {
+  text-align: center;
+  margin-top: 0px;
+}
+
+#nt-example1-container i {
+  font-size: 27px;
+  margin: 7px;
+  color: #2c3743;
+  /* float: initial; */
+  cursor: pointer;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out
+}
+
+#nt-example1-container i:hover {
+  color: #333;
+}
+ul.news{
+  margin-bottom: 5px !important;
+}
+#nt-example1 li {
+    color: #34495e;
+    background: rgba(192, 212, 134, 0.92);
+    overflow: hidden;
+    padding: 0px;
+    padding-bottom: 3px;
+    height: 56px;
+    line-height: 18px;
+    list-style: none;
+    margin-left: -40px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px dotted #2c8162;
+}
+
+#nt-example1 li:hover {
+  background: #e5e5e5;
+}
+
+a.semua_penguman {
+    float: right;
+    clear: both;
+    margin-top: -4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: orange;
+    background: #304b6c;
+    /* border: 1px solid; */
+    padding: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+i.fa.fa-plus-square-o.semua_penguman {
+    font-size: 12px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    color: white !important;
+}
+a.link_pengumuman {
+    color: #566626 !important;
+}
+.page-bar .page-breadcrumb>li {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.59) !important;
+}
+.feeds li .col2>.date {
+    padding: 4px 9px 3px 3px !important;
+    text-align: right !important;
+    font-style: italic !important;
+    color: #c1cbd0 !important;
+}
+.feeds li .col1>.cont>.cont-col2>.desc {
+    margin-left: 35px !important;
+    padding-top: 4px !important;
+    padding-bottom: 3px !important;
+    overflow: hidden !important;
+    color: white;
+}
+.feeds li .col1>.cont>.cont-col1>.label {
+    display: inline-block !important;
+    padding: 5px 4px 7px 5px !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+.feeds li {
+    background-color: rgba(192, 206, 212, 0.5) !important;
+    color: #82949a !important;
+    margin-bottom: 1px !important;
+}
+.feeds {
+    margin-top: 8px !important;
+}
+.margin-top-20 {
+    margin-top: 2px!important;
+}
+.btn-log {
+    padding: 1px 10px !important;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+h5.title_log {
+    padding-top: 15px;
+}
+.info_log {
+    padding-left: 12px;
+    margin-top: -5px;
+}
+
+/*site Page*/
+.tb_profil_prodi>tbody>tr>td {
+    padding: 4px !important;
+    line-height: 1.42857 !important;
+    vertical-align: top !important;
+    border-top: 0px solid #e7ecf1 !important;
+}
+tr.range {
+    font-weight: bold;
+    color: orange;
+}
+table.table.table-condensed.table-hover.tb_profil_prodi {
+    margin-bottom: 24px !important;
+}
+/*
+  footer informasi browsher fixed 
+ */
+.page-footer-browsher{
+    position: fixed !important;
+    height: 23px !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    background: #7ac1d773;
+}
+#info-browsher {
+    font-size: 15px;
+    margin-top: -4px;
+    font-family: initial;
+    color: #9c0404;
+}
+.marquee {
+  height: 25px;
+  width: 100%;
+  color: #FF9800;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee div {
+  display: block;
+  width: 200%;
+  height: 30px;
+
+  position: absolute;
+  overflow: hidden;
+
+  animation: marquee 29s linear infinite;
+}
+
+.marquee span {
+  float: left;
+  width: 50%;
+}
+
+@keyframes marquee {
+  0% { left: 0; }
+  100% { left: -100%; }
+}

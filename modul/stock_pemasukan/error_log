@@ -1,0 +1,64 @@
+[05-May-2026 16:11:52 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[05-May-2026 16:11:52 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[05-May-2026 16:11:52 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[05-May-2026 16:12:07 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[05-May-2026 16:12:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[05-May-2026 16:12:08 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[05-May-2026 16:12:08 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[05-May-2026 16:12:08 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[05-May-2026 16:12:08 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[05-May-2026 16:12:09 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[05-May-2026 16:12:09 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[05-May-2026 16:12:10 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[05-May-2026 16:12:10 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[11-May-2026 13:14:45 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[11-May-2026 13:14:45 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[11-May-2026 13:14:45 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[11-May-2026 13:14:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[11-May-2026 13:14:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[11-May-2026 13:14:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[11-May-2026 13:14:52 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[11-May-2026 13:14:52 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[11-May-2026 13:14:52 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[11-May-2026 13:15:05 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[11-May-2026 13:15:05 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[11-May-2026 13:15:05 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[11-May-2026 13:15:12 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[11-May-2026 13:15:12 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[11-May-2026 13:15:12 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[11-May-2026 13:15:23 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[11-May-2026 13:15:23 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[11-May-2026 13:15:23 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[11-May-2026 13:28:54 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[11-May-2026 13:28:54 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[11-May-2026 13:28:54 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[19-May-2026 09:18:24 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 09:18:24 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 09:18:24 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[19-May-2026 09:18:29 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 09:18:29 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 09:18:29 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[19-May-2026 09:20:36 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 09:20:36 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 09:20:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[19-May-2026 09:20:46 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 09:20:46 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 09:20:46 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[19-May-2026 09:20:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 09:20:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[19-May-2026 09:20:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 09:20:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[19-May-2026 09:21:02 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 09:21:02 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[28-May-2026 07:55:43 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[28-May-2026 07:55:43 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[28-May-2026 07:55:43 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[28-May-2026 07:55:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[28-May-2026 07:55:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[28-May-2026 07:55:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[28-May-2026 11:59:58 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[28-May-2026 11:59:58 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[28-May-2026 11:59:58 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39
+[28-May-2026 12:00:00 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[28-May-2026 12:00:00 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[28-May-2026 12:00:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/stock_pemasukan/stock_pemasukan_data.php on line 39

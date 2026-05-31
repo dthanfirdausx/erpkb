@@ -1,0 +1,307 @@
+[08-Sep-2025 11:25:01 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '0' (T_LNUMBER), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_data.php on line 39
+[22-Sep-2025 05:47:22 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '0' (T_LNUMBER), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_data.php on line 41
+[22-Sep-2025 06:08:04 Asia/Jakarta] PHP Fatal error:  Call to undefined function get_no_si() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 236
+[22-Sep-2025 06:08:50 Asia/Jakarta] PHP Fatal error:  Call to undefined function toRomawi() in /home/pwimtmyb/public_html/inkaber/hamparan/inc/function.php on line 109
+[22-Sep-2025 06:09:24 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 246
+[22-Sep-2025 06:10:14 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ')' in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 247
+[22-Sep-2025 06:10:33 Asia/Jakarta] PHP Fatal error:  Call to undefined function info_pt() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 3
+[22-Sep-2025 06:11:05 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 5
+[22-Sep-2025 06:11:06 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 5
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cdob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 85
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$pbob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 90
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:12:35 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cdob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 85
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$pbob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 90
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:45 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$cdob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 85
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$pbob in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 90
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:13:46 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:06 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:14:06 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:06 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:39 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:14:39 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:39 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:40 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 182
+[22-Sep-2025 06:14:40 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:40 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:57 Asia/Jakarta] PHP Notice:  Undefined variable: curr in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[22-Sep-2025 06:14:57 Asia/Jakarta] PHP Fatal error:  Call to a member function toEnglish() on null in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/cetak.php on line 224
+[30-Sep-2025 12:28:36 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_ci.php on line 134
+[30-Sep-2025 12:29:31 Asia/Jakarta] PHP Parse error:  syntax error, unexpected end of file in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_ci.php on line 142
+[30-Sep-2025 12:42:32 Asia/Jakarta] PHP Notice:  Undefined offset: -1 in /home/pwimtmyb/public_html/inkaber/hamparan/inc/function.php on line 791
+[01-Oct-2025 11:20:05 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[14-Oct-2025 16:24:17 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[15-Oct-2025 07:16:01 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[15-Oct-2025 14:49:00 Asia/Jakarta] PHP Notice:  Undefined index: id in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_pi.php on line 4
+[15-Oct-2025 14:59:38 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 10:24:11 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 11:29:00 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 11:30:41 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 12:33:41 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 12:34:19 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 245
+[16-Oct-2025 12:34:35 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 245
+[16-Oct-2025 13:32:43 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 13:33:04 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 13:33:24 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 14:12:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[16-Oct-2025 14:18:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 05:38:25 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 05:39:10 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 05:41:23 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 11
+[17-Oct-2025 10:22:32 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:32 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:41 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:41 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:43 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:44 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:44 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:45 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:45 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[17-Oct-2025 10:22:46 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[17-Oct-2025 10:22:46 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[20-Oct-2025 11:36:32 Asia/Jakarta] PHP Notice:  Undefined property: stdClass::$nama in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/print_pi.php on line 101
+[21-Oct-2025 14:20:57 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[21-Oct-2025 14:20:57 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[21-Oct-2025 14:21:07 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 310
+[21-Oct-2025 14:21:07 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:50:16 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 318
+[24-Oct-2025 14:50:16 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 328
+[24-Oct-2025 14:52:55 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:52:55 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 330
+[24-Oct-2025 14:53:46 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:53:46 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 330
+[24-Oct-2025 14:54:26 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 320
+[24-Oct-2025 14:54:26 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 330
+[24-Oct-2025 15:02:42 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[24-Oct-2025 15:02:42 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[24-Oct-2025 15:11:24 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[24-Oct-2025 15:11:24 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[24-Oct-2025 15:11:57 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[24-Oct-2025 15:11:57 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[04-Nov-2025 16:22:58 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[04-Nov-2025 16:22:58 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[09-Nov-2025 22:40:22 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[09-Nov-2025 22:40:22 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[09-Nov-2025 22:40:34 Asia/Jakarta] PHP Notice:  Undefined index: pajak in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 324
+[09-Nov-2025 22:40:34 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[09-Nov-2025 22:41:07 Asia/Jakarta] PHP Notice:  Undefined index: "id_quotation in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 334
+[30-Mar-2026 11:39:51 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 252
+[30-Mar-2026 11:39:54 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 252
+[30-Mar-2026 11:40:14 Asia/Jakarta] PHP Notice:  Undefined index: tax in /home/pwimtmyb/public_html/inkaber/hamparan/modul/sales_order/sales_order_action.php on line 252
+[30-Apr-2026 14:34:23 Asia/Jakarta] PHP Warning:  A non-numeric value encountered in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 277
+[30-Apr-2026 14:34:23 Asia/Jakarta] PHP Warning:  A non-numeric value encountered in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 277
+[05-May-2026 06:24:08 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[05-May-2026 06:24:24 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[05-May-2026 06:27:57 Asia/Jakarta] PHP Warning:  include(../../../config/koneksi.php): failed to open stream: No such file or directory in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 13
+[05-May-2026 06:27:57 Asia/Jakarta] PHP Warning:  include(../../../config/koneksi.php): failed to open stream: No such file or directory in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 13
+[05-May-2026 06:27:57 Asia/Jakarta] PHP Warning:  include(): Failed opening '../../../config/koneksi.php' for inclusion (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 13
+[05-May-2026 06:32:01 Asia/Jakarta] PHP Warning:  require_once(../../../inc/lib/PHPExcel.php): failed to open stream: No such file or directory in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 10
+[05-May-2026 06:32:01 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '../../../inc/lib/PHPExcel.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 10
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 526
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 527
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 538
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 539
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 541
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 542
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2676
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2764
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2768
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2780
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3034
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3166
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3168
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3169
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3460
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3461
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3936
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3942
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3998
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 4001
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 812
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 813
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 816
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 819
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 824
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[05-May-2026 06:32:27 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[05-May-2026 06:33:49 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class 'PDO' not found in /home/gblb6816/public_html/new/inc/Database.php:20
+Stack trace:
+#0 /home/gblb6816/public_html/new/inc/config.php(40): Database->__construct('localhost', 3306, 'gblb6816', 'tJj9YybiE4eJ39', 'gblb6816_erpkb')
+#1 /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php(4): include('/home/gblb6816/...')
+#2 {main}
+  thrown in /home/gblb6816/public_html/new/inc/Database.php on line 20
+[05-May-2026 06:34:02 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class 'PDO' not found in /home/gblb6816/public_html/new/inc/Database.php:20
+Stack trace:
+#0 /home/gblb6816/public_html/new/inc/config.php(40): Database->__construct('localhost', 3306, 'gblb6816', 'tJj9YybiE4eJ39', 'gblb6816_erpkb')
+#1 /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php(4): include('/home/gblb6816/...')
+#2 {main}
+  thrown in /home/gblb6816/public_html/new/inc/Database.php on line 20
+[05-May-2026 06:37:32 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Class 'PDO' not found in /home/gblb6816/public_html/new/inc/Database.php:20
+Stack trace:
+#0 /home/gblb6816/public_html/new/inc/config.php(40): Database->__construct('localhost', 3306, 'gblb6816', 'tJj9YybiE4eJ39', 'gblb6816_erpkb')
+#1 /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php(4): include('/home/gblb6816/...')
+#2 {main}
+  thrown in /home/gblb6816/public_html/new/inc/Database.php on line 20
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 526
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 527
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 538
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 539
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 541
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/String.php on line 542
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2551
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2672
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2676
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2764
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2768
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 2780
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3034
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3166
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3168
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3169
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3457
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3460
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3461
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3891
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3936
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3942
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 3998
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Calculation.php on line 4001
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Worksheet/AutoFilter.php on line 720
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 812
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 813
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 816
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 817
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 819
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 820
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell.php on line 824
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 82
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[05-May-2026 06:39:38 Asia/Jakarta] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Cell/DefaultValueBinder.php on line 90
+[05-May-2026 06:42:05 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_action.php on line 76
+[05-May-2026 06:42:05 Asia/Jakarta] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 288
+[05-May-2026 07:08:55 Asia/Jakarta] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in /home/gblb6816/public_html/new/inc/lib/PHPExcel/Shared/OLE.php on line 288
+[16-May-2026 14:15:35 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:15:35 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:15:35 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:15:46 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:15:46 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:15:46 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:15:46 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:15:46 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:15:46 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:15:48 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:15:48 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:15:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:15:49 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:15:49 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:16:23 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:16:23 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:16:23 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:16:26 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:16:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:16:26 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:16:26 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:16:26 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:17:34 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:17:34 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:17:34 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:17:36 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:17:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:17:36 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:17:36 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:17:36 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:19:12 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:19:12 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:19:12 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:19:15 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:19:15 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:19:15 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:19:15 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:19:15 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:19:29 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:19:29 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:19:29 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:19:32 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:19:32 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:19:32 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:19:32 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:19:32 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:21:34 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:21:34 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:21:34 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:21:37 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:21:37 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:21:37 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:21:55 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:21:55 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:21:55 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:21:57 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:21:57 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:21:57 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 50
+[16-May-2026 14:32:30 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:32:30 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:32:30 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 79
+[16-May-2026 14:32:35 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[16-May-2026 14:32:35 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[16-May-2026 14:32:35 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 79
+[19-May-2026 13:13:59 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 13:13:59 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 13:13:59 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[19-May-2026 15:16:22 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[19-May-2026 15:16:22 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[19-May-2026 15:16:22 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[20-May-2026 16:26:48 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 16:26:48 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 16:26:48 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[20-May-2026 16:28:20 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 16:28:20 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 16:28:20 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[20-May-2026 16:28:41 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 16:28:41 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 16:28:41 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[20-May-2026 16:29:51 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 16:29:51 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 16:29:51 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[20-May-2026 16:31:29 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 16:31:29 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 16:31:29 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[20-May-2026 16:50:02 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 16:50:02 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 16:50:02 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
+[20-May-2026 16:50:07 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 81
+[20-May-2026 16:50:07 Asia/Jakarta] PHP Notice:  Trying to get property 'jml' of non-object in /home/gblb6816/public_html/new/inc/Dtable.php on line 105
+[20-May-2026 16:50:07 Asia/Jakarta] PHP Warning:  Invalid argument supplied for foreach() in /home/gblb6816/public_html/new/modul/sales_order/sales_order_data.php on line 57
