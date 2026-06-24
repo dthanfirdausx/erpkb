@@ -1,3 +1,14 @@
+<?php
+if (!function_exists('prod_t')) {
+  function prod_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('prod_h')) {
+  function prod_h($key, $fallback = '') { return htmlspecialchars((string) prod_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('prod_js')) {
+  function prod_js($key, $fallback = '') { return json_encode(prod_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -161,7 +172,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text:<?=prod_js('common_export_data', 'Export Data');?>,
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

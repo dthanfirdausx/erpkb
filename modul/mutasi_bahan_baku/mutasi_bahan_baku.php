@@ -6,7 +6,7 @@ switch (uri_segment(2)) {
                           if ($role_act["insert_act"]=="Y") {
                              include "mutasi_bahan_baku_add.php";
                           } else {
-                            echo "permission denied";
+                            echo customs_t("permission_denied", "permission denied");
                           }
                        }
 
@@ -19,7 +19,7 @@ switch (uri_segment(2)) {
                           if ($role_act["up_act"]=="Y") {
                              include "mutasi_bahan_baku_edit.php";
                           } else {
-                            echo "permission denied";
+                            echo customs_t("permission_denied", "permission denied");
                           }
                        }
 

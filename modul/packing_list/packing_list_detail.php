@@ -1,12 +1,23 @@
+<?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
 <!-- Content Header (Page header) -->
               <section class="content-header">
-                  <h1>Packing List</h1>
+                  <h1><?=sd_h('sales_packing_list', 'Packing List');?></h1>
                     <ol class="breadcrumb">
                         <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=sd_h('common_home', 'Home');?></a>
                         </li>
                         <li>
-                        <a href="<?=base_index();?>packing-list">Packing List</a>
+                        <a href="<?=base_index();?>packing-list"><?=sd_h('sales_packing_list', 'Packing List');?></a>
                         </li>
                         <li class="active">Detail Packing List</li>
                     </ol>
@@ -98,7 +109,7 @@
                       </div><!-- /.form-group -->
 
               <div class="form-group">
-                <label for="Invoice No" class="control-label col-lg-2">Invoice No </label>
+                <label for="Invoice No" class="control-label col-lg-2"><?=sd_h('sales_invoice_no', 'Invoice No');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="no_invoice" value="<?=$data_edit->no_invoice;?>" class="form-control" readonly>
                 </div>
@@ -514,7 +525,7 @@
                              $("#kode_input_"+id).val(ui.item.kd_barang);
 
                               $.ajax({
-                                url: "<?= base_url() ?>get_stock.php?act=get_stock_incoming2",
+                                url: "<?= base_url() ?>get_stock.php?act=get_stock_layer_filtered",
                                 data: { 
                                   kode   :  ui.item.kd_barang, 
                                   jumlah : '0',

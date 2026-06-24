@@ -1,22 +1,47 @@
 <?php
+
+if (!function_exists('wh_t')) {
+  function wh_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('wh_h')) {
+  function wh_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+}
 session_start();
 include "../../inc/config.php";
 session_check_json();
+
+function stock_outgoing_h($value)
+{
+  return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+}
+
+function stock_outgoing_locked_action()
+{
+  action_response('Aksi legacy stock outgoing dikunci. Data stock outgoing sekarang dibaca langsung dari stock_layer.');
+}
+
 switch ($_GET["act"]) {
   
   case "sinkron_stock":
-   $id = $_POST['id'];
-   $kd_barang = $_POST['kd_barang'];
-   $posisi = $_POST['posisi']; 
-   rekap_stock_outgoing($posisi,$kd_barang); 
+   stock_outgoing_locked_action();
   break;
 
   case "show_detail_stock":
    $kd_barang = $_POST['kd_barang']; 
    //echo "string";
-   $q = $db->query("select *,((masuk)-(keluar+keluar2)) as stock from v_rekap_stok_outgoing2 where ((jumlah+masuk)-(keluar+keluar2))>0 and kd_barang='$kd_barang' order by tgl_bpb asc"); 
+   $q = $db->query(
+     "SELECT sl.jenis_dokpab,b.kd_barang,b.nm_barang,sl.no_dokpab,pd.tgl_dokpab,sl.no_aju,pd.tgl_aju,
+             sl.tgl_masuk AS tgl_bpb,sl.lokasi,sl.qty_sisa AS stock,b.satuan,pd.no_urut
+      FROM stock_layer sl
+      INNER JOIN barang b ON b.kd_barang=sl.kode
+      LEFT JOIN pemasukan_detail pd ON pd.id=sl.ref_id AND sl.ref_table='pemasukan_detail'
+      WHERE sl.qty_sisa>0 AND sl.lokasi='OUTGOING' AND sl.kode=?
+      ORDER BY sl.tgl_masuk ASC,sl.id ASC",
+     array($kd_barang)
+   ); 
   ?>
-  <table class="table"> 
+  <div class="table-responsive">
+  <table class="table table-bordered table-striped"> 
      <thead>
        <tr>
          <th>Jenis Dokpab</th>
@@ -42,18 +67,18 @@ switch ($_GET["act"]) {
 
         if ($k->stock>0) {
            echo "<tr>
-               <td>$k->jenis_dokpab</td>
-               <td>$k->kd_barang</td>
-               <td>$k->nm_barang</td>
-               <td>$k->no_dokpab</td>
-               <td>$k->tgl_dokpab</td>
-               <td>$k->no_aju</td>
-               <td>$k->tgl_aju</td>
-               <td>$k->tgl_bpb</td>
-               <td>$k->lokasi</td>
+               <td>".stock_outgoing_h($k->jenis_dokpab)."</td>
+               <td>".stock_outgoing_h($k->kd_barang)."</td>
+               <td>".stock_outgoing_h($k->nm_barang)."</td>
+               <td>".stock_outgoing_h($k->no_dokpab)."</td>
+               <td>".stock_outgoing_h($k->tgl_dokpab)."</td>
+               <td>".stock_outgoing_h($k->no_aju)."</td>
+               <td>".stock_outgoing_h($k->tgl_aju)."</td>
+               <td>".stock_outgoing_h($k->tgl_bpb)."</td>
+               <td>".stock_outgoing_h($k->lokasi)."</td>
                <td style='text-align:right'>".number_format($k->stock,5,",",".")."</td>
-               <td>$k->satuan</td>
-               <td>$k->no_urut</td>
+               <td>".stock_outgoing_h($k->satuan)."</td>
+               <td>".stock_outgoing_h($k->no_urut)."</td>
              </tr>";
              $total = $total + $k->stock;
         }
@@ -67,67 +92,23 @@ switch ($_GET["act"]) {
      </tr>
      </tbody>
   </table>
+  </div>
 
    <?php
      # code...
      break;
 
   case "in":
-
-  
-  $data = array(
-      "kd_barang" => $_POST["kd_barang"],
-      "nm_barang" => $_POST["nm_barang"],
-      "Stock" => $_POST["Stock"],
-      "satuan" => $_POST["satuan"],
-      "nm_kategori" => $_POST["nm_kategori"],
-      "kd_kategori" => $_POST["kd_kategori"],
-  );
-  
-  
-  
-   
-    $in = $db->insert("vtotalstockprodbb",$data);
-    
-    
-    action_response($db->getErrorMessage());
+    stock_outgoing_locked_action();
     break;
   case "delete":
-    
-    
-    
-    $db->delete("vtotalstockprodbb","",$_GET["id"]);
-    action_response($db->getErrorMessage());
+    stock_outgoing_locked_action();
     break;
    case "del_massal":
-    $data_ids = $_REQUEST["data_ids"];
-    $data_id_array = explode(",", $data_ids);
-    if(!empty($data_id_array)) {
-        foreach($data_id_array as $id) {
-          $db->delete("vtotalstockprodbb","",$id);
-         }
-    }
-    action_response($db->getErrorMessage());
+    stock_outgoing_locked_action();
     break;
   case "up":
-    
-   $data = array(
-      "kd_barang" => $_POST["kd_barang"],
-      "nm_barang" => $_POST["nm_barang"],
-      "Stock" => $_POST["Stock"],
-      "satuan" => $_POST["satuan"],
-      "nm_kategori" => $_POST["nm_kategori"],
-      "kd_kategori" => $_POST["kd_kategori"],
-   );
-   
-   
-   
-
-    
-    
-    $up = $db->update("vtotalstockprodbb",$data,"",$_POST["id"]);
-    
-    action_response($db->getErrorMessage());
+    stock_outgoing_locked_action();
     break;
   default:
     # code...

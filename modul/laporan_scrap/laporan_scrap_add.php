@@ -4,15 +4,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
 
 
     <section class="content-header">
-        <h1>Laporan Scrap</h1>
+        <h1><?=customs_h('legacy_laporan_scrap','Laporan Scrap');?></h1>
         <ol class="breadcrumb">
             <li>
-              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a>
             </li>
             <li>
-              <a href="<?=base_index();?>laporan-scrap">Laporan Scrap</a>
+              <a href="<?=base_index();?>laporan-scrap"><?=customs_h('scrap_report','Laporan Scrap');?></a>
             </li>
-            <li class="active">Add Laporan Scrap</li>
+            <li class="active"><?=customs_h('legacy_add_laporan_scrap','Add Laporan Scrap');?></li>
         </ol>
     </section>
 
@@ -22,7 +22,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
       <div class="col-lg-12">
         <div class="box box-solid box-primary">
           <div class="box-header">
-            <h3 class="box-title">Add Laporan Scrap</h3>
+            <h3 class="box-title"><?=customs_h('legacy_add_laporan_scrap','Add Laporan Scrap');?></h3>
             <div class="box-tools pull-right">
               <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
             </div>
@@ -35,9 +35,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
             <form id="input_laporan_scrap" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/laporan_scrap/laporan_scrap_action.php?act=in">
                       
               <div class="form-group" style="display: none">
-                <label for="Nomor" class="control-label col-lg-2">Nomor </label>
+                <label for="Nomor" class="control-label col-lg-2"><?=customs_h('number','Nomor');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="nomor" value="<?= generate_no_scrap(date("Y"),date("m")) ?>"  placeholder="Nomor" class="form-control" >
+                  <input type="text" name="nomor" value="<?= generate_no_scrap(date("Y"),date("m")) ?>"  placeholder="<?=customs_h('number','Nomor');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group --> 
               
@@ -49,7 +49,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Tanggal Scrap" class="control-label col-lg-2">Tanggal Scrap </label>
+                <label for="Tanggal Scrap" class="control-label col-lg-2"><?=customs_h('scrap_date','Tanggal Scrap');?> </label>
                 <div class="col-lg-3">
                  
                   <div class="input-group date" id="tgl1">
@@ -66,14 +66,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
                 <div class="col-lg-10">
                  <textarea 
     name="keterangan" 
-    placeholder="Keterangan" 
+    placeholder="<?=customs_h('remarks','Keterangan');?>" 
     class="form-control"
     rows="4"></textarea>
                 </div>
               </div><!-- /.form-group -->
               
                 <div class="form-group">
-                  <label for="Status" class="control-label col-lg-2">Status </label>
+                  <label for="Status" class="control-label col-lg-2"><?=customs_h('status','Status');?> </label>
                   <div class="col-lg-10">
                     
                 <div class="radio radio-success ">
@@ -102,16 +102,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
 
                 <hr>
 
-<h4><i class="fa fa-recycle"></i> Detail Item Scrap</h4>
+<h4><i class="fa fa-recycle"></i> <?=customs_h('scrap_item_detail','Detail Item Scrap');?></h4>
 
 <div class="table-responsive">
 <table class="table table-bordered table-striped" id="table_detail_scrap">
     <thead>
         <tr>
-            <th width="5%">No</th>
+            <th width="5%"><?=customs_h('no','No');?></th>
             <th width="15%">No Laporan Produksi</th>
-            <th width="15%">Kode Barang</th>
-            <th width="25%">Nama Barang</th>
+            <th width="15%"><?=customs_h('material_code','Kode Barang');?></th>
+            <th width="25%"><?=customs_h('material_name','Nama Barang');?></th>
             <th width="10%">Qty Scrap</th>
             <th width="10%">Satuan</th>
             <th width="15%">Jenis Scrap</th>

@@ -7,10 +7,10 @@
         <form role="form">
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor BC 1.1</label>
+              <label for="exampleInputEmail1"><?=customs_h('bc11_number','Nomor BC 1.1');?></label>
                <div class="row">
                  <div class="col-md-6">
-                   <input type="text" class="form-control col-md-6" id="NOMOR_BC11" value="<?= $data_header->NOMOR_BC11 ?>" placeholder="Nomor BC 1.1" onkeyup="save_data(this.value,'NOMOR_BC11',$('#ID').val(),'tpb_header')" >
+                   <input type="text" class="form-control col-md-6" id="NOMOR_BC11" value="<?= $data_header->NOMOR_BC11 ?>" placeholder="<?=customs_h('bc11_number','Nomor BC 1.1');?>" onkeyup="save_data(this.value,'NOMOR_BC11',$('#ID').val(),'tpb_header')" >
                  </div>
                  <div class="col-md-6">
                    <input type="text"  class="form-control col-md-6 tgl" id="TANGGAL_BC11" value="<?= date("Y-m-d", strtotime($data_header->TANGGAL_BC11)) ?>" placeholder="Tanggal BC 1.1"  onchange="save_data(this.value,'TANGGAL_BC11',$('#ID').val(),'tpb_header')" autocomplete="off" >
@@ -18,7 +18,7 @@
                </div>  
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Pos</label>
+              <label for="exampleInputEmail1"><?=customs_h('post_number','Nomor Pos');?></label>
                <div class="row">
                  <div class="col-md-4">
                    <input type="text" class="form-control" id="POS_BC11" value="<?= $data_header->POS_BC11 ?>" placeholder="Pos BC 1.1" onkeyup="save_data(this.value,'POS_BC11',$('#ID').val(),'tpb_header')">
@@ -61,8 +61,8 @@
               <input type="text" class="form-control" name="NAMA_PENGANGKUT"  id="NAMA_PENGANGKUT" value="<?= $data_header->NAMA_PENGANGKUT ?>" placeholder="Sarana Angkut" onkeyup="save_data(this.value,'NAMA_PENGANGKUT',$('#ID').val(),'tpb_header')" >
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Voy/Flight/No.Pol</label>
-              <input type="text" class="form-control" name="NOMOR_POLISI"  id="NOMOR_POLISI" value="<?= $data_header->NOMOR_POLISI ?>" placeholder="Nomor Voy/Flight/No.Pol" onkeyup="save_data(this.value,'NOMOR_POLISI',$('#ID').val(),'tpb_header')" >
+              <label for="exampleInputEmail1"><?=customs_h('voy_flight_police_no','Nomor Voy/Flight/No.Pol');?></label>
+              <input type="text" class="form-control" name="NOMOR_POLISI"  id="NOMOR_POLISI" value="<?= $data_header->NOMOR_POLISI ?>" placeholder="<?=customs_h('voy_flight_police_no','Nomor Voy/Flight/No.Pol');?>" onkeyup="save_data(this.value,'NOMOR_POLISI',$('#ID').val(),'tpb_header')" >
             </div>
             <div class="form-group">
               <label for="kantor">Negara</label>

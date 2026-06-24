@@ -1,295 +1,98 @@
-<!-- Content Header (Page header) -->
-             
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                                <form id="input_pemasukan_hamparan" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=in">                   
-                              
-                                <div class="form-group">
-                                    <label for="Tanggal BPB" class="control-label col-lg-2">Tanggal SJ </label>
-                                    <div class="col-lg-2" style="float: left">
-                                      <div class="input-group date" id="tgl1">
-                                          <input type="text" class="form-control" id="tgl_awal" placeholder="tanggal awal" name="tgl1" autocomplete="off"  />
-                                          <span class="input-group-addon">
-                                              <span class="glyphicon glyphicon-calendar"></span>
-                                          </span>
-                                      </div> 
-                                    </div>  
-                                
-                                     <div class="col-lg-2">
-                                      <div class="input-group date" id="tgl2">
-                                          <input type="text" class="form-control" id="tgl_akhir" placeholder="tanggal akhir" name="tgl2" autocomplete="off"  />
-                                          <span class="input-group-addon">
-                                              <span class="glyphicon glyphicon-calendar"></span>
-                                          </span>
-                                      </div>
-                                    </div>
-                                </div><!-- /.form-group -->
-                       
-                                 <div class="form-group">
-                                  <label for="tags" class="control-label col-lg-2">&nbsp;</label>
-                                  <div class="col-lg-10">
-
-                                   <a class="btn btn-primary" onclick="filter()"><i class="fa fa-gear"></i> Filter</a>
-                             
-                                  </div>
-                                </div><!-- /.form-group -->
-
-                              </form>
-                            </div>
-                            <div class="box-body table-responsive">
-                                <div class="row">
-                                    <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
-                                    <button id="select_all" class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> <?php echo $lang["select_all"];?></button>
-                                    <button id="deselect_all" class="btn btn-primary btn-xs"><i class="fa fa-remove"></i> <?php echo $lang["deselect_all"];?></button>
-                                    <button id="bulk_delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> <?php echo $lang["delete_selected"];?></button> <span class="selected-data"></span>
-                            </div>
-                            </div>
- <div class="alert alert-warning fade in error_data_delete" style="display:none">
-          <button type="button" class="close hide_alert_notif">&times;</button>
-          <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
+<?php
+$defaultFrom = date('Y-m-01');
+$defaultTo = date('Y-m-d');
+$jenisRows = $db->query("SELECT DISTINCT kode FROM (
+  SELECT jenis_dokpab kode FROM vpengeluaranbyjenisdokpab WHERE COALESCE(jenis_dokpab,'')<>''
+  UNION
+  SELECT outbound_bc_type kode FROM erp_goods_issue_delivery WHERE COALESCE(outbound_bc_type,'')<>''
+) x ORDER BY kode");
+?>
+<style>
+.lpk-hero{background:linear-gradient(135deg,#0f766e,#1d4ed8);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 10px 24px rgba(15,23,42,.18)}
+.lpk-hero h1{margin:0 0 6px;font-size:26px;font-weight:700}.lpk-hero p{margin:0;opacity:.92}
+.lpk-card{border-radius:12px;border:1px solid #e5edf5;box-shadow:0 5px 16px rgba(15,23,42,.05)}
+.lpk-filter label{font-size:12px;color:#475569;text-transform:uppercase;letter-spacing:.03em}
+#dtb_laporan_pengeluaran_per_dokumen_pabean th,#dtb_laporan_pengeluaran_per_dokumen_pabean td{font-size:12px;vertical-align:middle}
+.select2-container{width:100%!important}
+</style>
+<section class="content-header">
+  <h1><?=customs_h('outgoing_report_by_doc','Laporan Pengeluaran Per Dokumen Pabean');?> <small><?=customs_h('customs_outgoing_report','Customs Outgoing Report');?></small></h1>
+  <ol class="breadcrumb">
+    <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+    <li><?=customs_h('report','Customs Report');?></li>
+    <li class="active"><?=customs_h('outgoing_by_doc','Pengeluaran Per Dokumen Pabean');?></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="lpk-hero">
+    <div class="row">
+      <div class="col-md-8">
+        <h1><?=customs_h('outgoing_report_by_doc','Laporan Pengeluaran Per Dokumen Pabean');?></h1>
+        <p>Membaca pengeluaran posted dari Goods Issue for Delivery dan referensi historis yang masih aktif untuk kebutuhan pelaporan pabean.</p>
+      </div>
+      <div class="col-md-4 text-right"><span class="label label-primary">CEISA / Kawasan Berikat</span></div>
+    </div>
+  </div>
+  <div class="box lpk-card lpk-filter">
+    <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-filter"></i> <?=customs_h('filter_report','Filter Laporan');?></h3></div>
+    <div class="box-body">
+      <form class="form-horizontal" onsubmit="return false;">
+        <div class="form-group">
+          <label class="control-label col-md-2"><?=customs_h('outgoing_date','Tanggal Pengeluaran');?></label>
+          <div class="col-md-2"><div class="input-group date lpk-date"><input id="tgl_awal" class="form-control" value="<?=$defaultFrom;?>" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div>
+          <div class="col-md-2"><div class="input-group date lpk-date"><input id="tgl_akhir" class="form-control" value="<?=$defaultTo;?>" autocomplete="off"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div>
+          <label class="control-label col-md-2"><?=customs_h('bc_type','Jenis BC');?></label>
+          <div class="col-md-2"><select id="jenisbc" class="form-control select2"><option value="all"><?=customs_h('all_bc_types','Semua Jenis BC');?></option><?php foreach($jenisRows as $j){ ?><option value="<?=htmlspecialchars($j->kode,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($j->kode,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+          <div class="col-md-2"><button type="button" id="btn_filter_lpk" class="btn btn-primary"><i class="fa fa-filter"></i> <?=customs_h('filter','Filter');?></button></div>
         </div>
-                        <table id="dtb_laporan_pengeluaran_per_dokumen_pabean" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th>No</th>
-                                  <th>Jenis Dokpab</th>
-                                  <th>No Aju</th>
-                                  <th>No DokPab</th>
-                                  <th>Tgl Dokpab</th>
-                                  <th>No SJ</th>
-                                  <th>Tanggal SJ</th>
-                                  <th>No Invoice</th>
-                                  <th>Tgl Invoice</th>
-                                  <th>Efaktur</th>
-                                  <th>Tgl Efaktur</th>
-                                  <th>Penerima</th>
-                                  <th>kategori</th>
-                                  <th>Kode Sub Kategori</th>
-                                  <th>Sub Kategori</th>
-                                  <th>Kode Barang</th>
-                                  <th>Nama Barang</th>
-                                  <th>Satuan</th>
-                                  <th>Jumlah</th>
-                                  <th>Valuta</th>
-                                  <th>Nilai</th>
-                                  <th>Berat</th>
-                                  <th>Tujuan Detail</th>
-                                 <!--  <th>Action</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-                </div>
-              </div>
-        <?php
-
-            foreach ($db->fetch_all("sys_menu") as $isi) {
-
-            //jika url = url dari table menu
-            if (uri_segment(1)==$isi->url) {
-              //check edit permission
-              if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+' href=".base_index()."laporan-pengeluaran-per-dokumen-pabean/edit/'+aData[indek]+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
-              } else {
-                  $edit ="";
-              }
-            if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/laporan_pengeluaran_per_dokumen_pabean/laporan_pengeluaran_per_dokumen_pabean_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_laporan_pengeluaran_per_dokumen_pabean"><i class="fa fa-trash"></i></button>';
-            } else {
-                $del="";
-            }
-                             }
-            }
-
-        ?>
-
-    </section><!-- /.content -->
-
-        <script type="text/javascript">
-      
-      
-       $("#dtb_laporan_pengeluaran_per_dokumen_pabean").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-            var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>laporan-pengeluaran-per-dokumen-pabean/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
-               aLengthMenu: [
-        [25, 50, 100, 200, -1],
-        [25, 50, 100, 200, "All"]
-    ],
-           'bProcessing': true,
-            'bServerSide': true,
-            
-           'columnDefs': [ {
-            'targets': [22],
-              'orderable': false,
-              'searchable': false
-            },
-                {
-            'width': '5%',
-            'targets': 0,
-            'orderable': false,
-            'searchable': false,
-            'className': 'dt-center'
-          }
-             ],
-
-    
-            'ajax':{
-              url :'<?=base_admin();?>modul/laporan_pengeluaran_per_dokumen_pabean/laporan_pengeluaran_per_dokumen_pabean_data.php',
-               data:   function ( d ) {
-                    d.tgl_awal = $("#tgl_awal").val();
-                    d.tgl_akhir = $("#tgl_akhir").val();
-                //    d.jenisbc = $("#jenisbc").val();
-                   // d.ket   = $("#ket").val();
-                    
-                  },
-            type: 'post',  // method  , by default get
-            error: function (xhr, error, thrown) {
-            console.log(xhr);
-
-            }
-          },
-        });
-
-  $('#dtb_laporan_pengeluaran_per_dokumen_pabean').on('draw.dt', function() {
-          init_selected()
-      });
-
-      $('#select_all').on('click', function() {
-          select_deselect('select')
-      });
-      $('#deselect_all').on('click', function() {
-          select_deselect('unselect')
+      </form>
+    </div>
+  </div>
+  <div class="box lpk-card">
+    <div class="box-body table-responsive">
+      <div class="alert alert-warning error_data_delete" style="display:none"><button type="button" class="close hide_alert_notif">&times;</button><i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span></div>
+      <table id="dtb_laporan_pengeluaran_per_dokumen_pabean" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+          <tr>
+            <th><?=customs_h('no','No');?></th><th><?=customs_h('document_type_short','Jenis Dokpab');?></th><th><?=customs_h('customs_doc_no','No Dokpab');?></th><th><?=customs_h('customs_doc_date','Tgl Dokpab');?></th><th><?=customs_h('outgoing_proof','Bukti Pengeluaran');?></th><th><?=customs_h('outgoing_date_short','Tgl Pengeluaran');?></th><th><?=customs_h('buyer_receiver','Pembeli/Penerima');?></th><th><?=customs_h('material_code','Kode Barang');?></th><th><?=customs_h('material_name','Nama Barang');?></th><th><?=customs_h('uom','Sat');?></th><th><?=customs_h('qty','Jumlah');?></th><th><?=customs_h('goods_value','Nilai Barang');?></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="modal_lpk_detail">
+  <div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><i class="fa fa-eye"></i> <?=customs_h('outgoing_trace_detail','Detail Trace Pengeluaran');?></h4></div><div class="modal-body" id="lpk_detail_body"></div></div></div>
+</div>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+<script>
+$(function(){
+  if($.fn.datepicker){$('.lpk-date').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}
+  if($.fn.select2){$('.select2').select2({width:'100%',allowClear:true});}
+  var dt=$('#dtb_laporan_pengeluaran_per_dokumen_pabean').DataTable({
+    bProcessing:true,
+    bServerSide:true,
+    pageLength:25,
+    order:[[5,'desc']],
+    dom:"<'row'<'col-sm-12'B>>"+"<'row'<'col-sm-6'l><'col-sm-6'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    buttons:[{extend:'collection',text:'<?=customs_h('export_data','Export Data');?>',buttons:['copyHtml5','excelHtml5','print']}],
+    columnDefs:[{targets:[0],orderable:false,searchable:false,className:'dt-center'},{targets:[10,11],className:'text-right'}],
+    ajax:{url:'<?=base_admin();?>modul/laporan_pengeluaran_per_dokumen_pabean/laporan_pengeluaran_per_dokumen_pabean_data.php',type:'post',data:function(d){d.tgl_awal=$('#tgl_awal').val();d.tgl_akhir=$('#tgl_akhir').val();d.jenisbc=$('#jenisbc').val();},error:function(xhr){console.log(xhr.responseText);$('.isi_warning_delete').text(<?=customs_js('report_load_failed','Data laporan gagal dimuat.');?>);$('.error_data_delete').fadeIn();}}
   });
-
-  function filter() {
-      $("#dtb_laporan_pengeluaran_per_dokumen_pabean").dataTable().fnDraw(); 
-  }
-
-
-
-
-  $(document).on('click', '#dtb_laporan_pengeluaran_per_dokumen_pabean tbody tr td', function(event) {
-      var btn = $(this).find('button');
-      if (btn.length == 0) {
-          $(this).parents('tr').toggleClass('DTTT_selected selected');
-          var selected = check_selected();
-          init_selected();
-
-      }
+  $('#btn_filter_lpk,#jenisbc').on('click change',function(){dt.draw();});
+  $(document).on('click','.lpk-trace-link',function(){
+    var b=$(this);
+    $('#lpk_detail_body').html('<div class="table-responsive"><table class="table table-bordered table-striped">'+
+      '<tr><th style="width:190px">Source Type</th><td>'+b.data('source-type')+'</td></tr>'+
+      '<tr><th>Source ID</th><td>'+b.data('source-id')+'</td></tr>'+
+      '<tr><th><?=customs_h('detail_id','Detail ID');?></th><td>'+b.data('source-detail-id')+'</td></tr>'+
+      '<tr><th><?=customs_h('material','Material');?></th><td>'+b.data('material')+'</td></tr>'+
+      '<tr><th><?=customs_h('outgoing_document','Dokumen Pengeluaran');?></th><td>'+b.data('doc')+'</td></tr>'+
+      '<tr><th><?=customs_h('qty','Jumlah');?></th><td class="text-right">'+b.text()+'</td></tr>'+
+      '</table></div>');
+    $('#modal_lpk_detail').modal('show');
   });
-
-
-
-  function init_selected() {
-      var selected = check_selected();
-      var btn_hide = $('#select_all, #deselect_all, #bulk_delete, .selected-data');
-      if (selected.length > 0) {
-          btn_hide.show()
-      } else {
-          btn_hide.hide()
-      }
-  }
-
-
-  function check_selected() {
-      var table_select = $('#dtb_laporan_pengeluaran_per_dokumen_pabean tbody tr.selected');
-      var array_data_delete = [];
-      table_select.each(function() {
-          var check_data = $(this).find('.hapus_dtb_notif').attr('data-id');
-          if (typeof check_data != 'undefined') {
-              array_data_delete.push(check_data)
-          }
-      });
-      $('.selected-data').text(array_data_delete.length + ' <?=$lang["selected_data"];?>');
-      return array_data_delete
-  }
-
-
-  function select_deselect(type) {
-      if (type == 'select') {
-          $('#dtb_laporan_pengeluaran_per_dokumen_pabean tbody tr').addClass('DTTT_selected selected')
-      } else {
-          $('#dtb_laporan_pengeluaran_per_dokumen_pabean tbody tr').removeClass('DTTT_selected selected')
-      }
-      init_selected()
-  }
-
-
-
-
-/* Add a click handler for the delete row */
-  $('#bulk_delete').click( function() {
-    var anSelected = fnGetSelected( dtb_laporan_pengeluaran_per_dokumen_pabean );
-    var data_array_id = check_selected();
-    var all_ids = data_array_id.toString();
-    $('#ucing').modal({ keyboard: false }).one('click', '#delete', function (e) {
-        $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '<?=base_admin();?>modul/laporan_pengeluaran_per_dokumen_pabean/laporan_pengeluaran_per_dokumen_pabean_action.php?act=del_massal',
-            data: {data_ids:all_ids},
-               success: function(responseText) {
-                  $('#loadnya').hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=='die') {
-                            $('#informasi').modal('show');
-                          } else if(responseText[index].status=='error') {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          } else if(responseText[index].status=='good') {
-                            $('.error_data_delete').hide();
-                               $('#loadnya').hide();
-                               $(anSelected).remove();
-                               dtb_laporan_pengeluaran_per_dokumen_pabean.draw();
-                          } else {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          }
-                    });
-                }
-            //async:false
-        });
-
-        $('#ucing').modal('hide');
-
-    });
-
-  });
-
-  /* Get the rows which are currently selected */
-  function fnGetSelected( oTableLocal )
-  {
-      return oTableLocal.$('tr.selected');
-  }
+  $('.hide_alert_notif').on('click',function(){$('.error_data_delete').hide();});
+});
 </script>
-            

@@ -42,7 +42,25 @@ $columns = array(
   //set group by column
   //$new_table->group_by = "group by vpemasukantoout.";
 
- $q1 = "select vpemasukantoout.tujuan,  vpemasukantoout.no_spb,vpemasukantoout.tgl_spb,vpemasukantoout.name_ppc,vpemasukantoout.kode,vpemasukantoout.nm_barang,vpemasukantoout.satuan,vpemasukantoout.jumlah,vpemasukantoout.no_spb from v_rekap_transfer_incoming vpemasukantoout where 1=1 $wh";
+ $source = "SELECT
+    CASE
+      WHEN t.ke=4 THEN 'outgoing'
+      WHEN t.ke=3 THEN 'produksi'
+      WHEN t.ke=5 THEN 'praproduksi'
+      ELSE COALESCE(dest.nm_bagian,'-')
+    END tujuan,
+    t.no_transfer no_spb,
+    t.tgl_transfer tgl_spb,
+    COALESCE(dest.nm_bagian,'-') name_ppc,
+    b.kd_barang kode,
+    b.nm_barang,
+    b.satuan,
+    COALESCE(td.jml,0) jumlah
+  FROM transfer t
+  INNER JOIN transfer_detail td ON td.id_transfer=t.id_transfer
+  LEFT JOIN barang b ON b.id=td.id_barang
+  LEFT JOIN bagian dest ON dest.id_bagian=t.ke";
+ $q1 = "select vpemasukantoout.tujuan, vpemasukantoout.no_spb,vpemasukantoout.tgl_spb,vpemasukantoout.name_ppc,vpemasukantoout.kode,vpemasukantoout.nm_barang,vpemasukantoout.satuan,vpemasukantoout.jumlah,vpemasukantoout.no_spb from ($source) vpemasukantoout where 1=1 $wh";
   $query = $datatable->get_custom("$q1",$columns);
  
   //buat inisialisasi array data

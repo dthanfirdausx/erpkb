@@ -1,3 +1,18 @@
+<?php
+if (!function_exists('left_nav_t')) {
+  function left_nav_t($key, $fallback = '')
+  {
+    return lang_text('left_nav_' . $key, $fallback);
+  }
+}
+
+if (!function_exists('left_nav_h')) {
+  function left_nav_h($key, $fallback = '')
+  {
+    return htmlspecialchars(left_nav_t($key, $fallback), ENT_QUOTES, 'UTF-8');
+  }
+}
+?>
    <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar" style="background: white">
         <!-- sidebar: style can be found in sidebar.less -->
@@ -5,18 +20,55 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="<?=base_url();?>upload/back_profil_foto/<?=$db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->foto_user?>" class="img-circle" alt="User Image" />
+              <img src="<?=erpkb_user_photo_url($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->foto_user, 'back_profil_foto');?>" class="img-circle" alt="<?=left_nav_h('user_image', 'User Image');?>" />
             </div>
             <div class="pull-left info">
               <p><?=ucwords($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->username)?></p>
 
-              <a href="<?=base_index();?>profil"><i class="fa fa-circle text-success"></i> Online</a>
+              <a href="<?=base_index();?>profil"><i class="fa fa-circle text-success"></i> <?=left_nav_h('online', 'Online');?></a>
             </div>
           </div>
+          <?php if (!empty($_SESSION['impersonator'])) { ?>
+          <div class="erpkb-sidebar-login-as">
+            <div class="erpkb-sidebar-login-as-label">
+              <i class="fa fa-user-secret"></i>
+              <?=left_nav_h('login_as_by', 'Login As oleh');?> <?=htmlspecialchars($_SESSION['impersonator']['username'], ENT_QUOTES, 'UTF-8');?>
+            </div>
+            <button type="button" id="btn_stop_login_as" class="btn btn-warning btn-block erpkb-sidebar-back-admin">
+              <i class="fa fa-undo"></i> <?=left_nav_h('back_to', 'Back to');?> <?=htmlspecialchars($_SESSION['impersonator']['username'], ENT_QUOTES, 'UTF-8');?>
+            </button>
+          </div>
+          <?php } ?>
+          <style>
+            .erpkb-sidebar-login-as {
+              margin: 0 10px 12px;
+              padding: 10px;
+              border-radius: 10px;
+              background: #fff7ed;
+              border: 1px solid #fed7aa;
+              box-shadow: 0 4px 12px rgba(15, 23, 42, .06);
+            }
+            .erpkb-sidebar-login-as-label {
+              margin-bottom: 8px;
+              color: #9a3412;
+              font-size: 12px;
+              font-weight: 700;
+              line-height: 1.3;
+            }
+            .erpkb-sidebar-login-as-label i {
+              margin-right: 5px;
+            }
+            .erpkb-sidebar-back-admin {
+              border-radius: 7px !important;
+              font-weight: 700;
+              text-align: left;
+              white-space: normal;
+            }
+          </style>
          <!--  search form
          <form action="#" method="get" class="sidebar-form">
            <div class="input-group">
-             <input type="text" name="q" class="form-control" placeholder="Search..."/>
+             <input type="text" name="q" class="form-control" placeholder="<?=left_nav_h('search_placeholder', 'Search...');?>"/>
              <span class="input-group-btn">
                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
              </span>
@@ -25,10 +77,10 @@
          /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
          <ul class="sidebar-menu modern-sidebar">
-            <li class="header">MAIN NAVIGATION</li>
+            <li class="header"><?=left_nav_h('main_navigation', 'MAIN NAVIGATION');?></li>
              <li class="<?=(uri_segment(1)=='')?'active':'';?>">
                             <a href="<?=base_index();?>">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <i class="fa fa-dashboard"></i> <span><?=left_nav_h('dashboard', 'Dashboard');?></span>
                             </a>
                         </li>
 <?php
@@ -61,7 +113,7 @@ echo $db->buildMenu(uri_segment(1),0, $menu);
 ?>
           <li>
                             <a href="<?=base_admin();?>logout.php">
-                                <i class="fa fa-sign-out"></i> <span>Logout</span>
+                                <i class="fa fa-sign-out"></i> <span><?=left_nav_h('logout', 'Logout');?></span>
                             </a>
                         </li>
            </ul>

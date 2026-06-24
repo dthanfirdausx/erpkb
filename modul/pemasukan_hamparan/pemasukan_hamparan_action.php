@@ -4,6 +4,8 @@ session_start();
 include "../../inc/config.php";
 include "../../inc/excel/php-excel-reader/excel_reader2.php";
 include "../../inc/excel/SpreadsheetReader.php";
+require_once "../../inc/accounting_journal.php";
+require_once "../../inc/gr_reversal.php";
 function cek_valid_tgl($tgl)
 {
    $t = explode("-", $tgl);
@@ -56,93 +58,31 @@ function cek_kode($kode,$nm_barang,$satuan)
   //return $data[$kode];
 }
 
+function gr_for_po_rollback_response($message)
+{
+  global $db;
+  $db->query('ROLLBACK');
+  action_response($message);
+}
+
 session_check_json();
 switch ($_GET["act"]) { 
 
   case "reversal":
-
-$id = $_POST['id'];
-$reason = $_POST['reason'];
-
-// ambil header
-$h = $db->fetch("SELECT * FROM pemasukan WHERE id='$id'");
-$db->query(" 
-              UPDATE pemasukan 
-              SET status='REVERSED' 
-              WHERE id='$id' ");   
-
-// ambil detail
-$q = $db->query("SELECT * FROM pemasukan_detail WHERE no_bpb='".$h->no_bpb."'");
-
-foreach ($q as $d) { 
-
-    // 🔥 INSERT REVERSAL KE detail_transaksi
-    $data_transaksi = array(
-        "no_ref"        => $h->no_bpb,  
-        "id_pemasukan"  => $h->nomor,
-        "no_aju"        => $h->no_aju,
-        "move_code"     => '102', // REVERSAL GR
-        "no_urut"       => $d->no_urut,
-        "qty"           => $d->jumlah*-1, // tetap positif
-        "GUDANG"     => 'GUDANG',
-        "price"         => $d->harga, 
-        "weight"        => $d->berat,
-        "kd_barang"     => $d->kode, 
-        "is_reversal"   => "1",     
-        "lokasi"        => $d->lokasi,
-        "document_date" => date("Y-m-d"),
-        "posting_date"  => date("Y-m-d H:i:s"),
-        "user"          => $_SESSION['username'],
-        "is_produksi"   => '0',
-        "remark"        => 'Reversal: '.$reason.' | Ref: '.$h->no_bpb
+    $result = gr_perform_full_reversal(
+      $_POST['id'],
+      isset($_POST['reason']) ? $_POST['reason'] : '',
+      isset($_POST['reversal_date']) ? $_POST['reversal_date'] : date('Y-m-d')
     );
-
-    $db->insert("detail_transaksi", $data_transaksi);
-
-    // 🔥 RESTORE STOCK_LAYER 
-    $q_layer = $db->query("
-        SELECT * FROM stock_layer
-        WHERE kode = '".$d->kode."'
-        AND no_aju = '".$h->no_aju."'
-        AND no_dokpab = '".$h->no_dokpab."'
-        ORDER BY id DESC
-    ");
-
-    $sisa = $d->jumlah;
-
-    foreach ($q_layer as $layer) {
-
-        if ($sisa <= 0) break;
-
-        $max_restore = $layer->qty_masuk - $layer->qty_sisa;
-
-        if ($max_restore <= 0) continue;
-
-        $restore = min($sisa, $max_restore);
-
-        $db->query("
-            UPDATE stock_layer 
-            SET qty_sisa = qty_sisa + $restore
-            WHERE id = '".$layer->id."'
-        ");
-
-        $sisa -= $restore;
+    if ($result['status'] === 'good') {
+      action_response('', $result['data']);
     }
-
-
-
-    // 🔥 UPDATE STOCK (minus)
-    update_stock($d->jumlah,'min',$h->jenis_dokpab,'1',$d->kode,$_SESSION['username']);
-
-}
-
-echo json_encode([
-    ["status"=>"good"]
-]);
-
-break;
+    action_response($result['message']);
+    break;
 
  case "upload_excel":
+  action_response('Import Excel legacy GR for PO dikunci. Gunakan form GR for Purchase Order terbaru agar stock layer, dokumen material, dan jurnal tetap konsisten.');
+  break;
   // echo "xxxxx";
   // // error_reporting(E_ALL);
   //  // print_r($_FILES);
@@ -433,6 +373,29 @@ echo json_encode($res);
 
   break;
 
+  case "get_po_form":
+    header('Content-Type: application/json; charset=utf-8');
+    $noPo = isset($_POST['no_po']) ? trim($_POST['no_po']) : '';
+    $header = $db->query("SELECT id,purchase_order_no,seller_code,currency FROM purchase_order WHERE purchase_order_no=? AND UPPER(COALESCE(status,'')) NOT IN ('CLOSE','CLOSED','CANCEL','CANCELED','CANCELLED','VOID') LIMIT 1", array('purchase_order_no'=>$noPo))->fetch();
+    if (!$header) {
+      echo json_encode(array('status'=>'error','message'=>'Purchase Order tidak ditemukan.'));
+      break;
+    }
+    $items = array();
+    foreach ($db->query("SELECT id AS id_po_detail,kode_barang,nama_barang,unit,qty,COALESCE(received_qty,0) AS received_qty,(COALESCE(qty,0)-COALESCE(received_qty,0)) AS open_qty,harga FROM purchase_order_detail WHERE (id_po=? OR po_no=?) AND COALESCE(qty,0)>COALESCE(received_qty,0) ORDER BY id", array('id_po'=>$header->id, 'po_no'=>$header->purchase_order_no)) as $item) {
+      $items[] = array(
+        'id_po_detail'=>$item->id_po_detail,
+        'po_item_no'=>count($items)+1,
+        'kode_barang'=>$item->kode_barang,
+        'nama_barang'=>$item->nama_barang,
+        'unit'=>$item->unit,
+        'open_qty'=>$item->open_qty,
+        'harga'=>$item->harga,
+      );
+    }
+    echo json_encode(array('status'=>'good','header'=>$header,'items'=>$items));
+    break;
+
   case "get_po":
     ?>
 
@@ -583,6 +546,8 @@ echo json_encode($res);
    
 
    case "upload_tpb":
+   action_response('Import TPB legacy GR for PO dikunci. Gunakan form GR for Purchase Order terbaru agar stock layer, dokumen material, dan jurnal tetap konsisten.');
+   break;
   // error_reporting(0);
    move_uploaded_file($_FILES['file_tpb']['tmp_name'], "../../upload/".$_FILES['file_tpb']['name']);
    $Reader = new SpreadsheetReader("../../upload/".$_FILES['file_tpb']['name']); 
@@ -802,21 +767,69 @@ bom b on b.kodebj=barang.kd_barang where barang.kd_barang is not null and  baran
   case "in":
     
  // echo "<pre>";
-  $thn = date("Y",strtotime($_POST["tgl_bpb"]));  
+  $postingDate = isset($_POST['posting_date']) ? $_POST['posting_date'] : (isset($_POST['tgl_bpb']) ? $_POST['tgl_bpb'] : '');
+  $documentDate = isset($_POST['document_date']) ? $_POST['document_date'] : $postingDate;
+  $requiredHeader = array(
+    'document_date' => 'Document Date',
+    'posting_date' => 'Posting Date',
+    'stock_type' => 'Stock Type',
+    'nopo' => 'Purchase Order',
+    'pemasok' => 'Vendor',
+    'plant_id' => 'Plant',
+    'storage_location_id' => 'Storage Location',
+    'no_do' => 'Delivery Note / Surat Jalan',
+    'jenisbcmasuk_jenis_dokumen' => 'Jenis Dokumen BC',
+    'no_aju' => 'Nomor Aju',
+    'tgl_aju' => 'Tanggal Aju',
+    'no_dokpab' => 'Nomor Pendaftaran',
+    'tgl_dokpab' => 'Tanggal Pendaftaran'
+  );
+  foreach ($requiredHeader as $field => $label) {
+    if (!isset($_POST[$field]) || trim((string) $_POST[$field]) === '') {
+      action_response($label.' wajib diisi.');
+    }
+  }
+  if (empty($_POST['kode']) || !is_array($_POST['kode'])) {
+    action_response('Item Purchase Order belum dipilih.');
+  }
+  foreach ($_POST['kode'] as $key => $value) {
+    $lineNo = $key + 1;
+    $qty = isset($_POST['jumlah'][$key]) ? floatval($_POST['jumlah'][$key]) : 0;
+    $storageBinId = isset($_POST['storage_bin_id'][$key]) ? trim((string) $_POST['storage_bin_id'][$key]) : '';
+    $customsItemNo = isset($_POST['customs_item_no'][$key]) ? trim((string) $_POST['customs_item_no'][$key]) : '';
+    $customsQty = isset($_POST['customs_qty'][$key]) ? floatval($_POST['customs_qty'][$key]) : 0;
+    $customsUom = isset($_POST['customs_uom'][$key]) ? trim((string) $_POST['customs_uom'][$key]) : '';
+    $customsValue = isset($_POST['customs_value'][$key]) ? floatval($_POST['customs_value'][$key]) : 0;
+    if ($qty <= 0) action_response('GR Qty item '.$lineNo.' wajib lebih dari nol.');
+    if ($storageBinId === '') action_response('Storage Bin item '.$lineNo.' wajib diisi.');
+    if ($customsItemNo === '') action_response('Item Pabean item '.$lineNo.' wajib diisi.');
+    if ($customsQty <= 0) action_response('Qty Pabean item '.$lineNo.' wajib lebih dari nol.');
+    if ($customsUom === '') action_response('Sat. Pabean item '.$lineNo.' wajib diisi.');
+    if ($customsValue <= 0) action_response('Nilai Pabean item '.$lineNo.' wajib lebih dari nol.');
+  }
+  $thn = date("Y",strtotime($postingDate));
   $no_bpb = getNoBPB($thn);
  // echo "$no_bpb";
   $nomor = get_nomor("pemasukan","id");
   $data = array(
       "no_bpb" => $no_bpb,
       "nomor" => $nomor,
-      "tgl_bpb" => $_POST["tgl_bpb"],
+      "tgl_bpb" => $postingDate,
+      "document_date" => $documentDate,
+      "posting_date" => $postingDate,
       "nopo" => $_POST["nopo"],
+      "plant_id" => $_POST["plant_id"],
+      "storage_location_id" => $_POST["storage_location_id"],
+      "stock_type" => $_POST["stock_type"],
       "pemasok" => $_POST["pemasok"],
       "no_invoice" => $_POST["no_invoice"],
       "tgl_invoice" => $_POST["tgl_invoice"],
       "no_do" => $_POST["no_do"],
       "no_dokpab" => $_POST["no_dokpab"],
       "tgl_dokpab" => $_POST["tgl_dokpab"],
+      "kantor_pabean" => $_POST["kantor_pabean"],
+      "negara_asal" => $_POST["negara_asal"],
+      "customs_status" => $_POST["customs_status"],
       "catatan" => $_POST["catatan"],
       "jenis_dokpab" => $_POST["jenisbcmasuk_jenis_dokumen"],
       "kd_catdet" => $_POST["kd_catdet"],
@@ -826,55 +839,95 @@ bom b on b.kodebj=barang.kd_barang where barang.kd_barang is not null and  baran
       "tgl_efaktur" => $_POST["tgl_efaktur"],
       "valuta" => $_POST["valuta"],
       "kurs" => $_POST["kurs"],
-       'userid' => $_SESSION['username'], 
+      "no_kontrak" => $_POST["no_kontrak"],
+      "tgl_kontrak" => $_POST["tgl_kontrak"],
+       'userid' => $_SESSION['username'],
   );
-   if ($_POST["tgl_efaktur"]=='') {
-     unset($data['tgl_efaktur']);
+   foreach (array('tgl_efaktur','tgl_invoice','tgl_kontrak') as $optionalDate) {
+     if (!isset($data[$optionalDate]) || $data[$optionalDate] === '') unset($data[$optionalDate]);
    }
-   if (isset($_POST['no_bpb_lama'])) { 
+if (isset($_POST['no_bpb_lama'])) { 
       $data['ref_reversal'] = $_POST['no_bpb_lama'];
       $data['status'] = $_POST['POSTED']; 
    }
-$db->insert("pemasukan",$data);  
+$db->query('START TRANSACTION');
+if (!$db->insert("pemasukan",$data)) {
+  gr_for_po_rollback_response($db->getErrorMessage());
+}
 //echo $db->getErrorMessage();
  // print_r($_SESSION); 
  // echo $_SESSION['username'];
 // print_r($data)
  simpan_log("Input Dokumen ".$_POST["jenisbcmasuk_jenis_dokumen"]." dengan No Dokpab ".$_POST["no_dokpab"]." No Aju ".$_POST["no_aju"],$_SESSION['username']);
   
- $db->query("delete from pemasukan_detail where no_bpb='$no_bpb' ");
+ if ($db->query("delete from pemasukan_detail where no_bpb=?", array($no_bpb)) === false) {
+   gr_for_po_rollback_response($db->getErrorMessage());
+ }
    $no=1;
+   $accountingItems = array();
    foreach ($_POST['kode'] as $key => $value) {
        $barang = att_barang($_POST['kode_input'][$key]);
-      $data_detail = array('nomor' => $nomor , 
+       $idPoDetail = isset($_POST['id_po_detail'][$key]) ? intval($_POST['id_po_detail'][$key]) : null;
+       $storageBinId = !empty($_POST['storage_bin_id'][$key]) ? intval($_POST['storage_bin_id'][$key]) : null;
+       $storageBin = $storageBinId ? $db->fetch_single_row('erp_storage_bin','id',$storageBinId) : null;
+       $locationCode = $storageBin ? $storageBin->bin_code : '';
+      $data_detail = array('nomor' => $nomor,
+                    'id_po_detail' => $idPoDetail,
                     'no_bpb' => $no_bpb,
-                    'tgl_bpb' => $_POST["tgl_bpb"],
+                    'tgl_bpb' => $postingDate,
                     'kode' => $_POST['kode_input'][$key],
                     'jumlah' => $_POST['jumlah'][$key],
                     'harga' => $_POST['harga'][$key],
                     'valuta' => $_POST['valuta'],
                     'nilai' => $_POST['nilai'][$key],
                     'unit' => $_POST['unit'][$key],
-                    'berat' => $_POST['berat'][$key], 
-                    'no_urut' => $no,                    
+                    'berat' => isset($_POST['net_weight'][$key]) ? $_POST['net_weight'][$key] : 0,
+                    'lot_no' => isset($_POST['lot_no'][$key]) ? $_POST['lot_no'][$key] : '',
+                    'no_urut' => $no,
+                    'customs_item_no' => isset($_POST['customs_item_no'][$key]) ? $_POST['customs_item_no'][$key] : $no,
+                    'hs_code' => isset($_POST['hs_code'][$key]) ? $_POST['hs_code'][$key] : '',
+                    'customs_qty' => isset($_POST['customs_qty'][$key]) ? $_POST['customs_qty'][$key] : $_POST['jumlah'][$key],
+                    'customs_uom' => isset($_POST['customs_uom'][$key]) ? $_POST['customs_uom'][$key] : $_POST['unit'][$key],
+                    'customs_value' => isset($_POST['customs_value'][$key]) ? $_POST['customs_value'][$key] : $_POST['nilai'][$key],
+                    'net_weight' => isset($_POST['net_weight'][$key]) ? $_POST['net_weight'][$key] : 0,
+                    'gross_weight' => isset($_POST['gross_weight'][$key]) ? $_POST['gross_weight'][$key] : 0,
+                    'package_type' => isset($_POST['package_type'][$key]) ? $_POST['package_type'][$key] : '',
+                    'package_qty' => isset($_POST['package_qty'][$key]) ? $_POST['package_qty'][$key] : 0,
+                    'origin_country' => isset($_POST['origin_country'][$key]) ? $_POST['origin_country'][$key] : $_POST['negara_asal'],
                     'no_aju' => $_POST['no_aju'],
                     'tgl_aju' => $_POST['tgl_aju'],
                     'tgl_masuk' => $_POST['tgl_aju'],
                     'jenis_dokpab' => $_POST['jenisbcmasuk_jenis_dokumen'],
                     'no_dokpab' => $_POST['no_dokpab'],
                     'tgl_dokpab' => $_POST['tgl_dokpab'],
-                    'lokasi' => $_POST['lokasi'][$key]
+                    'lokasi' => 'GUDANG',
+                    'storage_bin_id' => $storageBinId,
+                    'userid' => $_SESSION['username']
                   );
     //  print_r($data_detail);
       // update_stock($_POST['jumlah'][$key],'plus',$_POST["jenisbcmasuk_jenis_dokumen"],'1',$barang->id,$_SESSION['username']);
-        $db->insert("pemasukan_detail",$data_detail); 
+        $detailSaved = $db->insert("pemasukan_detail",$data_detail);
+        if (!$detailSaved) {
+          gr_for_po_rollback_response($db->getErrorMessage());
+        }
+        $id_detail = $db->last_insert_id();
+        $accountingItems[] = array(
+          'kode' => $_POST['kode_input'][$key],
+          'amount' => $_POST['nilai'][$key],
+          'valuta' => $_POST['valuta'],
+          'kurs' => $_POST['kurs']
+        );
 
         // 🔥 STOCK LAYER (INBOUND)
-$db->insert("stock_layer", [
+if (!$db->insert("stock_layer", [
     'kode'         => $_POST['kode_input'][$key],
     'qty_masuk'    => $_POST['jumlah'][$key],
     'qty_sisa'     => $_POST['jumlah'][$key],
     'lokasi'       => 'GUDANG',
+    'stock_type'   => isset($_POST['stock_type']) ? $_POST['stock_type'] : 'UNRESTRICTED',
+    'plant_id'     => $_POST['plant_id'],
+    'storage_location_id' => $_POST['storage_location_id'],
+    'storage_bin_id' => $storageBinId,
     'no_aju'       => $_POST['no_aju'],
     'no_dokpab'    => $_POST['no_dokpab'],
     'jenis_dokpab' => $_POST['jenisbcmasuk_jenis_dokumen'],
@@ -882,42 +935,87 @@ $db->insert("stock_layer", [
     'ref_table'    => 'pemasukan_detail',
     'ref_id'       => $id_detail,
 
-    'tgl_masuk'    => $_POST['tgl_bpb'],
+    'no_bpb'       => $no_bpb,
+    'tgl_masuk'    => $postingDate,
     'created_at'   => date("Y-m-d H:i:s")
-]);
+])) {
+  gr_for_po_rollback_response($db->getErrorMessage());
+}
        // 🔥 INSERT KE DETAIL_TRANSAKSI (SAP STYLE)
 $data_transaksi = array(
     "no_ref"        => $no_bpb,
     "id_pemasukan"  => $nomor,
     "no_aju"        => $_POST['no_aju'],
+    "no_dokpab"     => $_POST['no_dokpab'],
     "move_code"     => '101', // GR
     "no_urut"       => $no,
     "posisi"        => 'GUDANG',
     "qty"           => $_POST['jumlah'][$key], // positif
     "id_bagian"     => 1, // bisa disesuaikan (gudang)
     "price"         => $_POST['harga'][$key],
-    "weight"        => $_POST['berat'][$key],
+    "weight"        => isset($_POST['net_weight'][$key]) ? $_POST['net_weight'][$key] : 0,
     "kd_barang"     => $_POST['kode_input'][$key],
-    "lokasi"        => $_POST['lokasi'][$key],
-    "document_date" => $_POST['tgl_bpb'],
-    "posting_date"  => date("Y-m-d H:i:s"),
+    "lokasi"        => 'GUDANG',
+    "document_date" => $documentDate,
+    "posting_date"  => $postingDate,
     "user"          => $_SESSION['username'],
     "is_produksi"   => '0', // karena ini dari PO, bukan produksi
+    "direction"     => 'IN',
+    "ref_type"      => 'PURCHASE_ORDER',
+    "ref_id"        => $idPoDetail,
+    "id_po_detail"  => $idPoDetail,
+    "uom"           => $_POST['unit'][$key],
+    "amount"        => $_POST['nilai'][$key],
+    "no_bpb"        => $no_bpb,
+    "plant_id"      => $_POST['plant_id'],
+    "storage_location_id" => $_POST['storage_location_id'],
+    "storage_bin_id" => $storageBinId,
+    "stock_type"    => isset($_POST['stock_type']) ? $_POST['stock_type'] : 'UNRESTRICTED',
+    "destination_storage_location_id" => $_POST['storage_location_id'],
+    "destination_storage_bin_id" => $storageBinId,
+    "destination_stock_type" => isset($_POST['stock_type']) ? $_POST['stock_type'] : 'UNRESTRICTED',
+    "destination_material_code" => $_POST['kode_input'][$key],
+    "created_by"    => $_SESSION['username'],
     "remark"        => 'GR dari PO '.$_POST['nopo']
 );
 
-$db->insert("detail_transaksi", $data_transaksi);
+if (!$db->insert("detail_transaksi", $data_transaksi)) {
+  gr_for_po_rollback_response($db->getErrorMessage());
+}
 
-      $no++; 
+      if ($idPoDetail) {
+        $updatePo = $db->query("UPDATE purchase_order_detail SET received_qty=received_qty+? WHERE id=? AND received_qty+?<=qty", array('qty'=>$_POST['jumlah'][$key], 'id'=>$idPoDetail, 'qty_check'=>$_POST['jumlah'][$key]));
+        if ($updatePo === false) {
+          gr_for_po_rollback_response($db->getErrorMessage());
+        }
+        if ($updatePo->rowCount() < 1) {
+          gr_for_po_rollback_response('GR Qty item '.$no.' melebihi outstanding PO atau detail PO tidak valid.');
+        }
+      }
+
+      $no++;
    }
 
-  
-  
-   
+    $journalResult = accounting_post_auto_journal(
+      'pembelian',
+      $_POST['jenisbcmasuk_jenis_dokumen'],
+      $accountingItems,
+      array(
+        'no_bukti' => $no_bpb,
+        'tgl_jurnal' => $postingDate,
+        'ket' => 'GR for PO '.$no_bpb.' PO '.$_POST['nopo'].' No Aju '.$_POST['no_aju'],
+        'valuta' => $_POST['valuta'],
+        'kurs' => $_POST['kurs']
+      )
+    );
+    if ($journalResult !== true) gr_for_po_rollback_response($journalResult);
+
+
   //  $in = $db->insert("pemasukan",$data);
     
     
-    action_response($db->getErrorMessage());
+    $db->query('COMMIT');
+    action_response('');
     break;
   
   case "show_detail": 

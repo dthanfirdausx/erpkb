@@ -1,8 +1,19 @@
+<?php
+if (!function_exists('fin_t')) {
+  function fin_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('fin_h')) {
+  function fin_h($key, $fallback = '') { return htmlspecialchars((string) fin_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('fin_js')) {
+  function fin_js($key, $fallback = '') { return json_encode(fin_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>Buku Ledger</h1>
                    <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=fin_h('common_home', 'Home');?></a></li>
                         <li><a href="<?=base_index();?>buku-ledger">Buku Ledger</a></li>
                         <li class="active">Detail Buku Ledger</li>
                     </ol>

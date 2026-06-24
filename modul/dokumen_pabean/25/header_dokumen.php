@@ -7,8 +7,8 @@
         <form role="form">
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Pengajuan</label>
-              <input type="text" class="form-control" id="no_aju" value="<?= $data_header->nomorAju ?>" placeholder="Nomor Aju" readonly="">
+              <label for="exampleInputEmail1"><?=customs_h('submission_number','Nomor Pengajuan');?></label>
+              <input type="text" class="form-control" id="no_aju" value="<?= $data_header->nomorAju ?>" placeholder="<?=customs_h('aju_no','Nomor Aju');?>" readonly="">
             </div>
           </div>
         </form>
@@ -43,12 +43,12 @@
      <div class="col-md-4">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Keterangan Lain</h3>
+          <h3 class="box-title"><?=customs_h('other_information','Keterangan Lain');?></h3>
         </div>
         <form role="form">
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Tujuan</label>
+              <label for="exampleInputEmail1"><?=customs_h('purpose','Tujuan');?></label>
               <select class="form-tujuan form-control" name="tujuan" id="tujuan" onchange="simpan_tujuan(this.value)" >
                 <option value="">-Pilih Tujuan-</option>
                 <?php

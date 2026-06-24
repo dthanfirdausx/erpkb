@@ -1,7 +1,25 @@
 <?php
+
+if (!function_exists('wh_t')) {
+  function wh_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('wh_h')) {
+  function wh_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+}
 session_start();
 include "../../inc/config.php";
 session_check_json();
+
+function stock_pemasukan_h($value)
+{
+  return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+}
+
+function stock_pemasukan_locked_action()
+{
+  action_response('Aksi legacy stock pemasukan dikunci. Stock overview sekarang dibaca langsung dari v_stock_transaksi/stock_layer.');
+}
+
 switch ($_GET["act"]) {
 
   case "download_excel":
@@ -30,34 +48,30 @@ switch ($_GET["act"]) {
      </thead>
      <tbody>
   <?php
-  $q = $db->query("select jenis_dokpab,kd_barang,nm_barang,no_dokpab,tgl_dokpab,no_aju,tgl_aju,
-tgl_bpb,lokasi,satuan,((jumlah+masuk)-keluar) as stock 
-from v_stock_pemasukan where ((jumlah+masuk)-keluar)>0 order by kd_barang asc, tgl_bpb asc,jenis_dokpab asc ");
+  $q = $db->query("
+    SELECT sl.jenis_dokpab,sl.kode kd_barang,b.nm_barang,sl.no_dokpab,pd.tgl_dokpab,sl.no_aju,pd.tgl_aju,
+           sl.tgl_masuk tgl_bpb,sl.lokasi,b.satuan,sl.qty_sisa stock
+    FROM stock_layer sl
+    LEFT JOIN barang b ON b.kd_barang=sl.kode
+    LEFT JOIN pemasukan_detail pd ON pd.id=sl.ref_id AND sl.ref_table='pemasukan_detail'
+    WHERE sl.qty_sisa>0 AND sl.lokasi='GUDANG'
+    ORDER BY sl.kode ASC, sl.tgl_masuk ASC, sl.jenis_dokpab ASC
+  ");
   foreach ($q as $kk) {
-    // $qq = $db->query("select jenis_dokpab,kd_barang,nm_barang,no_dokpab,tgl_dokpab,no_aju,tgl_aju,tgl_bpb,lokasi,satuan,((jumlah+masuk)-keluar) as stock from v_stock_pemasukan where ((jumlah+masuk)-keluar)>0 and kd_barang='$k->kd_barang' order by tgl_bpb asc");
-    // foreach ($qq as $kk) {
         echo "<tr>
-               <td>$kk->jenis_dokpab</td>
-               <td>$kk->kd_barang</td>
-               <td>$kk->nm_barang</td>
-               <td>'$kk->no_dokpab</td>
-               <td>$kk->tgl_dokpab</td>
-               <td>'$kk->no_aju</td>
-               <td>$kk->tgl_aju</td>
-               <td>$kk->tgl_bpb</td>
-               <td>$kk->lokasi</td>
+               <td>".stock_pemasukan_h($kk->jenis_dokpab)."</td>
+               <td>".stock_pemasukan_h($kk->kd_barang)."</td>
+               <td>".stock_pemasukan_h($kk->nm_barang)."</td>
+               <td>'".stock_pemasukan_h($kk->no_dokpab)."</td>
+               <td>".stock_pemasukan_h($kk->tgl_dokpab)."</td>
+               <td>'".stock_pemasukan_h($kk->no_aju)."</td>
+               <td>".stock_pemasukan_h($kk->tgl_aju)."</td>
+               <td>".stock_pemasukan_h($kk->tgl_bpb)."</td>
+               <td>".stock_pemasukan_h($kk->lokasi)."</td>
                <td style='text-align:right'>".number_format($kk->stock,5,",",".")."</td>
-               <td>$kk->satuan</td>
+               <td>".stock_pemasukan_h($kk->satuan)."</td>
              
              </tr>"; 
-   //  }
-   // echo "<tr>
-   //             <td colspan='8'>Jumlah</td>
-               
-   //             <td style='text-align:right'>".number_format($k->stock,5,",",".")."</td>
-   //             <td>$k->satuan</td>
-             
-   //           </tr>";
   }
    ?>
     
@@ -67,10 +81,7 @@ from v_stock_pemasukan where ((jumlah+masuk)-keluar)>0 order by kd_barang asc, t
     break;
 
    case "sinkron_stock":
-   $id = $_POST['id'];
-   $kd_barang = $_POST['kd_barang'];
-   $posisi = $_POST['posisi'];
-   rekap_stock($posisi,$kd_barang); 
+   stock_pemasukan_locked_action();
      break;
 
      case "show_detail_stock":
@@ -78,14 +89,19 @@ from v_stock_pemasukan where ((jumlah+masuk)-keluar)>0 order by kd_barang asc, t
 $kd_barang = $_POST['kd_barang'];
 
 ?>
-<table class="table table-bordered table-striped">
+<div class="table-responsive">
+<table class="table table-bordered table-striped so-detail-table">
     <thead>
         <tr>
-            <th>No</th>
+            <th><?=wh_h(wh_t('table_no', 'No'));?></th>
             <th>Kode</th>
             <th>No Aju</th>
             <th>No Dokpab</th>
             <th>Jenis Dok</th>
+            <th>Area</th>
+            <th><?=wh_h(wh_t('common_plant', 'Plant'));?></th>
+            <th><?=wh_h(wh_t('warehouse_storage_location', 'Storage Location'));?></th>
+            <th><?=wh_h(wh_t('warehouse_storage_bin', 'Storage Bin'));?></th>
             <th>Tgl Masuk</th>
             <th>Qty Masuk</th>
            
@@ -99,18 +115,29 @@ $q = $db->query("
     SELECT 
         sl.*,
         b.nm_barang,
-        b.satuan
+        b.satuan,
+        p.plant_code,
+        s.storage_code,
+        s.storage_name,
+        bin.bin_code,
+        bin.bin_name
     FROM stock_layer sl
-    LEFT JOIN barang b 
+    LEFT JOIN barang b
         ON b.kd_barang = sl.kode
-    WHERE 
-        sl.kode = '$kd_barang' 
+    LEFT JOIN erp_plant p
+        ON p.id = sl.plant_id
+    LEFT JOIN erp_storage_location s
+        ON s.id = sl.storage_location_id
+    LEFT JOIN erp_storage_bin bin
+        ON bin.id = sl.storage_bin_id
+    WHERE
+        sl.kode = ?
         AND sl.lokasi = 'GUDANG'
-       
-    ORDER BY 
-        sl.tgl_masuk ASC, 
+
+    ORDER BY
+        sl.tgl_masuk ASC,
         sl.id ASC
-");
+", array('kd_barang' => $kd_barang));
 
 $no = 1;
 $total_masuk = 0;
@@ -119,12 +146,16 @@ $total_sisa  = 0;
 foreach ($q as $k){
 
     echo "<tr>
-        <td>$no</td>
-        <td>$k->kode , $k->nm_barang</td>
-        <td>$k->no_aju</td>
-        <td>$k->no_dokpab</td>
-        <td>$k->jenis_dokpab</td>
-        <td>$k->tgl_masuk</td>
+        <td>".(int)$no."</td>
+        <td>".stock_pemasukan_h($k->kode.' , '.$k->nm_barang)."</td>
+        <td>".stock_pemasukan_h($k->no_aju)."</td>
+        <td>".stock_pemasukan_h($k->no_dokpab)."</td>
+        <td>".stock_pemasukan_h($k->jenis_dokpab)."</td>
+        <td>".stock_pemasukan_h($k->lokasi)."</td>
+        <td>".stock_pemasukan_h($k->plant_code)."</td>
+        <td>".stock_pemasukan_h(trim($k->storage_code.' - '.$k->storage_name, ' -'))."</td>
+        <td>".stock_pemasukan_h(trim($k->bin_code.' - '.$k->bin_name, ' -'))."</td>
+        <td>".stock_pemasukan_h($k->tgl_masuk)."</td>
         <td style='text-align:right'>".number_format($k->qty_masuk,4)."</td>
         <td style='text-align:right'>".number_format($k->qty_sisa,4)."</td>
       
@@ -138,74 +169,30 @@ foreach ($q as $k){
 ?>
 
 <tr style="font-weight:bold;background:#f1f1f1">
-    <td colspan="6" style="text-align:center">TOTAL</td>
+    <td colspan="10" style="text-align:center">TOTAL</td>
     <td style="text-align:right"><?= number_format($total_masuk,4) ?></td>
     <td style="text-align:right"><?= number_format($total_sisa,4) ?></td>
 </tr>
 
     </tbody>
 </table>
+</div>
 <?php
 
 break;
 
   
   case "in":
-    
-  
-  
-  
-  $data = array(
-      "kd_barang" => $_POST["kd_barang"],
-      "nm_barang" => $_POST["nm_barang"],
-      "stock" => $_POST["stock"],
-      "satuan" => $_POST["satuan"],
-      "nm_kategori" => $_POST["nm_kategori"],
-  );
-  
-  
-  
-   
-    $in = $db->insert("vtotalstockpemasukan",$data);
-    
-    
-    action_response($db->getErrorMessage());
+    stock_pemasukan_locked_action();
     break;
   case "delete":
-    
-    
-    
-    $db->delete("vtotalstockpemasukan","",$_GET["id"]);
-    action_response($db->getErrorMessage());
+    stock_pemasukan_locked_action();
     break;
    case "del_massal":
-    $data_ids = $_REQUEST["data_ids"];
-    $data_id_array = explode(",", $data_ids);
-    if(!empty($data_id_array)) {
-        foreach($data_id_array as $id) {
-          $db->delete("vtotalstockpemasukan","",$id);
-         }
-    }
-    action_response($db->getErrorMessage());
+    stock_pemasukan_locked_action();
     break;
   case "up":
-    
-   $data = array(
-      "kd_barang" => $_POST["kd_barang"],
-      "nm_barang" => $_POST["nm_barang"],
-      "stock" => $_POST["stock"],
-      "satuan" => $_POST["satuan"],
-      "nm_kategori" => $_POST["nm_kategori"],
-   );
-   
-   
-   
-
-    
-    
-    $up = $db->update("vtotalstockpemasukan",$data,"",$_POST["id"]);
-    
-    action_response($db->getErrorMessage());
+    stock_pemasukan_locked_action();
     break;
   default:
     # code...

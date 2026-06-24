@@ -165,6 +165,7 @@ foreach ($q as $k) {
         'remark'        => 'Terima dari transfer '.$no_spb,
         'posting_date'  => date("Y-m-d"),
         'document_date' => date("Y-m-d"),
+        'destination_material_code' => $k->kode,
         'created_by'    => $_SESSION['username'],
         'date_created'  => date("Y-m-d H:i:s")
     ]);

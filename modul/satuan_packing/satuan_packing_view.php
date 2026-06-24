@@ -1,33 +1,27 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Satuan Packing
+                        <?=erp_h('master_packing_unit','Packing Unit');?>
                     </h1>
                         <ol class="breadcrumb">
                         <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>satuan-packing">Satuan Packing</a></li>
-                        <li class="active">Satuan Packing List</li>
+                        <li><a href="<?=base_index();?>satuan-packing"><?=erp_h('master_packing_unit','Packing Unit');?></a></li>
+                        <li class="active"><?=erp_h('master_packing_unit','Packing Unit');?> <?=erp_h('master_list_title','List');?></li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
+<?php
+$mdtActionsHtml = '';
+if (isset($role_act["insert_act"]) && $role_act["insert_act"]=="Y") {
+  $mdtActionsHtml = '<a href="'.base_index().'satuan-packing/tambah" class="btn btn-warning"><i class="fa fa-plus"></i> '.$lang["add_button"].'</a>';
+}
+include __DIR__ . "/../master_data_toolbar.php";
+?>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
-                                <div class="box-header">
-                                <?php
-                                  foreach ($db->fetch_all("sys_menu") as $isi) {
-                                      if (uri_segment(1)==$isi->url) {
-                                          if ($role_act["insert_act"]=="Y") {
-                                      ?>
-                                      <a href="<?=base_index();?>satuan-packing/tambah" class="btn btn-primary "><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
-                                      <?php
-                                          }
-                                      }
-                                  }
-                                ?>
-                            </div><!-- /.box-header -->
                             <div class="box-body table-responsive">
                                 <div class="row">
                                     <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
@@ -43,9 +37,9 @@
                         <table id="dtb_satuan_packing" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                  <th>No</th>
-                                  <th>satuan packing</th>
-                                  <th>Action</th>
+                                  <th><?=erp_h('common_no','No');?></th>
+                                  <th><?=erp_h('master_term_satuan_packing','Packing Unit');?></th>
+                                  <th><?=erp_h('common_action','Action');?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,7 +62,7 @@
                   $edit ="";
               }
             if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/satuan_packing/satuan_packing_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_satuan_packing"><i class="fa fa-trash"></i></button>';
+                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/satuan_packing/satuan_packing_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="'.erp_attr('common_delete','Delete').'" data-variable="dtb_satuan_packing"><i class="fa fa-trash"></i></button>';
             } else {
                 $del="";
             }
@@ -85,7 +79,7 @@
       var dtb_satuan_packing = $("#dtb_satuan_packing").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
             var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>satuan-packing/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
+            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>satuan-packing/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="<?=erp_attr('common_detail','Detail');?>"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
               $(nRow).attr('id', 'line_'+aData[indek]);
               },
               "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -93,7 +87,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text: ERPKB_LANG.common_export_data || 'Export Data',
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

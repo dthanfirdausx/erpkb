@@ -27,10 +27,10 @@ if ($q->rowCount()==0) {
         <form role="form">
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor BC 1.1</label>
+              <label for="exampleInputEmail1"><?=customs_h('bc11_number','Nomor BC 1.1');?></label>
                <div class="row">
                  <div class="col-md-6">
-                   <input type="text" class="form-control col-md-6" id="NOMOR_BC11" value="<?= $data_header->nomorBc11 ?>" placeholder="Nomor BC 1.1" onkeyup="save_data(this.value,'nomorBc11',$('#ID').val(),'ws_header','id_header')" >
+                   <input type="text" class="form-control col-md-6" id="NOMOR_BC11" value="<?= $data_header->nomorBc11 ?>" placeholder="<?=customs_h('bc11_number','Nomor BC 1.1');?>" onkeyup="save_data(this.value,'nomorBc11',$('#ID').val(),'ws_header','id_header')" >
                  </div>
                  <div class="col-md-6">
                    <input type="text"  class="form-control col-md-6 tgl" id="TANGGAL_BC11" value="<?= date("Y-m-d", strtotime($data_header->tanggalBc11)) ?>" placeholder="Tanggal BC 1.1"  onchange="save_data(this.value,'tanggalBc11',$('#ID').val(),'ws_header','id_header')" autocomplete="off" >
@@ -38,7 +38,7 @@ if ($q->rowCount()==0) {
                </div>  
             </div>
             <div class="form-group"> 
-              <label for="exampleInputEmail1">Nomor Pos</label>
+              <label for="exampleInputEmail1"><?=customs_h('post_number','Nomor Pos');?></label>
                <div class="row">
                  <div class="col-md-4">
                    <input type="text" class="form-control" id="POS_BC11" value="<?= $data_header->posBc11 ?>" placeholder="Pos BC 1.1" onkeyup="save_data(this.value,'posBc11',$('#ID').val(),'ws_header','id_header')">
@@ -91,7 +91,7 @@ if ($q->rowCount()==0) {
               </select>
             </div>
              <div class="form-group">
-              <label for="kantor">Tanggal Perkiraan Ekspor</label>
+              <label for="kantor"><?=customs_h('estimated_export_date','Tanggal Perkiraan Ekspor');?></label>
               <input type="text" onchange="save_data(this.value,'tanggalPerkiraanEkspor',$('#ID').val(),'ws_header','id_header')" value="<?= $data_header->tanggalPerkiraanEkspor ?>" name="tanggalPerkiraanEkspor" id="tanggalPerkiraanEkspor" class="form-control tgl" autocomplete="off"> 
     
             </div>
@@ -123,7 +123,7 @@ if ($q->rowCount()==0) {
               </select> 
             </div> 
              <div class="form-group">
-              <label for="kantor">Tanggal Periksa</label>
+              <label for="kantor"><?=customs_h('inspection_date','Tanggal Periksa');?></label>
               <input type="text" onchange="save_data(this.value,'tanggalPeriksa',$('#ID').val(),'ws_header','id_header')" name="tanggalPeriksa" value="<?= $data_header->tanggalPeriksa ?>" id="tanggalPeriksa" class="form-control tgl" autocomplete="off"> 
      
             </div>
@@ -154,7 +154,7 @@ if ($q->rowCount()==0) {
                <tr>
                  <th>Seri</th>
                  <th>Nama Sarana Angkut</th>
-                 <th>Nomor Pengangkut</th>
+                 <th><?=customs_h('carrier_number','Nomor Pengangkut');?></th>
                  <th>Cara Pengangkutan</th>
                  <th>Kode Bendera</th>
                </tr>
@@ -234,7 +234,7 @@ if ($q->rowCount()==0) {
                             </div>
                           </div>
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Nomor Voy/Flight/No.Pol </label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('voy_flight_police_no','Nomor Voy/Flight/No.Pol');?> </label>
                             <div class="col-lg-9">
                               <input type="text" name="nomorPengangkut" onkeyup="save_data(this.value,'nomorPengangkut',$('#id_pengangkut').val(),'ws_pengangkut','id_pengangkut')" id="nomorPengangkut" class="form-control">
                             </div>

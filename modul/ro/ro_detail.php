@@ -1,9 +1,10 @@
+<?php $ro_menu_url = uri_segment(1); ?>
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>RO</h1>
                    <ol class="breadcrumb">
                         <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>ro">RO</a></li>
+                        <li><a href="<?=base_index().$ro_menu_url;?>">RO</a></li>
                         <li class="active">Detail RO</li>
                     </ol>
                 </section>
@@ -150,7 +151,7 @@
           
                         
                       </form>
-                      <a href="<?=base_index();?>ro" class="btn btn-success "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
+                      <a href="<?=base_index().$ro_menu_url;?>" class="btn btn-success "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
 
                         </div>
                       </div>

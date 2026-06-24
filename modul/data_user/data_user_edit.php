@@ -1,6 +1,7 @@
 <?php
 include "../../inc/config.php";
 $data_edit = $db->fetch_single_row("sys_users","id",$_POST['id_data']);
+$data_user_photo_url = erpkb_user_photo_url($data_edit->foto_user, 'data_user');
 ?>
   <style type="text/css"> .datepicker {z-index: 1200 !important; } </style>
    <div class="alert alert-danger error_data" style="display:none">
@@ -48,7 +49,7 @@ $data_edit = $db->fetch_single_row("sys_users","id",$_POST['id_data']);
                         <div class="col-lg-10">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                             <img src="../../../../upload/data_user/<?=$data_edit->foto_user?>">
+                             <img src="<?=$data_user_photo_url;?>" style="max-width:100%;max-height:140px;">
                             </div>
                             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                             <div>

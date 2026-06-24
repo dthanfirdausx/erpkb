@@ -1,6 +1,29 @@
 <?php
 include "../../inc/config.php";
 
+$where = " where lower(trim(coalesce(log_aktifitas.user, ''))) != 'guest'
+             and trim(coalesce(log_aktifitas.user, '')) != ''";
+$params = array();
+
+$startDate = isset($_POST['start_date']) ? trim($_POST['start_date']) : '';
+$endDate = isset($_POST['end_date']) ? trim($_POST['end_date']) : '';
+$filterUser = isset($_POST['filter_user']) ? trim($_POST['filter_user']) : '';
+
+if ($startDate !== '') {
+  $where .= " and date(log_aktifitas.tgl) >= ?";
+  $params[] = $startDate;
+}
+
+if ($endDate !== '') {
+  $where .= " and date(log_aktifitas.tgl) <= ?";
+  $params[] = $endDate;
+}
+
+if ($filterUser !== '') {
+  $where .= " and log_aktifitas.user = ?";
+  $params[] = $filterUser;
+}
+
 $columns = array(
     'log_aktifitas.deskripsi',
     'log_aktifitas.user',
@@ -15,7 +38,7 @@ $columns = array(
   $datatable->set_numbering_status(1);
 
   //set order by column
-  $datatable->set_order_by("log_aktifitas.id");
+  $datatable->set_order_by("log_aktifitas.tgl");
 
   //set order by type
   $datatable->set_order_type("desc");
@@ -23,7 +46,13 @@ $columns = array(
   //set group by column
   //$new_table->group_by = "group by log_aktifitas.id";
 
-  $query = $datatable->get_custom("select log_aktifitas.deskripsi,log_aktifitas.user,log_aktifitas.tgl,log_aktifitas.id from log_aktifitas",$columns);
+  $query = $datatable->get_custom(
+    "select log_aktifitas.deskripsi,log_aktifitas.user,log_aktifitas.tgl,log_aktifitas.id
+     from log_aktifitas
+     $where",
+    $columns,
+    $params
+  );
 
   //buat inisialisasi array data
   $data = array();

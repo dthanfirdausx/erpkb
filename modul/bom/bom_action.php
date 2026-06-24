@@ -1,221 +1,132 @@
 <?php
-session_start();
+if (!function_exists('prod_t')) {
+  function prod_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('prod_h')) {
+  function prod_h($key, $fallback = '') { return htmlspecialchars((string) prod_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('prod_js')) {
+  function prod_js($key, $fallback = '') { return json_encode(prod_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+if(session_status()===PHP_SESSION_NONE)session_start();
 include "../../inc/config.php";
-include "../../inc/excel/php-excel-reader/excel_reader2.php";
-include "../../inc/excel/SpreadsheetReader.php";
 session_check_json();
-switch ($_GET["act"]) {
- 
-  case "import_bom": 
-  error_reporting(0);
-   unlink("../../upload/import_data/".$_FILES['fileupload']['name']);
-   move_uploaded_file($_FILES['fileupload']['tmp_name'], "../../upload/import_data/".$_FILES['fileupload']['name']);
-   $Reader = new SpreadsheetReader("../../upload/import_data/".$_FILES['fileupload']['name']); 
-  $Sheets = $Reader->Sheets(); 
-  $data = array();
-  $no=1;
-  //echo "<pre>"; 
-  $sukses=0; 
-  $duplikat=0; 
-  $val = array(); 
-  $ada_data = 0;
-  $db->query("truncate bom_upload_tmp"); 
-  $q = $db->query("show columns from bom_upload_tmp");
-  foreach ($q as $k) {
-     $kol[] = $k->Field;
-  }
-  // unset($kol[0]);
-  // unset($kol[35]);
-  $datax = array(); 
-  $kolom = implode(',', $kol);
-  $query_insert = "insert into bom_upload_tmp ($kolom) values ";
- 
- // $data_detail  = array();
-   foreach ($Sheets as $Index => $Name)
-  {
-    //echo "$Index,";
-    $Reader->ChangeSheet($Index);
-    if ($Index==0) {
-      $mulai = false;
-      
-      $i=0; 
-     // $dat = array();
-     // print_r($Reader);
-      foreach ($Reader as $r)  
-      {
-        // $dat = array();
-       // print_r($r);
 
-        if (count($r)>0 && $r[1]!='' && $i>0) {
-          $x=0; 
-           foreach ($r as $kk => $vv) {    
-            if ($kk<=4) {
-               $dat[$x] = "'".addslashes($vv)."'"; 
-               $x++;
-            }
-            
-          }
-         // print_r($r);
-        }
-        //unset($dat); 
-        $i++;
-         // if ($r[0]!='') {
-          
-         // }
-        //print_r($dat);
-        if (isset($dat)) {
-         $datax[] = "(".implode(",", $dat).")"; 
-        }
-        unset($dat); 
-      } 
-    //  if (count($dat)>1) {  
-        
-    //   }
-      
-        //$isi = implode(",", $datax);
-  }
+function bomj($s,$m='',$x=array()){header('Content-Type: application/json');$p=array('status'=>$s);if($m!=='')$p['error_message']=$m;foreach($x as $k=>$v)$p[$k]=$v;echo json_encode($p);exit;}
+function bomh($v){return htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');}
+function bomn($v,$d=5){return number_format((float)$v,$d,',','.');}
+function bomq($v){return (float)str_replace(',','.',trim((string)$v));}
+function bom_next_no(){global $db;$prefix='BOM'.date('Ym');$r=$db->fetch("SELECT bom_no FROM bom WHERE bom_no LIKE ? ORDER BY bom_no DESC LIMIT 1",array($prefix.'%'));$n=1;if($r&&preg_match('/(\d{5})$/',$r->bom_no,$m))$n=(int)$m[1]+1;return $prefix.sprintf('%05d',$n);}
+function bom_item($code){global $db;return $db->fetch("SELECT kd_barang,nm_barang,satuan,type FROM barang WHERE kd_barang=? LIMIT 1",array($code));}
+function bom_plant($code){global $db;return $db->fetch("SELECT id,plant_code,plant_name FROM erp_plant WHERE plant_code=? AND status='Aktif' LIMIT 1",array($code));}
+function bom_storage($code,$plantId=null){global $db;if($code==='')return null;$p=array($code);$w=" WHERE storage_code=? AND status='Aktif' ";if($plantId){$w.=" AND plant_id=? ";$p[]=$plantId;}return $db->fetch("SELECT id,storage_code,storage_name FROM erp_storage_location $w LIMIT 1",$p);}
+function bom_filters_get(){return array('from'=>isset($_GET['tgl_awal'])&&$_GET['tgl_awal']!==''?$_GET['tgl_awal']:date('Y-m-01'),'to'=>isset($_GET['tgl_akhir'])&&$_GET['tgl_akhir']!==''?$_GET['tgl_akhir']:date('Y-m-t'),'status'=>isset($_GET['status'])?trim($_GET['status']):'','usage'=>isset($_GET['usage'])?trim($_GET['usage']):'','plant'=>isset($_GET['plant'])?trim($_GET['plant']):'','keyword'=>isset($_GET['keyword'])?trim($_GET['keyword']):'');}
+function bom_where($f,&$p){$w=" WHERE COALESCE(h.valid_from,DATE(h.tgl_input),CURDATE()) BETWEEN ? AND ? ";$p[]=$f['from'];$p[]=$f['to'];if($f['status']!==''){$w.=" AND COALESCE(h.bom_status,CASE WHEN COALESCE(h.status,1)=1 THEN 'RELEASED' ELSE 'INACTIVE' END)=? ";$p[]=$f['status'];}if($f['usage']!==''){$w.=" AND h.bom_usage=? ";$p[]=$f['usage'];}if($f['plant']!==''){$w.=" AND h.plant_code=? ";$p[]=$f['plant'];}if($f['keyword']!==''){$kw='%'.$f['keyword'].'%';$w.=" AND (h.bom_no LIKE ? OR h.kodebj LIKE ? OR h.nm_barang LIKE ? OR h.revision LIKE ? OR h.change_number LIKE ? OR d.kodebb LIKE ? OR d.nm_barang LIKE ?) ";for($i=0;$i<7;$i++)$p[]=$kw;}return $w;}
+function bom_validate_loop($parent,$components){foreach($components as $c){if(trim($c)===$parent)return false;}return true;}
+function bom_excel_value($sheet,$col,$row){$v=$sheet->getCell($col.$row)->getValue();if($v instanceof PHPExcel_RichText)$v=$v->getPlainText();return trim((string)$v);}
+function bom_excel_date_value($sheet,$col,$row){$cell=$sheet->getCell($col.$row);$v=$cell->getValue();if($v===''||$v===null)return '';if(PHPExcel_Shared_Date::isDateTime($cell)&&is_numeric($v))return date('Y-m-d',PHPExcel_Shared_Date::ExcelToPHP($v));$v=trim((string)$v);$ts=strtotime($v);return $ts?date('Y-m-d',$ts):$v;}
+function bom_bool_yn($v){$v=strtoupper(trim((string)$v));return in_array($v,array('Y','YES','YA','1','TRUE'),true)?'Y':'N';}
+function bom_item_category($v){$v=strtoupper(trim((string)$v));return in_array($v,array('STOCK','NON_STOCK','TEXT','DOCUMENT'),true)?$v:'STOCK';}
+
+$act=isset($_GET['act'])?$_GET['act']:'';
+$username=isset($_SESSION['username'])?$_SESSION['username']:'system';
+
+switch($act){
+  case 'next_no':
+    bomj('good','',array('bom_no'=>bom_next_no()));
+    break;
+
+  case 'material_search':
+    $term=isset($_POST['term'])?trim($_POST['term']):'';$kw='%'.$term.'%';
+    $rows=$db->query("SELECT kd_barang,nm_barang,satuan,type FROM barang WHERE COALESCE(status,1)=1 AND (?='' OR kd_barang LIKE ? OR nm_barang LIKE ?) ORDER BY kd_barang LIMIT 30",array($term,$kw,$kw));
+    $res=array();foreach($rows as $r)$res[]=array('id'=>$r->kd_barang,'text'=>$r->kd_barang.' - '.$r->nm_barang,'material_name'=>$r->nm_barang,'uom'=>$r->satuan,'material_type'=>$r->type);
+    echo json_encode(array('results'=>$res));break;
+
+  case 'get':
+    $id=(int)$_POST['id'];$h=$db->fetch("SELECT * FROM bom WHERE id=? LIMIT 1",array($id));if(!$h)bomj('error','BOM tidak ditemukan.');
+    $rows=$db->query("SELECT *,kodebb component_code,nm_barang component_name,COALESCE(component_qty,jumlah) component_qty,COALESCE(component_uom,satuan) component_uom FROM bom_detail WHERE id_bom=? ORDER BY COALESCE(line_no,id),id",array($id));$lines=array();foreach($rows as $r)$lines[]=(array)$r;
+    bomj('good','',array('header'=>(array)$h,'lines'=>$lines));break;
+
+  case 'save':
+    $id=isset($_POST['id'])?(int)$_POST['id']:0;$mat=isset($_POST['kodebj'])?trim($_POST['kodebj']):'';$validFrom=isset($_POST['valid_from'])?trim($_POST['valid_from']):'';$baseQty=isset($_POST['base_qty'])?bomq($_POST['base_qty']):0;$components=isset($_POST['component_code'])?(array)$_POST['component_code']:array();
+    if($mat==='')bomj('error','Material FG/SFG wajib diisi.');if($validFrom==='')bomj('error','Valid From wajib diisi.');if($baseQty<=0)bomj('error','Base Qty wajib lebih dari 0.');if(empty($components))bomj('error','Minimal satu component wajib diisi.');if(!bom_validate_loop($mat,$components))bomj('error','Component tidak boleh sama dengan material header.');
+    $item=bom_item($mat);if(!$item)bomj('error','Material header tidak ditemukan di master barang.');$plantId=isset($_POST['plant_id'])&&$_POST['plant_id']!==''?(int)$_POST['plant_id']:null;$plantCode=isset($_POST['plant_code'])?trim($_POST['plant_code']):'';$db->query('START TRANSACTION');
+    if($id>0){$old=$db->fetch("SELECT * FROM bom WHERE id=? LIMIT 1",array($id));if(!$old){$db->query('ROLLBACK');bomj('error','BOM tidak ditemukan.');}if(($old->bom_status?:'DRAFT')!=='DRAFT'){$db->query('ROLLBACK');bomj('error','Hanya BOM DRAFT yang bisa diedit.');}$bomNo=$old->bom_no?:('BOM'.str_pad($old->id,6,'0',STR_PAD_LEFT));$ok=$db->update('bom',array('bom_no'=>$bomNo,'kodebj'=>$mat,'nm_barang'=>$item->nm_barang,'satuan'=>$item->satuan,'jumlah'=>$baseQty,'bom_usage'=>$_POST['bom_usage'],'plant_id'=>$plantId,'plant_code'=>$plantCode,'alternative_bom'=>$_POST['alternative_bom']?:'01','valid_from'=>$validFrom,'valid_to'=>$_POST['valid_to'],'base_qty'=>$baseQty,'base_uom'=>$_POST['base_uom']?:$item->satuan,'revision'=>$_POST['revision'],'change_number'=>$_POST['change_number'],'lot_size_from'=>$_POST['lot_size_from']!==''?bomq($_POST['lot_size_from']):null,'lot_size_to'=>$_POST['lot_size_to']!==''?bomq($_POST['lot_size_to']):null,'remarks'=>$_POST['remarks'],'status'=>1,'updated_by'=>$username,'updated_at'=>date('Y-m-d H:i:s')),'id',$id);$db->query("DELETE FROM bom_detail WHERE id_bom=?",array($id));}
+    else{$bomNo=bom_next_no();$ok=$db->insert('bom',array('bom_no'=>$bomNo,'kodebj'=>$mat,'nm_barang'=>$item->nm_barang,'satuan'=>$item->satuan,'jumlah'=>$baseQty,'bom_usage'=>$_POST['bom_usage'],'plant_id'=>$plantId,'plant_code'=>$plantCode,'alternative_bom'=>$_POST['alternative_bom']?:'01','valid_from'=>$validFrom,'valid_to'=>$_POST['valid_to'],'base_qty'=>$baseQty,'base_uom'=>$_POST['base_uom']?:$item->satuan,'bom_status'=>'DRAFT','revision'=>$_POST['revision'],'change_number'=>$_POST['change_number'],'lot_size_from'=>$_POST['lot_size_from']!==''?bomq($_POST['lot_size_from']):null,'lot_size_to'=>$_POST['lot_size_to']!==''?bomq($_POST['lot_size_to']):null,'remarks'=>$_POST['remarks'],'status'=>1,'tgl_input'=>date('Y-m-d H:i:s'),'user_id'=>$username,'created_by'=>$username,'created_at'=>date('Y-m-d H:i:s'),'updated_by'=>$username,'updated_at'=>date('Y-m-d H:i:s')));$id=$db->last_insert_id();}
+    if(!$ok){$e=$db->getErrorMessage();$db->query('ROLLBACK');bomj('error',$e?:'Header BOM gagal disimpan.');}
+    $lineCount=0;$seen=array();foreach($components as $i=>$c){$c=trim($c);$qty=isset($_POST['component_qty'][$i])?bomq($_POST['component_qty'][$i]):0;if($c===''||$qty<=0)continue;if(isset($seen[$c])){$db->query('ROLLBACK');bomj('error','Duplicate component '.$c.' tidak diperbolehkan dalam satu BOM.');}$seen[$c]=1;$ci=bom_item($c);$lineNo=isset($_POST['line_no'][$i])&&$_POST['line_no'][$i]!==''?(int)$_POST['line_no'][$i]:(($i+1)*10);$uom=isset($_POST['component_uom'][$i])&&$_POST['component_uom'][$i]!==''?$_POST['component_uom'][$i]:($ci?$ci->satuan:'');$data=array('id_bom'=>$id,'line_no'=>$lineNo,'kodebb'=>$c,'nm_barang'=>isset($_POST['component_name'][$i])&&$_POST['component_name'][$i]!==''?$_POST['component_name'][$i]:($ci?$ci->nm_barang:''),'item_category'=>$_POST['item_category'][$i]?:'STOCK','component_qty'=>$qty,'component_uom'=>$uom,'satuan'=>$uom,'jumlah'=>$qty,'scrap_percent'=>isset($_POST['scrap_percent'][$i])?bomq($_POST['scrap_percent'][$i]):0,'fixed_qty'=>$_POST['fixed_qty'][$i]==='Y'?'Y':'N','phantom_item'=>$_POST['phantom_item'][$i]==='Y'?'Y':'N','backflush'=>$_POST['backflush'][$i]==='Y'?'Y':'N','operation_no'=>$_POST['operation_no'][$i],'storage_location_id'=>$_POST['storage_location_id'][$i]!==''?(int)$_POST['storage_location_id'][$i]:null,'storage_location'=>$_POST['storage_location'][$i],'alternative_group'=>$_POST['alternative_group'][$i],'priority'=>$_POST['priority'][$i]!==''?(int)$_POST['priority'][$i]:null,'valid_from'=>$validFrom,'valid_to'=>$_POST['valid_to'],'issue_status'=>'ACTIVE','remarks'=>$_POST['line_remarks'][$i],'status'=>'1','tgl_input'=>date('Y-m-d H:i:s'),'user_id'=>$username);if(!$db->insert('bom_detail',$data)){$e=$db->getErrorMessage();$db->query('ROLLBACK');bomj('error',$e?:'Detail BOM gagal disimpan.');}$lineCount++;}
+    if($lineCount<=0){$db->query('ROLLBACK');bomj('error','Minimal satu component valid wajib diisi.');}if(function_exists('simpan_log'))simpan_log('User '.$username.' menyimpan BOM '.$bomNo.' untuk material '.$mat.' dengan '.$lineCount.' komponen pada '.date('Y-m-d H:i:s'),$username);$db->query('COMMIT');bomj('good','',array('id'=>$id,'bom_no'=>$bomNo));break;
+
+  case 'release':
+    $id=(int)$_POST['id'];$h=$db->fetch("SELECT * FROM bom WHERE id=? LIMIT 1",array($id));if(!$h)bomj('error','BOM tidak ditemukan.');if(($h->bom_status?:'DRAFT')!=='DRAFT')bomj('error','Hanya DRAFT yang bisa release.');$cnt=$db->fetch("SELECT COUNT(*) jml FROM bom_detail WHERE id_bom=? AND COALESCE(issue_status,'ACTIVE')='ACTIVE'",array($id));if(!$cnt||(int)$cnt->jml<=0)bomj('error','BOM tidak punya component aktif.');$db->query("UPDATE bom SET bom_status='RELEASED',status=1,released_by=?,released_at=NOW(),updated_by=?,updated_at=NOW() WHERE id=?",array($username,$username,$id));if(function_exists('simpan_log'))simpan_log('User '.$username.' release BOM '.($h->bom_no?:$h->kodebj),$username);bomj('good');break;
+
+  case 'inactive':
+    $id=(int)$_POST['id'];$reason=isset($_POST['reason'])?trim($_POST['reason']):'';if($reason==='')bomj('error','Reason inactive wajib diisi.');$h=$db->fetch("SELECT * FROM bom WHERE id=? LIMIT 1",array($id));if(!$h)bomj('error','BOM tidak ditemukan.');if(($h->bom_status?:'DRAFT')!=='RELEASED')bomj('error','Hanya RELEASED yang bisa inactive.');$db->query("UPDATE bom SET bom_status='INACTIVE',status=0,cancel_reason=?,updated_by=?,updated_at=NOW() WHERE id=?",array($reason,$username,$id));if(function_exists('simpan_log'))simpan_log('User '.$username.' inactive BOM '.($h->bom_no?:$h->kodebj).' alasan '.$reason,$username);bomj('good');break;
+
+  case 'delete':
+    $id=(int)$_POST['id'];$h=$db->fetch("SELECT * FROM bom WHERE id=? LIMIT 1",array($id));if(!$h)bomj('error','BOM tidak ditemukan.');if(($h->bom_status?:'DRAFT')!=='DRAFT')bomj('error','Hanya DRAFT yang bisa delete.');$db->query('START TRANSACTION');$db->query("DELETE FROM bom_detail WHERE id_bom=?",array($id));$db->delete('bom','id',$id);$db->query('COMMIT');if(function_exists('simpan_log'))simpan_log('User '.$username.' delete draft BOM '.($h->bom_no?:$h->kodebj),$username);bomj('good');break;
+
+  case 'detail':
+    $id=(int)$_POST['id'];$h=$db->fetch("SELECT * FROM bom WHERE id=? LIMIT 1",array($id));if(!$h){echo '<div class="alert alert-warning">BOM tidak ditemukan.</div>';break;}$d=$db->query("SELECT * FROM bom_detail WHERE id_bom=? ORDER BY COALESCE(line_no,id),id",array($id));$status=$h->bom_status?:((int)$h->status===1?'RELEASED':'INACTIVE');echo '<h3 style="margin-top:0">'.bomh($h->bom_no?:('BOM'.str_pad($h->id,6,'0',STR_PAD_LEFT))).' <small>'.bomh($h->bom_usage.' / Alt '.$h->alternative_bom).'</small></h3><div class="row"><div class="col-sm-3"><strong>Material</strong><br>'.bomh($h->kodebj.' - '.$h->nm_barang).'</div><div class="col-sm-2"><strong>Plant</strong><br>'.bomh($h->plant_code?:'All Plant').'</div><div class="col-sm-2"><strong>Validity</strong><br>'.bomh(($h->valid_from?:'-').' s/d '.($h->valid_to?:'Open')).'</div><div class="col-sm-2"><strong>Base Qty</strong><br>'.bomn($h->base_qty?:$h->jumlah).' '.bomh($h->base_uom?:$h->satuan).'</div><div class="col-sm-3"><strong>Status</strong><br>'.bomh($status.' / Rev '.($h->revision?:'-')).'</div></div><hr><div class="table-responsive"><table class="table table-bordered table-condensed"><thead><tr class="bg-gray"><th>Line</th><th>Component</th><th>Item Cat</th><th class="text-right">Qty</th><th>UOM</th><th class="text-right">Scrap %</th><th>Fixed</th><th>Phantom</th><th>Backflush</th><th>Operation</th><th>Storage</th><th>Alt/Priority</th><th>Remarks</th></tr></thead><tbody>';foreach($d as $r)echo '<tr><td>'.(int)$r->line_no.'</td><td><strong>'.bomh($r->kodebb).'</strong><br><small>'.bomh($r->nm_barang).'</small></td><td>'.bomh($r->item_category).'</td><td class="text-right">'.bomn($r->component_qty?:$r->jumlah).'</td><td>'.bomh($r->component_uom?:$r->satuan).'</td><td class="text-right">'.bomn($r->scrap_percent,4).'</td><td>'.bomh($r->fixed_qty).'</td><td>'.bomh($r->phantom_item).'</td><td>'.bomh($r->backflush).'</td><td>'.bomh($r->operation_no).'</td><td>'.bomh($r->storage_location).'</td><td>'.bomh($r->alternative_group.' / '.$r->priority).'</td><td>'.bomh($r->remarks).'</td></tr>';echo '</tbody></table></div>';break;
+
+  case 'template':
+    $initial=ob_get_level();ob_start();error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED);require_once "../../inc/lib/PHPExcel.php";require_once "../../inc/excel_style_helper.php";PHPExcel_Shared_File::setUseUploadTempDirectory(true);
+    $excel=new PHPExcel();$sheet=$excel->setActiveSheetIndex(0);$sheet->setTitle(erp_export_sheet_title('BOM Import'));
+    $heads=array(erp_export_label("FG Material Code*"),erp_export_label("Plant Code*"),erp_export_label("BOM Usage"),erp_export_label("Alternative BOM"),erp_export_label("Valid From*"),erp_export_label("Valid To"),erp_export_label("Base Qty*"),erp_export_label("Revision"),erp_export_label("Change Number"),erp_export_label("Lot Size From"),erp_export_label("Lot Size To"),erp_export_label("Header Remarks"),erp_export_label("Line No"),erp_export_label("Component Code*"),erp_export_label("Item Category"),erp_export_label("Component Qty*"),erp_export_label("Scrap %"),erp_export_label("Fixed Qty Y/N"),erp_export_label("Phantom Item Y/N"),erp_export_label("Backflush Y/N"),erp_export_label("Operation No"),erp_export_label("Storage Location Code"),erp_export_label("Alternative Group"),erp_export_label("Priority"),erp_export_label("Line Remarks"));
+    foreach($heads as $i=>$v)$sheet->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i).'4',$v);
+    $samples=array(
+      array('BJ00040','PL01','PRODUCTION','01',date('Y-m-d'),'','1','','','','','Contoh BOM import','10','BB00020','STOCK','2','0','N','N','N','0010','','','','Komponen pertama'),
+      array('BJ00040','PL01','PRODUCTION','01',date('Y-m-d'),'','1','','','','','Contoh BOM import','20','BB00019','STOCK','1.5','1','N','N','Y','0010','','','','Komponen kedua')
+    );
+    $r=5;foreach($samples as $row){foreach($row as $i=>$v)$sheet->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i).$r,$v);$r++;}
+    erpkb_excel_apply_standard_style($excel,array('sheet'=>$sheet,'title'=>erp_export_title('BOM IMPORT TEMPLATE - SAP PP'),'header_row'=>4,'first_data_row'=>5,'last_data_row'=>6,'column_count'=>25,'numeric_columns'=>array('G','J','K','P','Q'),'filters'=>array('Catatan'=>'Kolom header merah wajib diisi. Satu baris = satu komponen. BOM No otomatis.')));
+    $mandatoryCols=array('A','B','E','G','N','P');
+    foreach($mandatoryCols as $col){$sheet->getStyle($col.'4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('DC2626');$sheet->getStyle($col.'4')->getFont()->setBold(true)->getColor()->setRGB('FFFFFF');$sheet->getStyle($col.'4')->getBorders()->getOutline()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM)->getColor()->setRGB('7F1D1D');}
+    $sheet->setCellValue('A3','Kolom merah = wajib diisi. Kolom lain opsional/default. Jangan isi BOM No karena dibuat otomatis oleh sistem.');
+    $sheet->getStyle('A3:Y3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FEE2E2');
+    $sheet->getStyle('A3:Y3')->getFont()->setBold(true)->getColor()->setRGB('991B1B');
+    $note=$excel->createSheet(1);$note->setTitle(erp_export_sheet_title('Petunjuk'));$note->setCellValue('A1','Petunjuk Import BOM');$note->setCellValue('A3','1. Kolom header berwarna merah adalah mandatory/wajib diisi.');$note->setCellValue('A4','2. Satu baris mewakili satu component BOM. Header BOM diulang untuk setiap component.');$note->setCellValue('A5','3. Kombinasi FG Material + Plant + Usage + Alternative + Valid From menjadi satu BOM.');$note->setCellValue('A6','4. Import akan membuat BOM DRAFT baru, atau mengganti detail BOM DRAFT yang sama. BOM RELEASED tidak akan ditimpa.');$note->setCellValue('A7','5. Item Category: STOCK, NON_STOCK, TEXT, DOCUMENT. Y/N untuk Fixed, Phantom, Backflush.');$note->setCellValue('A8','6. BOM No otomatis dari sistem, tidak perlu diisi di template.');
+    $note->getStyle('A1')->getFont()->setBold(true)->setSize(14);$note->getColumnDimension('A')->setWidth(120);
+    $excel->setActiveSheetIndex(0);$tmp=erpkb_excel_temp_file('template_bom_import_');PHPExcel_IOFactory::createWriter($excel,'Excel2007')->save($tmp);$size=@filesize($tmp);$sig=@file_get_contents($tmp,false,null,0,2);if(!$size||$sig!=='PK'){@unlink($tmp);while(ob_get_level()>$initial)ob_end_clean();header('Content-Type:text/plain; charset=utf-8');echo 'Template Excel gagal dibuat.';exit;}while(ob_get_level()>$initial)ob_end_clean();header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');header('Content-Disposition: attachment; filename="template_import_bom_sap.xlsx"');header('Content-Length: '.$size);header('Cache-Control: max-age=0');header('Pragma: public');readfile($tmp);@unlink($tmp);exit;
+
+  case 'import':
+    error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED);require_once "../../inc/lib/PHPExcel.php";
+    if(empty($_FILES['file_excel']['tmp_name']))bomj('error','File Excel wajib dipilih.');
+    $ext=strtolower(pathinfo($_FILES['file_excel']['name'],PATHINFO_EXTENSION));if(!in_array($ext,array('xls','xlsx'),true))bomj('error','Format file harus .xls atau .xlsx.');
+    $dir='../../upload/import_data';if(!is_dir($dir))@mkdir($dir,0777,true);$upload=$dir.'/bom_import_'.date('Ymd_His').'_'.preg_replace('/[^a-zA-Z0-9_.-]/','_',$_FILES['file_excel']['name']);if(!move_uploaded_file($_FILES['file_excel']['tmp_name'],$upload)){if(PHP_SAPI==='cli'){if(!@copy($_FILES['file_excel']['tmp_name'],$upload))bomj('error','File gagal diupload.');}else bomj('error','File gagal diupload.');}
+    try{$excel=PHPExcel_IOFactory::load($upload);}catch(Exception $e){@unlink($upload);bomj('error','File Excel tidak bisa dibaca: '.$e->getMessage());}
+    $sheet=$excel->getSheet(0);$highest=$sheet->getHighestRow();$groups=array();$errors=array();
+    for($r=5;$r<=$highest;$r++){
+      $fg=bom_excel_value($sheet,'A',$r);$plantCode=bom_excel_value($sheet,'B',$r);$component=bom_excel_value($sheet,'N',$r);
+      if($fg===''&&$plantCode===''&&$component==='')continue;
+      $usage=strtoupper(bom_excel_value($sheet,'C',$r)?:'PRODUCTION');$alt=bom_excel_value($sheet,'D',$r)?:'01';$validFrom=bom_excel_date_value($sheet,'E',$r);$validTo=bom_excel_date_value($sheet,'F',$r);$baseQty=bomq(bom_excel_value($sheet,'G',$r));$qty=bomq(bom_excel_value($sheet,'P',$r));
+      if($fg==='')$errors[]='Row '.$r.': FG Material Code wajib diisi.';if($plantCode==='')$errors[]='Row '.$r.': Plant Code wajib diisi.';if($validFrom==='')$errors[]='Row '.$r.': Valid From wajib diisi.';if($baseQty<=0)$errors[]='Row '.$r.': Base Qty wajib lebih dari 0.';if($component==='')$errors[]='Row '.$r.': Component Code wajib diisi.';if($qty<=0)$errors[]='Row '.$r.': Component Qty wajib lebih dari 0.';if($fg!==''&&$component!==''&&$fg===$component)$errors[]='Row '.$r.': Component tidak boleh sama dengan FG Material.';
+      $fgItem=$fg!==''?bom_item($fg):null;$compItem=$component!==''?bom_item($component):null;$plant=$plantCode!==''?bom_plant($plantCode):null;if($fg!==''&&!$fgItem)$errors[]='Row '.$r.': FG Material '.$fg.' tidak ditemukan.';if($component!==''&&!$compItem)$errors[]='Row '.$r.': Component '.$component.' tidak ditemukan.';if($plantCode!==''&&!$plant)$errors[]='Row '.$r.': Plant '.$plantCode.' tidak ditemukan / nonaktif.';
+      $storageCode=bom_excel_value($sheet,'V',$r);$storage=null;if($storageCode!==''&&$plant){$storage=bom_storage($storageCode,$plant->id);if(!$storage)$errors[]='Row '.$r.': Storage Location '.$storageCode.' tidak ditemukan di plant '.$plantCode.'.';}
+      if(!empty($errors)&&count($errors)>=30)break;
+      $key=$fg.'|'.$plantCode.'|'.$usage.'|'.$alt.'|'.$validFrom;
+      if(!isset($groups[$key]))$groups[$key]=array('fg'=>$fg,'fg_item'=>$fgItem,'plant'=>$plant,'plant_code'=>$plantCode,'usage'=>$usage,'alt'=>$alt,'valid_from'=>$validFrom,'valid_to'=>$validTo,'base_qty'=>$baseQty,'revision'=>bom_excel_value($sheet,'H',$r),'change_number'=>bom_excel_value($sheet,'I',$r),'lot_from'=>bom_excel_value($sheet,'J',$r),'lot_to'=>bom_excel_value($sheet,'K',$r),'remarks'=>bom_excel_value($sheet,'L',$r),'lines'=>array(),'components'=>array());
+      if(isset($groups[$key]['components'][$component]))$errors[]='Row '.$r.': Duplicate component '.$component.' dalam BOM '.$fg.'.';
+      $groups[$key]['components'][$component]=1;
+      $groups[$key]['lines'][]=array('row'=>$r,'line_no'=>bom_excel_value($sheet,'M',$r)?:((count($groups[$key]['lines'])+1)*10),'component'=>$component,'component_item'=>$compItem,'item_category'=>bom_item_category(bom_excel_value($sheet,'O',$r)),'qty'=>$qty,'scrap'=>bomq(bom_excel_value($sheet,'Q',$r)),'fixed'=>bom_bool_yn(bom_excel_value($sheet,'R',$r)),'phantom'=>bom_bool_yn(bom_excel_value($sheet,'S',$r)),'backflush'=>bom_bool_yn(bom_excel_value($sheet,'T',$r)),'operation'=>bom_excel_value($sheet,'U',$r)?:'0010','storage'=>$storage,'storage_code'=>$storageCode,'alt_group'=>bom_excel_value($sheet,'W',$r),'priority'=>bom_excel_value($sheet,'X',$r),'remarks'=>bom_excel_value($sheet,'Y',$r));
+    }
+    if(empty($groups)){$errors[]='Tidak ada data BOM yang bisa diimport.';}if(!empty($errors)){@unlink($upload);bomj('error',implode('<br>',array_slice($errors,0,30)));}
+    $created=0;$updated=0;$lineTotal=0;$db->query('START TRANSACTION');
+    foreach($groups as $g){
+      $released=$db->fetch("SELECT bom_no FROM bom WHERE kodebj=? AND plant_code=? AND bom_usage=? AND alternative_bom=? AND valid_from=? AND bom_status='RELEASED' LIMIT 1",array($g['fg'],$g['plant_code'],$g['usage'],$g['alt'],$g['valid_from']));
+      if($released){$db->query('ROLLBACK');@unlink($upload);bomj('error','BOM '.$released->bom_no.' sudah RELEASED untuk '.$g['fg'].' / '.$g['plant_code'].' / alt '.$g['alt'].'. Import tidak boleh menimpa BOM released.');}
+      $draft=$db->fetch("SELECT * FROM bom WHERE kodebj=? AND plant_code=? AND bom_usage=? AND alternative_bom=? AND valid_from=? AND bom_status='DRAFT' LIMIT 1",array($g['fg'],$g['plant_code'],$g['usage'],$g['alt'],$g['valid_from']));
+      if($draft){$bomId=$draft->id;$bomNo=$draft->bom_no;$ok=$db->update('bom',array('kodebj'=>$g['fg'],'nm_barang'=>$g['fg_item']->nm_barang,'satuan'=>$g['fg_item']->satuan,'jumlah'=>$g['base_qty'],'bom_usage'=>$g['usage'],'plant_id'=>$g['plant']->id,'plant_code'=>$g['plant_code'],'alternative_bom'=>$g['alt'],'valid_from'=>$g['valid_from'],'valid_to'=>$g['valid_to'],'base_qty'=>$g['base_qty'],'base_uom'=>$g['fg_item']->satuan,'revision'=>$g['revision'],'change_number'=>$g['change_number'],'lot_size_from'=>$g['lot_from']!==''?bomq($g['lot_from']):null,'lot_size_to'=>$g['lot_to']!==''?bomq($g['lot_to']):null,'remarks'=>$g['remarks'],'status'=>1,'updated_by'=>$username,'updated_at'=>date('Y-m-d H:i:s')),'id',$bomId);$db->query("DELETE FROM bom_detail WHERE id_bom=?",array($bomId));$updated++;}
+      else{$bomNo=bom_next_no();$ok=$db->insert('bom',array('bom_no'=>$bomNo,'kodebj'=>$g['fg'],'nm_barang'=>$g['fg_item']->nm_barang,'satuan'=>$g['fg_item']->satuan,'jumlah'=>$g['base_qty'],'bom_usage'=>$g['usage'],'plant_id'=>$g['plant']->id,'plant_code'=>$g['plant_code'],'alternative_bom'=>$g['alt'],'valid_from'=>$g['valid_from'],'valid_to'=>$g['valid_to'],'base_qty'=>$g['base_qty'],'base_uom'=>$g['fg_item']->satuan,'bom_status'=>'DRAFT','revision'=>$g['revision'],'change_number'=>$g['change_number'],'lot_size_from'=>$g['lot_from']!==''?bomq($g['lot_from']):null,'lot_size_to'=>$g['lot_to']!==''?bomq($g['lot_to']):null,'remarks'=>$g['remarks'],'status'=>1,'tgl_input'=>date('Y-m-d H:i:s'),'user_id'=>$username,'created_by'=>$username,'created_at'=>date('Y-m-d H:i:s'),'updated_by'=>$username,'updated_at'=>date('Y-m-d H:i:s')));$bomId=$db->last_insert_id();$created++;}
+      if(!$ok){$e=$db->getErrorMessage();$db->query('ROLLBACK');@unlink($upload);bomj('error',$e?:'Header import BOM gagal disimpan.');}
+      foreach($g['lines'] as $ln){$uom=$ln['component_item']->satuan;$data=array('id_bom'=>$bomId,'line_no'=>(int)$ln['line_no'],'kodebb'=>$ln['component'],'nm_barang'=>$ln['component_item']->nm_barang,'item_category'=>$ln['item_category'],'component_qty'=>$ln['qty'],'component_uom'=>$uom,'satuan'=>$uom,'jumlah'=>$ln['qty'],'scrap_percent'=>$ln['scrap'],'fixed_qty'=>$ln['fixed'],'phantom_item'=>$ln['phantom'],'backflush'=>$ln['backflush'],'operation_no'=>$ln['operation'],'storage_location_id'=>$ln['storage']?$ln['storage']->id:null,'storage_location'=>$ln['storage_code'],'alternative_group'=>$ln['alt_group'],'priority'=>$ln['priority']!==''?(int)$ln['priority']:null,'valid_from'=>$g['valid_from'],'valid_to'=>$g['valid_to'],'issue_status'=>'ACTIVE','remarks'=>$ln['remarks'],'status'=>'1','tgl_input'=>date('Y-m-d H:i:s'),'user_id'=>$username);if(!$db->insert('bom_detail',$data)){$e=$db->getErrorMessage();$db->query('ROLLBACK');@unlink($upload);bomj('error',$e?:'Detail import BOM gagal disimpan.');}$lineTotal++;}
+    }
+    if(function_exists('simpan_log'))simpan_log('User '.$username.' import BOM Excel: '.$created.' dibuat, '.$updated.' diupdate, '.$lineTotal.' komponen pada '.date('Y-m-d H:i:s'),$username);
+    $db->query('COMMIT');@unlink($upload);bomj('good','',array('message'=>'Import BOM berhasil. '.$created.' BOM dibuat, '.$updated.' BOM draft diupdate, '.$lineTotal.' komponen diproses.'));break;
+
+  case 'excel':
+    $initial=ob_get_level();ob_start();error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED);require_once "../../inc/lib/PHPExcel.php";require_once "../../inc/excel_style_helper.php";PHPExcel_Shared_File::setUseUploadTempDirectory(true);$f=bom_filters_get();$p=array();$w=bom_where($f,$p);$rows=$db->query("SELECT h.bom_no,h.kodebj,h.nm_barang,h.plant_code,h.bom_usage,h.alternative_bom,h.valid_from,h.valid_to,h.base_qty,h.base_uom,h.bom_status,h.revision,h.change_number,h.lot_size_from,h.lot_size_to,h.remarks header_remarks,d.line_no,d.kodebb,d.nm_barang component_name,d.item_category,d.component_qty,d.component_uom,d.scrap_percent,d.fixed_qty,d.phantom_item,d.backflush,d.operation_no,d.storage_location,d.alternative_group,d.priority,d.remarks line_remarks FROM bom h JOIN bom_detail d ON d.id_bom=h.id $w ORDER BY h.kodebj,h.plant_code,h.alternative_bom,d.line_no",$p);$excel=new PHPExcel();$sheet=$excel->setActiveSheetIndex(0);$sheet->setTitle(erp_export_sheet_title('BOM'));$heads=array(erp_export_label("No"),erp_export_label("BOM No"),erp_export_label("FG/SFG"),erp_export_label("Material Name"),erp_export_label("Plant"),erp_export_label("Usage"),erp_export_label("Alt"),erp_export_label("Valid From"),erp_export_label("Valid To"),erp_export_label("Base Qty"),erp_export_label("Base UOM"),erp_export_label("Status"),erp_export_label("Revision"),erp_export_label("Change No"),erp_export_label("Lot From"),erp_export_label("Lot To"),erp_export_label("Header Remarks"),erp_export_label("Line"),erp_export_label("Component"),erp_export_label("Component Name"),erp_export_label("Item Category"),erp_export_label("Component Qty"),erp_export_label("UOM"),erp_export_label("Scrap %"),erp_export_label("Fixed"),erp_export_label("Phantom"),erp_export_label("Backflush"),erp_export_label("Operation"),erp_export_label("Storage Location"),erp_export_label("Alt Group"),erp_export_label("Priority"),erp_export_label("Line Remarks"));foreach($heads as $i=>$v)$sheet->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i).'4',$v);$r=5;$n=1;foreach($rows as $row){$vals=array($n++,$row->bom_no,$row->kodebj,$row->nm_barang,$row->plant_code,$row->bom_usage,$row->alternative_bom,$row->valid_from,$row->valid_to,(float)$row->base_qty,$row->base_uom,$row->bom_status,$row->revision,$row->change_number,(float)$row->lot_size_from,(float)$row->lot_size_to,$row->header_remarks,(int)$row->line_no,$row->kodebb,$row->component_name,$row->item_category,(float)$row->component_qty,$row->component_uom,(float)$row->scrap_percent,$row->fixed_qty,$row->phantom_item,$row->backflush,$row->operation_no,$row->storage_location,$row->alternative_group,$row->priority,$row->line_remarks);foreach($vals as $i=>$v)$sheet->setCellValue(PHPExcel_Cell::stringFromColumnIndex($i).$r,$v);$r++;}erpkb_excel_apply_standard_style($excel,array('sheet'=>$sheet,'title'=>erp_export_title('BILL OF MATERIAL REPORT - SAP PP'),'header_row'=>4,'first_data_row'=>5,'last_data_row'=>max(5,$r-1),'column_count'=>32,'numeric_columns'=>array('J','V'),'decimal_columns'=>array('O','P','X'),'filters'=>array('Valid From'=>$f['from'].' s/d '.$f['to'],'Usage'=>$f['usage'],'Status'=>$f['status'],'Plant'=>$f['plant'],'Keyword'=>$f['keyword'])));$tmp=erpkb_excel_temp_file('bom_');PHPExcel_IOFactory::createWriter($excel,'Excel2007')->save($tmp);$size=@filesize($tmp);$sig=@file_get_contents($tmp,false,null,0,2);if(!$size||$sig!=='PK'){@unlink($tmp);while(ob_get_level()>$initial)ob_end_clean();header('Content-Type:text/plain; charset=utf-8');echo erp_t('export_excel_invalid_file','File Excel gagal dibuat dengan benar.');exit;}while(ob_get_level()>$initial)ob_end_clean();header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');header('Content-Disposition: attachment; filename="bom_'.date('Ymd_His').'.xlsx"');header('Content-Length: '.$size);header('Cache-Control: max-age=0');header('Pragma: public');readfile($tmp);@unlink($tmp);exit;
+
+  default:bomj('error','Action tidak dikenal.');
 }
- $isi = implode(",", $datax);
- $query_insert .= $isi;
- $db->query($query_insert);
-// echo "$query_insert";
- $db->query("update bom_upload_tmp set qty=replace(qty,',','.')");
- // $q = $db->query("select bb.brg_jadi,b.kodebj from bom_upload_tmp bb right join bom b on b.kodebj=bb.brg_jadi group by bb.brg_jadi")
-  $q = $db->query("select bb.kode_brg_jadi,b.kodebj,b.id as id_bom,ba.nm_barang,ba.kd_kategori,ba.satuan from bom_upload_tmp bb 
-                   left join bom b on b.kodebj=bb.kode_brg_jadi join barang ba on ba.kd_barang=bb.kode_brg_jadi 
-                   group by bb.kode_brg_jadi "); 
-    foreach ($q as $k) {
-      if ($k->kodebj!='') {
-         $db->query("delete from bom_detail where id_bom='$k->id_bom'  "); 
-         $qq = $db->query("select b.kode_bahan_baku,b.qty,ba.nm_barang,ba.satuan 
-                       from bom_upload_tmp b join barang ba on ba.kd_barang=b.kode_bahan_baku  
-                       where b.kode_brg_jadi='$k->kode_brg_jadi' ");
-         foreach ($qq as $kk) {
-         //  $qb = $db->query("select * from bom_detail id_bom='$k->id_bom' and and kodebb='$kk->kd_bahan_baku'  ")
-         $data_detail = array('id_bom' => $k->id_bom ,  
-                          'kodebb' => $kk->kode_bahan_baku,
-                          'nm_barang' => $kk->nm_barang,
-                          'satuan' => $kk->satuan,
-                          'jumlah' => $kk->qty,
-                          'baru'   => '1'
-                    ); 
-         $db->insert("bom_detail",$data_detail); 
-       }
-      }else{ 
-        //kodebj  nm_barang satuan  jumlah  status  tgl_input
-        $data_bom = array('kodebj' => $k->kode_brg_jadi ,
-                          'nm_barang' => $k->nm_barang,
-                          'satuan' => $k->satuan,
-                          'jumlah' => '1',
-                          'status' => '1',
-                          'tgl_input' => date("Y-m-d H:i:s") );
-        $db->insert("bom",$data_bom);
-        $id_bom = $db->last_insert_id();
-        $db->query("delete from bom_detail where id_bom='$id_bom'  "); 
-        $qq = $db->query("select b.kode_bahan_baku,b.qty,ba.nm_barang,ba.satuan 
-                       from bom_upload_tmp b join barang ba on ba.kd_barang=b.kode_bahan_baku  
-                       where b.kode_brg_jadi='$k->kode_brg_jadi' ");
-        foreach ($qq as $kk) {
-           $data_detail = array('id_bom' => $id_bom ,  
-                          'kodebb' => $kk->kode_bahan_baku,
-                          'nm_barang' => $kk->nm_barang,
-                          'satuan' => $kk->satuan,
-                          'jumlah' => $kk->qty,
-                          'baru'   => '1'
-                    ); 
-           $db->insert("bom_detail",$data_detail);
-        }
-        
-      }    
-    }
-  
-  // else{
-  //   $q = $db->query("select kd_barang,nm_barang from barang where kd_barang='$' ")
-  // }
-  
-
- $res['pesan'] = "Data Sukses Di Import";
- echo json_encode($res);
-    break;
-
-  case "in":
-    
-  
-  
-  
-  $data = array(
-      "kodebj" => $_POST["kodebj"],
-      "nm_barang" => $_POST["nm_barang"],
-      "satuan" => $_POST["satuan"],
-      "jumlah" => $_POST["jumlah"],
-      'tgl_input' => date("Y-m-d H:i:s"),
-      'user_id' => $_SESSION['username']
-  );
-  $in = $db->insert("bom",$data);
-  $id_bom = $db->last_insert_id();
-  $db->query("delete from bom_detail where id_bom='$id_bom' ");
-  $no=1;
-  foreach ($_POST['kode'] as $key => $value) {
-     $data_detail = array('id_bom' => $id_bom , 
-                          'kodebb' => $_POST['kode_input'][$key],
-                          'jumlah' => $_POST['qty'][$key],
-                          'status' => $_POST['ket'][$key],
-                          'tgl_input' => date("Y-m-d H:i:s"),
-                          'user_id' => $_SESSION['username']);
-     $db->insert("bom_detail",$data_detail);
-  }
- 
-    action_response($db->getErrorMessage());
-    break;
-  case "delete":
-    
-    
-    
-    $db->delete("bom","id",$_GET["id"]);
-    action_response($db->getErrorMessage());
-    break;
-   case "del_massal":
-    $data_ids = $_REQUEST["data_ids"];
-    $data_id_array = explode(",", $data_ids);
-    if(!empty($data_id_array)) {
-        foreach($data_id_array as $id) {
-          $db->delete("bom","id",$id);
-         }
-    }
-    action_response($db->getErrorMessage());
-    break;
-  case "up":
-    
-   $data = array(
-      "kodebj" => $_POST["kodebj"],
-      "nm_barang" => $_POST["nm_barang"],
-      "satuan" => $_POST["satuan"], 
-      "jumlah" => $_POST["jumlah"],
-   );
-    $up = $db->update("bom",$data,"id",$_POST["id"]);
-    $id_bom = $_POST["id"];
-    $db->query("delete from bom_detail where id_bom='$id_bom' ");
-    $no=1; 
-    foreach ($_POST['kode'] as $key => $value) {
-       $data_detail = array('id_bom' => $id_bom , 
-                            'kodebb' => $_POST['kode_input'][$key],
-                            'jumlah' => $_POST['qty'][$key],
-                            'status' => $_POST['ket'][$key],
-                            'tgl_input' => date("Y-m-d H:i:s"),
-                            'user_id' => $_SESSION['username']);
-       $db->insert("bom_detail",$data_detail);
-       //print_r($data_detail); 
-     //  echo $db->last_insert_id();
-    }
-
-    
-  
-    
-    action_response($db->getErrorMessage());
-    break;
-  default:
-    # code...
-    break;
-}
-
 ?>

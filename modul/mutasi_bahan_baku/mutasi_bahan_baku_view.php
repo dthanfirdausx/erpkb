@@ -1,362 +1,171 @@
-<!-- Content Header (Page header) -->
-              <!--   <section class="content-header">
-                    <h1>
-                        Mutasi Bahan Baku
-                    </h1>
-                        <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>mutasi-bahan-baku">Mutasi Bahan Baku</a></li>
-                        <li class="active">Mutasi Bahan Baku List</li>
-                    </ol>
-                </section> -->
+<?php
+$defaultFrom = isset($tgl_awal) && $tgl_awal ? $tgl_awal : date('Y-m-01');
+$defaultTo = isset($tgl_akhir) && $tgl_akhir ? $tgl_akhir : date('Y-m-d');
+$materials = iterator_to_array($db->query("SELECT kd_barang,nm_barang,satuan FROM barang WHERE kd_kategori='K01' AND COALESCE(status,1)=1 ORDER BY kd_barang LIMIT 500"));
+$plants = iterator_to_array($db->query("SELECT id,plant_code,plant_name FROM erp_plant WHERE status='Aktif' ORDER BY plant_code"));
+$storageLocations = iterator_to_array($db->query("SELECT s.id,s.plant_id,s.storage_code,s.storage_name,p.plant_code FROM erp_storage_location s LEFT JOIN erp_plant p ON p.id=s.plant_id WHERE s.status='Aktif' ORDER BY p.plant_code,s.storage_code"));
+$storageBins = iterator_to_array($db->query("SELECT b.id,b.storage_location_id,b.bin_code,b.bin_name,s.storage_code FROM erp_storage_bin b LEFT JOIN erp_storage_location s ON s.id=b.storage_location_id WHERE b.status='Aktif' ORDER BY s.storage_code,b.bin_code"));
+$summary = $db->fetch("
+  SELECT
+    (SELECT COUNT(*) FROM barang WHERE kd_kategori='K01') AS material_count,
+    (SELECT COALESCE(SUM(sl.qty_sisa),0) FROM stock_layer sl JOIN barang b ON b.kd_barang=sl.kode WHERE b.kd_kategori='K01' AND sl.qty_sisa>0) AS current_stock,
+    (SELECT COUNT(DISTINCT dt.no_ref) FROM detail_transaksi dt JOIN barang b ON b.kd_barang=dt.kd_barang WHERE b.kd_kategori='K01' AND dt.document_date BETWEEN ? AND ?) AS movement_docs,
+    (SELECT COALESCE(SUM(ABS(dt.qty)),0) FROM detail_transaksi dt JOIN barang b ON b.kd_barang=dt.kd_barang WHERE b.kd_kategori='K01' AND dt.document_date BETWEEN ? AND ? AND (dt.direction='OUT' OR dt.qty<0 OR dt.move_code IN ('102','122','201','221','261','262','551','601','602'))) AS qty_out
+", array($defaultFrom.' 00:00:00',$defaultTo.' 23:59:59',$defaultFrom.' 00:00:00',$defaultTo.' 23:59:59'));
+function mbb_view_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+?>
+<style>
+.mbb-hero{background:linear-gradient(135deg,#0f766e,#334155);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 10px 24px rgba(15,23,42,.18)}
+.mbb-hero h1{margin:0 0 6px;font-size:26px;font-weight:700}.mbb-hero p{margin:0;opacity:.92}
+.mbb-kpi{border-radius:12px;background:#fff;border:1px solid #e5edf5;padding:15px;margin-bottom:14px;box-shadow:0 4px 14px rgba(15,23,42,.05)}
+.mbb-kpi span{display:block;color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.mbb-kpi strong{display:block;font-size:23px;margin-top:6px;color:#111827}
+.mbb-kpi i{float:right;font-size:26px;color:#0f766e;opacity:.55}.mbb-filter .form-group{margin-bottom:12px}.select2-container{width:100%!important}
+#dtb_mutasi_bahan_baku th,#dtb_mutasi_bahan_baku td{font-size:12px;vertical-align:middle!important}
+#dtb_mutasi_bahan_baku thead th{background:#f8fafc;color:#1f2937;text-align:center;border-color:#d8e2ec!important}
+#dtb_mutasi_bahan_baku thead tr:first-child th{background:#fff7ed!important;font-weight:700}
+#dtb_mutasi_bahan_baku thead tr:nth-child(2) th{background:#fff!important;color:#475569;font-weight:600}
+.mbb-official-title{text-align:center;margin:10px 0 55px;color:#111827;font-family:"Times New Roman",serif;line-height:1.25}
+.mbb-official-title h3{margin:0;font-size:16px;font-weight:800;text-transform:uppercase}.mbb-official-title .subtitle{font-size:16px;font-weight:800;text-transform:uppercase}
+.mbb-table-wrap{border:1px solid #d8e2ec;border-radius:10px;overflow:hidden;background:#fff}
+.mbb-number{text-align:right}.mbb-center{text-align:center}.mbb-detail-link{font-weight:700;text-decoration:underline;color:#0f766e}.mbb-help{font-size:12px;color:#64748b;margin-top:5px}
+</style>
 
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                            <div class="box-header">
-                             <form id="input_pemasukan_hamparan" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=in">                   
-                              
-                                <div class="form-group">
-                                    <label for="Tanggal BPB" class="control-label col-lg-2">Tanggal </label>
-                                    <div class="col-lg-2" style="float: left">
-                                      <div class="input-group date" id="tgl1">
-                                          <input type="text" class="form-control" id="tgl_awal" value="<?= $tgl_awal ?>" placeholder="tanggal awal" name="tgl1" autocomplete="off"   />
-                                          <span class="input-group-addon">
-                                              <span class="glyphicon glyphicon-calendar"></span>
-                                          </span>
-                                      </div> 
-                                    </div>  
-                                
-                                     <div class="col-lg-2">
-                                      <div class="input-group date" id="tgl2">
-                                          <input type="text" class="form-control" id="tgl_akhir" placeholder="tanggal akhir" name="tgl2" autocomplete="off"   value="<?= $tgl_akhir ?>" />
-                                          <span class="input-group-addon">
-                                              <span class="glyphicon glyphicon-calendar"></span>
-                                          </span>
-                                      </div> 
-                                    </div>
-                                </div><!-- /.form-group -->
-                       
-                                 <div class="form-group">
-                                  <label for="tags" class="control-label col-lg-2">&nbsp;</label>
-                                  <div class="col-lg-10">
+<section class="content-header">
+  <h1><?=customs_h('mutation_raw_material','Mutasi Bahan Baku');?> <small><?=customs_h('stock_movement','Customs Stock Movement');?></small></h1>
+  <ol class="breadcrumb">
+    <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+    <li><a href="<?=base_index();?>mutasi-bahan-baku"><?=customs_h('report','Customs Report');?></a></li>
+    <li class="active"><?=customs_h('mutation_raw_material','Mutasi Bahan Baku');?></li>
+  </ol>
+</section>
 
-                                   <a class="btn btn-primary" onclick="filter()"><i class="fa fa-gear"></i> Filter</a>
-                             
-                                  </div>
-                                </div><!-- /.form-group -->
+<section class="content">
+  <div class="mbb-hero">
+    <div class="row">
+      <div class="col-md-8">
+        <h1><?=customs_h('mutation_raw_material','Mutasi Bahan Baku');?></h1>
+        <p>Ringkasan saldo awal, pemasukan, pengeluaran, penyesuaian, dan saldo akhir bahan baku berdasarkan alur inventory terbaru: material document, stock layer, plant, storage location, bin, dan stock type.</p>
+      </div>
+      <div class="col-md-4 text-right"><span class="label label-primary"><?=customs_h('read_only_report','Read Only Customs Report');?></span></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"><div class="mbb-kpi"><i class="fa fa-cubes"></i><span><?=customs_h('raw_materials','Material BB');?></span><strong><?=number_format((float)$summary->material_count,0,',','.');?></strong></div></div>
+    <div class="col-sm-3"><div class="mbb-kpi"><i class="fa fa-archive"></i><span><?=customs_h('current_stock','Stock Saat Ini');?></span><strong><?=number_format((float)$summary->current_stock,2,',','.');?></strong></div></div>
+    <div class="col-sm-3"><div class="mbb-kpi"><i class="fa fa-file-text-o"></i><span><?=customs_h('movement_documents','Dokumen Mutasi');?></span><strong><?=number_format((float)$summary->movement_docs,0,',','.');?></strong></div></div>
+    <div class="col-sm-3"><div class="mbb-kpi"><i class="fa fa-arrow-up"></i><span><?=customs_h('period_outgoing_qty','Qty Keluar Periode');?></span><strong><?=number_format((float)$summary->qty_out,2,',','.');?></strong></div></div>
+  </div>
 
-                              </form>
-                            </div><!-- /.box-header -->
-                            <div class="box-body table-responsive">
-                                <div class="row">
-                                    <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
-                                    <button id="select_all" class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> <?php echo $lang["select_all"];?></button>
-                                    <button id="deselect_all" class="btn btn-primary btn-xs"><i class="fa fa-remove"></i> <?php echo $lang["deselect_all"];?></button>
-                                    <button id="bulk_delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> <?php echo $lang["delete_selected"];?></button> <span class="selected-data"></span>
-                            </div>
-                            </div>
- <div class="alert alert-warning fade in error_data_delete" style="display:none">
-          <button type="button" class="close hide_alert_notif">&times;</button>
-          <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
+  <div class="box">
+    <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-filter"></i> <?=customs_h('filter_raw_material_mutation','Filter Mutasi Bahan Baku');?></h3></div>
+    <div class="box-body">
+      <form class="form-horizontal mbb-filter" onsubmit="return false;">
+        <div class="form-group">
+          <label class="control-label col-lg-2"><?=customs_h('period','Periode');?></label>
+          <div class="col-lg-2"><div class="input-group date mbb-date"><input type="text" class="form-control" id="tgl_awal" value="<?=mbb_view_h($defaultFrom);?>" autocomplete="off"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div>
+          <div class="col-lg-2"><div class="input-group date mbb-date"><input type="text" class="form-control" id="tgl_akhir" value="<?=mbb_view_h($defaultTo);?>" autocomplete="off"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div>
+          <label class="control-label col-lg-1"><?=customs_h('material','Material');?></label>
+          <div class="col-lg-5"><select id="filter_material" class="form-control"><option value=""><?=customs_h('all_raw_materials','Semua Bahan Baku');?></option><?php foreach($materials as $m){ ?><option value="<?=mbb_view_h($m->kd_barang);?>"><?=mbb_view_h($m->kd_barang.' - '.$m->nm_barang.' | '.$m->satuan);?></option><?php } ?></select><div class="mbb-help"><?=customs_h('blank_for_all_raw_materials','Kosongkan untuk semua bahan baku.');?></div></div>
         </div>
-                        <table id="dtb_mutasi_bahan_baku" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th>No</th>
-                                  <th>Kode</th>
-                                  <th>Nama Barang</th>
-                                 <!--  <th>HS Code</th> -->
-                                  <th>Satuan</th>
-                                  <th>Saldo Awal</th>
-                                  <th>Pemasukan</th>
-                                  <th>Pengeluaran</th>
-                                  <th>Penyesuaian</th>
-                                  <th>Saldo AKhir</th>
-                                  <th>Stock Opname</th>
-                                  <th>Selisih</th>
-                                  <th>Ket</th>
-                                 <!--  <th>Userid</th> -->
-                                 <!--  <th>Action</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-                </div>
-              </div>
-              <div class="modal modal_detail" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document" style="width: 90%">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Detail</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Modal body text goes here.</p>
-                    </div>
-                    <div class="modal-footer">
-                    <!--   <button type="button" class="btn btn-primary">Save changes</button> -->
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        <?php
+        <div class="form-group">
+          <label class="control-label col-lg-2"><?=customs_h('plant','Plant');?></label>
+          <div class="col-lg-2"><select id="filter_plant" class="form-control"><option value="">Semua Plant</option><?php foreach($plants as $p){ ?><option value="<?=intval($p->id);?>"><?=mbb_view_h($p->plant_code.' - '.$p->plant_name);?></option><?php } ?></select></div>
+          <label class="control-label col-lg-2"><?=customs_h('storage_location','Storage Location');?></label>
+          <div class="col-lg-2"><select id="filter_storage_location" class="form-control"><option value="">Semua SLoc</option><?php foreach($storageLocations as $s){ ?><option value="<?=intval($s->id);?>" data-plant-id="<?=intval($s->plant_id);?>"><?=mbb_view_h($s->plant_code.' / '.$s->storage_code.' - '.$s->storage_name);?></option><?php } ?></select></div>
+          <label class="control-label col-lg-1"><?=customs_h('storage_bin','Storage Bin');?></label>
+          <div class="col-lg-3"><select id="filter_storage_bin" class="form-control"><option value="">Semua Bin</option><?php foreach($storageBins as $b){ ?><option value="<?=intval($b->id);?>" data-storage-location-id="<?=intval($b->storage_location_id);?>"><?=mbb_view_h($b->storage_code.' / '.$b->bin_code.' - '.$b->bin_name);?></option><?php } ?></select></div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-lg-2"><?=customs_h('stock_type','Stock Type');?></label>
+          <div class="col-lg-2"><select id="filter_stock_type" class="form-control"><option value="">Semua</option><option value="UNRESTRICTED">Unrestricted</option><option value="QUALITY">Quality Inspection</option><option value="BLOCKED">Blocked</option></select></div>
+          <label class="control-label col-lg-2"><?=customs_h('search','Search');?></label>
+          <div class="col-lg-4"><input type="text" id="filter_keyword" class="form-control" placeholder="<?=customs_h('search_material_doc','Kode/nama material, dokumen, AJU, BPB, remark');?>"></div>
+          <div class="col-lg-2"><button type="button" class="btn btn-primary" id="btn_filter_mbb"><i class="fa fa-filter"></i> <?=customs_h('filter','Filter');?></button> <button type="button" class="btn btn-success" id="btn_excel_mbb"><i class="fa fa-file-excel-o"></i> <?=customs_h('excel','Excel');?></button> <button type="button" class="btn btn-default" id="btn_reset_mbb"><i class="fa fa-refresh"></i></button></div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-            foreach ($db->fetch_all("sys_menu") as $isi) {
+  <div class="box">
+    <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-list"></i> <?=customs_h('mutation_raw_material','Mutasi Bahan Baku');?></h3></div>
+    <div class="box-body">
+      <div class="alert alert-warning fade in error_data_delete" style="display:none"><button type="button" class="close hide_alert_notif">&times;</button><i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span></div>
+      <div class="mbb-official-title">
+       
+        <div class="subtitle">LAPORAN PERTANGGUNGJAWABAN MUTASI BAHAN BAKU DAN BAHAN PENOLONG</div>
+        <div class="subtitle">KAWASAN BERIKAT <?=mbb_view_h(defined('namaPT') ? namaPT : (defined('shortTittle') ? shortTittle : 'NAMA_PT'));?></div>
+        <div class="subtitle">PERIODE: <span id="mbb_period_from"><?=mbb_view_h($defaultFrom);?></span> SD <span id="mbb_period_to"><?=mbb_view_h($defaultTo);?></span></div>
+      </div>
+      <div class="table-responsive mbb-table-wrap">
+        <table id="dtb_mutasi_bahan_baku" class="table table-bordered table-striped table-condensed" style="width:100%">
+          <thead>
+            <tr>
+              <th><?=customs_h('no','No');?></th>
+              <th><?=customs_h('material_code','KODE BARANG');?></th>
+              <th><?=customs_h('material_name','NAMA BARANG');?></th>
+              <th><?=customs_h('uom','SAT');?></th>
+              <th><?=customs_h('beginning_balance','SALDO AWAL');?><br>....(7)....</th>
+              <th><?=customs_h('incoming','PEMASUKAN');?></th>
+              <th><?=customs_h('outgoing','PENGELUARAN');?></th>
+              <th><?=customs_h('adjustment','PENYESUAIAN');?><br>(ADJUSTMENT)</th>
+              <th><?=customs_h('ending_balance','SALDO AKHIR');?><br>....(12)....</th>
+              <th><?=customs_h('stock_opname','STOCK OPNAME');?><br>....(14)....</th>
+              <th><?=customs_h('difference','SELISIH');?></th>
+              <th><?=customs_h('remarks','KETERANGAN');?></th>
+            </tr>
+            <tr>
+              <th>(3)</th>
+              <th>(4)</th>
+              <th>(5)</th>
+              <th>(6)</th>
+              <th>(8)</th>
+              <th>(9)</th>
+              <th>(10)</th>
+              <th>(11)</th>
+              <th>(13)</th>
+              <th>(15)</th>
+              <th>(16)</th>
+              <th>(17)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-            //jika url = url dari table menu
-            if (uri_segment(1)==$isi->url) {
-              //check edit permission
-              if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+' href=".base_index()."mutasi-bahan-baku/edit/'+aData[indek]+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
-              } else {
-                  $edit ="";
-              }
-            if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/mutasi_bahan_baku/mutasi_bahan_baku_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_mutasi_bahan_baku"><i class="fa fa-trash"></i></button>';
-            } else {
-                $del="";
-            }
-                             }
-            }
+  <div id="modal_detail_mbb" class="modal fade">
+    <div class="modal-dialog modal-lg" style="width:96%">
+      <div class="modal-content">
+        <div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title"><?=customs_h('detail_raw_material_mutation','Detail Mutasi Bahan Baku');?></h4></div>
+        <div class="modal-body" id="isi_detail_mbb"></div>
+        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><?=customs_h('close','Close');?></button></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        ?>
-
-    </section><!-- /.content -->
-
-        <script type="text/javascript"> 
-
-       $.ajax({
-        type : 'POST',
-        data : {
-          //kd_barang : kd_barang,
-          tgl_awal  : $("#tgl_awal").val(),
-          tgl_akhir : $("#tgl_akhir").val(),
-         // tabel : tabel
-        },
-        url :'<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_action.php?act=buat_view',
-        success : function(data){
-         
-        }
-     });
-      
-      var dtb_mutasi_bahan_baku = $("#dtb_mutasi_bahan_baku").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-            var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>mutasi-bahan-baku/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
-              "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-           'bProcessing': true,
-            'bServerSide': true,
-            
-           'columnDefs': [ {
-            'targets': [11],
-              'orderable': false,
-              'searchable': false
-            },
-                {
-            'width': '5%',
-            'targets': 0,
-            'orderable': false,
-            'searchable': false,
-            'className': 'dt-center'
-          }
-             ],
-
-    
-            'ajax':{
-              url :'<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_data.php',
-                data:   function ( d ) {
-                    d.tgl_awal = $("#tgl_awal").val();
-                    d.tgl_akhir = $("#tgl_akhir").val();
-                //    d.jenisbc = $("#jenisbc").val();
-                   // d.ket   = $("#ket").val();
-                    
-                  },
-            type: 'post',  // method  , by default get
-            error: function (xhr, error, thrown) {
-            console.log(xhr);
-
-            }
-          },
-        });
-   
-  $('#dtb_mutasi_bahan_baku').on('draw.dt', function() {
-          init_selected()
-      });
-
-      $('#select_all').on('click', function() {
-          select_deselect('select')
-      });
-      $('#deselect_all').on('click', function() {
-          select_deselect('unselect')
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+<script>
+function mbbFilters(){return{tgl_awal:$('#tgl_awal').val(),tgl_akhir:$('#tgl_akhir').val(),material_code:$('#filter_material').val(),plant_id:$('#filter_plant').val(),storage_location_id:$('#filter_storage_location').val(),storage_bin_id:$('#filter_storage_bin').val(),stock_type:$('#filter_stock_type').val(),keyword:$('#filter_keyword').val()};}
+function showMbbError(msg){$('.isi_warning_delete').text(msg||'Data mutasi bahan baku gagal dimuat.');$('.error_data_delete').fadeIn();}
+$(function(){
+  if($.fn.datepicker){$('.mbb-date').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}
+  if($.fn.select2){$('#filter_material,#filter_plant,#filter_storage_location,#filter_storage_bin,#filter_stock_type').select2({width:'100%',allowClear:true});}
+  $('#filter_plant').on('change',function(){var plant=$(this).val();$('#filter_storage_location option').each(function(){var op=$(this),p=op.data('plant-id');op.toggle(!p||!plant||String(p)===String(plant));});if(plant&&$('#filter_storage_location option:selected').data('plant-id')&&String($('#filter_storage_location option:selected').data('plant-id'))!==String(plant))$('#filter_storage_location').val('').trigger('change.select2');});
+  $('#filter_storage_location').on('change',function(){var loc=$(this).val();$('#filter_storage_bin option').each(function(){var op=$(this),l=op.data('storage-location-id');op.toggle(!l||!loc||String(l)===String(loc));});if(loc&&$('#filter_storage_bin option:selected').data('storage-location-id')&&String($('#filter_storage_bin option:selected').data('storage-location-id'))!==String(loc))$('#filter_storage_bin').val('').trigger('change.select2');});
+  var dt=$('#dtb_mutasi_bahan_baku').DataTable({
+    bProcessing:true,bServerSide:true,pageLength:25,
+    dom:"<'row'<'col-sm-12'B>>"+"<'row'<'col-sm-6'l><'col-sm-6'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    buttons:[{extend:'collection',text:'<?=customs_h('export_data','Export Data');?>',buttons:['copyHtml5','excelHtml5','csvHtml5','pdfHtml5']}],
+    columnDefs:[{targets:0,width:'48px',orderable:false,searchable:false,className:'mbb-center'},{targets:[4,5,6,7,8,9,10],className:'mbb-number'}],
+    ajax:{url:'<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_data.php',type:'post',data:function(d){$.extend(d,mbbFilters());},error:function(xhr){console.log(xhr);showMbbError(<?=customs_js('raw_material_mutation_load_failed','Data mutasi bahan baku gagal dimuat.');?>);}}
   });
-
-
-
-  // $(document).on('click', '#dtb_mutasi_bahan_baku tbody tr td', function(event) {
-  //     var btn = $(this).find('button');
-  //     if (btn.length == 0) {
-  //         $(this).parents('tr').toggleClass('DTTT_selected selected');
-  //         var selected = check_selected();
-  //         init_selected();
-
-  //     }
-  // });
-
-  function filter() {
-        $.ajax({
-        type : 'POST',
-        data : {
-          //kd_barang : kd_barang,
-          tgl_awal  : $("#tgl_awal").val(),
-          tgl_akhir : $("#tgl_akhir").val(),
-         // tabel : tabel
-        },
-        url :'<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_action.php?act=buat_view',
-        success : function(data){
-         
-        }
-     });
-      $("#dtb_mutasi_bahan_baku").dataTable().fnDraw(); 
-  }
-
-  function info_detail(kd_barang,ket) {
-     // alert(kd_barang);
-     if (ket=='1') {
-      var tabel = 'vmutasipemasukanbbdetails';
-      $(".modal-title").html("Detail Pemasukan");
-    }else{
-      var tabel = 'vmutasipengeluaranbbdetails';
-      $(".modal-title").html("Detail Pengeluaran");
-    }
-     
-     $.ajax({
-        type : 'POST',
-        data : {
-          kd_barang : kd_barang,
-          tgl_awal  : $("#tgl_awal").val(),
-          tgl_akhir : $("#tgl_akhir").val(),
-          tabel : tabel
-        },
-        url :'<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_action.php?act=show_detail_pemasukan',
-        success : function(data){
-            $(".modal-body").html(data); 
-            $(".modal_detail").modal("show");
-        }
-     })
-  }
-
-
-
-  function init_selected() {
-      var selected = check_selected();
-      var btn_hide = $('#select_all, #deselect_all, #bulk_delete, .selected-data');
-      if (selected.length > 0) {
-          btn_hide.show()
-      } else {
-          btn_hide.hide()
-      }
-  }
-
-
-  function check_selected() {
-      var table_select = $('#dtb_mutasi_bahan_baku tbody tr.selected');
-      var array_data_delete = [];
-      table_select.each(function() {
-          var check_data = $(this).find('.hapus_dtb_notif').attr('data-id');
-          if (typeof check_data != 'undefined') {
-              array_data_delete.push(check_data)
-          }
-      });
-      $('.selected-data').text(array_data_delete.length + ' <?=$lang["selected_data"];?>');
-      return array_data_delete
-  }
-
-
-  function select_deselect(type) {
-      if (type == 'select') {
-          $('#dtb_mutasi_bahan_baku tbody tr').addClass('DTTT_selected selected')
-      } else {
-          $('#dtb_mutasi_bahan_baku tbody tr').removeClass('DTTT_selected selected')
-      }
-      init_selected()
-  }
-
-
-
-
-/* Add a click handler for the delete row */
-  $('#bulk_delete').click( function() {
-    var anSelected = fnGetSelected( dtb_mutasi_bahan_baku );
-    var data_array_id = check_selected();
-    var all_ids = data_array_id.toString();
-    $('#ucing').modal({ keyboard: false }).one('click', '#delete', function (e) {
-        $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_action.php?act=del_massal',
-            data: {data_ids:all_ids},
-               success: function(responseText) {
-                  $('#loadnya').hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=='die') {
-                            $('#informasi').modal('show');
-                          } else if(responseText[index].status=='error') {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          } else if(responseText[index].status=='good') {
-                            $('.error_data_delete').hide();
-                               $('#loadnya').hide();
-                               $(anSelected).remove();
-                               dtb_mutasi_bahan_baku.draw();
-                          } else {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          }
-                    });
-                }
-            //async:false
-        });
-
-        $('#ucing').modal('hide');
-
-    });
-
-  });
-
-  /* Get the rows which are currently selected */
-  function fnGetSelected( oTableLocal )
-  {
-      return oTableLocal.$('tr.selected');
-  }
+  $('#btn_filter_mbb').on('click',function(){$('#mbb_period_from').text($('#tgl_awal').val()||'-');$('#mbb_period_to').text($('#tgl_akhir').val()||'-');dt.draw();});
+  $('#filter_keyword').on('keyup',function(e){if(e.keyCode===13)dt.draw();});
+  $('#btn_excel_mbb').on('click',function(){window.location='<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_action.php?act=excel&'+$.param(mbbFilters());});
+  $('#btn_reset_mbb').on('click',function(){$('#tgl_awal').val('<?=$defaultFrom;?>');$('#tgl_akhir').val('<?=$defaultTo;?>');$('#mbb_period_from').text('<?=$defaultFrom;?>');$('#mbb_period_to').text('<?=$defaultTo;?>');$('#filter_keyword').val('');$('#filter_material,#filter_plant,#filter_storage_location,#filter_storage_bin,#filter_stock_type').val('').trigger('change');dt.draw();});
+  $(document).on('click','.mbb-detail-link',function(){var el=$(this);$('#isi_detail_mbb').html('<div class="text-center text-muted" style="padding:25px"><i class="fa fa-spinner fa-spin"></i> <?=customs_h('loading_detail','Memuat detail...');?></div>');$('#modal_detail_mbb').modal('show');$.post('<?=base_admin();?>modul/mutasi_bahan_baku/mutasi_bahan_baku_action.php?act=show_detail_pemasukan',{kd_barang:el.data('material'),type:el.data('type'),tgl_awal:$('#tgl_awal').val(),tgl_akhir:$('#tgl_akhir').val()},function(html){$('#isi_detail_mbb').html(html);}).fail(function(xhr){$('#isi_detail_mbb').html('<div class="alert alert-danger"><?=customs_h('detail_load_failed','Detail gagal dimuat.');?><br>'+xhr.responseText+'</div>');});});
+  $(document).on('click','.hide_alert_notif',function(){$('.error_data_delete').hide();});
+});
 </script>
-            

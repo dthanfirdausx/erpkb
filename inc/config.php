@@ -1,25 +1,26 @@
 <?php
 ini_set( "display_errors", true );
 date_default_timezone_set('Asia/Jakarta');
-$host = "localhost";
+//$host = "/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock";
+$host = "127.0.0.1";
 $port = 3307;
-$db_username = "root";
-$db_password = "";
-$db_name = "erpkb"; 
-define("user_ws","ceisa_kmi"); 
-define("pass_ws","Kmi25813");  
+$db_username = "dthan";
+$db_password = "realmadrid";
+$db_name = "erpkb";
+define("user_ws","selimpml1");
+define("pass_ws","Pemalang123");
 
 define("namaPT", "PT ABC");
 define("shortTittle", "PT ABC");
 define("appTittle", "IT Inventory Kawasan Berikat");
-define("URL_API", "https://apis-gw.beacukai.go.id");  
-//main directory 
-define( "DIR_MAIN", "erpkb/"); 
+define("URL_API", "https://apis-gw.beacukai.go.id");
+//main directory
+define( "DIR_MAIN", "erpkb/");
 
-define("base_url_akunting", "http://27.123.2.130:8080/"); 
+define("base_url_akunting", "http://27.123.2.130:8080/");
 
 //admin directory
-define( "DIR_ADMIN", "erpkb");  
+define( "DIR_ADMIN", "erpkb");
 
 
 define('DB_CHARACSET', 'utf8');
@@ -41,6 +42,7 @@ $db=new Database($host,$port,$db_username,$db_password,$db_name);
 $pg=New My_pagination($db);
 $datatable=New Dtable($host,$port,$db_username,$db_password,$db_name);
 require_once ('function.php');
+register_module_action_audit($host,$port,$db_username,$db_password,$db_name);
 function handleException( $exception ) {
   echo  $exception->getMessage();
 }
@@ -51,7 +53,7 @@ if (isset($_SESSION['username'])) {
 	$username = $_SESSION['username'];
 }
 $language  = getLangUser($username);
-$_SESSION['language'] = $language; 
+$_SESSION['language'] = $language;
 
 
 require_once ("lang/$language.php");

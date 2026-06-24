@@ -1,38 +1,11 @@
 <?php
-switch (uri_segment(2)) {
-    case "tambah":
-          foreach ($db->fetch_all("sys_menu") as $isi) {
-               if (uri_segment(1)==$isi->url&&uri_segment(2)=="tambah") {
-                          if ($role_act["insert_act"]=="Y") {
-                             include "mrp_add.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
-
-      }
-    break;
-  case "edit":
-    $data_edit = $db->fetch_single_row("mrp","Id",uri_segment(3));
-        foreach ($db->fetch_all("sys_menu") as $isi) {
-                      if (uri_segment(1)==$isi->url&&uri_segment(2)=="edit") {
-                          if ($role_act["up_act"]=="Y") {
-                             include "mrp_edit.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
-
-      }
-
-    break;
-    case "detail":
-    $data_edit = $db->fetch_single_row("mrp","Id",uri_segment(3));
-    include "mrp_detail.php";
-    break;
-    default:
-    include "mrp_view.php";
-    break;
+if (!function_exists('prod_t')) {
+  function prod_t($key, $fallback = '') { return lang_text($key, $fallback); }
 }
-
-?>
+if (!function_exists('prod_h')) {
+  function prod_h($key, $fallback = '') { return htmlspecialchars((string) prod_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('prod_js')) {
+  function prod_js($key, $fallback = '') { return json_encode(prod_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+include "mrp_view.php"; ?>

@@ -14,10 +14,86 @@ class Database {
     private $old_offset = 0;
     private $error_message = '';
 
+    private function recordAuditOperation($operation, $table, $data = array(), $condition = '')
+    {
+        if ($table === 'log_aktifitas') {
+            return;
+        }
+
+        $sensitiveKeys = array(
+            'password', 'passwd', 'pass', 'pwd', 'token', 'secret',
+            'authorization', 'cookie', 'session', 'file', 'foto', 'gambar'
+        );
+        $safeData = array();
+
+        foreach ((array) $data as $key => $value) {
+            if (count($safeData) >= 8 || !is_scalar($value)) {
+                continue;
+            }
+
+            $normalizedKey = strtolower((string) $key);
+            $isSensitive = false;
+            foreach ($sensitiveKeys as $sensitiveKey) {
+                if (strpos($normalizedKey, $sensitiveKey) !== false) {
+                    $isSensitive = true;
+                    break;
+                }
+            }
+
+            if ($isSensitive) {
+                $safeData[$key] = '[disensor]';
+                continue;
+            }
+
+            $safeValue = preg_replace('/\s+/', ' ', trim((string) $value));
+            $safeData[$key] = substr($safeValue, 0, 100);
+        }
+
+        if (!isset($GLOBALS['_module_audit_operations'])) {
+            $GLOBALS['_module_audit_operations'] = array();
+        }
+
+        $GLOBALS['_module_audit_operations'][] = array(
+            'operation' => strtolower($operation),
+            'table' => preg_replace('/[^a-zA-Z0-9_\.]/', '', (string) $table),
+            'data' => $safeData,
+            'condition' => substr(preg_replace('/\s+/', ' ', trim((string) $condition)), 0, 150)
+        );
+    }
+
+    private function normalizeDetailTransaksiData($table, $data)
+    {
+        if (strtolower((string) $table) !== 'detail_transaksi' || !is_array($data)) {
+            return $data;
+        }
+
+        if (empty($data['destination_material_code']) && !empty($data['kd_barang'])) {
+            $data['destination_material_code'] = $data['kd_barang'];
+        }
+
+        $direction = isset($data['direction']) ? strtoupper((string) $data['direction']) : '';
+        if ($direction === 'IN') {
+            if (empty($data['destination_storage_location_id']) && !empty($data['storage_location_id'])) {
+                $data['destination_storage_location_id'] = $data['storage_location_id'];
+            }
+            if (empty($data['destination_storage_bin_id']) && !empty($data['storage_bin_id'])) {
+                $data['destination_storage_bin_id'] = $data['storage_bin_id'];
+            }
+            if (empty($data['destination_stock_type']) && !empty($data['stock_type'])) {
+                $data['destination_stock_type'] = $data['stock_type'];
+            }
+        }
+
+        return $data;
+    }
+
     public function __construct($hostname,$port_number,$username_db,$password_db,$db_name)
     {
         try {
-        $this->pdo = new PDO("mysql:host=".$hostname.";dbname=".$db_name.";port=".$port_number, $username_db, $password_db );
+        $dsn = strpos($hostname, '/') === 0
+            ? "mysql:unix_socket=".$hostname.";dbname=".$db_name
+            : "mysql:host=".$hostname.";dbname=".$db_name.";port=".$port_number;
+        $this->pdo = new PDO($dsn, $username_db, $password_db );
         $this->pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         }
         catch( PDOException $e ) {
@@ -42,6 +118,12 @@ class Database {
                 $sel->execute($dat);
             } else {
                $sel->execute();
+            }
+            if (preg_match('/^\s*(insert\s+into|update|delete\s+from)\s+[`"]?([a-zA-Z0-9_\.]+)/i', $sql, $auditMatch)) {
+                $operation = stripos($auditMatch[1], 'insert') === 0
+                    ? 'insert'
+                    : (stripos($auditMatch[1], 'delete') === 0 ? 'delete' : 'update');
+                $this->recordAuditOperation($operation, $auditMatch[2], (array) $data);
             }
             $sel->setFetchMode( PDO::FETCH_OBJ );
             return $sel;
@@ -365,6 +447,7 @@ class Database {
     */
     public function insert($table,$dat) {
 
+        $dat = $this->normalizeDetailTransaksiData($table, $dat);
         if( $dat !== null )
         $dat = array_filter($dat);
         $data = array_values( $dat );
@@ -381,8 +464,9 @@ class Database {
         $im=implode(', ', $mark);
        // echo "INSERT INTO $table ($col) values ($im) ";
         $ins = $this->pdo->prepare("INSERT INTO $table ($col) values ($im)");
-        try{ 
+        try{
             $ins->execute( $data );
+            $this->recordAuditOperation('insert', $table, $dat);
             return true;
         } 
         catch(PDOException $exception){ 
@@ -396,6 +480,11 @@ class Database {
         return $this->pdo->lastInsertId();
     }
 
+    public function inTransaction()
+    {
+        return $this->pdo->inTransaction();
+    }
+
 
     /**
     * update record
@@ -405,6 +494,7 @@ class Database {
     * @param  int $val   key value
     */
     public function update($table,$dat,$id,$val,$filter="no") {
+        $dat = $this->normalizeDetailTransaksiData($table, $dat);
         if( $dat !== null )
         if ($filter=="yes") {
           $dat = array_filter($dat);
@@ -419,8 +509,9 @@ class Database {
         }
         $im=implode(', ', $mark);
         $ins = $this->pdo->prepare("UPDATE $table SET $im where $id=?");
-        try{ 
+        try{
             $ins->execute( $data );
+            $this->recordAuditOperation('update', $table, $dat, $id.'='.$val);
             return true;
         } 
         catch(PDOException $exception){ 
@@ -439,8 +530,9 @@ class Database {
     public function delete( $table, $where,$id ) {
         $data = array( $id );
         $sel = $this->pdo->prepare("Delete from $table where $where=?" );
-        try{ 
+        try{
             $sel->execute( $data );
+            $this->recordAuditOperation('delete', $table, array(), $where.'='.$id);
             return true;
         } 
         catch(PDOException $exception){ 
@@ -564,9 +656,26 @@ class Database {
 
         return $pilih;
     }
-     // Menu builder function, parentId 0 is the root
-    function buildMenu($url,$parent, $menu)
-    {
+	     // Menu builder function, parentId 0 is the root
+	    function menuLabel($item)
+	    {
+	        $language = isset($_SESSION['language']) ? preg_replace('/[^a-z_]/', '', strtolower((string)$_SESSION['language'])) : 'en';
+	        $allowed = array('id', 'en', 'ko', 'zh', 'ja');
+	        if (!in_array($language, $allowed)) {
+	            $language = 'en';
+	        }
+	        $languageField = 'page_name_'.$language;
+	        if (isset($item[$languageField]) && trim((string)$item[$languageField]) !== '') {
+	            return $item[$languageField];
+	        }
+	        if (isset($item['page_name_en']) && trim((string)$item['page_name_en']) !== '') {
+	            return $item['page_name_en'];
+	        }
+	        return isset($item['page_name']) ? $item['page_name'] : '';
+	    }
+
+	    function buildMenu($url,$parent, $menu)
+	    {
        $html = "";
        if (isset($menu['parents'][$parent]))
        {
@@ -585,8 +694,8 @@ class Database {
                   } else {
                     $html.="<i class='fa fa-square'></i>";
                   }
-                  $html.=ucwords($menu['items'][$itemId]['page_name'])."</a></li>";
-              }
+	                  $html.=htmlspecialchars(ucwords($this->menuLabel($menu['items'][$itemId])), ENT_QUOTES, 'UTF-8')."</a></li>";
+	              }
 
               if(isset($menu['parents'][$itemId]))
               {
@@ -602,9 +711,9 @@ $html .= "<li class='treeview ".$this->terpilih($url,$menu['items'][$itemId]['id
                   } else {
                     $html.="<i class='fa fa-circle-o'></i>";
                   }
-                  $html.="<span>".ucwords($menu['items'][$itemId]['page_name'])."</span>
-                                    <i class='fa fa-angle-left pull-right'></i>
-                                </a>";
+	                  $html.="<span>".htmlspecialchars(ucwords($this->menuLabel($menu['items'][$itemId])), ENT_QUOTES, 'UTF-8')."</span>
+	                                    <i class='fa fa-angle-left pull-right'></i>
+	                                </a>";
 $html .="<ul class='treeview-menu'>";
 $html .=$this->buildMenu($url,$itemId, $menu);
 $html .= "</ul></li>";

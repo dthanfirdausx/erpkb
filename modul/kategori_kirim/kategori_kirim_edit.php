@@ -10,14 +10,14 @@ $data_edit = $db->fetch_single_row("catatan","kd_catatan",$_POST['id_data']);
             <form id="edit_kategori_kirim" method="post" class="form-horizontal" action="<?=base_admin();?>modul/kategori_kirim/kategori_kirim_action.php?act=up">
                             
               <div class="form-group">
-                <label for="Kode Catatan" class="control-label col-lg-2">Kode Catatan </label>
+                <label for="kd_catatan" class="control-label col-lg-2"><?=erp_h('master_term_kode_catatan','Note Code');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="kd_catatan" value="<?=$data_edit->kd_catatan;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama Catatan" class="control-label col-lg-2">Nama Catatan </label>
+                <label for="nm_catatan" class="control-label col-lg-2"><?=erp_h('master_term_nama_catatan','Note Name');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="nm_catatan" value="<?=$data_edit->nm_catatan;?>" class="form-control" >
                 </div>
@@ -27,8 +27,8 @@ $data_edit = $db->fetch_single_row("catatan","kd_catatan",$_POST['id_data']);
 
               <div class="form-group">
                 <div class="col-lg-12">
-                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?php echo $lang["cancel_button"];?></button>
+                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=erp_h('common_save','Save');?></button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?=erp_h('common_cancel','Cancel');?></button>
                   </div>
                 </div>
               </div><!-- /.form-group -->

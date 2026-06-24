@@ -6,14 +6,14 @@
      <div class="col-md-12">
       <div class="box box-primary">
       <!--   <div class="box-header with-border">
-          <h3 class="box-title">Keterangan Lain</h3>
+          <h3 class="box-title"><?=customs_h('other_information','Keterangan Lain');?></h3>
         </div> -->
       <div class="box-body">
         <form class="form-horizontal" >
           <div class="form-group"> 
-              <label  class="control-label col-sm-2"  for="exampleInputEmail1">Nomor Aju</label>
+              <label  class="control-label col-sm-2"  for="exampleInputEmail1"><?=customs_h('aju_no','Nomor Aju');?></label>
               <div class="col-sm-10">
-                    <input type="text" class="form-control" id="no_aju" value="<?= $data_header->nomorAju ?>" placeholder="Nomor Aju" readonly="">
+                    <input type="text" class="form-control" id="no_aju" value="<?= $data_header->nomorAju ?>" placeholder="<?=customs_h('aju_no','Nomor Aju');?>" readonly="">
               </div>
           
             </div> 

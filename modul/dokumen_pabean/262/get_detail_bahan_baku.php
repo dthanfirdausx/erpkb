@@ -49,7 +49,7 @@ function get_seri_barang($idBarang,$kodeAsalBahanBaku){
                         <div class="col-md-4">
                           <div class="box box-primary">
                             <div class="box-header with-border">
-                              <h3 class="box-title">Dokumen Asal</h3> 
+                              <h3 class="box-title"><?=customs_h('origin_document','Dokumen Asal');?></h3> 
                             </div>
                             <div class="form-group">
                                 <label for="nomor" >Kode Kantor </label>
@@ -67,7 +67,7 @@ function get_seri_barang($idBarang,$kodeAsalBahanBaku){
                                 </select>
                              </div>
                              <div class="form-group">
-                                <label for="nomor" >Dokumen Asal </label>
+                                <label for="nomor" ><?=customs_h('origin_document','Dokumen Asal');?> </label>
                                   <select style="width: 100%" class="form-control form-kodeDokAsal" id="kodeDokAsal" name="kodeDokAsal" onchange="save_data(this.value,'kodeDokAsal',$('#id_detail_bahan_baku').val(),'ws_barang_bahanbaku','id_detail_bahan_baku')">
                                     <option value="">-Pilih Dokumen Asal-</option>
                                     <?php
@@ -91,16 +91,16 @@ function get_seri_barang($idBarang,$kodeAsalBahanBaku){
                                   </select>                            
                              </div>
                              <div class="form-group">
-                                <label for="nomor" >Nomor Daftar </label>
+                                <label for="nomor" ><?=customs_h('registration_number','Nomor Daftar');?> </label>
                                   <input type="text" name="nomorDaftarDokAsal" id="nomorDaftarDokAsal" class="form-control" value="<?= $k->nomorDaftarDokAsal ?>" onkeyup="save_data(this.value,'nomorDaftarDokAsal',$('#id_detail_bahan_baku').val(),'ws_barang_bahanbaku','id_detail_bahan_baku')">
                              </div>
                              <div class="form-group">
-                                <label for="nomor" >Tanggal Daftar </label>
+                                <label for="nomor" ><?=customs_h('registration_date','Tanggal Daftar');?> </label>
                                   <input type="text" name="tanggalDaftarDokAsal" id="tanggalDaftarDokAsal" class="form-control tanggalDaftarDokAsal" value="<?= $k->tanggalDaftarDokAsal ?>" onchange="save_data(this.value,'tanggalDaftarDokAsal',$('#id_detail_bahan_baku').val(),'ws_barang_bahanbaku','id_detail_bahan_baku')" autocomplete="off">
                              </div>
                           
                              <div class="form-group">
-                                <label for="nomor" >Nomor Pengajuan </label>
+                                <label for="nomor" ><?=customs_h('submission_number','Nomor Pengajuan');?> </label>
                                   <input type="text" name="nomorAjuAsal" id="nomorAjuAsal" class="form-control" value="<?= $k->nomorAjuAsal ?>" onkeyup="save_data(this.value,'nomorAjuAsal',$('#id_detail_bahan_baku').val(),'ws_barang_bahanbaku','id_detail_bahan_baku')">
                              </div>
                          
@@ -162,7 +162,7 @@ function get_seri_barang($idBarang,$kodeAsalBahanBaku){
                     <div class="box box-primary">
                       <div class="box box-primary">
                             <div class="box-header with-border">
-                              <h3 class="box-title">Jumlah & Berat</h3>
+                              <h3 class="box-title"><?=customs_h('quantity_weight','Jumlah & Berat');?></h3>
                             </div>
                             <div class="form-group">
                                 <label for="nomor" >Satuan </label>

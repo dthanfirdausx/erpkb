@@ -33,8 +33,8 @@ if ($q->rowCount()==0) {
               <input type="text" class="form-control" name="NAMA_PENGANGKUT"  id="NAMA_PENGANGKUT" value="<?= $data_angkut->namaPengangkut ?>" placeholder="Sarana Angkut" onkeyup="save_data(this.value,'namaPengangkut',<?= $data_angkut->id_pengangkut ?>,'ws_pengangkut','id_pengangkut')" >
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Sarana Pengangkut</label>
-              <input type="text" class="form-control" name="NOMOR_POLISI"  id="NOMOR_POLISI" value="<?= $data_angkut->nomorPengangkut ?>" placeholder="Nomor Sarana Pengangkut" onkeyup="save_data(this.value,'nomorPengangkut',<?= $data_angkut->id_pengangkut ?>,'ws_pengangkut','id_pengangkut')" >
+              <label for="exampleInputEmail1"><?=customs_h('transport_means_number','Nomor Sarana Pengangkut');?></label>
+              <input type="text" class="form-control" name="NOMOR_POLISI"  id="NOMOR_POLISI" value="<?= $data_angkut->nomorPengangkut ?>" placeholder="<?=customs_h('transport_means_number','Nomor Sarana Pengangkut');?>" onkeyup="save_data(this.value,'nomorPengangkut',<?= $data_angkut->id_pengangkut ?>,'ws_pengangkut','id_pengangkut')" >
             </div>
            
           </div>

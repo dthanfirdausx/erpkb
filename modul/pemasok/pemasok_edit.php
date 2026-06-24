@@ -10,70 +10,70 @@ $data_edit = $db->fetch_single_row("pemasok","kode_pemasok",$_POST['id_data']);
             <form id="edit_pemasok" method="post" class="form-horizontal" action="<?=base_admin();?>modul/pemasok/pemasok_action.php?act=up">
                             
               <div class="form-group">
-                <label for="Kode Pemasok" class="control-label col-lg-2">Kode Pemasok </label>
+                <label for="Kode Pemasok" class="control-label col-lg-2"><?=erp_h('master_term_kode_pemasok','Vendor Code');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="kode_pemasok" readonly="" value="<?=$data_edit->kode_pemasok;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="NPWP" class="control-label col-lg-2">NPWP </label>
+                <label for="NPWP" class="control-label col-lg-2"><?=erp_h('master_term_npwp','Tax ID');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="npwp" value="<?=$data_edit->npwp;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama Pemasok" class="control-label col-lg-2">Nama Pemasok </label>
+                <label for="Nama Pemasok" class="control-label col-lg-2"><?=erp_h('master_term_nama_pemasok','Vendor Name');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="nama" value="<?=$data_edit->nama;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Alamat" class="control-label col-lg-2">Alamat </label>
+                <label for="Alamat" class="control-label col-lg-2"><?=erp_h('master_term_alamat','Address');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="alamat" value="<?=$data_edit->alamat;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Kota" class="control-label col-lg-2">Kota </label>
+                <label for="Kota" class="control-label col-lg-2"><?=erp_h('master_term_kota','City');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="kota" value="<?=$data_edit->kota;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Negara" class="control-label col-lg-2">Negara </label>
+                <label for="Negara" class="control-label col-lg-2"><?=erp_h('master_term_negara','Country');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="negara" value="<?=$data_edit->negara;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Telp" class="control-label col-lg-2">Telp </label>
+                <label for="Telp" class="control-label col-lg-2"><?=erp_h('master_term_telepon','Phone');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="notelp" value="<?=$data_edit->notelp;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Fax" class="control-label col-lg-2">Fax </label>
+                <label for="Fax" class="control-label col-lg-2"><?=erp_h('master_term_fax','Fax');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="nofax" value="<?=$data_edit->nofax;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Email" class="control-label col-lg-2">Email </label>
+                <label for="Email" class="control-label col-lg-2"><?=erp_h('master_term_email','Email');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="email" value="<?=$data_edit->email;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
             <div class="form-group">
-                <label for="Status" class="control-label col-lg-2">Status </label>
+                <label for="Status" class="control-label col-lg-2"><?=erp_h('common_status','Status');?> </label>
                 <div class="col-lg-10">
                 <?php if ($data_edit->status=="1") {
                 ?>
@@ -92,8 +92,8 @@ $data_edit = $db->fetch_single_row("pemasok","kode_pemasok",$_POST['id_data']);
 
               <div class="form-group">
                 <div class="col-lg-12">
-                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?php echo $lang["cancel_button"];?></button>
+                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=erp_h('common_save','Save');?></button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?=erp_h('common_cancel','Cancel');?></button>
                   </div>
                 </div>
               </div><!-- /.form-group -->

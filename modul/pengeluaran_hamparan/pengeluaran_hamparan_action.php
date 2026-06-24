@@ -3,8 +3,17 @@ error_reporting(0);
 session_start();
 include "../../inc/config.php";
 include "../../inc/excel/php-excel-reader/excel_reader2.php";
-include "../../inc/excel/SpreadsheetReader.php"; 
+include "../../inc/excel/SpreadsheetReader.php";
+require_once "../../inc/accounting_journal.php";
 session_check_json();
+
+function pengeluaran_hamparan_rollback_response($message)
+{
+  global $db;
+  $db->query('ROLLBACK');
+  action_response($message);
+}
+
 switch ($_GET["act"]) {
 
    case 'get_currency':   
@@ -169,128 +178,49 @@ $no = 1;
 $total = 0;
 
 $q = $db->query("
-SELECT 
-    d.id,
-    d.kode as kode_barang,
-    ba.kd_kategori,
-
-    -- 🔥 qty
-    d.jumlah as qty_keluar,
-    bt.jumlah as qty_produksi,
-
-    -- 🔥 bahan baku
-    bb.kd_barang as kd_bahan,
-    bb.nm_barang as nm_bahan,
-    bh.jumlah as qty_bahan,
-    bh.no_aju,
-    bh.no_dokpab,
-
-    ps.jenis_dokpab,
-    ps.tgl_dokpab,
-    ps.tgl_aju,
-
-    bbb.satuan
-
-FROM pengeluaran_detail d
-JOIN pengeluaran b ON b.no_sj = d.no_sj
-JOIN barang ba ON ba.kd_barang = d.kode
-
-LEFT JOIN pengeluaran_detail_brg_jadi bj 
-    ON bj.id_pengeluaran_detail = d.id
-
--- 🔥 FIX JOIN PRODUKSI
-LEFT JOIN brgjadi_detail bt 
-    ON bt.no_bpb = bj.no_bpb
-    AND bt.kode = d.kode
-
-LEFT JOIN bahanbaku_detail bh 
-    ON bh.id_produksi_detail = bt.id_produksi_detail
-
-LEFT JOIN barang bb 
-    ON bb.kd_barang = bh.kode
-
-LEFT JOIN pemasukan ps 
-    ON ps.no_aju = bh.no_aju
-
-LEFT JOIN barang bbb 
-    ON bbb.kd_barang = bh.kode
-
-WHERE b.id = '$id'
-");
+SELECT
+    COALESCE(gt.raw_material_code, gt.source_material_code, gd.material_code) AS kd_bahan,
+    COALESCE(gt.raw_material_name, gt.source_material_name, gd.material_name) AS nm_bahan,
+    COALESCE(gt.jenis_dokpab, tr.jenis_dokpab) AS jenis_dokpab,
+    COALESCE(gt.no_dokpab, tr.no_dokpab) AS no_dokpab,
+    COALESCE(gt.no_aju, tr.no_aju) AS no_aju,
+    COALESCE(gt.qty, tr.qty) AS qty_pakai,
+    COALESCE(gt.uom, gd.uom) AS satuan,
+    COALESCE(gt.lot_no, tr.lot_no) AS lot_no,
+    COALESCE(src.tgl_masuk, out_layer.tgl_masuk) AS tgl_layer
+FROM pengeluaran p
+JOIN erp_goods_issue_delivery gi
+  ON gi.reference_surat_jalan=p.no_sj
+  OR gi.id=p.id
+JOIN erp_goods_issue_delivery_detail gd ON gd.gi_id=gi.id
+JOIN erp_goods_issue_delivery_trace tr ON tr.gi_detail_id=gd.id
+LEFT JOIN erp_gr_production_trace gt ON gt.output_stock_layer_id=tr.stock_layer_id
+LEFT JOIN stock_layer src ON src.id=gt.source_stock_layer_id
+LEFT JOIN stock_layer out_layer ON out_layer.id=tr.stock_layer_id
+WHERE p.id=?
+ORDER BY gd.line_no, kd_bahan, no_aju, no_dokpab
+", array($id));
 
 foreach ($q as $k){
+    $qty_pakai = round((float)$k->qty_pakai, 4);
+    echo "<tr>
+        <td>$no</td>
+        <td>".htmlspecialchars($k->kd_bahan ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+        <td>".htmlspecialchars($k->nm_bahan ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+        <td>".htmlspecialchars($k->jenis_dokpab ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+        <td>".htmlspecialchars($k->no_dokpab ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+        <td>".htmlspecialchars($k->tgl_layer ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+        <td>".htmlspecialchars($k->no_aju ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+        <td>".htmlspecialchars($k->tgl_layer ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+        <td style='text-align:right'>".number_format($qty_pakai,4)."</td>
+        <td>".htmlspecialchars($k->satuan ?: '-', ENT_QUOTES, 'UTF-8')."</td>
+    </tr>";
+    $total += $qty_pakai;
+    $no++;
+}
 
-    // ================= FG =================
-    if (in_array($k->kd_kategori, ['K02','K07'])){
-
-        if(empty($k->kd_bahan)) continue;
-
-        // 🔥 HITUNG RATIO
-        $qty_pakai = 0;
-        if ($k->qty_produksi > 0) {
-            $qty_pakai = $k->qty_bahan * ($k->qty_keluar / $k->qty_produksi);
-        }
-
-        $qty_pakai = round($qty_pakai, 4);
-
-        echo "<tr>
-            <td>$no</td>
-            <td>$k->kd_bahan</td>
-            <td>$k->nm_bahan</td>
-            <td>".($k->jenis_dokpab ?? '-')."</td>
-            <td>".($k->no_dokpab ?? '-')."</td>
-            <td>".($k->tgl_dokpab ?? '-')."</td>
-            <td>".($k->no_aju ?? '-')."</td>
-            <td>".($k->tgl_aju ?? '-')."</td>
-            <td style='text-align:right'>".number_format($qty_pakai,4)."</td>
-            <td>$k->satuan</td>
-        </tr>";
-
-        $total += $qty_pakai;
-        $no++;
-
-    } else {
-
-        // ================= NON FG =================
-        $q2 = $db->query("
-            SELECT 
-                d.kode,
-                bb.nm_barang,
-                d.jumlah,
-                ps.jenis_dokpab,
-                ps.no_aju,
-                ps.no_dokpab,
-                ps.tgl_aju,
-                ps.tgl_dokpab,
-                bb.satuan
-            FROM pengeluaran_detail d
-            LEFT JOIN barang bb ON bb.kd_barang = d.kode
-            LEFT JOIN pengeluaran_detail_brg_jadi bj 
-                ON bj.id_pengeluaran_detail = d.id
-            LEFT JOIN pemasukan ps 
-                ON ps.no_aju = bj.no_aju
-            WHERE d.id = '".$k->id."'
-        ");
-
-        foreach ($q2 as $x){
-
-            echo "<tr>
-                <td>$no</td>
-                <td>$x->kode</td>
-                <td>$x->nm_barang</td>
-                <td>".($x->jenis_dokpab ?? '-')."</td>
-                <td>".($x->no_dokpab ?? '-')."</td>
-                <td>".($x->tgl_dokpab ?? '-')."</td>
-                <td>".($x->no_aju ?? '-')."</td>
-                <td>".($x->tgl_aju ?? '-')."</td>
-                <td style='text-align:right'>".number_format($x->jumlah,4)."</td>
-                <td>$x->satuan</td>
-            </tr>";
-
-            $total += $x->jumlah;
-            $no++;
-        }
-    }
+if ($no === 1) {
+    echo "<tr><td colspan='10' class='text-center text-muted'>Trace bahan baku dari stock layer/GI Delivery belum tersedia untuk dokumen ini.</td></tr>";
 }
 ?>
 
@@ -429,6 +359,8 @@ foreach ($q as $k){
     break;
 
    case "upload_excel":
+   action_response('Upload Excel legacy pengeluaran dikunci. Gunakan flow Goods Issue for Delivery agar stock layer, dokumen pabean, dan jurnal tetap terjaga.');
+   break;
   // error_reporting(E_ALL);
    // print_r($_FILES);
    // die();
@@ -596,6 +528,8 @@ echo json_encode($res);
   
 
   case "in":
+action_response('Input legacy pengeluaran dikunci. Gunakan Goods Issue for Delivery Workbench agar stock layer, material document, jurnal, dan trace dokumen BC konsisten.');
+break;
 
 $thn = date("Y",strtotime($_POST["tgl_sj"]));
 $no_sj = getNoSJ($thn); 
@@ -621,11 +555,17 @@ $data = array(
     "tgl_efaktur" => $_POST["tgl_efaktur"],
 );
 
-$db->insert("pengeluaran",$data);
+$db->query('START TRANSACTION');
+if (!$db->insert("pengeluaran",$data)) {
+    pengeluaran_hamparan_rollback_response($db->getErrorMessage());
+}
 
 // reset detail
-$db->query("DELETE FROM pengeluaran_detail WHERE no_sj='$no_sj'");
+if ($db->query("DELETE FROM pengeluaran_detail WHERE no_sj=?", array($no_sj)) === false) {
+    pengeluaran_hamparan_rollback_response($db->getErrorMessage());
+}
 
+$accountingItems = array();
 foreach ($_POST['kode'] as $key => $value) {
 
     $kode_barang = $_POST['kode_input'][$key];
@@ -661,8 +601,17 @@ foreach ($_POST['kode'] as $key => $value) {
         'jenis_barang'  => $jenis_barang
     ];
 
-    $db->insert("pengeluaran_detail",$data_detail);
+    if (!$db->insert("pengeluaran_detail",$data_detail)) {
+        pengeluaran_hamparan_rollback_response($db->getErrorMessage());
+    }
     $id_pengeluaran_detail = $db->last_insert_id();
+    $accountingItems[] = array(
+        'kode' => $kode_barang,
+        'kat_barang' => $barang->kd_kategori,
+        'amount' => $_POST['nilai'][$key],
+        'valuta' => $_POST['valuta'],
+        'kurs' => 1
+    );
 
     // ================= VALIDASI STOCK =================
     $cek = $db->fetch("
@@ -673,10 +622,7 @@ foreach ($_POST['kode'] as $key => $value) {
     ");
 
     if ($cek->sisa < $qty_keluar) {
-        die(json_encode([
-            "status"=>"error",
-            "error_message"=>"Stock tidak cukup untuk ".$kode_barang
-        ]));
+        pengeluaran_hamparan_rollback_response("Stock tidak cukup untuk ".$kode_barang);
     }
 
     // ================= FIFO =================
@@ -704,18 +650,20 @@ foreach ($_POST['kode'] as $key => $value) {
         // ================= TRACE =================
         if($jenis_barang == 'FG'){
 
-            $db->insert("pengeluaran_detail_brg_jadi", [
+            if (!$db->insert("pengeluaran_detail_brg_jadi", [
                 'id_pengeluaran_detail' => $id_pengeluaran_detail,
                 'id_produksi_detail'    => $layer->ref_id ?? null,
                 'jumlah'                => $pakai,
                 'no_bpb'                => $layer->no_bpb ?? null,
                 'jenis_barang'          => 'FG',
                 'date_created'          => date("Y-m-d H:i:s")
-            ]);
+            ])) {
+                pengeluaran_hamparan_rollback_response($db->getErrorMessage());
+            }
 
         } else {
 
-            $db->insert("pengeluaran_detail_brg_jadi", [
+            if (!$db->insert("pengeluaran_detail_brg_jadi", [
                 'id_pengeluaran_detail' => $id_pengeluaran_detail,
                 'id_incoming_detail'    => $layer->ref_id ?? null,
                 'jumlah'                => $pakai,
@@ -723,11 +671,13 @@ foreach ($_POST['kode'] as $key => $value) {
                 'no_dokpab'             => $layer->no_dokpab,
                 'jenis_barang'          => 'BB',
                 'date_created'          => date("Y-m-d H:i:s")
-            ]);
+            ])) {
+                pengeluaran_hamparan_rollback_response($db->getErrorMessage());
+            }
         }
 
         // ================= LEDGER =================
-        $db->insert("detail_transaksi", [
+        if (!$db->insert("detail_transaksi", [
             'kd_barang'     => $kode_barang,
             'qty'           => ($pakai * -1),
             'posisi'        => 'GUDANG',
@@ -740,18 +690,40 @@ foreach ($_POST['kode'] as $key => $value) {
             'posting_date'  => $_POST["tgl_sj"],
             'created_by'    => $_SESSION['username'],
             'date_created'  => date("Y-m-d H:i:s")
-        ]);
+        ])) {
+            pengeluaran_hamparan_rollback_response($db->getErrorMessage());
+        }
 
         // ================= UPDATE STOCK =================
-        $db->query("
-            UPDATE stock_layer
-            SET qty_sisa = qty_sisa - $pakai
-            WHERE id = '".$layer->id."'
-        ");
+        $updateStock = $db->query(
+            "UPDATE stock_layer SET qty_sisa = qty_sisa - ? WHERE id = ? AND qty_sisa >= ?",
+            array($pakai, $layer->id, $pakai)
+        );
+        if ($updateStock === false) {
+            pengeluaran_hamparan_rollback_response($db->getErrorMessage());
+        }
+        if ($updateStock->rowCount() < 1) {
+            pengeluaran_hamparan_rollback_response("Stock layer ".$kode_barang." tidak cukup saat posting FIFO.");
+        }
     }
 }
 
-action_response($db->getErrorMessage());
+$journalResult = accounting_post_auto_journal(
+    'penjualan',
+    $_POST["jenisbckeluar_jenis_dokpab"],
+    $accountingItems,
+    array(
+        'no_bukti' => $no_sj,
+        'tgl_jurnal' => $_POST["tgl_sj"],
+        'ket' => 'Pengeluaran Barang '.$no_sj.' No Aju '.$_POST["no_aju"],
+        'valuta' => $_POST['valuta'],
+        'kurs' => 1
+    )
+);
+if ($journalResult !== true) pengeluaran_hamparan_rollback_response($journalResult);
+
+$db->query('COMMIT');
+action_response('');
 break;
 
    
@@ -817,6 +789,8 @@ break;
     break;
 
   case "delete":
+    action_response('Delete legacy pengeluaran dikunci. Gunakan reversal Goods Issue for Delivery agar audit trail, stock layer, dan jurnal tetap aman.');
+    break;
     
     
       
@@ -827,6 +801,8 @@ break;
     action_response($db->getErrorMessage());
     break;
    case "del_massal":
+    action_response('Delete massal legacy pengeluaran dikunci. Gunakan reversal per dokumen Goods Issue for Delivery.');
+    break;
     $data_ids = $_REQUEST["data_ids"];
     $data_id_array = explode(",", $data_ids);
     if(!empty($data_id_array)) {
@@ -837,6 +813,8 @@ break;
     action_response($db->getErrorMessage());
     break;
   case "up":
+   action_response('Update legacy pengeluaran dikunci. Gunakan reversal lalu posting ulang dari Goods Issue for Delivery Workbench.');
+   break;
    $no_sj = $_POST["no_sj"];
    $nomor = get_nomor("pengeluaran","id");
    $data = array(

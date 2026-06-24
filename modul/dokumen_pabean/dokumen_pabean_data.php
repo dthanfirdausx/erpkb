@@ -1,72 +1,43 @@
 <?php
-error_reporting(0);
+if(session_status()===PHP_SESSION_NONE) session_start();
 include "../../inc/config.php";
+include "dokumen_pabean_lib.php";
+session_check_json();
 
-$columns = array(
-    'nama_pendek',
-    'nomorAju',
-    'nomorDokpab',
-   // 'status', 
-    'tanggalDokumen',
-    'tanggalTtd',
-  ); 
+$draw = isset($_POST['draw']) ? (int)$_POST['draw'] : 1;
+$start = isset($_POST['start']) ? max(0,(int)$_POST['start']) : 0;
+$length = isset($_POST['length']) ? (int)$_POST['length'] : 25;
+if($length<=0 || $length>500) $length = 25;
 
-  //if you want to exclude column for searching, put columns name in array
-  //$new_table->disable_search = array('no_lap','bahan.no_lap');
-  
-  //set numbering is true
-  $datatable->set_numbering_status(1);
+$input = dpb_filter_input();
+if(isset($_POST['search']['value']) && trim($_POST['search']['value'])!=='') $input['keyword'] = trim($_POST['search']['value']);
 
-  //set order by column
-  $datatable->set_order_by("tanggalDokumen");
+$rows = iterator_to_array(dpb_load_rows($db,$input));
+$pageRows = array_slice($rows,$start,$length);
+$data = array();
+$no = $start + 1;
 
-  //set order by type
-  $datatable->set_order_type("desc");
+foreach($pageRows as $row){
+  $noAju = str_replace('-', '', (string)$row->nomorAju);
+  $jenis = trim((string)$row->nama_pendek) ?: 'BC '.$row->kodeDokumen;
+  $data[] = array(
+    $no++,
+    '<strong>'.dpb_h($jenis).'</strong><br><small>'.dpb_h($row->nama_dokumen).'</small>',
+    '<strong>'.dpb_h($noAju).'</strong><br><small>Kode: '.dpb_h($row->kodeDokumen).'</small>',
+    dpb_h($row->nomorDokpab ?: '-'),
+    dpb_h($row->tanggalDokumen ? date('Y-m-d',strtotime($row->tanggalDokumen)) : '-'),
+    dpb_h($row->tanggalTtd ? date('Y-m-d',strtotime($row->tanggalTtd)) : '-'),
+    '<strong>'.number_format((float)$row->total_barang,0,',','.').'</strong><br><small>Qty '.number_format((float)$row->total_qty,5,',','.').'</small>',
+    dpb_status_badge($row->statusDokumen),
+    dpb_h($row->uuid)
+  );
+}
 
-  //set group by column
-  //$new_table->group_by = "group by bahan.no_lap";
-
-  $query = $datatable->get_custom("select statusDokumen, id_header,uuid, nama_pendek as 'jenis_dokpab',nomorAju,nomorDokpab,tanggalDokumen,tanggalTtd  from v_wheader_tabel",$columns); 
-
-  //buat inisialisasi array data
-  $data = array();
-
-  $i=1;
-  foreach ($query as $value) {
-    $no_aju = str_replace("-", "", $value->nomorAju);
-   // $status = get_status_dokumen($no_aju);
-    //print_r($status); 
-    $status_data =  "<i class='label label-primary'>$value->statusDokumen</i>";
-    // if ($status->status=='Success') {
-    //   if ($status->dataStatus[0]->kodeProses=='800') {
-    //     $status_data = "<i class='label label-success'>".$status->dataStatus[0]->keterangan."</i>";
-    //   }else if ($status->dataStatus[0]->kodeProses=='100'){
-    //     $status_data = "<i class='label label-success'>".$status->dataStatus[0]->keterangan."</i>";
-    //   }else{
-    //     $status_data = "<i class='label label-primary'>".$status->dataStatus[0]->keterangan."</i>";
-    //   }
-      
-    // }
-    //array data
-    $ResultData = array();
-    $ResultData[] = $datatable->number($i);
-  
-    $ResultData[] = $value->jenis_dokpab;
-    $ResultData[] = $no_aju;
-    $ResultData[] = $value->nomorDokpab;
-    //$ResultData[] = $value->status;
-    $ResultData[] = $value->tanggalDokumen;
-    $ResultData[] = $value->tanggalTtd;
-    $ResultData[] = $status_data;
-    $ResultData[] = $value->uuid;
-
-    $data[] = $ResultData;
-    $i++;
-  } 
-
-//set data
-$datatable->set_data($data);
-//create our json
-$datatable->create_data();
-
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode(array(
+  'draw'=>$draw,
+  'recordsTotal'=>count($rows),
+  'recordsFiltered'=>count($rows),
+  'data'=>$data
+));
 ?>

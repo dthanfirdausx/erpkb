@@ -1,12 +1,12 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Laporan Pemasukan
+                        <?=customs_h('incoming_report','Laporan Pemasukan');?>
                     </h1>
                         <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>laporan-pemasukan-per-jenis-dokumen-pabean">Laporan Pemasukan </a></li>
-                        <li class="active">Laporan Pemasukan List</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+                        <li><a href="<?=base_index();?>laporan-pemasukan-per-jenis-dokumen-pabean"><?=customs_h('incoming_report','Laporan Pemasukan');?> </a></li>
+                        <li class="active"><?=customs_h('legacy_laporan_pemasukan_list','Laporan Pemasukan List');?></li>
                     </ol>
                 </section>
 
@@ -21,7 +21,7 @@
                              <form id="input_pemasukan_hamparan" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=in">                   
                               
                                 <div class="form-group">
-                                    <label for="Tanggal BPB" class="control-label col-lg-2">Tanggal BPB </label>
+                                    <label for="Tanggal BPB" class="control-label col-lg-2"><?=customs_h('bpb_date','Tanggal BPB');?> </label>
                                     <div class="col-lg-2" style="float: left">
                                       <div class="input-group date" id="tgl1">
                                           <input type="text" class="form-control" id="tgl_awal" placeholder="tanggal awal" name="tgl1" autocomplete="off"  />
@@ -41,9 +41,9 @@
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label for="Valuta" class="control-label col-lg-2">Jenis Dokpab </label>
+                                    <label for="Valuta" class="control-label col-lg-2"><?=customs_h('document_type_short','Jenis Dokpab');?> </label>
                                     <div class="col-lg-4">
-                                  <select  id="jenisbc" name="jenisbc" data-placeholder="Pilih Jenis BC ..." class="form-control chzn-select" tabindex="2" >
+                                  <select  id="jenisbc" name="jenisbc" data-placeholder="<?=customs_h('select_bc_type','Pilih Jenis BC ...');?>" class="form-control chzn-select" tabindex="2" >
                                      <option value="all">Semua</option>
                                      <?php foreach ($db->fetch_all("jenisbcmasuk") as $isi) {
                                         echo "<option value='$isi->jenis'>$isi->jenis</option>";
@@ -54,7 +54,7 @@
                                   <div class="form-group">
                                     <label for="Valuta" class="control-label col-lg-2">Nama Suplier </label>
                                     <div class="col-lg-4">
-                                    <select  id="suplier" name="suplier" data-placeholder="Pilih Suplier ..." class="form-control chzn-select" tabindex="2" >
+                                    <select  id="suplier" name="suplier" data-placeholder="<?=customs_h('select_supplier','Pilih Suplier ...');?>" class="form-control chzn-select" tabindex="2" >
                                      <option value="all">Semua</option>
                                      <?php foreach ($db->fetch_all("pemasok") as $isi) {
                                         echo "<option value='$isi->nama'>$isi->nama</option>";
@@ -63,7 +63,7 @@
                                   </div>
                                  </div>
                                  <div class="form-group">
-                                    <label for="Tanggal BPB" class="control-label col-lg-2">Tanggal Invoice </label>
+                                    <label for="Tanggal BPB" class="control-label col-lg-2"><?=customs_h('invoice_date','Tanggal Invoice');?> </label>
                                     <div class="col-lg-2" style="float: left">
                                       <div class="input-group date" id="tgl3">
                                           <input type="text" class="form-control" id="tgl_invoice_awal" placeholder="tanggal awal" name="tgl_inv_1" autocomplete="off"  />
@@ -86,7 +86,7 @@
                                   <label for="tags" class="control-label col-lg-2">&nbsp;</label>
                                   <div class="col-lg-10">
 
-                                   <a class="btn btn-primary" onclick="filter()"><i class="fa fa-gear"></i> Filter</a>
+                                   <a class="btn btn-primary" onclick="filter()"><i class="fa fa-gear"></i> <?=customs_h('filter','Filter');?></a>
                              
                                   </div>
                                 </div><!-- /.form-group -->
@@ -107,23 +107,23 @@
                         <table id="dtb_laporan_pemasukan_per_jenis_dokumen_pabean" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                  <th>No</th>
+                                  <th><?=customs_h('no','No');?></th>
                                   <th>Jenis DokPab</th>
-                                  <th>No Aju</th>
+                                  <th><?=customs_h('aju_no_short','No Aju');?></th>
                                   <th>No DokPab</th>
-                                  <th>Tanggal Dokpab</th>
-                                  <th>No BPB</th>
-                                  <th>Tanggal BPB</th>
+                                  <th><?=customs_h('customs_doc_date','Tanggal Dokpab');?></th>
+                                  <th><?=customs_h('bpb_no','No BPB');?></th>
+                                  <th><?=customs_h('bpb_date','Tanggal BPB');?></th>
                                   <th>No Invoice</th>
                                   <th>Tgl Invoice</th>
                                   <th>Efaktur</th>
-                                  <th>Tanggal E-faktur</th>
+                                  <th><?=customs_h('efaktur_date','Tanggal E-faktur');?></th>
                                   <th>Pemasok</th>
                                   <th>Kategori</th>
                                   <th>Kode Sub Kategori</th>
                                   <th>Sub Kategori</th>
-                                  <th>Kode Barang</th>
-                                  <th>Nama Barang</th>
+                                  <th><?=customs_h('material_code','Kode Barang');?></th>
+                                  <th><?=customs_h('material_name','Nama Barang');?></th>
                                   <th>Satuan</th>
                                   <th>Qty</th>
                                   <th>Valuta</th>
@@ -131,7 +131,7 @@
                                   <th>Berat</th>
                                   <th>Tujuan Detail</th>
                                   <th>Kategori Barang</th>
-                                 <!--  <th>Action</th> -->
+                                 <!--  <th><?=customs_h('action','Action');?></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -154,7 +154,7 @@
                   $edit ="";
               }
             if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/laporan_pemasukan_per_jenis_dokumen_pabean/laporan_pemasukan_per_jenis_dokumen_pabean_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_laporan_pemasukan_per_jenis_dokumen_pabean"><i class="fa fa-trash"></i></button>';
+                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/laporan_pemasukan_per_jenis_dokumen_pabean/laporan_pemasukan_per_jenis_dokumen_pabean_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="'.htmlspecialchars(customs_t('delete','Hapus'), ENT_QUOTES, 'UTF-8').'" data-variable="dtb_laporan_pemasukan_per_jenis_dokumen_pabean"><i class="fa fa-trash"></i></button>';
             } else {
                 $del="";
             }
@@ -171,7 +171,7 @@
        $("#dtb_laporan_pemasukan_per_jenis_dokumen_pabean").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
             var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>laporan-pemasukan-per-jenis-dokumen-pabean/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
+            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>laporan-pemasukan-per-jenis-dokumen-pabean/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="<?=customs_h('detail','Detail');?>"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
               $(nRow).attr('id', 'line_'+aData[indek]);
               },
               "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -179,7 +179,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text: <?=customs_js('export_data','Export Data');?>,
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

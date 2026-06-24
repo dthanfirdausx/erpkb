@@ -1,5 +1,13 @@
 <?php
-
+if (!function_exists('fin_t')) {
+  function fin_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('fin_h')) {
+  function fin_h($key, $fallback = '') { return htmlspecialchars((string) fin_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('fin_js')) {
+  function fin_js($key, $fallback = '') { return json_encode(fin_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php";
 
 $id = $_GET['id'];
@@ -92,7 +100,7 @@ $header = $db->fetch_single_row("jurnal_header","id",$id);
 
         <tr>
 
-            <th width="35%">COA</th>
+            <th width="35%"><?=fin_h('finance_coa', 'COA');?></th>
             <th width="20%">Debet</th>
             <th width="20%">Kredit</th>
             <th width="15%">Valuta</th>
@@ -258,7 +266,7 @@ foreach($detail as $d){
                 class="btn btn-default"
                 data-dismiss="modal">
 
-            Close
+            <?=fin_h('common_close', 'Close');?>
 
         </button>
 
@@ -266,7 +274,7 @@ foreach($detail as $d){
                 class="btn btn-primary">
 
             <i class="fa fa-save"></i>
-            Update
+            <?=fin_h('common_update', 'Update');?>
 
         </button>
 

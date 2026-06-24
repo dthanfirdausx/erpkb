@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>Kategori Kirim</h1>
+                    <h1><?=erp_h('master_shipping_category','Shipping Category');?></h1>
                    <ol class="breadcrumb">
                         <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>kategori-kirim">Kategori Kirim</a></li>
-                        <li class="active">Detail Kategori Kirim</li>
+                        <li><a href="<?=base_index();?>kategori-kirim"><?=erp_h('master_shipping_category','Shipping Category');?></a></li>
+                        <li class="active"><?=erp_h('common_detail','Detail');?> <?=erp_h('master_shipping_category','Shipping Category');?></li>
                     </ol>
                 </section>
 
@@ -14,7 +14,7 @@
                     <div class="col-lg-12">
                         <div class="box box-solid box-primary">
                             <div class="box-header">
-                            <h3 class="box-title">Detail Kategori Kirim</h3>
+                            <h3 class="box-title"><?=erp_h('common_detail','Detail');?> <?=erp_h('master_shipping_category','Shipping Category');?></h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button class="btn btn-info btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -25,14 +25,14 @@
                       <form class="form-horizontal">
                         
               <div class="form-group">
-                <label for="Kode Catatan" class="control-label col-lg-2">Kode Catatan </label>
+                <label for="kd_catatan" class="control-label col-lg-2"><?=erp_h('master_term_kode_catatan','Note Code');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->kd_catatan;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama Catatan" class="control-label col-lg-2">Nama Catatan </label>
+                <label for="nm_catatan" class="control-label col-lg-2"><?=erp_h('master_term_nama_catatan','Note Name');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->nm_catatan;?>" class="form-control">
                 </div>
@@ -40,7 +40,7 @@
               
                         
                       </form>
-                      <a href="<?=base_index();?>kategori-kirim" class="btn btn-success "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
+                      <a href="<?=base_index();?>kategori-kirim" class="btn btn-success "><i class="fa fa-step-backward"></i> <?=erp_h('common_back','Back');?></a>
 
                         </div>
                       </div>

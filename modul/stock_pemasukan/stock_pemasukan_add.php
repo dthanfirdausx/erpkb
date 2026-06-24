@@ -1,4 +1,11 @@
 <?php
+
+if (!function_exists('wh_t')) {
+  function wh_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('wh_h')) {
+  function wh_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+}
 include "../../inc/config.php";
 ?>
 <style type="text/css"> .datepicker {z-index: 1200 !important; } </style>

@@ -1,14 +1,14 @@
 <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Mutasi Bahan Baku</h1>
+        <h1><?=customs_h('mutation_raw_material','Mutasi Bahan Baku');?></h1>
         <ol class="breadcrumb">
             <li>
-              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a>
             </li>
             <li>
-              <a href="<?=base_index();?>mutasi-bahan-baku">Mutasi Bahan Baku</a>
+              <a href="<?=base_index();?>mutasi-bahan-baku"><?=customs_h('mutation_raw_material','Mutasi Bahan Baku');?></a>
             </li>
-            <li class="active">Add Mutasi Bahan Baku</li>
+            <li class="active"><?=customs_h('add_raw_material_mutation','Add Mutasi Bahan Baku');?></li>
         </ol>
     </section>
 
@@ -18,7 +18,7 @@
       <div class="col-lg-12">
         <div class="box box-solid box-primary">
           <div class="box-header">
-            <h3 class="box-title">Add Mutasi Bahan Baku</h3>
+            <h3 class="box-title"><?=customs_h('add_raw_material_mutation','Add Mutasi Bahan Baku');?></h3>
             <div class="box-tools pull-right">
               <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
             </div>

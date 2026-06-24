@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>Pemasok</h1>
+                    <h1><?=erp_h('master_vendor_master','Vendor Master');?></h1>
                    <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>pemasok">Pemasok</a></li>
-                        <li class="active">Detail Pemasok</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=erp_h('common_home','Home');?></a></li>
+                        <li><a href="<?=base_index();?>pemasok"><?=erp_h('master_vendor_master','Vendor Master');?></a></li>
+                        <li class="active"><?=erp_h('common_detail','Detail');?> <?=erp_h('master_vendor_master','Vendor Master');?></li>
                     </ol>
                 </section>
 
@@ -14,7 +14,7 @@
                     <div class="col-lg-12">
                         <div class="box box-solid box-primary">
                             <div class="box-header">
-                            <h3 class="box-title">Detail Pemasok</h3>
+                            <h3 class="box-title"><?=erp_h('common_detail','Detail');?> <?=erp_h('master_vendor_master','Vendor Master');?></h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button class="btn btn-info btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -25,70 +25,70 @@
                       <form class="form-horizontal">
                         
               <div class="form-group">
-                <label for="Kode Pemasok" class="control-label col-lg-2">Kode Pemasok </label>
+                <label for="Kode Pemasok" class="control-label col-lg-2"><?=erp_h('master_term_kode_pemasok','Vendor Code');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->kode_pemasok;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="NPWP" class="control-label col-lg-2">NPWP </label>
+                <label for="NPWP" class="control-label col-lg-2"><?=erp_h('master_term_npwp','Tax ID');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->npwp;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama Pemasok" class="control-label col-lg-2">Nama Pemasok </label>
+                <label for="Nama Pemasok" class="control-label col-lg-2"><?=erp_h('master_term_nama_pemasok','Vendor Name');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->nama;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Alamat" class="control-label col-lg-2">Alamat </label>
+                <label for="Alamat" class="control-label col-lg-2"><?=erp_h('master_term_alamat','Address');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->alamat;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Kota" class="control-label col-lg-2">Kota </label>
+                <label for="Kota" class="control-label col-lg-2"><?=erp_h('master_term_kota','City');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->kota;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Negara" class="control-label col-lg-2">Negara </label>
+                <label for="Negara" class="control-label col-lg-2"><?=erp_h('master_term_negara','Country');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->negara;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Telp" class="control-label col-lg-2">Telp </label>
+                <label for="Telp" class="control-label col-lg-2"><?=erp_h('master_term_telepon','Phone');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->notelp;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Fax" class="control-label col-lg-2">Fax </label>
+                <label for="Fax" class="control-label col-lg-2"><?=erp_h('master_term_fax','Fax');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->nofax;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Email" class="control-label col-lg-2">Email </label>
+                <label for="Email" class="control-label col-lg-2"><?=erp_h('master_term_email','Email');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->email;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
             <div class="form-group">
-                <label for="Status" class="control-label col-lg-2">Status </label>
+                <label for="Status" class="control-label col-lg-2"><?=erp_h('common_status','Status');?> </label>
                 <div class="col-lg-10">
                 <?php if ($data_edit->status=="1") {
                   ?>

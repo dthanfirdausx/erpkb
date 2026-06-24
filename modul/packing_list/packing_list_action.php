@@ -1,8 +1,90 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 session_start();
 include "../../inc/config.php";
+include "packing_list_lib.php";
 session_check_json();
 switch ($_GET["act"]) {
+
+ case "delivery_search":
+      $term = pl_input('term');
+      $kw = '%'.$term.'%';
+      $rows = $db->query(
+        "SELECT od.*,COALESCE(SUM(d.picked_qty-d.packed_qty),0) open_qty,pk.id AS picking_id,pk.picking_no
+         FROM erp_outbound_delivery od
+         JOIN erp_outbound_delivery_detail d ON d.delivery_id=od.id
+         LEFT JOIN erp_picking pk ON pk.delivery_id=od.id AND pk.status='PICKED'
+         WHERE od.status NOT IN ('CANCELLED','PGI','COMPLETED')
+           AND od.picking_status='COMPLETE'
+           AND od.packing_status <> 'COMPLETE'
+           AND (?='' OR od.delivery_no LIKE ? OR od.no_sales_order LIKE ? OR od.customer_name LIKE ? OR od.customer_code LIKE ?)
+         GROUP BY od.id
+         HAVING open_qty>0
+         ORDER BY od.delivery_date DESC,od.id DESC
+         LIMIT 30",
+        array($term,$kw,$kw,$kw,$kw)
+      );
+      $results = array();
+      foreach ($rows as $row) {
+        $results[] = array(
+          'id' => $row->id,
+          'text' => $row->delivery_no.' - '.$row->customer_name.' - Open Pack '.pl_num($row->open_qty),
+          'delivery_no' => $row->delivery_no,
+          'picking_id' => $row->picking_id,
+          'picking_no' => $row->picking_no,
+          'customer_code' => $row->customer_code,
+          'customer_name' => $row->customer_name,
+          'delivery_date' => $row->delivery_date,
+          'no_sales_order' => $row->no_sales_order,
+          'no_po' => '',
+          'vehicle_no' => $row->vehicle_no,
+          'reference_surat_jalan' => $row->reference_surat_jalan
+        );
+      }
+      header('Content-Type: application/json; charset=utf-8');
+      echo json_encode(array('results'=>$results));
+ break;
+
+ case "delivery_items":
+      $deliveryId = (int)pl_input('delivery_id');
+      $rows = $db->query(
+        "SELECT d.*
+         FROM erp_outbound_delivery_detail d
+         WHERE d.delivery_id=?
+         ORDER BY d.line_no,d.id",
+        array($deliveryId)
+      );
+      $no = 1; $count = 0;
+      foreach ($rows as $row) {
+        $openQty = max(0, (float)$row->picked_qty - (float)$row->packed_qty);
+        if ($openQty <= 0) continue;
+        $count++;
+        ?>
+        <tr>
+          <td class="text-center"><?=intval($no++);?><input type="hidden" name="delivery_detail_id[]" value="<?=intval($row->id);?>"><input type="hidden" name="kode_input[]" value="<?=pl_h($row->material_code);?>"><input type="hidden" name="material_name[]" value="<?=pl_h($row->material_name);?>"><input type="hidden" name="line_no[]" value="<?=intval($row->line_no);?>"><input type="hidden" name="delivery_qty[]" value="<?=pl_h($row->delivery_qty);?>"><input type="hidden" name="picked_qty[]" value="<?=pl_h($row->picked_qty);?>"></td>
+          <td><strong><?=pl_h($row->material_code);?></strong><br><small><?=pl_h($row->material_name);?></small></td>
+          <td class="text-right"><?=pl_num($row->delivery_qty);?></td>
+          <td class="text-right"><?=pl_num($row->picked_qty);?></td>
+          <td class="text-right"><?=pl_num($row->packed_qty);?></td>
+          <td><input name="jumlah[]" class="form-control input-sm text-right pl-pack-qty" value="<?=pl_h(number_format($openQty,5,'.',''));?>" data-max="<?=pl_h($openQty);?>"></td>
+          <td><?=pl_h($row->uom);?><input type="hidden" name="unit[]" value="<?=pl_h($row->uom);?>"></td>
+          <td><input name="packing[]" class="form-control input-sm" value="<?=pl_h($row->store);?>" placeholder="Carton / pallet / roll"></td>
+          <td><input name="qty_packing[]" class="form-control input-sm" placeholder="Jumlah kemasan"></td>
+          <td><input name="remark[]" class="form-control input-sm" value="<?=pl_h($row->remarks);?>"></td>
+        </tr>
+        <?php
+      }
+      if ($count === 0) echo '<tr><td colspan="10" class="text-center text-muted">Tidak ada open picked qty untuk dipacking.</td></tr>';
+      exit;
+ break;
  
  case "get_surat_jalan":
       $search = isset($_POST['search']) ? $_POST['search'] : '';
@@ -254,6 +336,91 @@ break;
 
 
   case "in":
+    if (!empty($_POST['delivery_id'])) {
+      $deliveryId = (int)$_POST['delivery_id'];
+      $delivery = $db->fetch("SELECT * FROM erp_outbound_delivery WHERE id=? LIMIT 1", array($deliveryId));
+      if (!$delivery) { action_response('Outbound Delivery tidak ditemukan.'); break; }
+      if ($delivery->picking_status !== 'COMPLETE') { action_response('Packing List hanya bisa dibuat dari delivery yang sudah picked complete.'); break; }
+      if (empty($_POST['delivery_detail_id']) || !is_array($_POST['delivery_detail_id'])) { action_response('Item packing wajib diisi.'); break; }
+
+      $username = pl_user();
+      $pickingId = isset($_POST['picking_id']) ? (int)$_POST['picking_id'] : 0;
+      $pickingNo = pl_input('picking_no');
+      $noSj = pl_input('no_sj') ?: $delivery->reference_surat_jalan;
+      $tglSj = pl_date(pl_input('tgl_sj'), $delivery->delivery_date);
+
+      $db->query('START TRANSACTION');
+      $header = array(
+        'delivery_id' => $delivery->id,
+        'delivery_no' => $delivery->delivery_no,
+        'picking_id' => $pickingId > 0 ? $pickingId : null,
+        'picking_no' => $pickingNo,
+        'no_packing_list' => $_POST['no_packing_list'],
+        'no_sj' => $noSj ?: $delivery->delivery_no,
+        'tgl_sj' => $tglSj,
+        'penerima' => $delivery->customer_code,
+        'no_invoice' => pl_input('no_invoice'),
+        'no_po' => pl_input('no_po'),
+        'valuta' => pl_input('valuta') ?: 'IDR',
+        'kurs' => (float)(pl_input('kurs') ?: 1),
+        'vehicle_no' => $delivery->vehicle_no,
+        'status' => 'PACKED',
+        'packed_by' => $username,
+        'packed_at' => date('Y-m-d H:i:s'),
+        'remarks' => pl_input('remarks')
+      );
+      if (!$db->insert('packing_list', $header)) {
+        $err = $db->getErrorMessage(); $db->query('ROLLBACK'); action_response($err ?: sd_t('sales_packing_list_header_save_failed', 'Packing List header failed to save.')); break;
+      }
+      $packingListId = $db->last_insert_id();
+      $totalPacked = 0;
+      foreach ($_POST['delivery_detail_id'] as $i => $detailId) {
+        $detailId = (int)$detailId;
+        $packQty = isset($_POST['jumlah'][$i]) ? (float)str_replace(',', '.', $_POST['jumlah'][$i]) : 0;
+        if ($packQty <= 0) continue;
+        $d = $db->fetch("SELECT * FROM erp_outbound_delivery_detail WHERE id=? AND delivery_id=? LIMIT 1", array($detailId,$deliveryId));
+        if (!$d) { $db->query('ROLLBACK'); action_response('Detail delivery tidak valid.'); break 2; }
+        $openQty = (float)$d->picked_qty - (float)$d->packed_qty;
+        if ($packQty > $openQty + 0.00001) { $db->query('ROLLBACK'); action_response('Packed qty '.$d->material_code.' melebihi open picked qty.'); break 2; }
+        if (!$db->insert('packing_list_detail', array(
+          'packing_list_id' => $packingListId,
+          'delivery_detail_id' => $detailId,
+          'line_no' => $d->line_no,
+          'no_sj' => $noSj ?: $delivery->delivery_no,
+          'tgl_sj' => $tglSj,
+          'kode_pemilik' => $delivery->customer_code,
+          'kode' => $d->material_code,
+          'material_name' => $d->material_name,
+          'delivery_qty' => $d->delivery_qty,
+          'picked_qty' => $d->picked_qty,
+          'packed_qty' => $packQty,
+          'jumlah' => $packQty,
+          'harga' => $d->price,
+          'nilai' => round($packQty * (float)$d->price, 2),
+          'valuta' => pl_input('valuta') ?: 'IDR',
+          'unit' => $d->uom,
+          'kurs' => (float)(pl_input('kurs') ?: 1),
+          'packing' => isset($_POST['packing'][$i]) ? $_POST['packing'][$i] : '',
+          'qty_packing' => isset($_POST['qty_packing'][$i]) ? $_POST['qty_packing'][$i] : '',
+          'remark' => isset($_POST['remark'][$i]) ? $_POST['remark'][$i] : '',
+          'row_no' => ($i + 1),
+          'kd_kategori' => ''
+        ))) {
+          $err = $db->getErrorMessage(); $db->query('ROLLBACK'); action_response($err ?: sd_t('sales_packing_list_detail_save_failed', 'Packing List detail failed to save.')); break 2;
+        }
+        $db->query("UPDATE erp_outbound_delivery_detail SET packed_qty=packed_qty+? WHERE id=?", array($packQty,$detailId));
+        $totalPacked += $packQty;
+      }
+      if ($totalPacked <= 0) { $db->query('ROLLBACK'); action_response('Minimal satu packed qty harus lebih dari nol.'); break; }
+      $sum = $db->fetch("SELECT COALESCE(SUM(delivery_qty),0) delivery_qty,COALESCE(SUM(packed_qty),0) packed_qty FROM erp_outbound_delivery_detail WHERE delivery_id=?", array($deliveryId));
+      $packingStatus = ((float)$sum->packed_qty + 0.00001 >= (float)$sum->delivery_qty) ? 'COMPLETE' : 'PARTIAL';
+      $deliveryStatus = $packingStatus === 'COMPLETE' ? 'PACKED' : $delivery->status;
+      $db->query("UPDATE erp_outbound_delivery SET packing_status=?,status=?,reference_packing_list=?,updated_by=?,updated_at=? WHERE id=?", array($packingStatus,$deliveryStatus,$_POST['no_packing_list'],$username,date('Y-m-d H:i:s'),$deliveryId));
+      if (function_exists('simpan_log')) simpan_log('User '.$username.' membuat Packing List '.$_POST['no_packing_list'].' dari delivery '.$delivery->delivery_no.' pada '.date('Y-m-d H:i:s'), $username);
+      $db->query('COMMIT');
+      action_response('');
+      break;
+    }
     
   
   
@@ -341,10 +508,26 @@ break;
     action_response($db->getErrorMessage());
     break;
   case "delete":
-    
-    
-    
-    $db->delete("packing_list","id",$_GET["id"]);
+    $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+    $header = $db->fetch("SELECT * FROM packing_list WHERE id=? LIMIT 1", array($id));
+    if ($header && !empty($header->delivery_id)) {
+      $details = $db->query("SELECT * FROM packing_list_detail WHERE packing_list_id=?", array($id));
+      $db->query('START TRANSACTION');
+      foreach ($details as $detail) {
+        if (!empty($detail->delivery_detail_id)) {
+          $db->query("UPDATE erp_outbound_delivery_detail SET packed_qty=GREATEST(packed_qty-?,0) WHERE id=?", array((float)$detail->jumlah, (int)$detail->delivery_detail_id));
+        }
+      }
+      $sum = $db->fetch("SELECT COALESCE(SUM(delivery_qty),0) delivery_qty,COALESCE(SUM(packed_qty),0) packed_qty FROM erp_outbound_delivery_detail WHERE delivery_id=?", array((int)$header->delivery_id));
+      $packingStatus = ((float)$sum->packed_qty <= 0.00001) ? 'NOT_STARTED' : (((float)$sum->packed_qty + 0.00001 >= (float)$sum->delivery_qty) ? 'COMPLETE' : 'PARTIAL');
+      $deliveryStatus = $packingStatus === 'COMPLETE' ? 'PACKED' : 'PICKED';
+      $db->query("UPDATE erp_outbound_delivery SET packing_status=?,status=?,reference_packing_list=NULL,updated_by=?,updated_at=? WHERE id=?", array($packingStatus,$deliveryStatus,pl_user(),date('Y-m-d H:i:s'),(int)$header->delivery_id));
+      $db->delete("packing_list_detail","packing_list_id",$id);
+      $db->delete("packing_list","id",$id);
+      $db->query('COMMIT');
+    } else {
+      $db->delete("packing_list","id",$id);
+    }
     action_response($db->getErrorMessage());
     break;
    case "del_massal":
@@ -358,7 +541,115 @@ break;
     action_response($db->getErrorMessage());
     break;
   case "up":
-    
+    if (!empty($_POST['delivery_id'])) {
+      $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+      $deliveryId = (int)$_POST['delivery_id'];
+      $header = $db->fetch("SELECT * FROM packing_list WHERE id=? LIMIT 1", array($id));
+      $delivery = $db->fetch("SELECT * FROM erp_outbound_delivery WHERE id=? LIMIT 1", array($deliveryId));
+      if (!$header) { action_response('Packing List tidak ditemukan.'); break; }
+      if (!$delivery) { action_response('Outbound Delivery tidak ditemukan.'); break; }
+      if (empty($_POST['delivery_detail_id']) || !is_array($_POST['delivery_detail_id'])) { action_response('Item packing wajib diisi.'); break; }
+
+      $username = pl_user();
+      $noSj = pl_input('no_sj') ?: $delivery->reference_surat_jalan;
+      $tglSj = pl_date(pl_input('tgl_sj'), $delivery->delivery_date);
+      $db->query('START TRANSACTION');
+
+      $oldDetails = $db->query("SELECT * FROM packing_list_detail WHERE packing_list_id=?", array($id));
+      foreach ($oldDetails as $old) {
+        if (!empty($old->delivery_detail_id)) {
+          $db->query(
+            "UPDATE erp_outbound_delivery_detail SET packed_qty=GREATEST(packed_qty-?,0) WHERE id=?",
+            array((float)$old->jumlah, (int)$old->delivery_detail_id)
+          );
+        }
+      }
+      $db->delete("packing_list_detail", "packing_list_id", $id);
+
+      $data = array(
+        'delivery_id' => $delivery->id,
+        'delivery_no' => $delivery->delivery_no,
+        'picking_id' => isset($_POST['picking_id']) && (int)$_POST['picking_id'] > 0 ? (int)$_POST['picking_id'] : null,
+        'picking_no' => pl_input('picking_no'),
+        'no_packing_list' => pl_input('no_packing_list'),
+        'no_sj' => $noSj ?: $delivery->delivery_no,
+        'tgl_sj' => $tglSj,
+        'penerima' => $delivery->customer_code,
+        'no_invoice' => pl_input('no_invoice'),
+        'no_po' => pl_input('no_po'),
+        'valuta' => pl_input('valuta') ?: 'IDR',
+        'kurs' => (float)(pl_input('kurs') ?: 1),
+        'vehicle_no' => pl_input('vehicle_no') ?: $delivery->vehicle_no,
+        'status' => 'PACKED',
+        'packed_by' => $username,
+        'packed_at' => date('Y-m-d H:i:s'),
+        'remarks' => pl_input('remarks')
+      );
+      $db->update("packing_list", $data, "id", $id);
+      $error = $db->getErrorMessage();
+      $totalPacked = 0;
+
+      if ($error === '') {
+        foreach ($_POST['delivery_detail_id'] as $i => $detailId) {
+          $detailId = (int)$detailId;
+          $packQty = isset($_POST['jumlah'][$i]) ? (float)str_replace(',', '.', $_POST['jumlah'][$i]) : 0;
+          if ($packQty <= 0) continue;
+          $d = $db->fetch("SELECT * FROM erp_outbound_delivery_detail WHERE id=? AND delivery_id=? LIMIT 1", array($detailId, $deliveryId));
+          if (!$d) { $error = 'Detail delivery tidak valid.'; break; }
+          $openQty = (float)$d->picked_qty - (float)$d->packed_qty;
+          if ($packQty > $openQty + 0.00001) { $error = 'Packed qty '.$d->material_code.' melebihi open picked qty.'; break; }
+          if (!$db->insert('packing_list_detail', array(
+            'packing_list_id' => $id,
+            'delivery_detail_id' => $detailId,
+            'line_no' => $d->line_no,
+            'no_sj' => $noSj ?: $delivery->delivery_no,
+            'tgl_sj' => $tglSj,
+            'kode_pemilik' => $delivery->customer_code,
+            'kode' => $d->material_code,
+            'material_name' => $d->material_name,
+            'delivery_qty' => $d->delivery_qty,
+            'picked_qty' => $d->picked_qty,
+            'packed_qty' => $packQty,
+            'jumlah' => $packQty,
+            'harga' => $d->price,
+            'nilai' => round($packQty * (float)$d->price, 2),
+            'valuta' => pl_input('valuta') ?: 'IDR',
+            'unit' => $d->uom,
+            'kurs' => (float)(pl_input('kurs') ?: 1),
+            'packing' => isset($_POST['packing'][$i]) ? $_POST['packing'][$i] : '',
+            'qty_packing' => isset($_POST['qty_packing'][$i]) ? $_POST['qty_packing'][$i] : '',
+            'remark' => isset($_POST['remark'][$i]) ? $_POST['remark'][$i] : '',
+            'row_no' => ($i + 1),
+            'kd_kategori' => ''
+          ))) {
+            $error = $db->getErrorMessage() ?: sd_t('sales_packing_list_detail_save_failed', 'Packing List detail failed to save.');
+            break;
+          }
+          $db->query("UPDATE erp_outbound_delivery_detail SET packed_qty=packed_qty+? WHERE id=?", array($packQty, $detailId));
+          $totalPacked += $packQty;
+        }
+      }
+
+      if ($error === '' && $totalPacked <= 0) $error = 'Minimal satu packed qty harus lebih dari nol.';
+      if ($error !== '') {
+        $db->query('ROLLBACK');
+        action_response($error);
+        break;
+      }
+
+      $sum = $db->fetch("SELECT COALESCE(SUM(delivery_qty),0) delivery_qty,COALESCE(SUM(packed_qty),0) packed_qty FROM erp_outbound_delivery_detail WHERE delivery_id=?", array($deliveryId));
+      $packingStatus = ((float)$sum->packed_qty <= 0.00001) ? 'NOT_STARTED' : (((float)$sum->packed_qty + 0.00001 >= (float)$sum->delivery_qty) ? 'COMPLETE' : 'PARTIAL');
+      $deliveryStatus = $packingStatus === 'COMPLETE' ? 'PACKED' : 'PICKED';
+      $db->query(
+        "UPDATE erp_outbound_delivery SET packing_status=?,status=?,reference_packing_list=?,updated_by=?,updated_at=? WHERE id=?",
+        array($packingStatus, $deliveryStatus, pl_input('no_packing_list'), $username, date('Y-m-d H:i:s'), $deliveryId)
+      );
+      if (function_exists('simpan_log')) simpan_log('User '.$username.' mengubah Packing List '.pl_input('no_packing_list').' dari delivery '.$delivery->delivery_no.' pada '.date('Y-m-d H:i:s'), $username);
+      $db->query('COMMIT');
+      action_response('');
+      break;
+    }
+
    $data = array(
       "no_packing_list" => $_POST["no_packing_list"],
       "no_sj" => $_POST["no_sj"],
@@ -398,7 +689,7 @@ break;
 
         $kode            = $_POST['kode_input'][$i];
       //  $jenis_dokpab    = $_POST['jenis_dokpab_' . $realIndex];
-        $jumlah          = formatNumber($_POST['jumlah_' . $realIndex]);
+        $jumlah          = isset($_POST['jumlah'][$i]) ? formatNumber($_POST['jumlah'][$i]) : formatNumber($_POST['jumlah_' . $realIndex]);
 
         // $harga           = formatNumber($_POST['harga'][$i]);
         // $nilai           = formatNumber($_POST['jumlah_' . $realIndex]) * formatNumber($_POST['harga'][$i]);
@@ -409,7 +700,7 @@ break;
         // $prod_date       = $_POST['prod_date'][$i];
         // $exp_date        = $_POST['exp_date'][$i];
         $packing         = $_POST['packing'][$i];
-       // $qty_packing     = formatNumber($_POST['qty_packing'][$i]);
+        $qty_packing     = isset($_POST['qty_packing'][$i]) ? $_POST['qty_packing'][$i] : '';
         $remark          = $_POST['remark'][$i];
         $unit            = $_POST['unit'][$i];
 
@@ -432,7 +723,7 @@ break;
            
              
                 packing        = '$packing',
-               
+                qty_packing    = '$qty_packing',
                 remark         = '$remark',
                 unit           = '$unit'
              

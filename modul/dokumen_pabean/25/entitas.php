@@ -49,7 +49,7 @@ foreach ($q as $k) {
               <textarea class="form-control" id="alamat"  placeholder="NPWP" ><?= $info->alamat ?></textarea>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Izin TPB</label>
+              <label for="exampleInputEmail1"><?=customs_h('tpb_license_number','Nomor Izin TPB');?></label>
               <div class="row">
                  <div class="col-md-6">
                    <input type="text" class="form-control" id="npwp" value="<?= $info->skepkb ?>" placeholder="NPWP" >

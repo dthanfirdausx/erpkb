@@ -9,50 +9,80 @@ include "../../inc/config.php";
       <form id="input_barang" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/barang/barang_action.php?act=in">
                       
               <div class="form-group">
-                <label for="Kode Barang" class="control-label col-lg-2">Kode Barang <span style="color:#FF0000">*</span></label>
+                <label for="Kode Barang" class="control-label col-lg-2"><?=erp_h('master_term_kode_barang', 'Material Code');?> <span style="color:#FF0000">*</span></label>
                 <div class="col-lg-10">
-                  <input type="text" name="kd_barang" placeholder="Kode Barang" class="form-control" required>
+                  <input type="text" name="kd_barang" placeholder="<?=erp_attr('master_term_kode_barang', 'Material Code');?>" class="form-control" required>
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama Barang" class="control-label col-lg-2">Nama Barang <span style="color:#FF0000">*</span></label>
+                <label for="Nama Barang" class="control-label col-lg-2"><?=erp_h('master_term_nama_barang', 'Material Name');?> <span style="color:#FF0000">*</span></label>
                 <div class="col-lg-10">
-                  <input type="text" name="nm_barang" placeholder="Nama Barang" class="form-control" required>
+                  <input type="text" name="nm_barang" placeholder="<?=erp_attr('master_term_nama_barang', 'Material Name');?>" class="form-control" required>
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Type" class="control-label col-lg-2">Type </label>
+                <label for="Type" class="control-label col-lg-2"><?=erp_h('common_type', 'Type');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="type" placeholder="Type" class="form-control" >
+                  <input type="text" name="type" placeholder="<?=erp_attr('common_type', 'Type');?>" class="form-control" >
+                </div>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-label col-lg-2"><?=erp_h('master_term_material_type', 'Material Type');?> <span style="color:#FF0000">*</span></label>
+                <div class="col-lg-10"><select name="material_type_id" class="form-control chzn-select" required><option value=""></option>
+                  <?php foreach ($db->query("select id,type_code,type_name from erp_material_type where status='Aktif' order by type_code") as $isi) { ?><option value="<?=$isi->id;?>"><?=$isi->type_code;?> - <?=$isi->type_name;?></option><?php } ?>
+                </select></div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-lg-2"><?=erp_h('master_term_material_group', 'Material Group');?> <span style="color:#FF0000">*</span></label>
+                <div class="col-lg-10"><select name="material_group_id" class="form-control chzn-select" required><option value=""></option>
+                  <?php foreach ($db->query("select id,group_code,group_name from erp_material_group where status='Aktif' order by group_code") as $isi) { ?><option value="<?=$isi->id;?>"><?=$isi->group_code;?> - <?=$isi->group_name;?></option><?php } ?>
+                </select></div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-lg-2"><?=erp_h('master_term_plant', 'Plant');?> <span style="color:#FF0000">*</span></label>
+                <div class="col-lg-10"><select name="plant_id" class="form-control chzn-select" required><option value=""></option>
+                  <?php foreach ($db->query("select id,plant_code,plant_name from erp_plant where status='Aktif' order by plant_code") as $isi) { ?><option value="<?=$isi->id;?>"><?=$isi->plant_code;?> - <?=$isi->plant_name;?></option><?php } ?>
+                </select></div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-lg-2"><?=erp_h('master_default_storage_location', 'Default Storage Location');?></label>
+                <div class="col-lg-10"><select name="default_storage_location_id" class="form-control chzn-select"><option value=""></option>
+                  <?php foreach ($db->query("select s.id,s.storage_code,s.storage_name,p.plant_code from erp_storage_location s join erp_plant p on p.id=s.plant_id where s.status='Aktif' order by p.plant_code,s.storage_code") as $isi) { ?><option value="<?=$isi->id;?>"><?=$isi->plant_code;?> / <?=$isi->storage_code;?> - <?=$isi->storage_name;?></option><?php } ?>
+                </select></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="Spesipikasi" class="control-label col-lg-2"><?=erp_h('common_spec', 'Spec');?> </label>
+                <div class="col-lg-10">
+                  <input type="text" name="spec" placeholder="<?=erp_attr('common_spec', 'Spec');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Spesipikasi" class="control-label col-lg-2">Spesipikasi </label>
+                <label for="Satuan" class="control-label col-lg-2"><?=erp_h('master_term_satuan', 'Unit');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="spec" placeholder="Spesipikasi" class="form-control" >
+                  <select name="satuan" class="form-control chzn-select" required><option value=""></option>
+                    <?php foreach ($db->query("select jenis,max(nama) nama from satuan group by jenis order by jenis") as $isi) { ?><option value="<?=$isi->jenis;?>"><?=$isi->jenis;?> - <?=$isi->nama;?></option><?php } ?>
+                  </select>
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Satuan" class="control-label col-lg-2">Satuan </label>
+                <label for="Keterangan" class="control-label col-lg-2"><?=erp_h('master_term_keterangan', 'Remarks');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="satuan" placeholder="Satuan" class="form-control" >
-                </div>
-              </div><!-- /.form-group -->
-              
-              <div class="form-group">
-                <label for="Keterangan" class="control-label col-lg-2">Keterangan </label>
-                <div class="col-lg-10">
-                  <input type="text" name="ket" placeholder="Keterangan" class="form-control" >
+                  <input type="text" name="ket" placeholder="<?=erp_attr('master_term_keterangan', 'Remarks');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
-                        <label for="Kategori" class="control-label col-lg-2">Kategori <span style="color:#FF0000">*</span></label>
+                        <label for="Kategori" class="control-label col-lg-2"><?=erp_h('master_term_kategori', 'Category');?> <span style="color:#FF0000">*</span></label>
                         <div class="col-lg-10">
-            <select  id="kd_kategori" name="kd_kategori" data-placeholder="Pilih Kategori ..." class="form-control chzn-select" tabindex="2" required>
+            <select  id="kd_kategori" name="kd_kategori" data-placeholder="<?=erp_attr('master_select_category', 'Select Category');?> ..." class="form-control chzn-select" tabindex="2" required>
                <option value=""></option>
                <?php foreach ($db->fetch_all("kategori") as $isi) {
                   echo "<option value='$isi->kd_kategori'>$isi->nm_kategori</option>";
@@ -62,7 +92,7 @@ include "../../inc/config.php";
                       </div><!-- /.form-group -->
 
           <div class="form-group">
-              <label for="status" class="control-label col-lg-2">status </label>
+              <label for="status" class="control-label col-lg-2"><?=erp_h('common_status', 'Status');?> </label>
               <div class="col-lg-10">
                 <input name="status" class="make-switch" type="checkbox" checked>
               </div>
@@ -165,17 +195,17 @@ include "../../inc/config.php";
          messages: {
             
           kd_barang: {
-          required: "This field is required",
+          required: (window.ERPKB_LANG && ERPKB_LANG.validation_required) || "This field is required",
           //minlength: "Your username must consist of at least 2 characters"
           },
         
           nm_barang: {
-          required: "This field is required",
+          required: (window.ERPKB_LANG && ERPKB_LANG.validation_required) || "This field is required",
           //minlength: "Your username must consist of at least 2 characters"
           },
         
           kd_kategori: {
-          required: "This field is required",
+          required: (window.ERPKB_LANG && ERPKB_LANG.validation_required) || "This field is required",
           //minlength: "Your username must consist of at least 2 characters"
           },
         

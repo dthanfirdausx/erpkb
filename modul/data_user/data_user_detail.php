@@ -1,3 +1,4 @@
+<?php $data_user_photo_url = erpkb_user_photo_url($data_edit->foto_user, 'data_user'); ?>
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>Data User</h1>
@@ -63,7 +64,7 @@
                         <div class="col-lg-10">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
-                    <img src="../../../../upload/data_user/<?=$data_edit->foto_user?>"></div>
+                    <img src="<?=$data_user_photo_url;?>" style="max-width:100%;max-height:140px;"></div>
                   </div>
                   </div>
                       </div><!-- /.form-group -->

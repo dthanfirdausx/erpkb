@@ -1,527 +1,129 @@
-<!-- Content Header (Page header) -->
-   
-
-    <!-- Main content -->
-    <section class="content">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="box box-solid box-primary">
-          <div class="box-header">
-            <h3 class="box-title">Add Purchase Order</h3>
-            <div class="box-tools pull-right">
-              <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
-            </div>
-          </div>
-          <div class="box-body">
-           <div class="alert alert-danger error_data" style="display:none">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <span class="isi_warning"></span>
-        </div>
-           <form id="input_purchase_order" method="post" class="form-horizontal" action="<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=in">
-        
-
-          <div class="row">
-  <!-- Kiri -->
-  <div class="col-md-6">
-    <!-- Header PO -->
-    <h4  class="text-center"><b>Purchase Order</b></h4> 
-
-    <div class="form-group" style="display: none">
-      <label for="purchase_order_no" class="control-label col-lg-3">PO No.</label>
-      <div class="col-lg-9">
-        <input type="text" name="purchase_order_no"  id="purchase_order_no" value="<?= generate_po_no(date("Y"),date("m")) ?>" placeholder="Purchase Order No." class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="customer_id" class="control-label col-lg-3">Customer ID</label>
-      <div class="col-lg-9">
-        <input type="text" name="customer_id" id="customer_id"  placeholder="Customer ID" class="form-control" readonly="">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="date" class="control-label col-lg-3">Date</label>
-      <div class="col-lg-9">
-        <div class="input-group date" id="tgl1">
-          <input type="text" class="form-control" name="po_date" onchange="ganti_no_po(this.value)" />
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="delivery_date" class="control-label col-lg-3">Delivery Date</label>
-      <div class="col-lg-9">
-        <div class="input-group date" id="tgl2">
-          <input type="text" class="form-control" name="delivery_date" />
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="arrival_date" class="control-label col-lg-3">Arrival Date</label>
-      <div class="col-lg-9">
-        <div class="input-group date" id="tgl3">
-          <input type="text" class="form-control" name="arrival_date" />
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="shipped_via" class="control-label col-lg-3">Shipped Via</label>
-      <div class="col-lg-9">
-        <input type="text" name="shipped_via" placeholder="Shipped Via" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="delivery_term" class="control-label col-lg-3">Delivery Term</label>
-      <div class="col-lg-9">
-        <input type="text" name="delivery_term" placeholder="Delivery Term" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Payment Term</label>
-      <div class="col-lg-9">
-        <input type="text" name="payment_term" placeholder="Payment Term" class="form-control">
-      </div>
-    </div>
-     <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Note</label>
-      <div class="col-lg-9">
-        <textarea class="form-control" name="catatan" style="height: 100px"></textarea>
-      </div>
-    </div>
-     <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Currency</label>
-      <div class="col-lg-9">
-        <select id="currency" name="currency" data-placeholder="Pilih Currency..." class="form-control chzn-select" tabindex="2" >
-          <option value="">-Pilih Currency-</option> 
-         <?php
-         $q = $db->query("select * from matauang  group by jenis_valas");
-         foreach ($q as $k) {
-            echo "<option value='$k->jenis_valas'>$k->jenis_valas</option>";
-         }
-         ?>
-       </select>
-      </div>
-    </div>
-      <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Include Tax</label>
-      <div class="col-lg-9">
-        <input type="radio" name="tax" value="ya" style="position: relative;top: 3px">&nbsp;Yes &nbsp; <input type="radio" name="tax" value="no" style="position: relative;top: 3px">&nbsp; No &nbsp;
-      </div>
-    </div>
-  </div>
-
-  <!-- Kanan -->
-  <div class="col-md-6">
-    <!-- Seller (Vendor) -->
-    <h4 class="text-center"><b>Seller (Vendor)</b></h4>
-
-    <div class="form-group">
-      <label for="seller_name" class="control-label col-lg-3">Name</label>
-      <div class="col-lg-9">
-        <select id="seller_code" name="seller_code" data-placeholder="Pilih Supplier..." class="form-control chzn-select" tabindex="2" >
-          <option value="">-Pilih Vendor-</option> 
-         <?php
-         $q = $db->query("select * from pemasok");
-         foreach ($q as $k) {
-            echo "<option value='$k->nama'>$k->nama</option>";
-         }
-         ?>
-       </select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_address" class="control-label col-lg-3">Address</label>
-      <div class="col-lg-9">
-        <textarea name="seller_address" id="seller_address" placeholder="Seller Address" class="form-control"></textarea>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_phone" class="control-label col-lg-3">Phone</label>
-      <div class="col-lg-9">
-        <input type="text" name="seller_phone" id="seller_phone" placeholder="Phone" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_pic" class="control-label col-lg-3">PIC</label>
-      <div class="col-lg-9">
-        <input type="text" name="seller_pic" id="seller_pic" placeholder="PIC" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_email" class="control-label col-lg-3">Email</label>
-      <div class="col-lg-9">
-        <input type="email" name="seller_email" id="seller_email" placeholder="Email" class="form-control">
-      </div>
-    </div>
-
-    <h4 class="text-center"><b>Ship To (Consignee)</b></h4>
-
-    <div class="form-group">
-      <label for="consignee_name" class="control-label col-lg-3">Name</label>
-      <div class="col-lg-9">
-        <input type="text" name="consignee_name" placeholder="Consignee Name" class="form-control" value="<?= $infokb->nama ?>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="consignee_address" class="control-label col-lg-3">Address</label>
-      <div class="col-lg-9">
-        <textarea name="consignee_address" placeholder="Consignee Address" class="form-control"><?= $infokb->alamat ?></textarea>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="consignee_phone" class="control-label col-lg-3">Phone</label>
-      <div class="col-lg-9">
-        <input type="text" name="consignee_phone" placeholder="Phone" class="form-control" value="<?= $infokb->telp ?>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="consignee_email" class="control-label col-lg-3">Email</label>
-      <div class="col-lg-9">
-        <input type="text" name="consignee_email" placeholder="Email" class="form-control" value="<?= $infokb->email ?>">
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-                <div class="form-group" id="form_pr">
-                
-                <div class="col-lg-12">
-                <table class="table">
-                 <thead>
-                   <tr>
-                     <th style="width:50px;text-align: center">
-                       <a style="cursor: pointer;" onclick="add_baris()" ><i class="fa fa-plus"></i> </a>
-                     </th>
-                     <th style="width: 300px">Kode Barang</th>
-                     <th style="width: 400px">Nama Barang</th>
-                     <th style="width: 150px">Spec</th>
-                     <th style="width: 100px">Unit</th>
-                    
-                     <th>Qty</th>  
-                     <th>Harga</th>                   
-                     <th>Ket</th>
-                   </tr>
-                 </thead>
-                 <tbody id="isi_tabel">
-                   <tr id="baris_1">
-                     <td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris('1')" ><i class="fa fa-trash-o" style="font-size: 25px;"></i></a> </td>
-                     <td><input type="text" id="form_kode_1" placeholder="Kode Barang" onclick="cari_kode('1')" class="form-control" name="kode[]"  >
-                      <input type="hidden" name="kode_input[]" id="kode_input_1"> 
-                     </td> 
-                     <td><input type="text" id="form_name_1" class="form-control" name="name[]"  readonly=""></td> 
-                     <td><input type="text" id="form_spec_1" class="form-control" name="spec[]"  readonly=""></td>
-                     <td><input type="text" id="form_unit_1" class="form-control" name="unit[]"  readonly=""></td> 
-                     <td><input type="text" id="form_qty_1" class="form-control" name="qty[]"  required></td>
-                     <td><input type="text" id="form_harga_1" class="form-control harga-input" name="harga[]"  required></td>
-                     <td><input type="text" id="form_ket_1" class="form-control" name="ket[]" ></td>
-                   </tr>
-                 </tbody>
-               </table>
-                </div>
-               <input type="hidden" id="jml" value="1">
-              
-              </div> 
-
-              
-                      
-              <div class="form-group">
-                <label for="tags" class="control-label col-lg-2">&nbsp;</label>
-                <div class="col-lg-10">
-             <a href="<?=base_index();?>purchase-order" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
-                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-           
-                </div>
-              </div><!-- /.form-group -->
-
-            </form>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-    </section><!-- /.content -->
-
-    <script>
-
-      function ganti_no_po(tgl){
-        $.ajax({
-        url: "<?= base_url() ?>modul/purchase_order/purchase_order_action.php?act=ganti_no_po",
-        type: "POST",
-        data: {tgl: tgl},
-      //  dataType: "json",
-        success: function(res){
-         $("#purchase_order_no").val(res);
-        },
-        error: function(xhr, status, error){
-          console.log(xhr.responseText);
-        }
-      });
-      }
-$(document).ready(function(){
-  $("#seller_code").change(function(){
-    var kode = $(this).val();
-    if(kode != ""){
-      $.ajax({
-        url: "<?= base_url() ?>modul/purchase_order/purchase_order_action.php?act=cari_vendor",
-        type: "POST",
-        data: {kode_pemasok: kode},
-        dataType: "json",
-        success: function(res){
-          if(res.success){
-            // Isi field otomatis
-            $("#seller_address").val(res.data.alamat + ", " + res.data.kota + ", " + res.data.negara);
-            $("#customer_id").val(res.data.kode_pemasok);
-            $("#seller_phone").val(res.data.notelp);
-            //$("#seller_pic").val(res.data.nama);
-            $("#seller_email").val(res.data.email);
-          } else {
-            alert("Data vendor tidak ditemukan!");
-          }
-        },
-        error: function(xhr, status, error){
-          console.log(xhr.responseText);
-        }
-      });
-    }
-  });
-});
-</script>
-
-<script type="text/javascript">
-
-
-   function cari_kode(id) {   
-    
-                      $('#form_kode_'+id).autocomplete({
-                        source: function (request, response) {
-                          $.ajax({
-                            url: "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=cari_kode",
-                            data: { term: request.term },
-                            type : 'POST',
-                            dataType: "json",
-                            success: function (data) {
-
-                               response($.map(data, function (item) {
-                                return {
-                                  kd_barang: item.kd_barang,
-                                  nm_barang: item.nm_barang,
-                                  id_barang : item.id_barang,
-                                  spec : item.spec
-                                };
-                              }))
-                            }
-                          })
-                        },
-                        select: function (event, ui) {
-                             $('#form_kode_'+id).val(ui.item.kd_barang);
-                             $('#form_name_'+id).val(ui.item.nm_barang); 
-                             $('#form_spec_'+id).val(ui.item.spec); 
-                             $("#kode_input_"+id).val(ui.item.kd_barang);
-                             $("#kode_input_"+id).val(ui.item.kd_barang);
-                            $.ajax({
-                              type : 'POST',
-                              data : {
-                                id:id,
-                                kd_barang : ui.item.kd_barang 
-                              },
-                              url : "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=get_unit",
-                              success:function(data){
-                                   $("#form_unit_"+id).val(data);
-                              }
-                            });
-
-                                               return false;
-                         }
-                                           }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                        var inner_html = '<a><div class="list_item_container" style="height:20px">' + item.kd_barang + ' , ' +item.nm_barang+'</div></a>';
-                        return $("<li></li>")
-                        .data("ui-autocomplete-item", item)
-                        .append(inner_html)
-                        .appendTo(ul);
-                       };
+<?php
+if (!function_exists('po_form_t')) {
+  function po_form_t($key, $fallback = '') {
+    return lang_text($key, $fallback);
   }
-
-   function hapus_baris(id) {
-
-      $("#baris_"+id).remove();
-      // var id_baris =  parseInt($("#jml").val())-1;
-      //  $("#jml").val(id_baris);
-    } 
- function add_baris(id) {
-      var id_baris =  parseInt($("#jml").val())+1;
-      var baris = '<tr id="baris_'+id_baris+'"><td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris(\''+id_baris+'\')" ><i class="fa fa-trash-o" style="font-size: 25px;"></i></a> </td><td><input type="text" class="form-control" placeholder="Kode Barang" onclick="cari_kode(\''+id_baris+'\')" id="form_kode_'+id_baris+'" name="kode[]"  > <input type="hidden" id="kode_input_'+id_baris+'" name="kode_input[]" id="kode_input_'+id_baris+'"></td><td><input type="text" id="form_name_'+id_baris+'" class="form-control" name="name[]"  readonly=""></td><td><input type="text" id="form_spec_'+id_baris+'" class="form-control" name="spec[]"  readonly=""></td> <td><input type="text" class="form-control" id="form_unit_'+id_baris+'" name="unit[]" style="width: 150px" readonly=""></td><td><input type="text"  id="form_qty_'+id_baris+'" class="form-control" name="qty[]" required></td><td><input type="text" id="form_harga_'+id_baris+'" class="form-control harga-input" name="harga[]"  required></td><td><input type="text" class="form-control" name="ket[]" id="form_ket_'+id_baris+'"></td></tr>';
-
-        $("#isi_tabel").append(baris);
-        $("#jml").val(id_baris);
-    }
-  function add_baris_old() {
-    var id_baris = parseInt($("#jml").val()) + 1;
-
-    var baris = '<tr id="baris_' + id_baris + '">';
-    baris += '<td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris(\'' + id_baris + '\')"><i class="fa fa-trash-o" style="font-size: 25px;"></i></a></td>';
-    baris += '<td><input type="number" class="form-control" name="seq[]" id="form_seq_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="mat_code[]" id="form_mat_code_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="model[]" id="form_model_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="article[]" id="form_article_' + id_baris + '"></td>';
-    baris += '<td><input type="number" class="form-control" name="nqty[]" id="form_nqty_' + id_baris + '"></td>';
-    baris += '<td><input type="number" class="form-control" name="shq[]" id="form_shq_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="tooling_stage[]" id="form_tooling_stage_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="material_name[]" id="form_material_name_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="color[]" id="form_color_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="emboss[]" id="form_emboss_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="thickness[]" id="form_thickness_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="g[]" id="form_g_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="yield[]" id="form_yield_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="component[]" id="form_component_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="unit[]" id="form_unit_' + id_baris + '"></td>';
-    baris += '<td><input type="number" class="form-control" name="po_qty[]" id="form_po_qty_' + id_baris + '" onkeyup="hitung_amount(\'' + id_baris + '\')"></td>';
-    baris += '<td><input type="text" class="form-control" name="curr[]" id="form_curr_' + id_baris + '"></td>';
-    baris += '<td><input type="number" step="0.01" class="form-control" name="unit_price[]" id="form_unit_price_' + id_baris + '" onkeyup="hitung_amount(\'' + id_baris + '\')"></td>';
-    baris += '<td><input type="number" step="0.01" class="form-control" name="amount[]" id="form_amount_' + id_baris + '" readonly></td>';
-    baris += '<td><input type="text" class="form-control" name="td_vendor[]" id="form_td_vendor_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="ta_factor[]" id="form_ta_factor_' + id_baris + '"></td>';
-    baris += '</tr>';
-
-    $("#isi_tabel").append(baris);
-    $("#jml").val(id_baris);
 }
-
-// Fungsi hitung otomatis Amount
-function hitung_amount(id) {
-    var qty = parseFloat($("#form_po_qty_" + id).val()) || 0;
-    var price = parseFloat($("#form_unit_price_" + id).val()) || 0;
-    var total = qty * price;
-    $("#form_amount_" + id).val(total.toFixed(2));
+if (!function_exists('po_form_h')) {
+  function po_form_h($value) {
+    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+  }
 }
-
-    $(document).ready(function() {
-     
-    
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    
-    $("#input_purchase_order").validate({
-        errorClass: "help-block",
-        errorElement: "span",
-        highlight: function(element, errorClass, validClass) {
-            $(element).parents(".form-group").removeClass(
-                "has-success").addClass("has-error");
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).parents(".form-group").removeClass(
-                "has-error").addClass("has-success");
-        },
-        errorPlacement: function(error, element) {
-            if (element.hasClass("chzn-select")) {
-                var id = element.attr("id");
-                error.insertAfter("#" + id + "_chosen");
-            } else if (element.attr("type") == "checkbox") {
-                element.parent().parent().append(error);
-            } else if (element.attr("type") == "radio") {
-                element.parent().parent().append(error);
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        
-        submitHandler: function(form) {
-            $("#loadnya").show();
-            $(form).ajaxSubmit({
-                url : $(this).attr("action"),
-                dataType: "json",
-                type : "post",
-                error: function(data ) { 
-                  $("#loadnya").hide();
-                  console.log(data); 
-                },
-                success: function(responseText) {
-                  $("#loadnya").hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=="die") {
-                            $("#informasi").modal("show");
-                          } else if(responseText[index].status=="error") {
-                             $(".isi_warning").text(responseText[index].error_message);
-                             $(".error_data").focus()
-                             $(".error_data").fadeIn();
-                          } else if(responseText[index].status=="good") {
-                            $(".error_data").hide();
-                            $(".notif_top").fadeIn(1000);
-                            $(".notif_top").fadeOut(1000, function() {
-                                    window.history.back();
-                            });
-                          } else {
-                             console.log(responseText);
-                             $(".isi_warning").text(responseText[index].error_message);
-                             $(".error_data").focus()
-                             $(".error_data").fadeIn();
-                          }
-                    });
-                }
-
-            });
-        }
-    });
-});
+$shipName = isset($infokb->nama) ? $infokb->nama : '';
+$shipAddress = isset($infokb->alamat) ? $infokb->alamat : '';
+$shipPhone = isset($infokb->telp) ? $infokb->telp : '';
+$shipEmail = isset($infokb->email) ? $infokb->email : '';
+$poFormLang = array(
+  'add_source_item' => po_form_t('purchase_order_add_source_item', 'Add Source Item'),
+  'add_manual_item' => po_form_t('purchase_order_add_manual_item', 'Add Manual Item'),
+  'manual_ref_placeholder' => po_form_t('purchase_order_manual_ref_placeholder', 'Optional manual reference / reason'),
+  'auto_source_placeholder' => po_form_t('purchase_order_auto_source_placeholder', 'Auto from selected source'),
+  'material_placeholder' => po_form_t('purchase_order_material_placeholder', 'Material description'),
+  'search_material' => po_form_t('purchase_order_search_material', 'Search material from material master'),
+  'search_source_item' => po_form_t('purchase_order_search_source_item', 'Search source item'),
+  'no_item_required' => po_form_t('purchase_order_no_item_required', 'At least one PO item is required.'),
+  'save_failed' => po_form_t('purchase_order_save_failed', 'PO failed to save.'),
+  'source_item_loading' => po_form_t('purchase_order_search_source_item', 'Search source item'),
+  'source_rfq' => po_form_t('purchase_order_source_rfq_award', 'RFQ Award'),
+  'source_pr' => po_form_t('purchase_order_source_approved_pr', 'Approved PR'),
+  'source_manual' => po_form_t('purchase_order_source_manual_exceptional', 'Manual / Exceptional'),
+);
+?>
+<style>
+  .po-hero{background:linear-gradient(135deg,#1d4ed8,#0f766e);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 10px 24px rgba(29,78,216,.18)}
+  .po-hero h1{margin:0 0 6px;font-size:25px;font-weight:700}.po-hero p{margin:0;opacity:.9}.po-section{border-radius:10px}.required-label:after{content:' *';color:#dd4b39}.po-items{font-size:12px}.po-items th{white-space:nowrap;background:#f5f5f5}.po-items td{vertical-align:top!important}.po-items .form-control{height:30px;padding:4px 6px;font-size:12px;min-width:90px}.po-items .material-name-input{margin-top:4px}.select2-container{width:100%!important}.po-total-box{font-size:18px;font-weight:700}
+</style>
+<section class="content-header">
+  <h1><?=po_form_h(po_form_t('purchase_order_title','Purchase Order'));?> <small><?=po_form_h(po_form_t('purchase_order_create_subtitle','Create SAP MM PO'));?></small></h1>
+  <ol class="breadcrumb">
+    <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=po_form_h(po_form_t('common_home','Home'));?></a></li>
+    <li><a href="<?=base_index();?>purchase-order"><?=po_form_h(po_form_t('purchase_order_title','Purchase Order'));?></a></li>
+    <li class="active"><?=po_form_h(po_form_t('common_create','Create'));?></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="po-hero">
+    <h1><?=po_form_h(po_form_t('purchase_order_create_title','Create Purchase Order'));?></h1>
+    <p><?=po_form_h(po_form_t('purchase_order_create_intro','Create PO from RFQ award or approved PR. Data remains compatible with GR for PO and GR Blocked Stock.'));?></p>
+  </div>
+  <form id="input_purchase_order" method="post" action="<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=in">
+    <div class="alert alert-danger error_data" style="display:none"><span class="isi_warning"></span></div>
+    <div class="box box-primary po-section">
+      <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-file-text-o"></i> <?=po_form_h(po_form_t('purchase_order_header_data','Header Data'));?></h3></div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('purchase_order_po_number','PO Number'));?></label><input type="text" id="purchase_order_no" class="form-control" value="<?=generate_po_no(date('Y'),date('m'));?>" readonly></div>
+          <div class="col-md-2 form-group"><label class="required-label"><?=po_form_h(po_form_t('purchase_order_po_date','PO Date'));?></label><input type="text" name="po_date" id="po_date" class="form-control date-field" value="<?=date('Y-m-d');?>" required></div>
+          <div class="col-md-2 form-group"><label class="required-label"><?=po_form_h(po_form_t('purchase_order_delivery_date','Delivery Date'));?></label><input type="text" name="delivery_date" class="form-control date-field" value="<?=date('Y-m-d');?>" required></div>
+          <div class="col-md-2 form-group"><label><?=po_form_h(po_form_t('purchase_order_arrival_date','Arrival Date'));?></label><input type="text" name="arrival_date" class="form-control date-field" value="<?=date('Y-m-d');?>"></div>
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('purchase_order_po_type','PO Type'));?></label><select name="po_type" class="form-control select2-basic"><option value="NB"><?=po_form_h(po_form_t('purchase_order_standard_po','NB - Standard PO'));?></option><option value="FO"><?=po_form_h(po_form_t('purchase_order_framework_po','FO - Framework PO'));?></option><option value="ZKB"><?=po_form_h(po_form_t('purchase_order_bonded_zone_po','ZKB - Kawasan Berikat'));?></option></select></div>
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('purchase_order_source_type','Source Type'));?></label><select name="source_type" id="source_type" class="form-control select2-basic"><option value="RFQ"><?=po_form_h(po_form_t('purchase_order_source_rfq_award','RFQ Award'));?></option><option value="PR"><?=po_form_h(po_form_t('purchase_order_source_approved_pr','Approved PR'));?></option><option value="MANUAL"><?=po_form_h(po_form_t('purchase_order_source_manual_exceptional','Manual / Exceptional'));?></option></select></div>
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('purchase_order_source_reference','Source Reference'));?></label><input type="text" name="source_ref" id="source_ref" class="form-control" readonly></div>
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('purchase_order_purchasing_org','Purchasing Org'));?></label><select name="purchasing_org" class="form-control select2-basic"><option value=""><?=po_form_h(po_form_t('purchase_order_select','Select'));?></option><?php foreach($db->query("SELECT org_code,org_name FROM erp_purchasing_organization WHERE status='Aktif' ORDER BY org_code") as $row){ ?><option value="<?=htmlspecialchars($row->org_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($row->org_code.' - '.$row->org_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('purchase_order_purchasing_group','Purchasing Group'));?></label><select name="purchasing_group" class="form-control select2-basic"><option value=""><?=po_form_h(po_form_t('purchase_order_select','Select'));?></option><?php foreach($db->query("SELECT group_code,group_name FROM erp_purchasing_group WHERE status='Aktif' ORDER BY group_code") as $row){ ?><option value="<?=htmlspecialchars($row->group_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($row->group_code.' - '.$row->group_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('common_plant','Plant'));?></label><select name="plant" id="plant" class="form-control select2-basic"><option value=""><?=po_form_h(po_form_t('purchase_order_select','Select'));?></option><?php foreach($db->query("SELECT plant_code,plant_name FROM erp_plant WHERE status='Aktif' ORDER BY plant_code") as $row){ ?><option value="<?=htmlspecialchars($row->plant_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($row->plant_code.' - '.$row->plant_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+          <div class="col-md-3 form-group"><label><?=po_form_h(po_form_t('purchase_order_storage_location','Storage Location'));?></label><select name="storage_location" id="storage_location" class="form-control select2-basic"><option value=""><?=po_form_h(po_form_t('purchase_order_select_storage_location','Select Storage Location'));?></option><?php foreach($db->query("SELECT s.storage_code,s.storage_name,p.plant_code FROM erp_storage_location s JOIN erp_plant p ON p.id=s.plant_id WHERE s.status='Aktif' ORDER BY p.plant_code,s.storage_code") as $sloc){ ?><option value="<?=htmlspecialchars($sloc->storage_code,ENT_QUOTES,'UTF-8');?>" data-plant="<?=htmlspecialchars($sloc->plant_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($sloc->plant_code.' / '.$sloc->storage_code.' - '.$sloc->storage_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+          <div class="col-md-2 form-group"><label class="required-label"><?=po_form_h(po_form_t('purchase_order_currency','Currency'));?></label><input type="text" name="currency" id="currency" class="form-control" value="IDR" required></div>
+          <div class="col-md-2 form-group"><label><?=po_form_h(po_form_t('purchase_order_tax','Tax'));?></label><select name="tax" class="form-control"><option value="no"><?=po_form_h(po_form_t('purchase_order_no_tax','No Tax'));?></option><option value="ya"><?=po_form_h(po_form_t('purchase_order_include_ppn','Include PPN 11%'));?></option></select></div>
+          <div class="col-md-4 form-group"><label><?=po_form_h(po_form_t('purchase_order_delivery_term','Delivery Term'));?></label><input type="text" name="delivery_term" class="form-control" placeholder="FOB / CIF / DDP"></div>
+          <div class="col-md-4 form-group"><label><?=po_form_h(po_form_t('purchase_order_payment_term','Payment Term'));?></label><select name="payment_term" class="form-control select2-basic"><option value=""><?=po_form_h(po_form_t('purchase_order_select_payment_term','Select Payment Term'));?></option><?php foreach($db->query("SELECT jenis_term,net_day FROM term_payment ORDER BY net_day,jenis_term") as $term){ ?><option value="<?=htmlspecialchars($term->jenis_term,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($term->jenis_term.' - Net '.$term->net_day.' hari',ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+          <div class="col-md-4 form-group"><label><?=po_form_h(po_form_t('purchase_order_shipped_via','Shipped Via'));?></label><input type="text" name="shipped_via" class="form-control"></div>
+          <div class="col-md-8 form-group"><label><?=po_form_h(po_form_t('purchase_order_note','Note'));?></label><input type="text" name="catatan" class="form-control" placeholder="<?=po_form_h(po_form_t('purchase_order_note','Note'));?>"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="box box-success po-section"><div class="box-header with-border"><h3 class="box-title"><i class="fa fa-truck"></i> <?=po_form_h(po_form_t('purchase_order_vendor','Vendor'));?></h3></div><div class="box-body">
+          <div class="form-group"><label class="required-label"><?=po_form_h(po_form_t('purchase_order_vendor','Vendor'));?></label><select name="seller_code" id="seller_code" class="form-control" required><option value=""><?=po_form_h(po_form_t('purchase_order_select_vendor','Select Vendor'));?></option><?php foreach($db->query("SELECT kode_pemasok,nama FROM pemasok ORDER BY nama") as $v){ ?><option value="<?=htmlspecialchars($v->kode_pemasok,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($v->kode_pemasok.' - '.$v->nama,ENT_QUOTES,'UTF-8');?></option><?php } ?></select><input type="hidden" name="customer_id" id="customer_id"></div>
+          <div class="form-group"><label><?=po_form_h(po_form_t('purchase_order_address','Address'));?></label><textarea name="seller_address" id="seller_address" class="form-control" rows="2"></textarea></div>
+          <div class="row"><div class="col-sm-4 form-group"><label><?=po_form_h(po_form_t('purchase_order_phone','Phone'));?></label><input name="seller_phone" id="seller_phone" class="form-control"></div><div class="col-sm-4 form-group"><label><?=po_form_h(po_form_t('purchase_order_pic','PIC'));?></label><input name="seller_pic" id="seller_pic" class="form-control"></div><div class="col-sm-4 form-group"><label><?=po_form_h(po_form_t('purchase_order_email','Email'));?></label><input name="seller_email" id="seller_email" class="form-control"></div></div>
+        </div></div>
+      </div>
+      <div class="col-md-6">
+        <div class="box box-info po-section"><div class="box-header with-border"><h3 class="box-title"><i class="fa fa-map-marker"></i> <?=po_form_h(po_form_t('purchase_order_ship_to','Ship To'));?></h3></div><div class="box-body">
+          <div class="form-group"><label><?=po_form_h(po_form_t('purchase_order_consignee','Consignee'));?></label><input name="consignee_name" class="form-control" value="<?=htmlspecialchars($shipName,ENT_QUOTES,'UTF-8');?>"></div>
+          <div class="form-group"><label><?=po_form_h(po_form_t('purchase_order_address','Address'));?></label><textarea name="consignee_address" class="form-control" rows="2"><?=htmlspecialchars($shipAddress,ENT_QUOTES,'UTF-8');?></textarea></div>
+          <div class="row"><div class="col-sm-6 form-group"><label><?=po_form_h(po_form_t('purchase_order_phone','Phone'));?></label><input name="consignee_phone" class="form-control" value="<?=htmlspecialchars($shipPhone,ENT_QUOTES,'UTF-8');?>"></div><div class="col-sm-6 form-group"><label><?=po_form_h(po_form_t('purchase_order_email','Email'));?></label><input name="consignee_email" class="form-control" value="<?=htmlspecialchars($shipEmail,ENT_QUOTES,'UTF-8');?>"></div></div>
+        </div></div>
+      </div>
+    </div>
+    <div class="box box-warning po-section">
+      <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-list"></i> <?=po_form_h(po_form_t('purchase_order_items','PO Items'));?></h3><div class="box-tools"><button type="button" id="btn_add_source" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> <?=po_form_h(po_form_t('purchase_order_add_source_item','Add Source Item'));?></button></div></div>
+      <div class="box-body table-responsive">
+        <table class="table table-bordered table-condensed po-items"><thead><tr><th></th><th><?=po_form_h(po_form_t('purchase_order_source_item','Source Item'));?></th><th><?=po_form_h(po_form_t('purchase_order_material','Material'));?></th><th><?=po_form_h(po_form_t('purchase_order_qty','Qty'));?></th><th><?=po_form_h(po_form_t('purchase_order_uom','UOM'));?></th><th><?=po_form_h(po_form_t('purchase_order_price','Price'));?></th><th><?=po_form_h(po_form_t('purchase_order_amount','Amount'));?></th><th><?=po_form_h(po_form_t('purchase_order_required_date','Req. Date'));?></th><th><?=po_form_h(po_form_t('purchase_order_remark','Remark'));?></th></tr></thead><tbody id="isi_tabel"></tbody></table>
+        <div class="text-right po-total-box"><?=po_form_h(po_form_t('purchase_order_total','Total'));?>: <span id="po_total">0,00</span></div>
+      </div>
+    </div>
+    <div class="text-right"><a href="<?=base_index();?>purchase-order" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?=po_form_h(po_form_t('common_back','Back'));?></a> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=po_form_h(po_form_t('purchase_order_save','Save Purchase Order'));?></button></div>
+  </form>
+</section>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+<script>
+var rowIndex=0;
+var poFormLang=<?=json_encode($poFormLang, JSON_UNESCAPED_UNICODE);?>;
+function esc(v){return $('<div>').text(v==null?'':v).html();}
+function fmt(n){return (parseFloat(n)||0).toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function refreshTotal(){var total=0;$('.amount-field').each(function(){total+=parseFloat($(this).val()||0)||0;});$('#po_total').text(fmt(total));}
+function setVendor(code){if(!code)return;$('#seller_code').val(code).trigger('change');}
+function getSourceType(){return ($('#source_type').val()||'MANUAL').toUpperCase();}
+function sourceLabel(type){if(type==='PR')return poFormLang.source_pr;if(type==='RFQ')return poFormLang.source_rfq;return poFormLang.source_manual;}
+function refreshSourceMode(){var type=getSourceType(),isManual=type==='MANUAL';$('#btn_add_source').html('<i class="fa fa-plus"></i> '+(isManual?poFormLang.add_manual_item:poFormLang.add_source_item));$('#source_ref').prop('readonly',!isManual).attr('placeholder',isManual?poFormLang.manual_ref_placeholder:poFormLang.auto_source_placeholder);if(isManual&&$('#source_ref').val()===poFormLang.source_item_loading)$('#source_ref').val('');}
+function materialCell(item,isManual){if(isManual){var selected=item.material_code?'<option value="'+esc(item.material_code)+'" selected>'+esc(item.material_code+' - '+(item.material_name||''))+'</option>':'';return '<select class="form-control material-select" name="kode[]" required>'+selected+'</select><input class="form-control material-name-input" name="name[]" value="'+esc(item.material_name||'')+'" placeholder="'+esc(poFormLang.material_placeholder)+'" readonly required><input type="hidden" name="spec[]" value="'+esc(item.spec||'')+'">';}return '<input class="form-control" name="kode[]" value="'+esc(item.material_code||'')+'" readonly required><input class="form-control material-name-input" name="name[]" value="'+esc(item.material_name||'')+'" readonly required><input type="hidden" name="spec[]" value="'+esc(item.spec||'')+'">';}
+function addPoRow(item){item=item||{};rowIndex++;var type=getSourceType();var isManual=type==='MANUAL';var sourceText=item.source_ref?item.source_ref:sourceLabel(type);var sourceCell=isManual?'<span class="label label-default">'+esc(sourceText)+'</span>':'<select class="form-control source-select"><option value="'+esc(item.id||'')+'" selected>'+esc(sourceText)+'</option></select>';var html='<tr id="po_row_'+rowIndex+'">'+
+'<td><button type="button" class="btn btn-danger btn-xs btn-remove-row"><i class="fa fa-trash"></i></button><input type="hidden" name="id_po_detail[]" value=""><input type="hidden" name="id_pr[]" value="'+esc(item.id_pr||'')+'"><input type="hidden" name="id_pr_detail[]" value="'+esc(item.id_pr_detail||'')+'"><input type="hidden" name="rfq_id[]" value="'+esc(item.rfq_id||'')+'"><input type="hidden" name="rfq_item_id[]" value="'+esc(item.rfq_item_id||'')+'"><input type="hidden" name="rfq_quotation_id[]" value="'+esc(item.rfq_quotation_id||'')+'"></td>'+
+'<td>'+sourceCell+'</td>'+
+'<td>'+materialCell(item,isManual)+'</td>'+
+'<td><input type="number" step="0.00001" min="0.00001" class="form-control qty-field" name="qty[]" value="'+esc(item.qty||'')+'" required></td>'+
+'<td><input class="form-control" name="unit[]" value="'+esc(item.uom||'')+'" required></td>'+
+'<td><input type="number" step="0.00001" min="0" class="form-control price-field" name="harga[]" value="'+esc(item.price||0)+'" required></td>'+
+'<td><input class="form-control amount-field" value="0" readonly></td>'+
+'<td><input class="form-control" value="'+esc(item.required_date||'')+'" readonly></td>'+
+'<td><input class="form-control" name="ket[]" value="'+esc(item.remarks||'')+'"></td></tr>';$('#isi_tabel').append(html);calculateRow($('#po_row_'+rowIndex));}
+function calculateRow(row){var qty=parseFloat(row.find('.qty-field').val()||0)||0,price=parseFloat(row.find('.price-field').val()||0)||0;row.find('.amount-field').val((qty*price).toFixed(2));refreshTotal();}
+function initMaterialSelect(row){if(!$.fn.select2)return;row.find('.material-select').select2({placeholder:poFormLang.search_material,allowClear:true,width:'100%',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=material_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};},cache:true}});}
+function initSourceSelect(row){var type=getSourceType();if(type==='MANUAL'){initMaterialSelect(row);return;}row.find('.source-select').select2({placeholder:poFormLang.search_source_item,width:'100%',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act='+(type==='PR'?'pr_item_search':'rfq_award_search'),type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}});}
+function filterStorageLocation(){var plant=$('#plant').val();$('#storage_location option').each(function(){var p=$(this).data('plant');$(this).toggle(!p||!plant||String(p)===String(plant));});var selected=$('#storage_location option:selected');if(plant&&selected.length&&selected.data('plant')&&String(selected.data('plant'))!==String(plant)){$('#storage_location').val('').trigger('change.select2');}}
+function loadVendor(code){$.post('<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=cari_vendor',{kode_pemasok:code},function(res){if(res&&res.success){$('#customer_id').val(res.data.kode_pemasok);$('#seller_address').val([res.data.alamat,res.data.kota,res.data.negara].filter(Boolean).join(', '));$('#seller_phone').val(res.data.notelp);$('#seller_email').val(res.data.email);}},'json');}
+$(function(){if($.fn.datepicker){$('.date-field').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}if($.fn.select2){$('.select2-basic,#seller_code').select2({width:'100%'});}refreshSourceMode();filterStorageLocation();$('#plant').on('change',filterStorageLocation);$('#source_type').on('change',refreshSourceMode);$('#po_date').on('change',function(){$.post('<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=ganti_no_po',{tgl:this.value},function(res){$('#purchase_order_no').val(res);});});$('#seller_code').on('change',function(){loadVendor(this.value);});$('#btn_add_source').on('click',function(){var isManual=getSourceType()==='MANUAL';addPoRow(isManual?{}:{source_ref:poFormLang.source_item_loading});initSourceSelect($('#isi_tabel tr:last'));});$(document).on('select2:select','.material-select',function(e){var d=e.params.data||{},row=$(this).closest('tr');row.find('input[name="name[]"]').val(d.material_name||'');row.find('input[name="spec[]"]').val(d.spec||'');row.find('input[name="unit[]"]').val(d.uom||'');});$(document).on('select2:clear','.material-select',function(){var row=$(this).closest('tr');row.find('input[name="name[]"],input[name="spec[]"],input[name="unit[]"]').val('');});$(document).on('select2:select','.source-select',function(e){var d=e.params.data,row=$(this).closest('tr');row.find('input[name="id_pr[]"]').val(d.id_pr||'');row.find('input[name="id_pr_detail[]"]').val(d.id_pr_detail||'');row.find('input[name="rfq_id[]"]').val(d.rfq_id||'');row.find('input[name="rfq_item_id[]"]').val(d.rfq_item_id||'');row.find('input[name="rfq_quotation_id[]"]').val(d.rfq_quotation_id||'');row.find('input[name="kode[]"]').val(d.material_code||'');row.find('input[name="name[]"]').val(d.material_name||'');row.find('.qty-field').val(d.qty||'');row.find('input[name="unit[]"]').val(d.uom||'');row.find('.price-field').val(d.price||0);row.find('td:eq(7) input').val(d.required_date||'');$('#source_ref').val(d.source_ref||'');if(d.currency)$('#currency').val(d.currency);if(d.plant)$('#plant').val(d.plant).trigger('change');if(d.storage_location)$('#storage_location').val(d.storage_location).trigger('change.select2');if(d.vendor_code)setVendor(d.vendor_code);calculateRow(row);});$(document).on('input','.qty-field,.price-field',function(){calculateRow($(this).closest('tr'));});$(document).on('click','.btn-remove-row',function(){$(this).closest('tr').remove();refreshTotal();});$('#input_purchase_order').on('submit',function(e){e.preventDefault();if($('#isi_tabel tr').length===0){$('.isi_warning').text(poFormLang.no_item_required);$('.error_data').show();return;}$.ajax({url:$(this).attr('action'),type:'POST',data:$(this).serialize(),dataType:'json',success:function(res){var r=$.isArray(res)?res[0]:res;if(r.status==='good'){window.location='<?=base_index();?>purchase-order';return;}$('.isi_warning').text(r.error_message||poFormLang.save_failed);$('.error_data').show();},error:function(xhr){$('.isi_warning').text(xhr.responseText);$('.error_data').show();}});});});
 </script>

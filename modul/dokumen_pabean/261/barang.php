@@ -24,7 +24,7 @@
               <th>HS</th>
               <th>Uraian</th>
               <th>Nilai Barang</th>
-              <th>Jumlah Satuan</th>
+              <th><?=customs_h('unit_quantity','Jumlah Satuan');?></th>
               <th>Jenis Satuan</th>
               <th></th> 
             </tr>
@@ -83,7 +83,7 @@
                        <button type="button" class="btn btn-danger" onclick='hide_modal2()'>batal</button>
                        <button type="button" class="btn btn-success" onclick='hide_modal2()'>Simpan</button>
                     </div>
-                      <h4 class="modal-title">Detail Barang</h4>
+                      <h4 class="modal-title"><?=customs_h('item_detail','Detail Barang');?></h4>
                     </div> 
                      
                      <input type="hidden" name="id_barang" id="id_barang">
@@ -122,8 +122,8 @@
                            <th></th>
                            <th>Seri</th>
                            <th>Jenis</th>
-                           <th>Nomor</th>
-                           <th>Tanggal</th>
+                           <th><?=customs_h('number','Nomor');?></th>
+                           <th><?=customs_h('date','Tanggal');?></th>
                          
                         </tr>
                         </thead>

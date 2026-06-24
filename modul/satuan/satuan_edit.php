@@ -10,21 +10,21 @@ $data_edit = $db->fetch_single_row("satuan","kode",$_POST['id_data']);
             <form id="edit_satuan" method="post" class="form-horizontal" action="<?=base_admin();?>modul/satuan/satuan_action.php?act=up">
                             
               <div class="form-group">
-                <label for="kode" class="control-label col-lg-2">kode </label>
+                <label for="kode" class="control-label col-lg-2"><?=erp_h('master_term_kode_satuan','UOM Code');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="kode" value="<?=$data_edit->kode;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="jenis" class="control-label col-lg-2">jenis </label>
+                <label for="jenis" class="control-label col-lg-2"><?=erp_h('master_term_jenis_satuan','UOM Type');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="jenis" value="<?=$data_edit->jenis;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="nama" class="control-label col-lg-2">nama </label>
+                <label for="nama" class="control-label col-lg-2"><?=erp_h('master_term_nama_satuan','UOM Name');?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="nama" value="<?=$data_edit->nama;?>" class="form-control" >
                 </div>
@@ -34,8 +34,8 @@ $data_edit = $db->fetch_single_row("satuan","kode",$_POST['id_data']);
 
               <div class="form-group">
                 <div class="col-lg-12">
-                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?php echo $lang["cancel_button"];?></button>
+                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=erp_h('common_save','Save');?></button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?=erp_h('common_cancel','Cancel');?></button>
                   </div>
                 </div>
               </div><!-- /.form-group -->

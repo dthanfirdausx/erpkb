@@ -70,7 +70,7 @@ if ($qa->rowCount()==0) {
               <textarea class="form-control" id="alamat"  placeholder="NPWP" ><?= $info->alamat ?></textarea>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Izin TPB</label>
+              <label for="exampleInputEmail1"><?=customs_h('tpb_license_number','Nomor Izin TPB');?></label>
               <div class="row">
                  <div class="col-md-6">
                    <input type="text" class="form-control" id="npwp" value="<?= $info->skepkb ?>" placeholder="NPWP" >
@@ -109,13 +109,13 @@ if ($qa->rowCount()==0) {
               <textarea class="form-control"  onkeyup="save_data(this.value,'alamatEntitas ',<?= $data_tujuan->id_entitas ?>,'ws_entitas','id_entitas')"><?= $data_tujuan->alamatEntitas  ?></textarea>
             </div>
             <div class="form-group" style="display: none">
-              <label for="exampleInputEmail1">Nomor Izin TPB</label>
+              <label for="exampleInputEmail1"><?=customs_h('tpb_license_number','Nomor Izin TPB');?></label>
               <div class="row">
                  <div class="col-md-6">
-                   <input type="text" class="form-control" value="<?= $data_tujuan->nomorIjinEntitas ?>" placeholder="Nomor Izin TPB" onkeyup="save_data(this.value,'nomorIjinEntitas ',<?= $data_tujuan->id_entitas ?>,'ws_entitas','id_entitas')" >
+                   <input type="text" class="form-control" value="<?= $data_tujuan->nomorIjinEntitas ?>" placeholder="<?=customs_h('tpb_license_number','Nomor Izin TPB');?>" onkeyup="save_data(this.value,'nomorIjinEntitas ',<?= $data_tujuan->id_entitas ?>,'ws_entitas','id_entitas')" >
                  </div>
                  <div class="col-md-6">
-                   <input type="text" class="form-control tgl" id="tglskep" value="<?= $data_tujuan->tanggalIjinEntitas ?>" placeholder="Tanggal" onkeyup="save_data(this.value,'tanggalIjinEntitas ',<?= $data_tujuan->id_entitas ?>,'ws_entitas','id_entitas')" onchange="save_data(this.value,'tanggalIjinEntitas ',<?= $data_tujuan->id_entitas ?>,'ws_entitas','id_entitas')" >
+                   <input type="text" class="form-control tgl" id="tglskep" value="<?= $data_tujuan->tanggalIjinEntitas ?>" placeholder="<?=customs_h('date','Tanggal');?>" onkeyup="save_data(this.value,'tanggalIjinEntitas ',<?= $data_tujuan->id_entitas ?>,'ws_entitas','id_entitas')" onchange="save_data(this.value,'tanggalIjinEntitas ',<?= $data_tujuan->id_entitas ?>,'ws_entitas','id_entitas')" >
                  </div>
               </div>         
             </div>

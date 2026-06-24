@@ -1,293 +1,175 @@
-<!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        Pengeluaran 
-                    </h1>
-                        <ol class="breadcrumb">
-                       
-                        <li><a href="<?=base_index();?>pengeluaran-hamparan">Pengeluaran </a></li>
-                        <li class="active">Pengeluaran  List</li>
-                    </ol>
-                </section>
+<?php
+$defaultFrom = date('Y-m-01');
+$defaultTo = date('Y-m-d');
+$jenisDokumen = $db->query("SELECT DISTINCT jenis_dokpab FROM pengeluaran WHERE COALESCE(jenis_dokpab,'')<>'' ORDER BY jenis_dokpab");
+?>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+<style>
+  .gid-hero{background:linear-gradient(135deg,#1e3a8a,#0f766e);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 10px 24px rgba(15,23,42,.18)}
+  .gid-hero h1{margin:0 0 6px;font-size:26px;font-weight:700}.gid-hero p{margin:0;opacity:.92}.gid-filter .form-group{margin-bottom:12px}.select2-container{width:100%!important}
+  #dtb_pengeluaran_hamparan td,#dtb_pengeluaran_hamparan th{font-size:12px;vertical-align:middle}#dtb_pengeluaran_hamparan th{white-space:nowrap}.dt-center{text-align:center!important}
+  .gid-action-buttons{white-space:nowrap;min-width:110px}.gid-action-buttons .btn{margin-right:3px}.gid-badge{display:inline-block;padding:3px 7px;border-radius:10px;background:#e0f2fe;color:#075985;font-weight:700;font-size:11px}
+  #modal_detail .modal-dialog{width:96%}#modal_detail .table th,#modal_detail .table td{font-size:12px;vertical-align:middle}#modal_detail .table th{background:#f8fafc;white-space:nowrap}
+</style>
 
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                                <?php
-                                  foreach ($db->fetch_all("sys_menu") as $isi) {
-                                      if (uri_segment(1)==$isi->url) {
-                                          if ($role_act["insert_act"]=="Y") {
-                                      ?>
-                                      <a href="<?=base_index();?>pengeluaran-hamparan/tambah" class="btn btn-primary "><i class="fa fa-plus"></i> Tambah Pengeluaran </a>
-                                      <?php
-                                          }
-                                      }
-                                  }
-                                ?>
-                            </div><!-- /.box-header -->
-                            <div class="box-body table-responsive">
-                                <div class="row">
-                                    <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
-                                    <button id="select_all" class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> <?php echo $lang["select_all"];?></button>
-                                    <button id="deselect_all" class="btn btn-primary btn-xs"><i class="fa fa-remove"></i> <?php echo $lang["deselect_all"];?></button>
-                                    <button id="bulk_delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> <?php echo $lang["delete_selected"];?></button> <span class="selected-data"></span>
-                            </div>
-                            </div>
- <div class="alert alert-warning fade in error_data_delete" style="display:none">
-          <button type="button" class="close hide_alert_notif">&times;</button>
-          <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
+<section class="content-header">
+  <h1>Goods Issue for Delivery <small>Outbound PGI / Customs Trace</small></h1>
+  <ol class="breadcrumb">
+    <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Goods Issue for Delivery</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="gid-hero">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>Goods Issue for Delivery Workbench</h1>
+        <p>Monitor pengeluaran barang ke customer/tujuan pabean. Detail menampilkan item keluar dan trace bahan baku asal melalui stock layer dan dokumen BC.</p>
+      </div>
+      <div class="col-md-4 text-right">
+        <?php if ($role_act["insert_act"]=="Y") { ?>
+          <a href="<?=base_index();?>pengeluaran-hamparan/tambah" class="btn btn-warning btn-lg"><i class="fa fa-plus"></i> Tambah GI Delivery</a>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-header with-border"><h3 class="box-title"><i class="fa fa-filter"></i> Filter Goods Issue</h3></div>
+    <div class="box-body">
+      <form class="form-horizontal gid-filter" onsubmit="return false;">
+        <div class="form-group">
+          <label class="control-label col-lg-2">Tanggal GI</label>
+          <div class="col-lg-2"><input type="text" id="filter_tgl_awal" class="form-control datepicker" value="<?=$defaultFrom;?>"></div>
+          <div class="col-lg-2"><input type="text" id="filter_tgl_akhir" class="form-control datepicker" value="<?=$defaultTo;?>"></div>
+          <label class="control-label col-lg-2">Jenis BC</label>
+          <div class="col-lg-2">
+            <select id="filter_jenis_dokpab" class="form-control select2-filter">
+              <option value="">Semua</option>
+              <?php foreach ($jenisDokumen as $j) { ?>
+                <option value="<?=htmlspecialchars($j->jenis_dokpab,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($j->jenis_dokpab,ENT_QUOTES,'UTF-8');?></option>
+              <?php } ?>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <button type="button" id="btn_filter_gid" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+            <button type="button" id="btn_reset_gid" class="btn btn-default"><i class="fa fa-refresh"></i></button>
+          </div>
         </div>
-                        <table id="dtb_pengeluaran_hamparan" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th>No</th>
-                                  <th>No SJ</th>
-                                  <th>Tanggal Pengeluaran</th>
-                                  <th>Penerima</th>
-                                  <th>No Invoice/Kontrak</th>
-                                  <th>No PO</th>
-                                  <th>Jenis Dokpab</th>
-                                  <th>No Dokpab</th>
-                                  <th>No Aju</th>
-                                  <th>No Efaktur</th>
-                                  <th>Tgl Efaktur</th>
-                                <!--   <th>Action</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-                </div>
-              </div>
-                <div id="modal_detail" class="modal fade" role="dialog">
-              <div class="modal-dialog modal-lg" style="width: 90%">
+      </form>
+    </div>
+  </div>
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Detail Pengeluaran</h4>
-                  </div>
-                  <div class="modal-body" id="isi_detail">
-                    
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
+  <div class="box">
+    <div class="box-body">
+      <div class="alert alert-warning fade in error_data_delete" style="display:none">
+        <button type="button" class="close hide_alert_notif">&times;</button>
+        <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
+      </div>
+      <div class="table-responsive">
+        <table id="dtb_pengeluaran_hamparan" class="table table-bordered table-striped table-condensed" style="width:100%">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Action</th>
+              <th>No SJ</th>
+              <th>Tanggal GI</th>
+              <th>Penerima</th>
+              <th>No Invoice/Kontrak</th>
+              <th>No PO</th>
+              <th>Jenis Dokpab</th>
+              <th>No Dokpab</th>
+              <th>No Aju</th>
+              <th>No Efaktur</th>
+              <th>Tgl Efaktur</th>
+              <th>ID</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-              </div>
-            </div>
-        <?php
+  <div id="modal_detail" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Detail Goods Issue for Delivery</h4>
+        </div>
+        <div class="modal-body" id="isi_detail"></div>
+        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            foreach ($db->fetch_all("sys_menu") as $isi) {
+<script type="text/javascript">
+var gidCanEdit = <?=($role_act["up_act"]=="Y" ? 'true' : 'false');?>;
+var gidEditBase = "<?=base_index();?>pengeluaran-hamparan/edit/";
+function gidError(message){$('.isi_warning_delete').text(message||'Data Goods Issue gagal dimuat.');$('.error_data_delete').fadeIn();}
+function show_detail(id) {
+  $('#isi_detail').html("<div class='text-center text-muted' style='padding:30px'><i class='fa fa-spinner fa-spin'></i> Memuat detail Goods Issue...</div>");
+  $("#modal_detail").modal("show");
+  $.ajax({
+    type:'POST',
+    url:'<?=base_admin();?>modul/pengeluaran_hamparan/pengeluaran_hamparan_action.php?act=show_detail',
+    data:{id:id},
+    success:function(data){$("#isi_detail").html(data);},
+    error:function(xhr){$("#isi_detail").html("<div class='alert alert-danger'>Detail Goods Issue gagal dibuka.</div>");console.log(xhr);}
+  });
+}
 
-            //jika url = url dari table menu
-            if (uri_segment(1)==$isi->url) {
-              //check edit permission
-              if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+' href=".base_index()."pengeluaran-hamparan/edit/'+aData[indek]+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
-              } else {
-                  $edit ="";
-              }
-            if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/pengeluaran_hamparan/pengeluaran_hamparan_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_pengeluaran_hamparan"><i class="fa fa-trash"></i></button>';
-            } else {
-                $del="";
-            }
-                             }
-            }
+$(function(){
+  if ($.fn.select2) $('.select2-filter').select2({width:'100%',allowClear:true});
+  if ($.fn.datepicker) $('.datepicker').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});
 
-        ?>
-
-    </section><!-- /.content -->
-
-        <script type="text/javascript">
-      
-      
-      var dtb_pengeluaran_hamparan = $("#dtb_pengeluaran_hamparan").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-           // var indek = aData.length-1;
-            var indek = aData.length-1; 
-            var kolom = aData.length-12;  
-            $('td:eq('+kolom+')', nRow).html('<a onclick="show_detail(\''+aData[indek]+'\')" style="cursor:pointer" class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
-           'bProcessing': true,
-            'bServerSide': true,
-            
-           'columnDefs': [ 
-           // {
-           //  'targets': [11],
-           //    'orderable': false,
-           //    'searchable': false
-           //  },
-                   {
-            'width': '10%',
-            'targets': 0,
-            "searchable": false, "orderable": false,
-            'orderable': false,
-            'searchable': false,
-            'className': 'dt-center'
-          }
-             ],
-
-    
-            'ajax':{
-              url :'<?=base_admin();?>modul/pengeluaran_hamparan/pengeluaran_hamparan_data.php',
-            type: 'post',  // method  , by default get
-            error: function (xhr, error, thrown) {
-            console.log(xhr);
-
-            }
-          },
-        });
-
-  $('#dtb_pengeluaran_hamparan').on('draw.dt', function() {
-          init_selected()
-      });
-
-      $('#select_all').on('click', function() {
-          select_deselect('select')
-      });
-      $('#deselect_all').on('click', function() {
-          select_deselect('unselect')
+  var dtb_pengeluaran_hamparan = $("#dtb_pengeluaran_hamparan").DataTable({
+    fnCreatedRow:function(nRow,aData){
+      var id = aData[aData.length-1];
+      var bc = aData[7] || '-';
+      var editButton = gidCanEdit ? '<a href="'+gidEditBase+id+'" class="btn btn-primary btn-xs" title="Edit"><i class="fa fa-pencil"></i></a>' : '';
+      $('td:eq(1)',nRow).html('<div class="gid-action-buttons"><button type="button" onclick="show_detail(\''+id+'\')" class="btn btn-info btn-xs" title="Detail Trace"><i class="fa fa-eye"></i></button> '+editButton+'</div>');
+      $('td:eq(7)',nRow).html('<span class="gid-badge">'+bc+'</span>');
+      $(nRow).attr('id','line_'+id);
+    },
+    dom:"<'row'<'col-sm-12'B>>"+"<'row'<'col-sm-6'l><'col-sm-6'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    buttons:[{extend:'collection',text:'Export Data',buttons:[
+      {extend:'copyHtml5',title:'Goods Issue for Delivery',exportOptions:{columns:[0,2,3,4,5,6,7,8,9,10,11]}},
+      {extend:'excelHtml5',title:'Goods Issue for Delivery',exportOptions:{columns:[0,2,3,4,5,6,7,8,9,10,11]}},
+      {extend:'pdfHtml5',title:'Goods Issue for Delivery',exportOptions:{columns:[0,2,3,4,5,6,7,8,9,10,11]}}
+    ]}],
+    bProcessing:true,
+    bServerSide:true,
+    order:[[3,'desc']],
+    columnDefs:[
+      {targets:[0,1],orderable:false,searchable:false,className:'dt-center'},
+      {targets:[12],visible:false},
+      {width:'42px',targets:0},
+      {width:'92px',targets:1}
+    ],
+    ajax:{
+      url:'<?=base_admin();?>modul/pengeluaran_hamparan/pengeluaran_hamparan_data.php',
+      type:'post',
+      data:function(d){
+        d.tgl_awal=$('#filter_tgl_awal').val();
+        d.tgl_akhir=$('#filter_tgl_akhir').val();
+        d.jenis_dokpab=$('#filter_jenis_dokpab').val();
+      },
+      error:function(xhr){console.log(xhr);gidError('Data Goods Issue for Delivery gagal dimuat.');}
+    }
   });
 
-
-
-  $(document).on('click', '#dtb_pengeluaran_hamparan tbody tr td', function(event) {
-      var btn = $(this).find('button');
-      if (btn.length == 0) {
-          $(this).parents('tr').toggleClass('DTTT_selected selected');
-          var selected = check_selected();
-          init_selected();
-
-      }
+  $('#btn_filter_gid').on('click',function(){dtb_pengeluaran_hamparan.draw();});
+  $('#filter_jenis_dokpab').on('change',function(){dtb_pengeluaran_hamparan.draw();});
+  $('#btn_reset_gid').on('click',function(){
+    $('#filter_tgl_awal').val('<?=$defaultFrom;?>');
+    $('#filter_tgl_akhir').val('<?=$defaultTo;?>');
+    $('#filter_jenis_dokpab').val('').trigger('change.select2');
+    dtb_pengeluaran_hamparan.draw();
   });
-
-
-
-  function init_selected() {
-      var selected = check_selected();
-      var btn_hide = $('#select_all, #deselect_all, #bulk_delete, .selected-data');
-      if (selected.length > 0) {
-          btn_hide.show()
-      } else {
-          btn_hide.hide()
-      }
-  }
-
-
-  function show_detail(id) {
-    $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-           // dataType: 'json',
-            url: '<?=base_admin();?>modul/pengeluaran_hamparan/pengeluaran_hamparan_action.php?act=show_detail',
-            data: {id:id}, 
-               success: function(data) {
-                  $('#loadnya').hide();
-                  $("#isi_detail").html(data);
-                  $("#modal_detail").modal("show");
-                } 
-            //async:false
-        });
-  }
-
-  function check_selected() {
-      var table_select = $('#dtb_pengeluaran_hamparan tbody tr.selected');
-      var array_data_delete = [];
-      table_select.each(function() {
-          var check_data = $(this).find('.hapus_dtb_notif').attr('data-id');
-          if (typeof check_data != 'undefined') {
-              array_data_delete.push(check_data)
-          }
-      });
-      $('.selected-data').text(array_data_delete.length + ' <?=$lang["selected_data"];?>');
-      return array_data_delete
-  }
-
-
-  function select_deselect(type) {
-      if (type == 'select') {
-          $('#dtb_pengeluaran_hamparan tbody tr').addClass('DTTT_selected selected')
-      } else {
-          $('#dtb_pengeluaran_hamparan tbody tr').removeClass('DTTT_selected selected')
-      }
-      init_selected()
-  }
-
-
-
-
-/* Add a click handler for the delete row */
-  $('#bulk_delete').click( function() {
-    var anSelected = fnGetSelected( dtb_pengeluaran_hamparan );
-    var data_array_id = check_selected();
-    var all_ids = data_array_id.toString();
-    $('#ucing').modal({ keyboard: false }).one('click', '#delete', function (e) {
-        $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '<?=base_admin();?>modul/pengeluaran_hamparan/pengeluaran_hamparan_action.php?act=del_massal',
-            data: {data_ids:all_ids},
-               success: function(responseText) {
-                  $('#loadnya').hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=='die') {
-                            $('#informasi').modal('show');
-                          } else if(responseText[index].status=='error') {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          } else if(responseText[index].status=='good') {
-                            $('.error_data_delete').hide();
-                               $('#loadnya').hide();
-                               $(anSelected).remove();
-                               dtb_pengeluaran_hamparan.draw();
-                          } else {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          }
-                    });
-                }
-            //async:false
-        });
-
-        $('#ucing').modal('hide');
-
-    });
-
-  });
-
-  /* Get the rows which are currently selected */
-  function fnGetSelected( oTableLocal )
-  {
-      return oTableLocal.$('tr.selected');
-  }
+  $('.hide_alert_notif').on('click',function(){$('.error_data_delete').hide();});
+});
 </script>
-            

@@ -1,525 +1,158 @@
-<!-- Content Header (Page header) -->
-<style type="text/css">
-  .box-body {
-    overflow-x: auto;
-}
+<?php
+$requests = $db->query("SELECT no_ro,tgl_ro,catatan FROM ro ORDER BY tgl_ro DESC,no_ro DESC");
+$storageLocations = $db->query("SELECT s.id,s.storage_code,s.storage_name,s.storage_type,p.plant_code FROM erp_storage_location s LEFT JOIN erp_plant p ON p.id=s.plant_id WHERE s.status='Aktif' ORDER BY p.plant_code,s.storage_code");
+$storageBins = $db->query("SELECT b.id,b.bin_code,b.bin_name,b.storage_location_id,s.storage_code FROM erp_storage_bin b LEFT JOIN erp_storage_location s ON s.id=b.storage_location_id WHERE b.status='Aktif' ORDER BY s.storage_code,b.bin_code");
+?>
+<style>
+  .tp-form-hero{background:linear-gradient(135deg,#1e3a8a,#0f766e);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px}
+  .tp-form-hero h1{margin:0 0 5px;font-size:24px;font-weight:700}.tp-form-hero p{margin:0;opacity:.9}
+  .tp-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:15px;margin-bottom:15px;box-shadow:0 4px 14px rgba(15,23,42,.05)}
+  .tp-items td,.tp-items th{font-size:12px;vertical-align:middle!important}.tp-items .form-control{height:30px;padding:4px 6px;font-size:12px}
+  .select2-container{width:100%!important}.required-label:after{content:' *';color:#dd4b39}.tp-submit-help{color:#9ca3af;margin-right:10px}
 </style>
-     <section class="content-header">
-                  <h1>Transfer Posting</h1> 
-                    <ol class="breadcrumb">
-                        <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
-                        </li>
-                        <li>
-                        <a href="<?=base_index();?>transfer-produksi">Transfer Posting</a>
-                        </li>
-                        <li class="active">Edit Transfer Posting</li>
-                    </ol>
-     </section>
-
-    <!-- Main content -->
-    <section class="content">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="box box-solid box-primary">
-          <div class="box-header">
-            <h3 class="box-title">Add Transfer Posting</h3>
-            <div class="box-tools pull-right">
-              <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
-            </div>
-          </div>
-          <div class="box-body">
-           <div class="alert alert-danger error_data" style="display:none">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <span class="isi_warning"></span>
-        </div>
-            <form id="input_transfer_produksi" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/transfer_produksi/transfer_produksi_action.php?act=in">  
-                
-                       
-          <div class="form-group">
-              <label for="Tanggal SPB" class="control-label col-lg-2">Tanggal SPB <span style="color:#FF0000">*</span></label>
-              <div class="col-lg-3">
-                <div class="input-group date" id="tgl1">
-                    <input type="text" class="form-control" name="tgl_spb" required autocomplete="off" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-              </div>
-          </div><!-- /.form-group -->
-          <div class="form-group">
-                        <label for="No Request" class="control-label col-lg-2">No Request </label>
-                        <div class="col-lg-10">
-            <select  id="no_request" name="no_request" data-placeholder="Pilih No Request ..." class="form-control chzn-select" tabindex="2" onchange="get_detail_ro(this.value)" >
-               <option value=""></option>
-               <?php foreach ($db->query("select * from ro ") as $isi) {
-                  echo "<option value='$isi->no_ro'>$isi->catatan $isi->no_ro</option>";  
-               } ?>
-              </select>
-            </div>
-           </div><!-- /.form-group -->
-
-          <div class="form-group">
-              <label for="Tanggal Request" class="control-label col-lg-2">Tanggal Request </label>
-              <div class="col-lg-3">
-                <div class="input-group date" id="tgl2">
-                    <input type="text" class="form-control" id="tgl_request" name="tgl_request"  autocomplete="off" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-              </div>
-          </div><!-- /.form-group -->
-          <div class="form-group" style="display: none">
-                        <label for="Departemen" class="control-label col-lg-2">Tujuan <span style="color:#FF0000">*</span></label>
-                        <div class="col-lg-10">
-            <select  id="dept" name="dept" data-placeholder="Pilih Proses Produksi ..." class="form-control chzn-select" tabindex="2" > 
-               <option value=""></option> 
-               <?php foreach ($db->fetch_all("dept") as $isi) {
-                  echo "<option value='$isi->kd_dept'>$isi->nm_dept</option>";
-               } ?>
-              </select>
-            </div>
-                      </div><!-- /.form-group -->
-
-          <div class="form-group">
-              <label for="Nama PPC" class="control-label col-lg-2">Nama PPC <span style="color:#FF0000">*</span></label>
-              <div class="col-lg-10">
-                <input type="text" readonly="" class="form-control col-xs-12" rows="5" value="<?= $_SESSION['username'] ?>" name="name_ppc" >
-              </div>
-          </div>
-           <div class="form-group">
-              <label for="Nama PPC" class="control-label col-lg-2">Catatan <span style="color:#FF0000">*</span></label>
-              <div class="col-lg-10">
-                <textarea class="form-control col-xs-12" rows="5" name="catatan" ></textarea>
-              </div>
-          </div>
-           <div class="form-group">
-              <label for="Receipt" class="control-label col-lg-2">Upload Detail Barang<br>
-              <i class="label label-warning">jika menggunakan import </i> </label>
-              <div class="col-lg-3">
-                <div class="input-group date">
-                    <input type="file" name="file" id="file" onchange="upload_file(this.value)">
-                     <a href="<?= base_url() ?>upload/template/template_transfer_incoming.xls"><i class="fa fa-download"></i>Download Template</a>
-                </div> 
-              </div>
-          </div> 
-           <div class="form-group" id="form_ro">
-                <div class="row"> 
-                 <div class="col-lg-12">
-                   <table class="table">
-                 <thead>
-                   <tr>
-                     <th style="width:50px;text-align: center">
-                       <a style="cursor: pointer;" onclick="add_baris()" ><i class="fa fa-plus"></i> </a>
-                     </th>
-                     <th style="width: 300px">Kode Barang</th>
-                   <!--   <th style="width: 150px">Jenis Dokpab</th> -->
-                     <th style="width: 100px">Unit</th>
-                     <th>Qty RO</th>
-                     <th>Stock</th>
-                     <th>Qty</th>                     
-                     <th>Ket</th>
-                   </tr>
-                 </thead>
-                 <tbody id="isi_tabel">
-                   <tr id="baris_1">
-                     <td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris('1')" ><i class="fa fa-trash-o" style="font-size: 25px;"></i></a> </td>
-                     <td><input type="text" id="form_kode_1" placeholder="Kode Barang" onclick="cari_kode('1')" class="form-control" name="kode[]"  >
-                      <input type="hidden" name="kode_input[]" id="kode_input_1"> 
-                      <input type="hidden" name="id_input[]" id="id_input_1"> 
-                     </td> 
-                    <!--  <td>
-                       <select id="jenis_dokpab_1" class="form-control" name="jenis_dokpab[]">
-                        <option value="">Jenis Dokpab</option>
-                       // <?php
-                          //$qj = $db->query("select jenis from jenisbcmasuk");
-                          //foreach ($qj as $kj) { 
-                           //  echo "<option value='$kj->jenis'>$kj->jenis</option>";
-                         // }
-                      // ?> 
-                       </select>
-                     </td> -->
-                     <td><input type="text" id="form_unit_1" class="form-control" name="unit[]"  readonly=""></td> 
-                     <td><input type="text" id="form_qty_ro_1" class="form-control" name="qty_ro[]" readonly="" ></td> 
-                     <td><input type="text" id="form_stock_1" class="form-control" name="stock[]" readonly="" ></td> 
-                     <td><input type="text" id="form_qty_1" class="form-control" name="qty[]" onkeyup="cek_stok('1',this.value)" required>
-                     <i id="error_stock_1" style="color: red"></i> </td>
-                     <td><input type="text" id="form_ket_1" class="form-control" name="ket[]" ></td>
-                   </tr>
-                 </tbody>
-               </table>
-               <input type="hidden" id="jml" value="1">
-                 </div>
-               
-              </div>
-              </div>
-          
-                      
-              <div class="form-group">
-                <label for="tags" class="control-label col-lg-2">&nbsp;</label>
-                <div class="col-lg-10">
-             <a href="<?=base_index();?>transfer-produksi" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
-                <button type="submit" id="btn_simpan" class="btn btn-primary">
-                    <i class="fa fa-save"></i> Submit
-                </button>
-           
-                </div>
-              </div><!-- /.form-group -->
-
-            </form>
-
-          </div>
-        </div>
+<section class="content-header">
+  <h1>Transfer Posting <small>Create Movement 311</small></h1>
+  <ol class="breadcrumb">
+    <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="<?=base_index();?>transfer-produksi">Transfer Posting</a></li>
+    <li class="active">Create</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="tp-form-hero">
+    <h1>Create Transfer Posting</h1>
+    <p>Gunakan untuk memindahkan stock dari Gudang ke area tujuan. Sistem memakai FIFO stock layer dan membuat material document movement 311.</p>
+  </div>
+  <div class="alert alert-danger error_data" style="display:none"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="isi_warning"></span></div>
+  <form id="input_transfer_produksi" method="post" action="<?=base_admin();?>modul/transfer_produksi/transfer_produksi_action.php?act=in">
+    <div class="tp-card">
+      <h4><i class="fa fa-file-text-o"></i> Document Header</h4>
+      <div class="row">
+        <div class="col-md-2 form-group"><label class="required-label">Document Date</label><input type="text" name="document_date" id="document_date" class="form-control date-field mandatory" value="<?=date('Y-m-d');?>" autocomplete="off" required></div>
+        <div class="col-md-2 form-group"><label class="required-label">Posting Date</label><input type="text" name="tgl_spb" id="tgl_spb" class="form-control date-field mandatory" value="<?=date('Y-m-d');?>" autocomplete="off" required></div>
+        <div class="col-md-2 form-group"><label>Movement Type</label><input type="text" class="form-control" value="311 - Transfer Posting" readonly></div>
+        <div class="col-md-3 form-group"><label>Reference Request</label><select id="no_request" name="no_request" class="form-control"><option value="">Manual / tanpa request</option><?php foreach($requests as $r){ ?><option value="<?=htmlspecialchars($r->no_ro,ENT_QUOTES,'UTF-8');?>" data-date="<?=htmlspecialchars($r->tgl_ro,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($r->no_ro.' - '.$r->catatan,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+        <div class="col-md-3 form-group"><label>Request Date</label><input type="text" id="tgl_request" name="tgl_request" class="form-control" readonly></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 form-group"><label>Source</label><input type="text" class="form-control" value="Current stock layer location" readonly><input type="hidden" name="source_bagian" value="1"></div>
+        <div class="col-md-3 form-group"><label class="required-label">Destination Storage Location</label><select id="destination_storage_location_id" name="destination_storage_location_id" class="form-control mandatory" required><option value="">Pilih Storage Location</option><?php foreach($storageLocations as $s){ ?><option value="<?=intval($s->id);?>"><?=htmlspecialchars($s->plant_code.' / '.$s->storage_code.' - '.$s->storage_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+        <div class="col-md-3 form-group"><label class="required-label">Destination Storage Bin</label><select id="destination_storage_bin_id" name="destination_storage_bin_id" class="form-control mandatory" required><option value="">Pilih Storage Bin</option><?php foreach($storageBins as $b){ ?><option value="<?=intval($b->id);?>" data-storage-location-id="<?=intval($b->storage_location_id);?>"><?=htmlspecialchars($b->storage_code.' / '.$b->bin_code.' - '.$b->bin_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div>
+        <div class="col-md-3 form-group"><label class="required-label">Destination Stock Type</label><select id="destination_stock_type" name="destination_stock_type" class="form-control mandatory" required><option value="UNRESTRICTED">Unrestricted</option><option value="QUALITY">Quality Inspection</option><option value="BLOCKED">Blocked</option></select></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 form-group"><label>Created By</label><input type="text" readonly class="form-control" value="<?=htmlspecialchars($_SESSION['username'],ENT_QUOTES,'UTF-8');?>" name="name_ppc"></div>
+        <div class="col-md-9 form-group"><label class="required-label">Reason / Remark</label><input type="text" name="catatan" id="catatan" class="form-control mandatory" placeholder="Contoh: staging produksi order / bin transfer / stock type transfer ..." required></div>
       </div>
     </div>
 
-    </section><!-- /.content -->
+    <div class="tp-card">
+      <div class="row">
+        <div class="col-sm-8"><h4><i class="fa fa-cubes"></i> Material Items</h4></div>
+        <div class="col-sm-4 text-right"><button type="button" class="btn btn-success btn-sm" id="btn_add_row"><i class="fa fa-plus"></i> Add Item</button></div>
+      </div>
+      <div class="alert alert-info">Pilih source material dari stock unrestricted. Destination material boleh dikosongkan bila material tetap sama. Isi destination material jika prosesnya material-to-material transfer.</div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-condensed tp-items">
+          <thead><tr><th style="width:42px">#</th><th style="min-width:280px">Source Material</th><th style="min-width:260px">Destination Material</th><th style="width:90px">UOM</th><th style="width:120px">Available</th><th style="width:130px">Transfer Qty</th><th>Remark</th><th style="width:50px"></th></tr></thead>
+          <tbody id="isi_tabel"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="text-right">
+      <span id="tp_submit_help" class="tp-submit-help">Lengkapi semua field mandatory dan minimal satu item valid.</span>
+      <a href="<?=base_index();?>transfer-produksi" class="btn btn-default"><i class="fa fa-arrow-left"></i> Kembali</a>
+      <button type="submit" id="btn_simpan" class="btn btn-primary" disabled><i class="fa fa-save"></i> Post Transfer 311</button>
+    </div>
+  </form>
+</section>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-
-  function cek_semua_stock() {
-    var valid = true;
-
-    $("input[id^='form_qty_']").each(function(){
-        var id = $(this).attr("id").split("_")[2];
-        var stock = parseFloat($("#form_stock_" + id).val()) || 0;
-        var qty   = parseFloat($(this).val()) || 0;
-
-        if (qty > stock || qty <= 0 || isNaN(qty)) {
-            valid = false;
-        }
-    });
-
-    // if (!valid) {
-    //     $("#btn_simpan").prop("disabled", true);
-    // } else {
-    //     $("#btn_simpan").prop("disabled", false);
-    // }
-}
-  function upload_file(file){
-       //var form = $('#input_mrp')[0];    
-       if ($("#order").val()=='') {
-          $("#error_order").show();
-          $("#file").val(null);
-          $("#order").focus();
-       }else{ 
-           $("#isi_mrp").html("Uploading Data...");
-           $("#error_order").hide();
-           var data = new FormData();
-           data.append( 'file', $( '#file' )[0].files[0] );
-           data.append( 'order', $( '#order' ).val() );
-           $.ajax({
-             url : "<?= base_url() ?>modul/transfer_produksi/transfer_produksi_action.php?act=upload_file",
-             type : "POST",
-             processData: false,
-             contentType: false, 
-             cache: false,
-             enctype: 'multipart/form-data',
-             data : data,
-           //  dataType : 'JSON',
-             success : function(data){
-               //  $("#detail_mrp").show();
-                 $("#isi_tabel").html(data);
-             }
-           });
-       }       
-    } 
-  
-
-  function cek_stok(id,jumlah){
-    var jml   = parseFloat(jumlah) || 0;
-    var stock = parseFloat($("#form_stock_"+id).val()) || 0;
-
-    if (jml > stock) {
-        $("#error_stock_"+id).html("Qty melebihi stock ("+stock+")");
-        $("#error_stock_"+id).show();
-        $("#form_qty_"+id).val(stock);
-        $("#form_qty_"+id).css("border","1px solid red");
-    } 
-    else if (jml <= 0) {
-        $("#error_stock_"+id).html("Qty harus > 0");
-        $("#error_stock_"+id).show();
-        $("#form_qty_"+id).css("border","1px solid red");
-    } 
-    else {
-        $("#error_stock_"+id).hide();
-        $("#form_qty_"+id).css("border","");
-    }
-
-    // 🔥 VALIDASI GLOBAL
-    cek_semua_stock();
-}
-
- function get_detail_ro(no_ro){
-   $.ajax({
-      url: "<?= base_url() ?>modul/transfer_produksi/transfer_produksi_action.php?act=get_detail_ro",
-      data: { no_ro: no_ro },
-      type : 'POST',
-      success: function (data) {
-         $("#form_ro").html(data);
-
-         // 🔥 langsung cek setelah render
-         setTimeout(function(){
-            cek_semua_stock();
-         }, 100);
-      }
-   });
-
-   $.ajax({
-      url: "<?= base_url() ?>modul/transfer_produksi/transfer_produksi_action.php?act=get_tgl_ro",
-      data: { no_ro: no_ro },
-      type : 'POST',
-      success: function (data) {
-         $("#tgl_request").val(data);
-      }
-   });
-}
-
-  function hapus_baris(id) {
-     
-      $("#baris_"+id).remove();
-        cek_semua_stock();
-      // var id_baris =  parseInt($("#jml").val())-1;
-      //  $("#jml").val(id_baris);
-    } 
-
-    function add_baris(id) {
-      var jenis_bc = '<td><select id="jenis_dokpab_'+id_baris+'" class="form-control" name="jenis_dokpab[]"><option value="">Jenis Dokpab</option><option value="BC 2.3">BC 2.3</option><option value="BC 2.7">BC 2.7</option><option value="BC 4.0">BC 4.0</option><option value="BC 2.6.2">BC 2.6.2</option><option value="NON">NON</option></select></td>';
-      var id_baris =  parseInt($("#jml").val())+1;
-      var baris = '<tr id="baris_'+id_baris+'"><td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris(\''+id_baris+'\')" ><i class="fa fa-trash-o" style="font-size: 25px;"></i></a> </td><td><input type="text" class="form-control" placeholder="Kode Barang" onclick="cari_kode(\''+id_baris+'\')" id="form_kode_'+id_baris+'" name="kode[]"  > <input type="hidden" id="kode_input_'+id_baris+'" name="kode_input[]" > <input type="hidden" id="id_input_'+id_baris+'" name="id_input[]" > </td><td><input type="text" class="form-control" id="form_unit_'+id_baris+'" name="unit[]" style="width: 150px" readonly=""></td><td><input type="text"  id="form_qty_ro_'+id_baris+'" class="form-control" name="qty_ro[]" readonly=""></td><td><input type="text" id="form_stock_'+id_baris+'" class="form-control" name="stock[]" readonly="" ></td> <td><input type="text"  id="form_qty_'+id_baris+'" class="form-control" name="qty[]"  onkeyup="cek_stok(\''+id_baris+'\',this.value)" required><i id="error_stock_'+id_baris+'"  style="color: red"></i></td><td><input type="text" class="form-control" name="ket[]" id="form_ket_'+id_baris+'"></td></tr>';
-
-        $("#isi_tabel").append(baris);
-        $("#jml").val(id_baris);
-        cek_semua_stock();
-    }
-
-     function cari_kode(id) {   
-    
-                      $('#form_kode_'+id).autocomplete({
-                        source: function (request, response) {
-                          $.ajax({
-                            url: "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=cari_kode",
-                            data: { term: request.term },
-                            type : 'POST',
-                            dataType: "json",
-                            success: function (data) {
-
-                              response($.map(data, function (item) {
-                                return {
-                                  kd_barang: item.kd_barang,
-                                  nm_barang: item.nm_barang,
-                                  id_barang : item.id_barang
-                                };
-                              }))
-                            }
-                          })
-                        },
-                        select: function (event, ui) {
-                             $('#form_kode_'+id).val(ui.item.kd_barang+" - "+ui.item.nm_barang); 
-                             $("#kode_input_"+id).val(ui.item.kd_barang);
-                             $("#id_input_"+id).val(ui.item.id_barang);
-
-                              $.ajax({
-                                url: "<?= base_url() ?>get_stock.php?act=get_stock_incoming",
-                                data: { 
-                                  kode   :  ui.item.kd_barang,
-                                  jumlah : '0'
-                                },
-                                type : 'POST',
-                                dataType : 'JSON',
-                                success: function (data) {
-                                   $("#form_stock_"+id).val(data.stock);
-                                }
-                              });
-                            $.ajax({
-                              type : 'POST',
-                              data : {
-                                id:id,
-                                kd_barang : ui.item.kd_barang 
-                              },
-                              url : "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=get_unit",
-                              success:function(data){
-                                   $("#form_unit_"+id).val(data);
-                              }
-                            });
-
-                                               return false;
-                         }
-                                           }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                        var inner_html = '<a><div class="list_item_container" style="height:20px">' + item.kd_barang + ' , ' +item.nm_barang+'</div></a>';
-                        return $("<li></li>")
-                        .data("ui-autocomplete-item", item)
-                        .append(inner_html)
-                        .appendTo(ul);
-                       };
+<script>
+var rowNo=0;
+function addRow(item){
+  rowNo++;
+  var selected=item||{};
+  var tr='<tr id="baris_'+rowNo+'">'+
+    '<td class="text-center">'+rowNo+'</td>'+
+    '<td><select class="form-control material-select mandatory-item" name="kode_input[]" id="kode_input_'+rowNo+'" data-row="'+rowNo+'" required></select><input type="hidden" name="id_input[]" id="id_input_'+rowNo+'"></td>'+
+    '<td><select class="form-control destination-material-select" name="destination_material_code[]" id="destination_material_code_'+rowNo+'" data-row="'+rowNo+'"></select></td>'+
+    '<td><input type="text" name="unit[]" id="form_unit_'+rowNo+'" class="form-control" readonly></td>'+
+    '<td><input type="text" name="stock[]" id="form_stock_'+rowNo+'" class="form-control text-right" readonly></td>'+
+    '<td><input type="number" step="0.00001" min="0.00001" name="qty[]" id="form_qty_'+rowNo+'" class="form-control text-right qty-input mandatory-item" data-row="'+rowNo+'" required><small id="error_stock_'+rowNo+'" class="text-danger"></small></td>'+
+    '<td><input type="text" name="ket[]" id="form_ket_'+rowNo+'" class="form-control"></td>'+
+    '<td class="text-center"><button type="button" class="btn btn-danger btn-xs" onclick="hapus_baris('+rowNo+')"><i class="fa fa-trash"></i></button></td>'+
+  '</tr>';
+  $('#isi_tabel').append(tr);
+  initMaterialSelect($('#kode_input_'+rowNo));
+  initDestinationMaterialSelect($('#destination_material_code_'+rowNo));
+  if(selected.id){
+    var opt=new Option(selected.text,selected.id,true,true);
+    $('#kode_input_'+rowNo).append(opt).trigger('change');
+    $('#id_input_'+rowNo).val(selected.id_barang||'');
+    $('#form_unit_'+rowNo).val(selected.uom||'');
+    $('#form_stock_'+rowNo).val(selected.stock||0);
+    $('#form_qty_'+rowNo).val(selected.qty||'');
   }
-    $(document).ready(function() {
-     
-          //chosen select
-          $(".chzn-select").chosen();
-          $(".chzn-select-deselect").chosen({
-              allow_single_deselect: true
-          });
-        
-    
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
+  validateForm();
+}
+function initMaterialSelect(el){
+  el.select2({width:'100%',placeholder:'Cari material...',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/transfer_produksi/transfer_produksi_action.php?act=material_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}});
+  el.on('select2:select',function(e){var r=$(this).data('row'),d=e.params.data;$('#id_input_'+r).val(d.id_barang||'');$('#form_unit_'+r).val(d.uom||'');$('#form_stock_'+r).val(d.stock||0);$('#form_qty_'+r).val('');validateForm();});
+}
+function initDestinationMaterialSelect(el){
+  el.select2({width:'100%',allowClear:true,placeholder:'Sama dengan source',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/transfer_produksi/transfer_produksi_action.php?act=material_master_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}});
+}
+function hapus_baris(id){$('#baris_'+id).remove();validateForm();}
+function validateRow(id){
+  var qty=parseFloat($('#form_qty_'+id).val())||0, stock=parseFloat($('#form_stock_'+id).val())||0, ok=true;
+  if(qty<=0){$('#error_stock_'+id).text('Qty wajib > 0');ok=false;}
+  else if(qty>stock){$('#error_stock_'+id).text('Qty melebihi stock '+stock);ok=false;}
+  else{$('#error_stock_'+id).text('');}
+  return ok;
+}
+function validateForm(){
+  var ok=true,itemCount=0;
+  $('.mandatory').each(function(){if(!$(this).val())ok=false;});
+  $('.qty-input').each(function(){itemCount++;if(!validateRow($(this).data('row')))ok=false;});
+  if(itemCount===0)ok=false;
+  $('#btn_simpan').prop('disabled',!ok);
+  $('#tp_submit_help').text(ok?'Siap posting movement 311.':'Lengkapi semua field mandatory dan minimal satu item valid.');
+}
+function loadRequestItems(noRo){
+  if(!noRo) return;
+  $('#isi_tabel').html('<tr><td colspan="8" class="text-muted"><i class="fa fa-spinner fa-spin"></i> Memuat item request...</td></tr>');
+  $.post('<?=base_admin();?>modul/transfer_produksi/transfer_produksi_action.php?act=get_detail_ro',{no_ro:noRo},function(res){
+    $('#isi_tabel').empty();rowNo=0;
+    if(res.status==='good' && res.items.length){$.each(res.items,function(_,it){addRow(it);});}else{addRow();}
+    validateForm();
+  },'json').fail(function(){ $('#isi_tabel').empty(); addRow(); validateForm(); });
+}
+$(function(){
+  if($.fn.datepicker){$('.date-field').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}
+  if($.fn.select2){$('#no_request,#destination_storage_location_id,#destination_storage_bin_id,#destination_stock_type').select2({width:'100%'});}
+  addRow();
+  $('#btn_add_row').on('click',function(){addRow();});
+  $('#destination_storage_location_id').on('change',function(){
+    var loc=$(this).val();
+    $('#destination_storage_bin_id option').each(function(){var optionLoc=$(this).data('storage-location-id');$(this).toggle(!optionLoc||!loc||String(optionLoc)===String(loc));});
+    var selectedLoc=$('#destination_storage_bin_id option:selected').data('storage-location-id');
+    if(loc && selectedLoc && String(selectedLoc)!==String(loc)) $('#destination_storage_bin_id').val('').trigger('change.select2');
+    validateForm();
+  });
+  $('#no_request').on('change',function(){var opt=$(this).find(':selected');$('#tgl_request').val(opt.data('date')||'');loadRequestItems($(this).val());});
+  $(document).on('keyup change','.mandatory,.qty-input,.material-select',validateForm);
+  $('#input_transfer_produksi').on('submit',function(e){
+    e.preventDefault();validateForm();if($('#btn_simpan').prop('disabled'))return;
+    Swal.fire({title:'Post transfer 311?',text:'Stock Gudang akan berkurang sesuai FIFO layer.',icon:'question',showCancelButton:true,confirmButtonText:'Post'}).then(function(result){
+      if(!result.isConfirmed)return;
+      var btn=$('#btn_simpan');btn.prop('disabled',true).html('<i class="fa fa-spinner fa-spin"></i> Posting...');
+      $.ajax({url:$('#input_transfer_produksi').attr('action'),type:'POST',data:$('#input_transfer_produksi').serialize(),dataType:'json',success:function(res){
+        var r=$.isArray(res)?res[0]:res;
+        if(r.status==='good'){window.location='<?=base_index();?>transfer-produksi';}else{$('.isi_warning').text(r.error_message||'Posting gagal.');$('.error_data').fadeIn();btn.prop('disabled',false).html('<i class="fa fa-save"></i> Post Transfer 311');}
+      },error:function(xhr){$('.isi_warning').text(xhr.responseText);$('.error_data').fadeIn();btn.prop('disabled',false).html('<i class="fa fa-save"></i> Post Transfer 311');}});
     });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl2").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl2 :input").valid();
-    });
-    $("#tgl2").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl2 :input").valid();
-    });
-    $("#tgl2").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl2 :input").valid();
-    });
-    
-      //trigger validation onchange
-      $('select').on('change', function() {
-          $(this).valid();
-      });
-      //hidden validate because we use chosen select
-      $.validator.setDefaults({ ignore: ":hidden:not(select)" });
-      
-    $("#input_transfer_produksi").validate({
-        errorClass: "help-block",
-        errorElement: "span",
-        highlight: function(element, errorClass, validClass) {
-            $(element).parents(".form-group").removeClass(
-                "has-success").addClass("has-error");
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).parents(".form-group").removeClass(
-                "has-error").addClass("has-success");
-        },
-        errorPlacement: function(error, element) {
-            if (element.hasClass("chzn-select")) {
-                var id = element.attr("id");
-                error.insertAfter("#" + id + "_chosen");
-            } else if (element.attr("type") == "checkbox") {
-                element.parent().parent().append(error);
-            } else if (element.attr("type") == "radio") {
-                element.parent().parent().append(error);
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        
-        rules: {
-            
-          tgl_spb: {
-          required: true,
-          //minlength: 2
-          },
-        
-         
-        
-         
-        
-          name_ppc: {
-          required: true,
-          //minlength: 2
-          },
-        
-        },
-         messages: {
-            
-          tgl_spb: {
-          required: "This field is required",
-          //minlength: "Your username must consist of at least 2 characters"
-          },
-        
-      
-        
-          dept: {
-          required: "This field is required",
-          //minlength: "Your username must consist of at least 2 characters"
-          },
-        
-          name_ppc: {
-          required: "This field is required",
-          //minlength: "Your username must consist of at least 2 characters"
-          },
-        
-        },
-    
-        submitHandler: function(form) {
-        Swal.fire({
-          title: 'Yakin akan disimpan ?',
-          showDenyButton: false,
-          showCancelButton: true,
-          confirmButtonText: 'Save',
-          denyButtonText: `Don't save`,
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-           $("#loadnya").show();
-            $(form).ajaxSubmit({
-                url : $(this).attr("action"),
-                dataType: "json",
-                type : "post",
-                error: function(data ) { 
-                  $("#loadnya").hide();
-                  console.log(data); 
-                },
-                success: function(responseText) {
-                  $("#loadnya").hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=="die") {
-                            $("#informasi").modal("show");
-                          } else if(responseText[index].status=="error") {
-                             $(".isi_warning").text(responseText[index].error_message);
-                             $(".error_data").focus()
-                             $(".error_data").fadeIn();
-                          } else if(responseText[index].status=="good") {
-                            $(".error_data").hide();
-                            $(".notif_top").fadeIn(1000);
-                            $(".notif_top").fadeOut(1000, function() {
-                                    window.history.back();
-                            });
-                          } else {
-                             console.log(responseText);
-                             $(".isi_warning").text(responseText[index].error_message);
-                             $(".error_data").focus()
-                             $(".error_data").fadeIn();
-                          }
-                    });
-                }
-
-            });
-          } else if (result.isDenied) {
-            Swal.fire('Changes are not saved', '', 'info')
-          }
-        })   
-            
-        }
-    });
+  });
 });
 </script>

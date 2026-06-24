@@ -1,4 +1,13 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php";
 
 $columns = array(
@@ -11,6 +20,7 @@ $columns = array(
     'sales_invoice.valuta',
     'sales_invoice.ship_date',
     'sales_invoice.no_do',
+    'sales_invoice.billing_status',
     'sales_invoice.id_sales',
   );
 
@@ -45,7 +55,7 @@ if ($customer != "all") {
 
   $query = $datatable->get_custom("select no_sales_invoice, sales_invoice.bill_to,sales_invoice.ship_to,
 sales_invoice.invoice_date,sales_invoice.invoice_no,sales_invoice.nopo,sales_invoice.term,
-sales_invoice.valuta,sales_invoice.ship_date,sales_invoice.no_do,sales_invoice.id_sales,p.nama ,pp.nama as nama2
+sales_invoice.valuta,sales_invoice.ship_date,sales_invoice.no_do,sales_invoice.billing_status,sales_invoice.id_sales,p.nama ,pp.nama as nama2
 from sales_invoice 
 join penerima p
 on p.kode_penerima=sales_invoice.bill_to
@@ -71,6 +81,8 @@ on pp.kode_penerima=sales_invoice.ship_to where 1=1 $where",$columns);
     $ResultData[] = $value->valuta;
     $ResultData[] = $value->ship_date;
     $ResultData[] = $value->no_do;
+    $statusClass = $value->billing_status === 'POSTED' ? 'success' : ($value->billing_status === 'CANCELLED' ? 'danger' : 'default');
+    $ResultData[] = '<span class="label label-'.$statusClass.'">'.$value->billing_status.'</span>';
     $ResultData[] = $value->id_sales;
 
     $data[] = $ResultData;

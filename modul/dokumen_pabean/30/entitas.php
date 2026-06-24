@@ -43,7 +43,7 @@ foreach ($q as $k) {
          
             <div class="form-group">
              <!--  <label for="exampleInputEmail1">NPWP</label> -->
-              <label  class="control-label col-sm-3"  for="exampleInputEmail1">Nomor Identitas</label>
+              <label  class="control-label col-sm-3"  for="exampleInputEmail1"><?=customs_h('identity_number','Nomor Identitas');?></label>
               <div class="col-sm-4">
                <select id="kodeEntitas" class="form-control" id="kodeEntitas">
                <?php
@@ -70,7 +70,7 @@ foreach ($q as $k) {
               </div>
             </div>
              <div class="form-group">
-              <label class="control-label col-sm-3" for="exampleInputEmail1">Status</label>
+              <label class="control-label col-sm-3" for="exampleInputEmail1"><?=customs_h('status','Status');?></label>
               <div class="col-sm-9">
                <select id="kodeEntitas" class="form-control" id="kodeStatus" onchange="save_data(this.value,'kodeStatus',<?= $data_pengusaha->id_entitas ?>,'ws_entitas','id_entitas')">
                <?php  
@@ -157,7 +157,7 @@ foreach ($q as $k) {
           <div class="box-body">
             <div class="form-group">
              <!--  <label for="exampleInputEmail1">NPWP</label> -->
-              <label  class="control-label col-sm-3"  for="exampleInputEmail1">Nomor Identitas</label>
+              <label  class="control-label col-sm-3"  for="exampleInputEmail1"><?=customs_h('identity_number','Nomor Identitas');?></label>
               <div class="col-sm-4">
                    <select id="kodeJenisEntitas" class="form-control" id="kodeJenisEntitas" onchange="save_data(this.value,'kodeJenisEntitas',<?= $data_pemilik->id_entitas ?>,'ws_entitas','id_entitas')">
                    <?php

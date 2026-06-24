@@ -9,23 +9,23 @@ include "../../inc/config.php";
       <form id="input_bc_masuk" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/bc_masuk/bc_masuk_action.php?act=in">
                       
               <div class="form-group">
-                <label for="Kode " class="control-label col-lg-2">Kode  </label>
+                <label for="<?=erp_h('master_term_kode_bc','BC Code');?> " class="control-label col-lg-2"><?=erp_h('master_term_kode_bc','BC Code');?>  </label>
                 <div class="col-lg-10">
-                  <input type="text" name="kode" placeholder="Kode " class="form-control" >
+                  <input type="text" name="kode" placeholder="<?=erp_h('master_term_kode_bc','BC Code');?> " class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Jenis Dokumen" class="control-label col-lg-2">Jenis Dokumen </label>
+                <label for="<?=erp_h('master_term_jenis_dokumen','Document Type');?>" class="control-label col-lg-2"><?=erp_h('master_term_jenis_dokumen','Document Type');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="jenis" placeholder="Jenis Dokumen" class="form-control" >
+                  <input type="text" name="jenis" placeholder="<?=erp_h('master_term_jenis_dokumen','Document Type');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama" class="control-label col-lg-2">Nama </label>
+                <label for="<?=erp_h('master_term_nama','Name');?>" class="control-label col-lg-2"><?=erp_h('master_term_nama','Name');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="nama" placeholder="Nama" class="form-control" >
+                  <input type="text" name="nama" placeholder="<?=erp_h('master_term_nama','Name');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
@@ -33,8 +33,8 @@ include "../../inc/config.php";
 
               <div class="form-group">
                 <div class="col-lg-12">
-                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?php echo $lang["cancel_button"];?></button>
+                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=erp_h('common_save','Save');?></button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?=erp_h('common_cancel','Cancel');?></button>
                   </div>
                 </div>
               </div><!-- /.form-group -->

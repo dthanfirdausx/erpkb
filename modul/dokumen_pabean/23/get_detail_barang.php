@@ -68,7 +68,7 @@ $idBarang = $_POST['id'];
                         <div class="col-md-4">
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Keterangan Lainnya</h3>
+                      <h3 class="box-title"><?=customs_h('other_information','Keterangan Lainnya');?></h3>
                     </div>
                             <div class="form-group">
                                 <label for="nomor" >Kategori Barang </label>
@@ -173,7 +173,7 @@ $idBarang = $_POST['id'];
                         <div class="col-md-4">
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Jumlah & Berat</h3>
+                      <h3 class="box-title"><?=customs_h('quantity_weight','Jumlah & Berat');?></h3>
                     </div>
                             <div class="form-group">
                                 <label for="nomor" >Satuan </label>
@@ -233,7 +233,7 @@ $idBarang = $_POST['id'];
                           </div>
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Dokumen Fasilitas/Lartas</h3>
+                      <h3 class="box-title"><?=customs_h('facility_lartas_document','Dokumen Fasilitas/Lartas');?></h3>
                       <a class="btn btn-primary" onclick="show_modal_fasilitas()" style="float: right;cursor: pointer;"><i class="fa fa-plus"></i>Tambah</a>
                     </div>
                     <table class="table">
@@ -242,8 +242,8 @@ $idBarang = $_POST['id'];
                          
                           <th>Seri</th>
                           <th>Jenis</th>
-                          <th>Nomor</th>
-                          <th>Tanggal</th>
+                          <th><?=customs_h('number','Nomor');?></th>
+                          <th><?=customs_h('date','Tanggal');?></th>
                           <th></th>
                          <!--  <th>Fasilitas</th>
                           <th>Izin</th>

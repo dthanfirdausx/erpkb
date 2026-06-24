@@ -5,13 +5,9 @@ include "../../inc/config.php";
 $columns = array(
     'ro.no_ro',
     'ro.tgl_ro',
-    'ro.dept',
     'ro.name_ppc',
-    'ro.nm_barang',
-    //'ro.jml_brg_jadi',
-    'ro.catatan',
-   // 'ro.idn_to_ascii(domain)',
-  );
+    'ro.catatan'
+);
 
   //if you want to exclude column for searching, put columns name in array
   //$new_table->disable_search = array('catatan','ro.');
@@ -48,17 +44,14 @@ $columns = array(
     //   $jml_brg .= $jml[$i]."<br>";
     // }
     $ResultData = array();
-    $ResultData[] = $datatable->number($ii);
-  
-    $ResultData[] = $value->no_ro;
-    $ResultData[] = $value->tgl_ro;
-    $ResultData[] = $value->dept;
-    $ResultData[] = $value->tujuan;
-    $ResultData[] = $value->name_ppc;
-    $ResultData[] = "<a style='cursor:pointer' onclick='detail_barang(\"$value->no_ro\")' class='btn btn-primary'><i class='fa fa-eye'></i> Detail Barang</a>";
-    //$ResultData[] = $jml_brg;
-    $ResultData[] = $value->catatan;
-    $ResultData[] = $value->id;
+  $ResultData[] = '';
+$ResultData[] = $datatable->number($ii);
+
+$ResultData[] = $value->no_ro;
+$ResultData[] = date("d-m-Y",strtotime($value->tgl_ro));
+$ResultData[] = $value->name_ppc;
+$ResultData[] = $value->catatan;
+$ResultData[] = $value->id;
 
     $data[] = $ResultData;
     $ii++;

@@ -217,12 +217,24 @@ class DTable extends Database
                  $do_order_type = $this->order_type;
              }*/
               else {
-                if ($this->is_numbering==true && $requestData['order'][0]['column']!=0) {
-                    $do_order = "ORDER BY ".$columns[$requestData['order'][0]['column']-1];
-                    $do_order_type = $requestData['order'][0]['dir'];
+                if (!isset($requestData['order'][0]['column']) || !isset($requestData['order'][0]['dir'])) {
+                    $do_order = $this->order_by!='' ? "ORDER BY ".$this->order_by : "";
+                    $do_order_type = $this->order_type!='' ? $this->order_type : "asc";
                 } else {
-                    $do_order = "ORDER BY ".$columns[$requestData['order'][0]['column']];
-                    $do_order_type = $requestData['order'][0]['dir'];
+                    $order_column = (int)$requestData['order'][0]['column'];
+                    $order_dir = strtolower($requestData['order'][0]['dir']) == 'desc' ? 'desc' : 'asc';
+                    if ($this->is_numbering==true && $order_column!=0) {
+                        $column_index = $order_column - 1;
+                    } else {
+                        $column_index = $order_column;
+                    }
+                    if (isset($columns[$column_index]) && $columns[$column_index]!="") {
+                        $do_order = "ORDER BY ".$columns[$column_index];
+                        $do_order_type = $order_dir;
+                    } else {
+                        $do_order = $this->order_by!='' ? "ORDER BY ".$this->order_by : "";
+                        $do_order_type = $this->order_type!='' ? $this->order_type : "asc";
+                    }
                 }
 
              }
@@ -232,6 +244,7 @@ class DTable extends Database
         if (!empty($requestData['search']['value'])) {
 
             $this->search_request  = $requestData['search']['value'];
+            $this->set_total_record($sql." ".$this->group_by, $prepare_data);
 
 
             $after_remove = preg_replace('#\((([^()]+|(?R))*)\)#', "", $sql);

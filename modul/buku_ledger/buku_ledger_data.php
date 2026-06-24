@@ -1,4 +1,13 @@
 <?php
+if (!function_exists('fin_t')) {
+  function fin_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('fin_h')) {
+  function fin_h($key, $fallback = '') { return htmlspecialchars((string) fin_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('fin_js')) {
+  function fin_js($key, $fallback = '') { return json_encode(fin_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php";
 
 $columns = array(
@@ -36,7 +45,7 @@ $columns = array(
   
     $ResultData[] = $value->id;
     $ResultData[] = $value->no_jurnal;
-    $ResultData[] = $value->0;
+    $ResultData[] = '<a href="'.base_index().'buku-ledger/detail/'.$value->id.'" class="btn btn-success btn-sm" data-toggle="tooltip" title="'.fin_h('common_detail', 'Detail').'"><i class="fa fa-eye"></i></a>';
 
     $data[] = $ResultData;
     $i++;

@@ -9,16 +9,16 @@ include "../../inc/config.php";
       <form id="input_kategori_barang" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/kategori_barang/kategori_barang_action.php?act=in">
                       
               <div class="form-group">
-                <label for="Kode Kategori" class="control-label col-lg-2">Kode Kategori </label>
+                <label for="<?=erp_h('master_term_kode_kategori','Category Code');?>" class="control-label col-lg-2"><?=erp_h('master_term_kode_kategori','Category Code');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="kd_kategori" placeholder="Kode Kategori" class="form-control" >
+                  <input type="text" name="kd_kategori" placeholder="<?=erp_h('master_term_kode_kategori','Category Code');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama Kategori" class="control-label col-lg-2">Nama Kategori </label>
+                <label for="<?=erp_h('master_term_nama_kategori','Category Name');?>" class="control-label col-lg-2"><?=erp_h('master_term_nama_kategori','Category Name');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="nm_kategori" placeholder="Nama Kategori" class="form-control" >
+                  <input type="text" name="nm_kategori" placeholder="<?=erp_h('master_term_nama_kategori','Category Name');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
@@ -26,8 +26,8 @@ include "../../inc/config.php";
 
               <div class="form-group">
                 <div class="col-lg-12">
-                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?php echo $lang["cancel_button"];?></button>
+                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=erp_h('common_save','Save');?></button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?=erp_h('common_cancel','Cancel');?></button>
                   </div>
                 </div>
               </div><!-- /.form-group -->

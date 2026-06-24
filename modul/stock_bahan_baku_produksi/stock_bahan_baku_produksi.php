@@ -1,12 +1,5 @@
 <?php
-switch (uri_segment(2)) {
-    case "detail":
-    $data_edit = $db->fetch_single_row("vtotalstockprodbb","",uri_segment(3));
-    include "stock_bahan_baku_produksi_detail.php";
-    break;
-    default:
-    include "stock_bahan_baku_produksi_view.php";
-    break;
-}
-
+// Stock produksi adalah report read-only berbasis stock_layer lokasi PRODUKSI.
+// Detail layer dibuka melalui modal di view.
+include "stock_bahan_baku_produksi_view.php";
 ?>

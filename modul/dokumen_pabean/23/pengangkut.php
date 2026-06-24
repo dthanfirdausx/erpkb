@@ -27,10 +27,10 @@ if ($q->rowCount()==0) {
         <form role="form">
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor BC 1.1</label>
+              <label for="exampleInputEmail1"><?=customs_h('bc11_number','Nomor BC 1.1');?></label>
                <div class="row">
                  <div class="col-md-6">
-                   <input type="text" class="form-control col-md-6" id="NOMOR_BC11" value="<?= $data_header->nomorBc11 ?>" placeholder="Nomor BC 1.1" onkeyup="save_data(this.value,'nomorBc11',$('#ID').val(),'ws_header','id_header')" >
+                   <input type="text" class="form-control col-md-6" id="NOMOR_BC11" value="<?= $data_header->nomorBc11 ?>" placeholder="<?=customs_h('bc11_number','Nomor BC 1.1');?>" onkeyup="save_data(this.value,'nomorBc11',$('#ID').val(),'ws_header','id_header')" >
                  </div>
                  <div class="col-md-6">
                    <input type="text"  class="form-control col-md-6 tgl" id="TANGGAL_BC11" value="<?= date("Y-m-d", strtotime($data_header->tanggalBc11)) ?>" placeholder="Tanggal BC 1.1"  onchange="save_data(this.value,'tanggalBc11',$('#ID').val(),'ws_header','id_header')" autocomplete="off" >
@@ -38,7 +38,7 @@ if ($q->rowCount()==0) {
                </div>  
             </div>
             <div class="form-group"> 
-              <label for="exampleInputEmail1">Nomor Pos</label>
+              <label for="exampleInputEmail1"><?=customs_h('post_number','Nomor Pos');?></label>
                <div class="row">
                  <div class="col-md-4">
                    <input type="text" class="form-control" id="POS_BC11" value="<?= $data_header->posBc11 ?>" placeholder="Pos BC 1.1" onkeyup="save_data(this.value,'posBc11',$('#ID').val(),'ws_header','id_header')">
@@ -87,8 +87,8 @@ if ($q->rowCount()==0) {
               <input type="text" class="form-control" name="NAMA_PENGANGKUT"  id="NAMA_PENGANGKUT" value="<?= $data_angkut->namaPengangkut ?>" placeholder="Sarana Angkut" onkeyup="save_data(this.value,'namaPengangkut',<?= $data_angkut->id_pengangkut ?>,'ws_pengangkut','id_pengangkut')" >
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Voy/Flight/No.Pol</label>
-              <input type="text" class="form-control" name="NOMOR_POLISI"  id="NOMOR_POLISI" value="<?= $data_angkut->nomorPengangkut ?>" placeholder="Nomor Voy/Flight/No.Pol" onkeyup="save_data(this.value,'nomorPengangkut',<?= $data_angkut->id_pengangkut ?>,'ws_pengangkut','id_pengangkut')" >
+              <label for="exampleInputEmail1"><?=customs_h('voy_flight_police_no','Nomor Voy/Flight/No.Pol');?></label>
+              <input type="text" class="form-control" name="NOMOR_POLISI"  id="NOMOR_POLISI" value="<?= $data_angkut->nomorPengangkut ?>" placeholder="<?=customs_h('voy_flight_police_no','Nomor Voy/Flight/No.Pol');?>" onkeyup="save_data(this.value,'nomorPengangkut',<?= $data_angkut->id_pengangkut ?>,'ws_pengangkut','id_pengangkut')" >
             </div>
             <div class="form-group">
               <label for="kantor">Negara</label>

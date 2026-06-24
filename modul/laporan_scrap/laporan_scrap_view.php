@@ -1,12 +1,12 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Laporan Scrap
+                        <?=customs_h('scrap_report','Laporan Scrap');?>
                     </h1>
                         <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>laporan-scrap">Laporan Scrap</a></li>
-                        <li class="active">Laporan Scrap List</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+                        <li><a href="<?=base_index();?>laporan-scrap"><?=customs_h('scrap_report','Laporan Scrap');?></a></li>
+                        <li class="active"><?=customs_h('legacy_laporan_scrap_list','Laporan Scrap List');?></li>
                     </ol>
                 </section>
 
@@ -43,12 +43,12 @@
                         <table id="dtb_laporan_scrap" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                  <th>No</th>
-                                  <th>Nomor Scrap</th>
-                                  <th>Tanggal Scrap</th>
-                                  <th>Keterangan</th>
-                                  <th>Status</th>
-                                  <th>Action</th>
+                                  <th><?=customs_h('no','No');?></th>
+                                  <th><?=customs_h('scrap_number','Nomor Scrap');?></th>
+                                  <th><?=customs_h('scrap_date','Tanggal Scrap');?></th>
+                                  <th><?=customs_h('remarks','Keterangan');?></th>
+                                  <th><?=customs_h('status','Status');?></th>
+                                  <th><?=customs_h('action','Action');?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,7 +71,7 @@
                   $edit ="";
               }
             if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/laporan_scrap/laporan_scrap_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_laporan_scrap"><i class="fa fa-trash"></i></button>';
+                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/laporan_scrap/laporan_scrap_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="'.htmlspecialchars(customs_t('delete','Hapus'), ENT_QUOTES, 'UTF-8').'" data-variable="dtb_laporan_scrap"><i class="fa fa-trash"></i></button>';
             } else {
                 $del="";
             }
@@ -88,7 +88,7 @@
       var dtb_laporan_scrap = $("#dtb_laporan_scrap").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
             var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>laporan-scrap/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
+            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>laporan-scrap/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="<?=customs_h('detail','Detail');?>"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
               $(nRow).attr('id', 'line_'+aData[indek]);
               },
               "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -96,7 +96,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text: <?=customs_js('export_data','Export Data');?>,
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

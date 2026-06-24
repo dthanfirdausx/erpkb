@@ -80,7 +80,7 @@ $idBarang = $_POST['id'];
                          <div class="col-md-6">
                         <div class="box box-primary">
                           <div class="box-header with-border">
-                            <h3 class="box-title">Jumlah & Berat</h3>
+                            <h3 class="box-title"><?=customs_h('quantity_weight','Jumlah & Berat');?></h3>
                           </div>
                             <div class="form-group">
                                 <label for="nomor" >Satuan </label>

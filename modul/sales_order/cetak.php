@@ -1,4 +1,13 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php";
 $info_pt = info_pt();
 $q = $db->query("select s.*,p.nama as nama_penerima,p.npwp,p.no_izin from sales_order s left join penerima p on p.kode_penerima=s.kode_penerima where s.id_sales_order=?",array($_GET['id']));
@@ -120,7 +129,7 @@ head.appendChild(style);
 			<table id="table3" style="width: 1000px;float: left;margin-right: 10px">
 
 				<tr>
-						<td colspan = "1" style="text-align: left;font-size: 20px; width: 100px" >Customer</td>
+						<td colspan = "1" style="text-align: left;font-size: 20px; width: 100px" ><?=sd_h('sales_customer', 'Customer');?></td>
 						<td colspan = "1" style="text-align: left;font-size: 20px; width: 400px" ><?= $k->nama_penerima ?></td>
 						<td  style="text-align: left;font-size: 20px; width: 200px" ></td>
 						<td style="text-align: left;font-size: 20px; width: 200px" >Tanggal</td>
@@ -168,7 +177,7 @@ head.appendChild(style);
 				<tr>
 						<td colspan = "1" style=" border: 1px black solid;text-align: left;font-size: 20px; width: 30px" >No.</td>
 						<td colspan = "1" style=" border: 1px black solid;text-align: left;font-size: 20px; width: 300px" >Nama Barang</td>
-						<td colspan = "2" style=" border: 1px black solid;text-align: left;font-size: 20px; width: 70px" >Qty</td>
+						<td colspan = "2" style=" border: 1px black solid;text-align: left;font-size: 20px; width: 70px" ><?=sd_h('sales_qty', 'Qty');?></td>
 						<td style=" border: 1px black solid;text-align: left;font-size: 20px; width: 100px" >Pack</td>
 
 <!--						<td style=" border: 1px black solid;text-align: left;font-size: 20px; width: 200px" >No. Batch</td>
@@ -242,7 +251,7 @@ head.appendChild(style);
 				<tr>
 						<td colspan = "4" style="border-bottom:0px solid black ; border-right:1px solid black ;border-left:1px solid black ; text-align: left;font-size: 20px; width: 30px" >Rek 1</td>
 						<td style=" border: 0px black solid;text-align: left;font-size: 20px; width: 200px" ></td>
-						<td style=" border: 1px black solid;text-align: left;font-size: 20px; width: 130px" >Total</td>
+						<td style=" border: 1px black solid;text-align: left;font-size: 20px; width: 130px" ><?=sd_h('sales_total', 'Total');?></td>
 						<td style=" border: 1px black solid;text-align: left;font-size: 20px; width: 170px" ></td>
 				</tr>
 				<tr>

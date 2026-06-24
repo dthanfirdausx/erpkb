@@ -1,3 +1,17 @@
+<?php
+if (!function_exists('pr_legacy_t')) {
+  function pr_legacy_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('pr_legacy_h')) {
+  function pr_legacy_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+}
+$prLegacyJs = array(
+  'required' => pr_legacy_t('validation_required', 'This field is required'),
+  'vendorPlaceholder' => pr_legacy_t('purchase_requisition_vendor_placeholder', 'input pemasok'),
+  'pricePlaceholder' => pr_legacy_t('purchase_requisition_price_placeholder', 'input harga'),
+  'notePlaceholder' => pr_legacy_t('purchase_requisition_note_placeholder', 'input keterangan')
+);
+?>
 <!-- Content Header (Page header) -->
 <style>
 .switch {
@@ -68,7 +82,7 @@ input:checked + .slider:before {
                   <div class="col-lg-12">
                       <div class="box box-solid box-primary">
                           <div class="box-header">
-                              <h3 class="box-title">Verifikasi Purchase Request</h3>
+                              <h3 class="box-title"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_verify_title', 'Verifikasi Purchase Request'));?></h3>
                               <div class="box-tools pull-right">
                                   <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-pencil"></i></button>
                               </div>
@@ -81,7 +95,7 @@ input:checked + .slider:before {
                           <form id="edit_pr" method="post" class="form-horizontal" action="<?=base_admin();?>modul/pr/pr_action.php?act=verifikasi">
                             
               <div class="form-group">
-                <label for="No RO" class="control-label col-lg-2">No RO </label>
+                <label for="No RO" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_no_ro', 'No RO'));?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="no_ro" value="<?=$data_edit->no_ro;?>" class="form-control" readonly>
                   <input type="hidden" name="nomor" value="<?=$data_edit->nomor;?>" class="form-control" readonly>
@@ -89,7 +103,7 @@ input:checked + .slider:before {
               </div><!-- /.form-group -->
               
               <div class="form-group">
-              <label for="Tanggal RO" class="control-label col-lg-2">Tanggal RO <span style="color:#FF0000">*</span></label>
+              <label for="Tanggal RO" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_ro_date', 'Tanggal RO'));?> <span style="color:#FF0000">*</span></label>
               <div class="col-lg-3">
                 <div class="input-group date" id="tgl1">
                     <input type="text" class="form-control" value="<?=$data_edit->tgl_ro;?>" name="tgl_ro"  readonly />
@@ -100,9 +114,9 @@ input:checked + .slider:before {
               </div>
           </div><!-- /.form-group -->
           <div class="form-group">
-                        <label for="Departemen/Bagian" class="control-label col-lg-2">Departemen/Bagian <span style="color:#FF0000">*</span></label>
+                        <label for="Departemen/Bagian" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('common_department', 'Departemen/Bagian'));?> <span style="color:#FF0000">*</span></label>
                         <div class="col-lg-10">
-              <select  id="dept" name="dept" data-placeholder="Pilih Departemen/Bagian..." class="form-control chzn-select" tabindex="2" readonly>
+              <select  id="dept" name="dept" data-placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_select_department', 'Pilih Departemen/Bagian...'));?>" class="form-control chzn-select" tabindex="2" readonly>
                <option value=""></option>
                <?php foreach ($db->fetch_all("dept") as $isi) {
 
@@ -124,7 +138,7 @@ input:checked + .slider:before {
               </div><!-- /.form-group -->
               
           <div class="form-group">
-              <label for="catatan" class="control-label col-lg-2">catatan </label>
+              <label for="catatan" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('vendor_evaluation_notes', 'Catatan'));?> </label>
               <div class="col-lg-10">
               <textarea class="form-control col-xs-12" rows="5" name="catatan" readonly><?=$data_edit->catatan;?> </textarea>
               </div>
@@ -136,9 +150,9 @@ input:checked + .slider:before {
                    <thead>
                    <tr> 
                      
-                     <th style="width: 30%" class="text-center">Nama Barang</th>
+                     <th style="width: 30%" class="text-center"><?=pr_legacy_h(pr_legacy_t('purchase_order_material_description', 'Nama Barang'));?></th>
                    
-                     <th class="text-center">Price Comparison</th>
+                     <th class="text-center"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_price_comparison', 'Price Comparison'));?></th>
                    </tr>
                 <!--    <tr>
                      <th class="text-center">Vendor</th>
@@ -160,9 +174,9 @@ input:checked + .slider:before {
                         <thead>
                           <tr>
                             <th></th>
-                            <th style="width: 40%">Pemasok</th>
-                            <th class="text-right">Harga Penawaran</th>
-                            <th class="text-center">Catatan</th>
+                            <th style="width: 40%"><?=pr_legacy_h(pr_legacy_t('vendor_evaluation_vendor', 'Pemasok'));?></th>
+                            <th class="text-right"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_offer_price', 'Harga Penawaran'));?></th>
+                            <th class="text-center"><?=pr_legacy_h(pr_legacy_t('vendor_evaluation_notes', 'Catatan'));?></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -194,7 +208,7 @@ input:checked + .slider:before {
                       }else{
                         ?>
                         <tr id="baris_<?= $no ?>"> 
-                           <td colspan="4" class="text-center">Belum ada data penawaran dari pemasok</td>
+                           <td colspan="4" class="text-center"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_no_vendor_offer', 'Belum ada data penawaran dari pemasok'));?></td>
                           
                         </tr>
                         <?php
@@ -229,7 +243,7 @@ input:checked + .slider:before {
                               
                                 <div class="col-lg-12">
                                 <a href="<?=base_index();?>pr" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
-                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Verifikasi</button>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> <?=pr_legacy_h(pr_legacy_t('purchase_requisition_verify', 'Verifikasi'));?></button>
                                 </div>
                             </div><!-- /.form-group -->
                           </form>
@@ -239,13 +253,14 @@ input:checked + .slider:before {
               </section><!-- /.content -->
 
 <script type="text/javascript">
+   var prLegacyLang = <?=json_encode($prLegacyJs);?>;
    function min_row(id,baris) {
       $("#baris_"+baris).remove();
     }
 
     function add_row(id,no) {
       var id_baris =  parseInt($("#jml").val())+1;
-      var baris = '<tr id="baris_'+id_baris+'"><td style="width: 100px"><a class="btn btn-primary" onclick="add_row(\''+id+'\',\''+id_baris+'\')"><i class="fa fa-plus"></i></a> <a class="btn btn-danger"  onclick="min_row(\''+id+'\',\''+id_baris+'\')"> <i class="fa fa-minus"></i> </a></td><td><input id="form_kode_'+id_baris+'" onkeyup="cari_vendor(\''+id_baris+'\')" type="text" name="vendor['+id+'][]" class="form-control" placeholder="input pemasok"></td><td><input type="text" name="harga['+id+'][]" class="form-control" placeholder="input harga"></td><td><input  type="text" name="ket['+id+'][]" class="form-control" placeholder="input keterangan"></td></tr>'; 
+      var baris = '<tr id="baris_'+id_baris+'"><td style="width: 100px"><a class="btn btn-primary" onclick="add_row(\''+id+'\',\''+id_baris+'\')"><i class="fa fa-plus"></i></a> <a class="btn btn-danger"  onclick="min_row(\''+id+'\',\''+id_baris+'\')"> <i class="fa fa-minus"></i> </a></td><td><input id="form_kode_'+id_baris+'" onkeyup="cari_vendor(\''+id_baris+'\')" type="text" name="vendor['+id+'][]" class="form-control" placeholder="'+prLegacyLang.vendorPlaceholder+'"></td><td><input type="text" name="harga['+id+'][]" class="form-control" placeholder="'+prLegacyLang.pricePlaceholder+'"></td><td><input  type="text" name="ket['+id+'][]" class="form-control" placeholder="'+prLegacyLang.notePlaceholder+'"></td></tr>'; 
       $("#tabel_"+id).append(baris);
         $("#jml").val(id_baris);
    }
@@ -361,12 +376,12 @@ input:checked + .slider:before {
          messages: {
             
           tgl_ro: {
-          required: "This field is required",
+          required: prLegacyLang.required,
           //minlength: "Your username must consist of at least 2 characters"
           },
         
           dept: {
-          required: "This field is required",
+          required: prLegacyLang.required,
           //minlength: "Your username must consist of at least 2 characters"
           },
         

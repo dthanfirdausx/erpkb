@@ -1,9 +1,20 @@
+<?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
 <!-- Content Header (Page header) -->
               <section class="content-header">
                   <h1>Pemasukan </h1>
                     <ol class="breadcrumb">
                         <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=sd_h('common_home', 'Home');?></a>
                         </li>
                         <li>
                         <a href="<?=base_index();?>pemasukan-">Pemasukan </a>
@@ -258,7 +269,7 @@
                      </th>
                      <th style="width: 300px">Kode Barang</th>
                      <th style="width: 70px">Unit</th>
-                     <th>Qty</th>
+                     <th><?=sd_h('sales_qty', 'Qty');?></th>
                      <th>Harga</th>
                      <th>Nilai</th>
                      <th>Berat</th>

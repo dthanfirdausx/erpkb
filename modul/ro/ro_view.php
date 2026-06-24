@@ -9,6 +9,15 @@
                         <li class="active">RO List</li>
                     </ol>
                 </section> -->
+<style>
+td.details-control {
+    cursor:pointer;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+<?php $ro_menu_url = uri_segment(1); ?>
 
                 <!-- Main content -->
                 <section class="content">
@@ -21,7 +30,7 @@
                                       if (uri_segment(1)==$isi->url) {
                                           if ($role_act["insert_act"]=="Y") {
                                       ?>
-                                      <a href="<?=base_index();?>ro/tambah" class="btn btn-primary "><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
+                                      <a href="<?=base_index().$ro_menu_url;?>/tambah" class="btn btn-primary "><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
                                       <?php
                                           }
                                       }
@@ -41,20 +50,17 @@
           <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
         </div>
                         <table id="dtb_ro" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th>No</th>
-                                  <th>No RO</th>
-                                  <th>Tanggal RO</th>
-                                  <th>Departemen</th>
-                                  <th>Tujuan</th>
-                                  <th>PPC</th>
-                                  <th>Bahan Barang</th>
-                                <!--   <th>Jumlah </th> -->
-                                  <th>Catatan</th>
-                                  <th>Action</th>
-                                </tr>
-                            </thead>
+                          <thead>
+                          <tr>
+                              <th></th>
+                              <th>No</th>
+                              <th>No RO</th>
+                              <th>Tanggal RO</th>
+                              <th>PPC</th>
+                              <th>Catatan</th>
+                              <th>Action</th>
+                          </tr>
+                          </thead>
                             <tbody>
                             </tbody>
                         </table>
@@ -70,12 +76,12 @@
             if (uri_segment(1)==$isi->url) {
               //check edit permission
               if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+' href=".base_index()."ro/edit/'+aData[indek]+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
+                $edit = "<a data-id='+id+' href=".base_index().$ro_menu_url."/edit/'+id+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
               } else {
                   $edit ="";
               }
             if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/ro/ro_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_ro"><i class="fa fa-trash"></i></button>';
+                $del = "<button data-id='+id+' data-uri=".base_admin()."modul/ro/ro_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_ro"><i class="fa fa-trash"></i></button>';
             } else {
                 $del="";
             }
@@ -121,14 +127,42 @@
                }
             })
           }
+
+  function format(rowid)
+{
+    return '<div id="detail_'+rowid+'">'+
+           '<center><i class="fa fa-spinner fa-spin"></i> Loading...</center>'+
+           '</div>';
+}
       
       
       var dtb_ro = $("#dtb_ro").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-            var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>ro/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
+          "fnCreatedRow": function(nRow,aData){
+
+    var id    = aData[7];
+    var no_ro = aData[2];
+   // var rowid = aData[7];
+
+    $('td:eq(0)',nRow)
+        .addClass('details-control')
+        .html('<i class="fa fa-plus-square text-primary"></i>');
+
+    var action = '';
+
+
+    action += '<a href="<?=base_index().$ro_menu_url;?>/edit/'+id+'" class="btn btn-primary btn-sm">';
+    action += '<i class="fa fa-pencil"></i>';
+    action += '</a> ';
+
+    action += '<button data-id="'+id+'" ';
+    action += 'data-uri="<?=base_admin();?>modul/ro/ro_action.php" ';
+    action += 'class="btn btn-danger hapus_dtb_notif btn-sm">';
+    action += '<i class="fa fa-trash"></i>';
+    action += '</button>';
+
+    $('td:eq(6)',nRow).html(action);
+
+},
               "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
 
               buttons: [
@@ -147,7 +181,7 @@
             'bServerSide': true,
             
            'columnDefs': [ {
-            'targets': [8],
+            'targets': [5],
               'orderable': false,
               'searchable': false
             },
@@ -170,6 +204,46 @@
             }
           },
         });
+    $('#dtb_ro tbody').on('click','td.details-control',function(){
+
+    var tr = $(this).closest('tr');
+    var row = dtb_ro.row(tr);
+
+    var data = row.data();
+    var no_ro = data[2];
+    var rowid = data[7];
+
+    if(row.child.isShown())
+    {
+        row.child.hide();
+        tr.removeClass('shown');
+
+        $(this).html(
+            '<i class="fa fa-plus-square text-primary"></i>'
+        );
+    }
+    else
+    {
+        row.child(format(rowid)).show();
+        tr.addClass('shown');
+
+        $(this).html(
+            '<i class="fa fa-minus-square text-danger"></i>'
+        );
+
+        $.ajax({
+            url:"<?=base_url()?>modul/ro/ro_action.php?act=detail_barang",
+            type:"POST",
+            data:{
+                no_ro:no_ro
+            },
+            success:function(html){
+               $("#detail_"+rowid).html(html);
+            }
+        });
+    }
+
+});
 
   $('#dtb_ro').on('draw.dt', function() {
           init_selected()

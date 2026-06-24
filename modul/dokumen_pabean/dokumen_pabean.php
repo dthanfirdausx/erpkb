@@ -48,7 +48,7 @@ where   h.uuid='$uuid' ");
                           if ($role_act["insert_act"]=="Y") {
                              include "dokumen_pabean_add.php";
                           } else {
-                            echo "permission denied";
+                            echo customs_t("permission_denied", "permission denied");
                           }
                        }
 
@@ -61,7 +61,7 @@ where   h.uuid='$uuid' ");
                           if ($role_act["up_act"]=="Y") {
                              include "dokumen_pabean_edit.php";
                           } else {
-                            echo "permission denied";
+                            echo customs_t("permission_denied", "permission denied");
                           }
                        }
 

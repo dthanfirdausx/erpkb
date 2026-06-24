@@ -7,8 +7,8 @@
         <form role="form">
           <div class="box-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Nomor Pengajuan</label>
-              <input type="text" class="form-control" id="no_aju" value="<?= $data_header->nomorAju ?>" placeholder="Nomor Aju" readonly="">
+              <label for="exampleInputEmail1"><?=customs_h('submission_number','Nomor Pengajuan');?></label>
+              <input type="text" class="form-control" id="no_aju" value="<?= $data_header->nomorAju ?>" placeholder="<?=customs_h('aju_no','Nomor Aju');?>" readonly="">
             </div>
             <div class="form-group">
               <label for="kantor">Kantor Pabean Asal</label>

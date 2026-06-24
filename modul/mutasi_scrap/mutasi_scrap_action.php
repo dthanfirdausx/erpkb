@@ -1,127 +1,74 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 include "../../inc/config.php";
-session_check_json();
-switch ($_GET["act"]) {
-
-  case "show_detail_pemasukan":
-      $tgl_awal = "1970-01-01";
-      $tgl_akhir = date("Y-m-d");
-      if ($_POST['tgl_awal']!='') {
-        $tgl_awal = $_POST['tgl_awal'];
-      }
-      if ($_POST['tgl_akhir']!='') {
-         $tgl_akhir = $_POST['tgl_akhir']; 
-      } 
-    $kd_barang = $_POST['kd_barang'];
-   
-   
-    $tabel = $_POST['tabel'];
-    $q = $db->query("select * from $tabel where tgl_dokumen between '$tgl_awal' and '$tgl_akhir'
-    and kode='$kd_barang' group by no_dokumen "); 
-    ?>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Kode/Nama Brang</th>
-          <th>Satuan</th>
-          <th>No Dokumen</th>
-          <th>Tanggal Dokumen</th>
-          <th>Jenis Dokpab</th>
-          <th>No Dokpab</th>
-          <th>Tanggal Dokpab</th>
-          <th>No Aju</th>
-          <th>Tanggal Aju</th>
-          <th>Jumlah</th>
-        </tr>
-        <tbody>
-          <?php
-          $no=1;
-          $jml = 0;
-          foreach ($q as $k) {
-            echo "<tr>
-              <td>$no</td>
-              <td>$k->kode / $k->nm_barang</td>
-              <td>$k->satuan</td>
-              <td>$k->no_dokumen</td>
-              <td>$k->tgl_dokumen</td>
-              <td>$k->jenis_dokpab</td>
-              <td>$k->no_dokpab</td>
-              <td>$k->tgl_dokpab</td>
-              <td>$k->no_aju</td>
-              <td>$k->tgl_aju</td>
-              <td>".number_format($k->jumlah,2,",",".")."</td>
-             
-            </tr>";
-            $jml = $jml+$k->jumlah;
-            $no++;
-          }
-          ?>
-          <tr>
-            <td colspan="10">Total</td>
-            <td><?= number_format($jml,2,",",".") ?></td>
-          </tr>
-        </tbody>
-      </thead>
-    </table>
-    <?php
-  // action_response($db->getErrorMessage()); 
-  break; 
-  case "in":
-    
-  
-  
-  
-  $data = array(
-      "id" => $_POST["id"],
-      "kd_barang" => $_POST["kd_barang"],
-  );
-  
-  
-  
-   
-    $in = $db->insert("mutasi_scrap",$data);
-    
-    
-    action_response($db->getErrorMessage());
-    break;
-  case "delete":
-    
-    
-    
-    $db->delete("mutasi_scrap","id",$_GET["id"]);
-    action_response($db->getErrorMessage());
-    break;
-   case "del_massal":
-    $data_ids = $_REQUEST["data_ids"];
-    $data_id_array = explode(",", $data_ids);
-    if(!empty($data_id_array)) {
-        foreach($data_id_array as $id) {
-          $db->delete("mutasi_scrap","id",$id);
-         }
-    }
-    action_response($db->getErrorMessage());
-    break;
-  case "up":
-    
-   $data = array(
-      "id" => $_POST["id"],
-      "kd_barang" => $_POST["kd_barang"],
-   );
-   
-   
-   
-
-    
-    
-    $up = $db->update("mutasi_scrap",$data,"id",$_POST["id"]);
-    
-    action_response($db->getErrorMessage());
-    break;
-  default:
-    # code...
-    break;
+function ms_action_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+function ms_action_num($value, $dec = 2) { return number_format((float)$value, $dec, ',', '.'); }
+function ms_action_input($key, $default = '') { return isset($_REQUEST[$key]) ? trim((string)$_REQUEST[$key]) : $default; }
+function ms_action_rows($db) {
+  $tglAwal=ms_action_input('tgl_awal',date('Y-m-01')); $tglAkhir=ms_action_input('tgl_akhir',date('Y-m-d'));
+  $material=ms_action_input('material_code'); $plantId=ms_action_input('plant_id'); $slocId=ms_action_input('storage_location_id'); $binId=ms_action_input('storage_bin_id'); $stockType=ms_action_input('stock_type'); $keyword=ms_action_input('keyword');
+  $where=" WHERE b.kd_kategori='K04' "; $fp=array();
+  if($material!==''){$where.=" AND b.kd_barang=? ";$fp[]=$material;} if($plantId!==''){$where.=" AND COALESCE(dt.plant_id,sl.plant_id)=? ";$fp[]=$plantId;} if($slocId!==''){$where.=" AND COALESCE(dt.storage_location_id,dt.destination_storage_location_id,sl.storage_location_id)=? ";$fp[]=$slocId;} if($binId!==''){$where.=" AND COALESCE(dt.storage_bin_id,dt.destination_storage_bin_id,sl.storage_bin_id)=? ";$fp[]=$binId;} if($stockType!==''){$where.=" AND COALESCE(dt.stock_type,dt.destination_stock_type,sl.stock_type,'UNRESTRICTED')=? ";$fp[]=$stockType;}
+  if($keyword!==''){$where.=" AND (b.kd_barang LIKE ? OR b.nm_barang LIKE ? OR dt.no_ref LIKE ? OR dt.no_bpb LIKE ? OR dt.no_aju LIKE ? OR dt.no_dokpab LIKE ? OR dt.remark LIKE ?) ";$kw='%'.$keyword.'%';for($i=0;$i<7;$i++)$fp[]=$kw;}
+  $movementExpr="CASE WHEN dt.id_detail IS NULL THEN 'IN' WHEN dt.direction='OUT' OR COALESCE(dt.qty,0)<0 OR dt.move_code IN ('102','122','201','221','261','262','532','551','601','602','702','712') THEN 'OUT' ELSE 'IN' END";
+  $adjustExpr="CASE WHEN dt.move_code IN ('701','702','711','712') OR COALESCE(dt.ref_type,'') LIKE '%DIFF%' OR COALESCE(dt.ref_type,'') LIKE '%OPNAME%' OR COALESCE(dt.ref_type,'') LIKE '%ADJUST%' THEN 1 ELSE 0 END";
+  $signedQtyExpr="CASE WHEN ($movementExpr)='OUT' THEN -ABS(COALESCE(dt.qty,0)) ELSE ABS(COALESCE(dt.qty,0)) END";
+  $sql="SELECT b.id,b.kd_barang,b.nm_barang,b.satuan,ep.plant_code,es.storage_code,eb.bin_code,COALESCE(dt.stock_type,dt.destination_stock_type,sl.stock_type,'UNRESTRICTED') stock_type,
+    COALESCE(SUM(CASE WHEN dt.document_date < ? THEN $signedQtyExpr ELSE 0 END),0) saldo_awal,
+    COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=0 AND ($movementExpr)='IN' THEN ABS(COALESCE(dt.qty,0)) ELSE 0 END),0) pemasukan,
+    COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=0 AND ($movementExpr)='OUT' THEN ABS(COALESCE(dt.qty,0)) ELSE 0 END),0) pengeluaran,
+    COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=1 THEN $signedQtyExpr ELSE 0 END),0) penyesuaian,
+    COALESCE(SUM(CASE WHEN dt.document_date <= ? THEN $signedQtyExpr ELSE 0 END),0) saldo_akhir,
+    COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? THEN 1 ELSE 0 END),0) movement_lines
+    FROM barang b
+    LEFT JOIN detail_transaksi dt ON dt.kd_barang=b.kd_barang AND dt.document_date<=? AND (dt.posisi='GUDANG' OR dt.lokasi LIKE '%GUDANG%' OR dt.lokasi LIKE '%WAREHOUSE%' OR dt.posisi IS NULL) AND COALESCE(dt.is_reversal,0)=0
+    LEFT JOIN stock_layer sl ON sl.id=dt.ref_id AND sl.kode=b.kd_barang
+    LEFT JOIN erp_plant ep ON ep.id=COALESCE(dt.plant_id,sl.plant_id)
+    LEFT JOIN erp_storage_location es ON es.id=COALESCE(dt.storage_location_id,dt.destination_storage_location_id,sl.storage_location_id)
+    LEFT JOIN erp_storage_bin eb ON eb.id=COALESCE(dt.storage_bin_id,dt.destination_storage_bin_id,sl.storage_bin_id)
+    $where GROUP BY b.id,b.kd_barang,b.nm_barang,b.satuan,ep.plant_code,es.storage_code,eb.bin_code,stock_type
+    HAVING saldo_awal<>0 OR pemasukan<>0 OR pengeluaran<>0 OR penyesuaian<>0 OR saldo_akhir<>0 ORDER BY b.kd_barang ASC";
+  $p=array($tglAwal.' 00:00:00',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAkhir.' 23:59:59');
+  return $db->query($sql,array_merge($p,$fp));
 }
-
+$act=isset($_GET['act'])?$_GET['act']:'';
+switch($act){
+  case 'show_detail':
+    $tglAwal=ms_action_input('tgl_awal',date('Y-m-01')); $tglAkhir=ms_action_input('tgl_akhir',date('Y-m-d')); $kd=ms_action_input('kd_barang'); $type=strtoupper(ms_action_input('type','IN'));
+    $movementExpr="CASE WHEN dt.direction='OUT' OR COALESCE(dt.qty,0)<0 OR dt.move_code IN ('102','122','201','221','261','262','532','551','601','602','702','712') THEN 'OUT' ELSE 'IN' END";
+    $adjustExpr="CASE WHEN dt.move_code IN ('701','702','711','712') OR COALESCE(dt.ref_type,'') LIKE '%DIFF%' OR COALESCE(dt.ref_type,'') LIKE '%OPNAME%' OR COALESCE(dt.ref_type,'') LIKE '%ADJUST%' THEN 1 ELSE 0 END";
+    $where=" WHERE dt.document_date BETWEEN ? AND ? AND dt.kd_barang=? AND (dt.posisi='GUDANG' OR dt.lokasi LIKE '%GUDANG%' OR dt.lokasi LIKE '%WAREHOUSE%' OR dt.posisi IS NULL) AND COALESCE(dt.is_reversal,0)=0 "; $p=array($tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$kd);
+    if($type==='ADJ'){$where.=" AND ($adjustExpr)=1 ";$title='Detail Penyesuaian Scrap';}elseif($type==='OUT'){$where.=" AND ($adjustExpr)=0 AND ($movementExpr)='OUT' ";$title='Detail Pengeluaran Scrap';}else{$where.=" AND ($adjustExpr)=0 AND ($movementExpr)='IN' ";$title='Detail Pemasukan Scrap';}
+    $q=$db->query("SELECT dt.*,b.nm_barang,b.satuan,ep.plant_code,es.storage_code,eb.bin_code FROM detail_transaksi dt LEFT JOIN barang b ON b.kd_barang=dt.kd_barang LEFT JOIN erp_plant ep ON ep.id=dt.plant_id LEFT JOIN erp_storage_location es ON es.id=COALESCE(dt.storage_location_id,dt.destination_storage_location_id) LEFT JOIN erp_storage_bin eb ON eb.id=COALESCE(dt.storage_bin_id,dt.destination_storage_bin_id) $where ORDER BY dt.posting_date ASC,dt.id_detail ASC",$p);
+    ?>
+    <style>.ms-detail-table th,.ms-detail-table td{font-size:12px;vertical-align:middle!important}.ms-detail-table th{background:#f8fafc}.ms-detail-head{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:12px}.ms-muted{color:#64748b;font-size:11px}.ms-trace{display:none;background:#f8fafc}.ms-trace-box{border:1px solid #e5e7eb;border-radius:10px;background:#fff;padding:10px}</style>
+    <div class="ms-detail-head"><h4 style="margin:0"><?=ms_action_h($title);?> - <?=ms_action_h($kd);?></h4><small>Periode <?=ms_action_h($tglAwal);?> s/d <?=ms_action_h($tglAkhir);?></small></div>
+    <div class="table-responsive"><table class="table table-bordered table-condensed ms-detail-table"><thead><tr><th><?=customs_h('no','No');?></th><th>Material Document</th><th>Posting Date</th><th>Movement</th><th><?=customs_h('material','Material');?></th><th>Location</th><th>Reference</th><th class="text-right"><?=customs_h('qty','Qty');?></th><th>UOM</th><th><?=customs_h('remarks','Keterangan');?></th></tr></thead><tbody>
+    <?php $no=1;$total=0;foreach($q as $k){$mv=($k->direction==='OUT'||(float)$k->qty<0||in_array($k->move_code,array('102','122','201','221','261','262','532','551','601','602','702','712')))?'OUT':'IN';$qty=abs((float)$k->qty);$total+=$qty;$loc=trim((string)$k->plant_code.' / '.(string)$k->storage_code.' / '.(string)$k->bin_code,' /'); ?>
+      <tr><td><?=intval($no++);?></td><td><strong><?=ms_action_h($k->no_ref ?: $k->no_bpb);?></strong><br><small>#<?=intval($k->id_detail);?></small></td><td><?=ms_action_h($k->posting_date ?: $k->document_date);?></td><td><span class="label label-<?=$mv==='OUT'?'danger':'success';?>"><?=ms_action_h($mv);?></span><br><small><?=ms_action_h($k->move_code.' '.$k->ref_type);?></small></td><td><strong><?=ms_action_h($k->kd_barang);?></strong><br><small><?=ms_action_h($k->nm_barang);?></small></td><td><?=ms_action_h($loc ?: ($k->lokasi ?: '-'));?><br><small><?=ms_action_h($k->stock_type ?: 'UNRESTRICTED');?></small></td><td><?=ms_action_h($k->no_bpb ?: '-');?><br><small><?=ms_action_h($k->no_aju ?: '');?></small></td><td class="text-right"><?php if($k->ref_type==='PC_SCRAP'){ ?><a href="javascript:void(0)" onclick="$(this).closest('tr').next('.ms-trace').toggle();return false;" style="font-weight:700;text-decoration:underline"><?=ms_action_num($qty);?></a><br><small class="ms-muted">klik trace</small><?php } else { echo ms_action_num($qty); } ?></td><td><?=ms_action_h($k->uom ?: $k->satuan);?></td><td><?=ms_action_h(trim((string)$k->remark.' '.(string)$k->reason));?></td></tr>
+      <?php if($k->ref_type==='PC_SCRAP'){ $traces=$db->query("SELECT * FROM erp_production_scrap_trace WHERE scrap_material_doc_id=? OR confirmation_id=? ORDER BY raw_material_code,no_aju,no_dokpab,id",array($k->id_detail,$k->ref_id)); ?>
+      <tr class="ms-trace"><td colspan="10"><div class="ms-trace-box"><h5 style="font-weight:700;margin-top:0"><?=customs_h('scrap_raw_trace','Trace Bahan Baku Asal Scrap');?></h5><div class="table-responsive"><table class="table table-bordered table-condensed" style="margin-bottom:0"><thead><tr><th><?=customs_h('no','No');?></th><th><?=customs_h('source_raw_material','Bahan Baku Asal');?></th><th class="text-right"><?=customs_h('qty','Qty');?></th><th>UOM</th><th><?=customs_h('inbound_bc_document','Dokumen BC Masuk');?></th><th><?=customs_h('aju_no_short','No AJU');?></th><th><?=customs_h('bpb_no','No BPB');?></th><th><?=customs_h('lot_batch','Lot/Batch');?></th><th><?=customs_h('hs_code','HS Code');?></th><th><?=customs_h('trace','Trace');?></th></tr></thead><tbody>
+        <?php $tn=1;$has=false;if($traces) foreach($traces as $tr){$has=true; ?><tr><td><?=intval($tn++);?></td><td><strong><?=ms_action_h($tr->raw_material_code);?></strong><br><small><?=ms_action_h($tr->raw_material_name);?></small></td><td class="text-right"><?=ms_action_num($tr->qty,5);?></td><td><?=ms_action_h($tr->uom);?></td><td><?=ms_action_h(trim((string)$tr->jenis_dokpab.' '.(string)$tr->no_dokpab) ?: '-');?></td><td><?=ms_action_h($tr->no_aju ?: '-');?></td><td><?=ms_action_h($tr->no_bpb ?: '-');?></td><td><?=ms_action_h($tr->lot_no ?: '-');?></td><td><?=ms_action_h($tr->hs_code ?: '-');?></td><td><span class="label label-<?=($tr->trace_source==='INHERITED'?'primary':'info');?>"><?=ms_action_h($tr->trace_source);?></span><br><small>Layer #<?=ms_action_h($tr->source_stock_layer_id ?: '-');?></small></td></tr><?php } if(!$has){ ?><tr><td colspan="10" class="text-center text-muted"><?=customs_h('raw_trace_not_available','Trace bahan baku asal belum tersedia.');?></td></tr><?php } ?>
+      </tbody></table></div></div></td></tr>
+      <?php } ?>
+    <?php } if($no===1){ ?><tr><td colspan="10" class="text-center text-muted">Tidak ada detail transaksi.</td></tr><?php } ?>
+    </tbody><tfoot><tr><th colspan="7" class="text-right">Total</th><th class="text-right"><?=ms_action_num($total);?></th><th colspan="2"></th></tr></tfoot></table></div>
+    <?php break;
+  case 'excel':
+    $initialOutputBufferLevel=ob_get_level(); ob_start(); ini_set('display_errors','0'); error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+    require "../../inc/lib/PHPExcel.php"; require_once "../../inc/excel_style_helper.php"; PHPExcel_Shared_File::setUseUploadTempDirectory(true);
+    $tglAwal=ms_action_input('tgl_awal',date('Y-m-01')); $tglAkhir=ms_action_input('tgl_akhir',date('Y-m-d')); $companyName=defined('namaPT')?namaPT:(defined('shortTittle')?shortTittle:'NAMA_PT'); $rows=ms_action_rows($db);
+    $excel=new PHPExcel(); $sheet=$excel->setActiveSheetIndex(0); $sheet->setTitle(erp_export_sheet_title('Mutasi Scrap')); $headerStart=6; $headerEnd=7; $firstDataRow=8;
+    foreach(array(1=>'LAPORAN PERTANGGUNGJAWABAN MUTASI BARANG',2=>'LAPORAN PERTANGGUNGJAWABAN MUTASI SCRAP',3=>'KAWASAN BERIKAT '.$companyName,4=>'PERIODE: '.$tglAwal.' SD '.$tglAkhir) as $row=>$text){$sheet->mergeCells('A'.$row.':L'.$row);$sheet->setCellValue('A'.$row,$text);}
+    $headers=array(erp_export_label("No"),erp_export_label("KODE\\nBARANG"),erp_export_label("NAMA\\nBARANG"),erp_export_label("SAT"),erp_export_label("SALDO\\nAWAL"),erp_export_label("PEMASUKAN"),erp_export_label("PENGELUARAN"),erp_export_label("PENYESUAIAN\\n(ADJUSTMENT)"),erp_export_label("SALDO\\nAKHIR"),erp_export_label("STOCK\\nOPNAME"),erp_export_label("SELISIH"),erp_export_label("KETERANGAN")); $numbers=array('(1)','(2)','(3)','(4)','(5)','(6)','(7)','(8)','(9)','(10)','(11)','(12)');
+    foreach($headers as $c=>$h)$sheet->setCellValueByColumnAndRow($c,$headerStart,$h); foreach($numbers as $c=>$h)$sheet->setCellValueByColumnAndRow($c,$headerEnd,$h);
+    $r=$firstDataRow;$n=1;$tot=array_fill_keys(array('saldo_awal','pemasukan','pengeluaran','penyesuaian','saldo_akhir','stock_opname','selisih'),0);
+    foreach($rows as $row){$saldo=(float)$row->saldo_akhir;$op=$saldo;$sel=$op-$saldo;$ket=array();if((int)$row->movement_lines>0)$ket[]=(int)$row->movement_lines.' line transaksi';if($row->plant_code||$row->storage_code||$row->bin_code)$ket[]=trim((string)$row->plant_code.' / '.(string)$row->storage_code.' / '.(string)$row->bin_code,' /');if($row->stock_type)$ket[]=$row->stock_type;$vals=array($n++,$row->kd_barang,$row->nm_barang,$row->satuan,(float)$row->saldo_awal,(float)$row->pemasukan,(float)$row->pengeluaran,(float)$row->penyesuaian,$saldo,$op,$sel,implode(' | ',$ket));foreach($vals as $c=>$v)$sheet->setCellValueByColumnAndRow($c,$r,$v);foreach(array('saldo_awal','pemasukan','pengeluaran','penyesuaian') as $k)$tot[$k]+=(float)$row->$k;$tot['saldo_akhir']+=$saldo;$tot['stock_opname']+=$op;$tot['selisih']+=$sel;$r++;}
+    $lastDataRow=max($firstDataRow,$r-1);$summaryRow=$r+1;$sheet->mergeCells('A'.$summaryRow.':D'.$summaryRow);$sheet->setCellValue('A'.$summaryRow, erp_export_label('TOTAL'));$sheet->setCellValue('E'.$summaryRow,$tot['saldo_awal']);$sheet->setCellValue('F'.$summaryRow,$tot['pemasukan']);$sheet->setCellValue('G'.$summaryRow,$tot['pengeluaran']);$sheet->setCellValue('H'.$summaryRow,$tot['penyesuaian']);$sheet->setCellValue('I'.$summaryRow,$tot['saldo_akhir']);$sheet->setCellValue('J'.$summaryRow,$tot['stock_opname']);$sheet->setCellValue('K'.$summaryRow,$tot['selisih']);
+    $sheet->getStyle('A1:L4')->getFont()->setBold(true)->setSize(12);$sheet->getStyle('A1:L4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);$sheet->getStyle('A'.$headerStart.':L'.$headerEnd)->getFont()->setBold(true);$sheet->getStyle('A'.$headerStart.':L'.$headerEnd)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER)->setWrapText(true);$sheet->getStyle('A'.$headerStart.':L'.$headerStart)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFF7ED');$sheet->getStyle('A'.$headerEnd.':L'.$headerEnd)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFFFFF');$sheet->getStyle('A'.$headerStart.':L'.$lastDataRow)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN)->getColor()->setRGB('CBD5E1');$sheet->getStyle('A'.$firstDataRow.':L'.$lastDataRow)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP)->setWrapText(true);$sheet->getStyle('E'.$firstDataRow.':K'.$summaryRow)->getNumberFormat()->setFormatCode('#,##0.00');$sheet->getStyle('E'.$firstDataRow.':K'.$summaryRow)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);$sheet->getStyle('A'.$summaryRow.':L'.$summaryRow)->getFont()->setBold(true);$sheet->getStyle('A'.$summaryRow.':L'.$summaryRow)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('ECFDF5');$sheet->getStyle('A'.$summaryRow.':L'.$summaryRow)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN)->getColor()->setRGB('CBD5E1');
+    foreach(array('A'=>6,'B'=>14,'C'=>30,'D'=>8,'E'=>13,'F'=>14,'G'=>15,'H'=>18,'I'=>13,'J'=>14,'K'=>12,'L'=>34) as $col=>$w)$sheet->getColumnDimension($col)->setWidth($w);$sheet->getRowDimension($headerStart)->setRowHeight(42);$sheet->getRowDimension($headerEnd)->setRowHeight(22);$sheet->freezePane('A'.$firstDataRow);$sheet->setAutoFilter('A'.$headerEnd.':L'.$lastDataRow);$sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);$sheet->getPageSetup()->setFitToWidth(1);$sheet->getPageSetup()->setFitToHeight(0);
+    $tmp=erpkb_excel_temp_file('mutasi_scrap_');PHPExcel_IOFactory::createWriter($excel,'Excel2007')->save($tmp);$size=@filesize($tmp);$sig=@file_get_contents($tmp,false,null,0,2);if(!$size||$sig!=='PK'){@unlink($tmp);while(ob_get_level()>$initialOutputBufferLevel)ob_end_clean();header('Content-Type:text/plain; charset=utf-8');echo erp_t('export_excel_invalid_file','File Excel gagal dibuat dengan benar.');exit;}while(ob_get_level()>$initialOutputBufferLevel)ob_end_clean();header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');header('Content-Disposition: attachment; filename="laporan_mutasi_scrap_'.$tglAwal.'_sd_'.$tglAkhir.'.xlsx"');header('Content-Length: '.$size);header('Cache-Control: max-age=0');header('Pragma: public');readfile($tmp);@unlink($tmp);exit;
+  default:
+    header('Content-Type: application/json; charset=utf-8'); echo json_encode(array('status'=>'error','error_message'=>'Action tidak dikenal.'));
+}
 ?>

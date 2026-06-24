@@ -1,3 +1,4 @@
+<?php $ro_menu_url = uri_segment(1); ?>
 <!-- Content Header (Page header) -->
              <!--  <section class="content-header">
                   <h1>RO</h1>
@@ -6,7 +7,7 @@
                         <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
                         </li>
                         <li>
-                        <a href="<?=base_index();?>ro">RO</a>
+                        <a href="<?=base_index().$ro_menu_url;?>">RO</a>
                         </li>
                         <li class="active">Edit RO</li>
                     </ol>
@@ -190,7 +191,7 @@ where r.id='".uri_segment(3)."' group by b.kodebj");
                             <div class="form-group">
                                 <label for="tags" class="control-label col-lg-2">&nbsp;</label>
                                 <div class="col-lg-10">
-                                <a href="<?=base_index();?>ro" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
+                                <a href="<?=base_index().$ro_menu_url;?>" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
                                 </div>
                             </div><!-- /.form-group -->

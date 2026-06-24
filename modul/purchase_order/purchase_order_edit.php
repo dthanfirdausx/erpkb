@@ -1,547 +1,108 @@
-
-
-              <!-- Main content -->
-              <section class="content">
-              <div class="row">
-                  <div class="col-lg-12">
-                      <div class="box box-solid box-primary">
-                          <div class="box-header">
-                              <h3 class="box-title">Edit Purchase Order</h3>
-                              <div class="box-tools pull-right">
-                                  <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-pencil"></i></button>
-                              </div>
-                          </div>
-                      <div class="box-body">
-                       <div class="alert alert-danger error_data" style="display:none">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <span class="isi_warning"></span>
-                      </div>
-                          <form id="edit_purchase_order" method="post" class="form-horizontal" action="<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=up">
-                            
-
-          <div class="row">
-  <!-- Kiri -->
-  <div class="col-md-6">
-    <!-- Header PO -->
-    <h4  class="text-center"><b>Purchase Order</b></h4>
-
-    <div class="form-group">
-      <label for="purchase_order_no" class="control-label col-lg-3">PO No.</label>
-      <div class="col-lg-9">
-        <input type="text" name="purchase_order_no"  id="purchase_order_no"  value="<?= $data_edit->purchase_order_no ?>" placeholder="Purchase Order No." class="form-control" readonly>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="customer_id" class="control-label col-lg-3">Customer ID</label>
-      <div class="col-lg-9">
-        <input type="text" name="customer_id" id="customer_id" value="<?= $data_edit->customer_id ?>"  placeholder="Customer ID" class="form-control" readonly="">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="date" class="control-label col-lg-3">Date</label>
-      <div class="col-lg-9">
-        <div class="input-group date" id="tgl1">
-          <input type="text" class="form-control" name="po_date" value="<?= $data_edit->po_date ?>" onchange="ganti_no_po(this.value)" />
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="delivery_date" class="control-label col-lg-3">Delivery Date</label>
-      <div class="col-lg-9">
-        <div class="input-group date" id="tgl2">
-          <input type="text" class="form-control" name="delivery_date" value="<?= $data_edit->delivery_date ?>" />
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="arrival_date" class="control-label col-lg-3">Arrival Date</label>
-      <div class="col-lg-9">
-        <div class="input-group date" id="tgl3">
-          <input type="text" class="form-control" name="arrival_date" value="<?= $data_edit->arrival_date ?>" />
-          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="shipped_via" class="control-label col-lg-3">Shipped Via</label>
-      <div class="col-lg-9">
-        <input type="text" name="shipped_via" placeholder="Shipped Via" value="<?= $data_edit->shipped_via ?>" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="delivery_term" class="control-label col-lg-3">Delivery Term</label>
-      <div class="col-lg-9">
-        <input type="text" name="delivery_term" placeholder="Delivery Term" value="<?= $data_edit->delivery_term ?>" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Payment Term</label>
-      <div class="col-lg-9">
-        <input type="text" name="payment_term" placeholder="Payment Term" value="<?= $data_edit->payment_term ?>" class="form-control">
-      </div>
-    </div>
-      <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Note</label>
-      <div class="col-lg-9">
-        <textarea class="form-control" name="catatan" style="height: 100px"><?= $data_edit->catatan ?></textarea>
-      </div>
-    </div>
-     <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Currency</label>
-      <div class="col-lg-9">
-        <select id="currency" name="currency" data-placeholder="Pilih Currency..." class="form-control chzn-select" tabindex="2" >
-          <option value="">-Pilih Currency-</option> 
-         <?php
-         $q = $db->query("select * from matauang group by jenis_valas");
-         foreach ($q as $k) {
-          if ($data_edit->currency==$k->jenis_valas) {
-            echo "<option value='$k->jenis_valas' selected>$k->jenis_valas</option>";
-          }else{
-                echo "<option value='$k->jenis_valas'>$k->jenis_valas</option>";
-           
-         }
-         
-          }
-          ?>
-       </select>   
-      </div>
-    </div>
-     <div class="form-group">
-      <label for="payment_term" class="control-label col-lg-3">Include Tax</label>
-      <div class="col-lg-9">
-      <?php
-      $s_selected = " ";
-      $n_selected = " checked";
-      if ($data_edit->pajak=='ya') { 
-        $s_selected = " checked";
-        $n_selected = " ";
-      }
-      ?>
-        <input type="radio" name="tax" value="ya" style="position: relative;top: 3px" <?= $s_selected ?>>&nbsp;Yes &nbsp; <input type="radio" name="tax" value="no" style="position: relative;top: 3px" <?= $n_selected ?>>&nbsp; No &nbsp;
-      </div>
-    </div>
-  </div>
-
-  <!-- Kanan -->
-  <div class="col-md-6">
-    <!-- Seller (Vendor) -->
-    <h4 class="text-center"><b>Seller (Vendor)</b></h4>
-
-    <div class="form-group">
-      <label for="seller_name" class="control-label col-lg-3">Name</label>
-      <div class="col-lg-9">
-        <select id="seller_code" name="seller_code" data-placeholder="Pilih Supplier..." class="form-control chzn-select" tabindex="2" >
-          <option value="">-Pilih Vendor-</option> 
-         <?php
-         $q = $db->query("select * from pemasok");
-         foreach ($q as $k) {
-          if ($data_edit->seller_name==$k->nama) {
-           echo "<option value='$k->nama' selected>$k->nama</option>";
-          }else{
-             echo "<option value='$k->nama'>$k->nama</option>";
-         }
-        }
-         ?>
-          
-       </select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_address" class="control-label col-lg-3">Address</label>
-      <div class="col-lg-9">
-        <textarea name="seller_address" id="seller_address" placeholder="Seller Address" class="form-control"><?= $data_edit->seller_address ?></textarea>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_phone" class="control-label col-lg-3">Phone</label>
-      <div class="col-lg-9">
-        <input type="text" name="seller_phone" id="seller_phone" value="<?= $data_edit->seller_phone ?>" placeholder="Phone" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_pic" class="control-label col-lg-3">PIC</label>
-      <div class="col-lg-9">
-        <input type="text" name="seller_pic" id="seller_pic" value="<?= $data_edit->seller_pic ?>" placeholder="PIC" class="form-control">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="seller_email" class="control-label col-lg-3">Email</label>
-      <div class="col-lg-9">
-        <input type="email" name="seller_email" id="seller_email"  value="<?= $data_edit->seller_email ?>" placeholder="Email" class="form-control">
-      </div>
-    </div>
-
-    <h4 class="text-center"><b>Ship To (Consignee)</b></h4>
-
-    <div class="form-group">
-      <label for="consignee_name" class="control-label col-lg-3">Name</label>
-      <div class="col-lg-9">
-        <input type="text" name="consignee_name" value="<?= $data_edit->consignee_name ?>" placeholder="Consignee Name" class="form-control" value="<?= $infokb->nama ?>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="consignee_address" class="control-label col-lg-3">Address</label>
-      <div class="col-lg-9">
-        <textarea name="consignee_address" placeholder="Consignee Address"  class="form-control"><?= $data_edit->consignee_address ?></textarea>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="consignee_phone" class="control-label col-lg-3">Phone</label>
-      <div class="col-lg-9">
-        <input type="text" name="consignee_phone" value="<?= $data_edit->consignee_phone ?>" placeholder="Phone" class="form-control" value="<?= $infokb->telp ?>">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="consignee_email" class="control-label col-lg-3">Email</label>
-      <div class="col-lg-9">
-        <input type="text" name="consignee_email" placeholder="Email" value="<?= $data_edit->consignee_email ?>" class="form-control" value="<?= $infokb->email ?>">
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-                <div class="form-group" id="form_pr">
-                
-                <div class="col-lg-12">
-                <table class="table">
-                 <thead>
-                   <tr>
-                     <th style="width:50px;text-align: center">
-                       <a style="cursor: pointer;" onclick="add_baris()" ><i class="fa fa-plus"></i> </a>
-                     </th>
-                     <th style="width: 300px">Kode Barang</th>
-                     <th style="width: 400px">Nama Barang</th>
-                     <th style="width: 150px">Spec</th>
-                     <th style="width: 100px">Unit</th>
-                    
-                     <th>Qty</th>  
-                     <th>Harga</th>                   
-                     <th>Ket</th>
-                   </tr>
-                 </thead>
-                 <tbody id="isi_tabel">
-                 <?php
-                 $qq = $db->query("select * from purchase_order_detail where po_no='$data_edit->purchase_order_no' ");
-                 $no=1;
-                 foreach ($qq as $kk) {
-                  ?>
-                  <tr id="baris_<?= $no ?>">
-                     <td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris('<?= $no ?>')" ><i class="fa fa-trash-o" style="font-size: 25px;"></i></a> </td>
-                     <td><input type="text" id="form_kode_1" placeholder="Kode Barang" onclick="cari_kode('<?= $no ?>')" class="form-control" name="kode[]" value="<?= $kk->kode_barang ?>"  >
-                      <input type="hidden" name="kode_input[]" id="kode_input_<?= $no ?>" value="<?= $kk->kode_barang ?>"> 
-                     </td> 
-                     <td><input type="text" id="form_name_<?= $no ?>" value="<?= $kk->nama_barang ?>" class="form-control" name="name[]"  readonly=""></td> 
-                     <td><input type="text" id="form_spec_<?= $no ?>" value="<?= $kk->spec ?>" class="form-control" name="spec[]"  readonly=""></td>
-                     <td><input type="text" id="form_unit_<?= $no ?>" value="<?= $kk->unit ?>" class="form-control" name="unit[]"  readonly=""></td> 
-                    
-                     <td><input type="text" id="form_qty_<?= $no ?>" value="<?= $kk->qty ?>" class="form-control" name="qty[]"  required></td>
-                     <td><input type="text" id="form_harga_<?= $no ?>" value="<?= $kk->harga ?>" class="form-control harga-input" name="harga[]"  required></td>
-                     <td><input type="text" id="form_ket_<?= $no ?>" value="<?= $kk->ket ?>" class="form-control" name="ket[]" ></td>
-                   </tr>
-                  <?php
-                  $no++;
-                 }
-                 ?>
-                   
-                 </tbody>
-               </table>
-                </div>
-               <input type="hidden" id="jml" value="<?= $no-1 ?>">
-              
-              </div> 
-
-              
-                      
-              <div class="form-group">
-                <label for="tags" class="control-label col-lg-2">&nbsp;</label>
-                <div class="col-lg-10">
-             <a href="<?=base_index();?>purchase-order" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
-                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-           
-                </div>
-              </div><!-- /.form-group -->
-                          </form>
-                      </div>
-                  </div>
-              </div>
-              </section><!-- /.content -->
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
-  $("#seller_code").change(function(){
-    var kode = $(this).val();
-    if(kode != ""){
-      $.ajax({
-        url: "<?= base_url() ?>modul/purchase_order/purchase_order_action.php?act=cari_vendor",
-        type: "POST",
-        data: {kode_pemasok: kode},
-        dataType: "json",
-        success: function(res){
-          if(res.success){
-            // Isi field otomatis
-            $("#seller_address").val(res.data.alamat + ", " + res.data.kota + ", " + res.data.negara);
-            $("#customer_id").val(res.data.kode_pemasok);
-            $("#seller_phone").val(res.data.notelp);
-            //$("#seller_pic").val(res.data.nama);
-            $("#seller_email").val(res.data.email);
-          } else {
-            alert("Data vendor tidak ditemukan!");
-          }
-        },
-        error: function(xhr, status, error){
-          console.log(xhr.responseText);
-        }
-      });
-    }
-  });
-});
-
-    function ganti_no_po(tgl){
-        $.ajax({
-        url: "<?= base_url() ?>modul/purchase_order/purchase_order_action.php?act=ganti_no_po",
-        type: "POST",
-        data: {tgl: tgl},
-      //  dataType: "json",
-        success: function(res){
-         $("#purchase_order_no").val(res);
-        },
-        error: function(xhr, status, error){
-          console.log(xhr.responseText);
-        }
-      });
-      }
-
-   function cari_kode(id) {   
-    
-                      $('#form_kode_'+id).autocomplete({
-                        source: function (request, response) {
-                          $.ajax({
-                            url: "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=cari_kode",
-                            data: { term: request.term },
-                            type : 'POST',
-                            dataType: "json",
-                            success: function (data) {
-
-                               response($.map(data, function (item) {
-                                return {
-                                  kd_barang: item.kd_barang,
-                                  nm_barang: item.nm_barang,
-                                  id_barang : item.id_barang,
-                                  spec : item.spec
-                                };
-                              }))
-                            }
-                          })
-                        },
-                        select: function (event, ui) {
-                             $('#form_kode_'+id).val(ui.item.kd_barang);
-                             $('#form_name_'+id).val(ui.item.nm_barang); 
-                             $('#form_spec_'+id).val(ui.item.spec); 
-                             $("#kode_input_"+id).val(ui.item.kd_barang);
-                             $("#kode_input_"+id).val(ui.item.kd_barang);
-                            $.ajax({
-                              type : 'POST',
-                              data : {
-                                id:id,
-                                kd_barang : ui.item.kd_barang 
-                              },
-                              url : "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=get_unit",
-                              success:function(data){
-                                   $("#form_unit_"+id).val(data);
-                              }
-                            });
-
-                                               return false;
-                         }
-                                           }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                        var inner_html = '<a><div class="list_item_container" style="height:20px">' + item.kd_barang + ' , ' +item.nm_barang+'</div></a>';
-                        return $("<li></li>")
-                        .data("ui-autocomplete-item", item)
-                        .append(inner_html)
-                        .appendTo(ul);
-                       };
+<?php
+if (!$data_edit) {
+  echo "<section class='content'><div class='alert alert-warning'>".lang_text('purchase_order_not_found','Purchase Order tidak ditemukan.')."</div></section>";
+  return;
+}
+if (!function_exists('po_form_t')) {
+  function po_form_t($key, $fallback = '') {
+    return lang_text($key, $fallback);
   }
-  function hapus_baris(id) {
-
-      $("#baris_"+id).remove();
-      // var id_baris =  parseInt($("#jml").val())-1;
-      //  $("#jml").val(id_baris);
-    } 
- function add_baris(id) {
-      var id_baris =  parseInt($("#jml").val())+1;
-      var baris = '<tr id="baris_'+id_baris+'"><td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris(\''+id_baris+'\')" ><i class="fa fa-trash-o" style="font-size: 25px;"></i></a> </td><td><input type="text" class="form-control" placeholder="Kode Barang" onclick="cari_kode(\''+id_baris+'\')" id="form_kode_'+id_baris+'" name="kode[]"  > <input type="hidden" id="kode_input_'+id_baris+'" name="kode_input[]" id="kode_input_'+id_baris+'"></td><td><input type="text" id="form_name_'+id_baris+'" class="form-control" name="name[]"  readonly=""></td><td><input type="text" id="form_spec_'+id_baris+'" class="form-control" name="spec[]"  readonly=""></td> <td><input type="text" class="form-control" id="form_unit_'+id_baris+'" name="unit[]" style="width: 150px" readonly=""></td><td><input type="text"  id="form_qty_'+id_baris+'" class="form-control" name="qty[]" required></td><td><input type="text" id="form_harga_'+id_baris+'" class="form-control harga-input" name="harga[]"  required></td><td><input type="text" class="form-control" name="ket[]" id="form_ket_'+id_baris+'"></td></tr>';
-
-        $("#isi_tabel").append(baris);
-        $("#jml").val(id_baris);
-    }
-  function add_baris_old() {
-    var id_baris = parseInt($("#jml").val()) + 1;
-
-    var baris = '<tr id="baris_' + id_baris + '">';
-    baris += '<td style="text-align: center"><a style="cursor: pointer;" onclick="hapus_baris(\'' + id_baris + '\')"><i class="fa fa-trash-o" style="font-size: 25px;"></i></a></td>';
-    baris += '<td><input type="number" class="form-control" name="seq[]" id="form_seq_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="mat_code[]" id="form_mat_code_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="model[]" id="form_model_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="article[]" id="form_article_' + id_baris + '"></td>';
-    baris += '<td><input type="number" class="form-control" name="nqty[]" id="form_nqty_' + id_baris + '"></td>';
-    baris += '<td><input type="number" class="form-control" name="shq[]" id="form_shq_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="tooling_stage[]" id="form_tooling_stage_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="material_name[]" id="form_material_name_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="color[]" id="form_color_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="emboss[]" id="form_emboss_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="thickness[]" id="form_thickness_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="g[]" id="form_g_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="yield[]" id="form_yield_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="component[]" id="form_component_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="unit[]" id="form_unit_' + id_baris + '"></td>';
-    baris += '<td><input type="number" class="form-control" name="po_qty[]" id="form_po_qty_' + id_baris + '" onkeyup="hitung_amount(\'' + id_baris + '\')"></td>';
-    baris += '<td><input type="text" class="form-control" name="curr[]" id="form_curr_' + id_baris + '"></td>';
-    baris += '<td><input type="number" step="0.01" class="form-control" name="unit_price[]" id="form_unit_price_' + id_baris + '" onkeyup="hitung_amount(\'' + id_baris + '\')"></td>';
-    baris += '<td><input type="number" step="0.01" class="form-control" name="amount[]" id="form_amount_' + id_baris + '" readonly></td>';
-    baris += '<td><input type="text" class="form-control" name="td_vendor[]" id="form_td_vendor_' + id_baris + '"></td>';
-    baris += '<td><input type="text" class="form-control" name="ta_factor[]" id="form_ta_factor_' + id_baris + '"></td>';
-    baris += '</tr>';
-
-    $("#isi_tabel").append(baris);
-    $("#jml").val(id_baris);
 }
-
-// Fungsi hitung otomatis Amount
-function hitung_amount(id) {
-    var qty = parseFloat($("#form_po_qty_" + id).val()) || 0;
-    var price = parseFloat($("#form_unit_price_" + id).val()) || 0;
-    var total = qty * price;
-    $("#form_amount_" + id).val(total.toFixed(2));
+function po_h($value) {
+  return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
 }
-    $(document).ready(function() {
-    
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    $("#tgl1").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
-    }).on("change",function(){
-      $("#tgl1 :input").valid();
-    });
-    
-    $("#edit_purchase_order").validate({
-        errorClass: "help-block",
-        errorElement: "span",
-        highlight: function(element, errorClass, validClass) {
-            $(element).parents(".form-group").removeClass(
-                "has-success").addClass("has-error");
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).parents(".form-group").removeClass(
-                "has-error").addClass("has-success");
-        },
-        errorPlacement: function(error, element) {
-            if (element.hasClass("chzn-select")) {
-                var id = element.attr("id");
-                error.insertAfter("#" + id + "_chosen");
-            } else if (element.attr("type") == "checkbox") {
-                element.parent().parent().append(error);
-            } else if (element.attr("type") == "radio") {
-                element.parent().parent().append(error);
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        
-
-        submitHandler: function(form) {
-            $("#loadnya").show();
-            $(form).ajaxSubmit({
-                url : $(this).attr("action"),
-                dataType: "json",
-                type : "post",
-                error: function(data ) { 
-                  $("#loadnya").hide();
-                  console.log(data); 
-                },
-                success: function(responseText) {
-                  $("#loadnya").hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=="die") {
-                            $("#informasi").modal("show");
-                          } else if(responseText[index].status=="error") {
-                             $(".isi_warning").text(responseText[index].error_message);
-                             $(".error_data").focus()
-                             $(".error_data").fadeIn();
-                          } else if(responseText[index].status=="good") {
-                            $(".error_data").hide();
-                            $(".notif_top_up").fadeIn(1000);
-                            $(".notif_top_up").fadeOut(1000, function() {
-                                    window.history.back();
-                            });
-                          } else {
-                             console.log(responseText);
-                             $(".isi_warning").text(responseText[index].error_message);
-                             $(".error_data").focus()
-                             $(".error_data").fadeIn();
-                          }
-                    });
-                }
-
-            });
-        }
-    });
-});
+$poFormLang = array(
+  'add_manual_item' => po_form_t('purchase_order_add_manual_item', 'Add Manual Item'),
+  'material_placeholder' => po_form_t('purchase_order_material_placeholder', 'Material description'),
+  'search_material' => po_form_t('purchase_order_search_material', 'Search material from material master'),
+  'no_item_required' => po_form_t('purchase_order_no_item_required', 'At least one PO item is required.'),
+  'update_failed' => po_form_t('purchase_order_update_failed', 'PO failed to update.'),
+  'received' => po_form_t('purchase_order_received', 'Received'),
+  'source_manual' => po_form_t('purchase_order_source_manual_exceptional', 'Manual / Exceptional'),
+);
+$details = array();
+$detailRows = $db->query("SELECT * FROM purchase_order_detail WHERE po_no=? ORDER BY id", array('po_no'=>$data_edit->purchase_order_no));
+foreach ($detailRows as $row) {
+  $details[] = array(
+    'id_po_detail'=>$row->id,
+    'id_pr'=>$row->id_pr,
+    'id_pr_detail'=>$row->id_pr_detail,
+    'rfq_id'=>$row->rfq_id,
+    'rfq_item_id'=>$row->rfq_item_id,
+    'rfq_quotation_id'=>$row->rfq_quotation_id,
+    'material_code'=>$row->kode_barang,
+    'material_name'=>$row->nama_barang,
+    'spec'=>$row->spec,
+    'uom'=>$row->unit,
+    'qty'=>$row->qty,
+    'received_qty'=>$row->received_qty,
+    'price'=>$row->harga,
+    'remarks'=>$row->ket
+  );
+}
+?>
+<style>
+  .po-hero{background:linear-gradient(135deg,#1d4ed8,#0f766e);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 10px 24px rgba(29,78,216,.18)}
+  .po-hero h1{margin:0 0 6px;font-size:25px;font-weight:700}.po-hero p{margin:0;opacity:.9}.po-section{border-radius:10px}.required-label:after{content:' *';color:#dd4b39}.po-items{font-size:12px}.po-items th{white-space:nowrap;background:#f5f5f5}.po-items td{vertical-align:top!important}.po-items .form-control{height:30px;padding:4px 6px;font-size:12px;min-width:90px}.po-items .material-name-input{margin-top:4px}.select2-container{width:100%!important}.po-total-box{font-size:18px;font-weight:700}
+</style>
+<section class="content-header">
+  <h1><?=po_h(po_form_t('purchase_order_title','Purchase Order'));?> <small><?=po_h(po_form_t('common_edit','Edit'));?> <?=htmlspecialchars($data_edit->purchase_order_no,ENT_QUOTES,'UTF-8');?></small></h1>
+  <ol class="breadcrumb"><li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=po_h(po_form_t('common_home','Home'));?></a></li><li><a href="<?=base_index();?>purchase-order"><?=po_h(po_form_t('purchase_order_title','Purchase Order'));?></a></li><li class="active"><?=po_h(po_form_t('common_edit','Edit'));?></li></ol>
+</section>
+<section class="content">
+  <div class="po-hero"><h1><?=po_h(po_form_t('purchase_order_edit_title','Edit Purchase Order'));?></h1><p><?=po_h(po_form_t('purchase_order_edit_intro','PO changes keep outstanding quantity safe so GR for PO remains consistent.'));?></p></div>
+  <form id="edit_purchase_order" method="post" action="<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=up">
+    <div class="alert alert-danger error_data" style="display:none"><span class="isi_warning"></span></div>
+    <div class="box box-primary po-section"><div class="box-header with-border"><h3 class="box-title"><i class="fa fa-file-text-o"></i> <?=po_h(po_form_t('purchase_order_header_data','Header Data'));?></h3></div><div class="box-body"><div class="row">
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('purchase_order_po_number','PO Number'));?></label><input type="text" name="purchase_order_no" class="form-control" value="<?=htmlspecialchars($data_edit->purchase_order_no,ENT_QUOTES,'UTF-8');?>" readonly></div>
+      <div class="col-md-2 form-group"><label class="required-label"><?=po_h(po_form_t('purchase_order_po_date','PO Date'));?></label><input type="text" name="po_date" class="form-control date-field" value="<?=htmlspecialchars($data_edit->po_date,ENT_QUOTES,'UTF-8');?>" required></div>
+      <div class="col-md-2 form-group"><label class="required-label"><?=po_h(po_form_t('purchase_order_delivery_date','Delivery Date'));?></label><input type="text" name="delivery_date" class="form-control date-field" value="<?=po_h($data_edit->delivery_date);?>" required></div>
+      <div class="col-md-2 form-group"><label><?=po_h(po_form_t('purchase_order_arrival_date','Arrival Date'));?></label><input type="text" name="arrival_date" class="form-control date-field" value="<?=po_h($data_edit->arrival_date);?>"></div>
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('purchase_order_po_type','PO Type'));?></label><select name="po_type" class="form-control select2-basic"><?php foreach(array('NB'=>po_form_t('purchase_order_standard_po','NB - Standard PO'),'FO'=>po_form_t('purchase_order_framework_po','FO - Framework PO'),'ZKB'=>po_form_t('purchase_order_bonded_zone_po','ZKB - Kawasan Berikat')) as $k=>$v){ ?><option value="<?=$k;?>" <?=$data_edit->po_type==$k?'selected':'';?>><?=po_h($v);?></option><?php } ?></select></div>
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('purchase_order_source_type','Source Type'));?></label><select name="source_type" id="source_type" class="form-control select2-basic"><?php foreach(array('RFQ'=>po_form_t('purchase_order_source_rfq_award','RFQ Award'),'PR'=>po_form_t('purchase_order_source_approved_pr','Approved PR'),'MANUAL'=>po_form_t('purchase_order_source_manual_exceptional','Manual / Exceptional')) as $k=>$v){ ?><option value="<?=$k;?>" <?=$data_edit->source_type==$k?'selected':'';?>><?=po_h($v);?></option><?php } ?></select></div>
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('purchase_order_source_reference','Source Reference'));?></label><input type="text" name="source_ref" id="source_ref" class="form-control" value="<?=po_h($data_edit->source_ref);?>"></div>
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('purchase_order_purchasing_org','Purchasing Org'));?></label><input type="text" name="purchasing_org" class="form-control" value="<?=po_h($data_edit->purchasing_org);?>"></div>
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('purchase_order_purchasing_group','Purchasing Group'));?></label><input type="text" name="purchasing_group" class="form-control" value="<?=po_h($data_edit->purchasing_group);?>"></div>
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('common_plant','Plant'));?></label><input type="text" name="plant" id="plant" class="form-control" value="<?=po_h($data_edit->plant);?>"></div>
+      <div class="col-md-3 form-group"><label><?=po_h(po_form_t('purchase_order_storage_location','Storage Location'));?></label><select name="storage_location" id="storage_location" class="form-control select2-basic"><option value=""><?=po_h(po_form_t('purchase_order_select_storage_location','Select Storage Location'));?></option><?php foreach($db->query("SELECT s.storage_code,s.storage_name,p.plant_code FROM erp_storage_location s JOIN erp_plant p ON p.id=s.plant_id WHERE s.status='Aktif' ORDER BY p.plant_code,s.storage_code") as $sloc){ ?><option value="<?=po_h($sloc->storage_code);?>" data-plant="<?=po_h($sloc->plant_code);?>" <?=$data_edit->storage_location==$sloc->storage_code?'selected':'';?>><?=po_h($sloc->plant_code.' / '.$sloc->storage_code.' - '.$sloc->storage_name);?></option><?php } ?></select></div>
+      <div class="col-md-2 form-group"><label class="required-label"><?=po_h(po_form_t('purchase_order_currency','Currency'));?></label><input type="text" name="currency" id="currency" class="form-control" value="<?=po_h($data_edit->currency);?>" required></div>
+      <div class="col-md-2 form-group"><label><?=po_h(po_form_t('purchase_order_tax','Tax'));?></label><select name="tax" class="form-control"><option value="no" <?=$data_edit->pajak!='ya'?'selected':'';?>><?=po_h(po_form_t('purchase_order_no_tax','No Tax'));?></option><option value="ya" <?=$data_edit->pajak=='ya'?'selected':'';?>><?=po_h(po_form_t('purchase_order_include_ppn','Include PPN 11%'));?></option></select></div>
+      <div class="col-md-4 form-group"><label><?=po_h(po_form_t('purchase_order_delivery_term','Delivery Term'));?></label><input type="text" name="delivery_term" class="form-control" value="<?=po_h($data_edit->delivery_term);?>"></div>
+      <div class="col-md-4 form-group"><label><?=po_h(po_form_t('purchase_order_payment_term','Payment Term'));?></label><select name="payment_term" class="form-control select2-basic"><option value=""><?=po_h(po_form_t('purchase_order_select_payment_term','Select Payment Term'));?></option><?php foreach($db->query("SELECT jenis_term,net_day FROM term_payment ORDER BY net_day,jenis_term") as $term){ ?><option value="<?=po_h($term->jenis_term);?>" <?=$data_edit->payment_term==$term->jenis_term?'selected':'';?>><?=po_h($term->jenis_term.' - Net '.$term->net_day.' hari');?></option><?php } ?></select></div>
+      <div class="col-md-4 form-group"><label><?=po_h(po_form_t('purchase_order_shipped_via','Shipped Via'));?></label><input type="text" name="shipped_via" class="form-control" value="<?=po_h($data_edit->shipped_via);?>"></div>
+      <div class="col-md-8 form-group"><label><?=po_h(po_form_t('purchase_order_note','Note'));?></label><input type="text" name="catatan" class="form-control" value="<?=po_h($data_edit->catatan);?>"></div>
+    </div></div></div>
+    <div class="row">
+      <div class="col-md-6"><div class="box box-success po-section"><div class="box-header with-border"><h3 class="box-title"><i class="fa fa-truck"></i> <?=po_h(po_form_t('purchase_order_vendor','Vendor'));?></h3></div><div class="box-body">
+        <div class="form-group"><label class="required-label"><?=po_h(po_form_t('purchase_order_vendor','Vendor'));?></label><select name="seller_code" id="seller_code" class="form-control" required><option value=""><?=po_h(po_form_t('purchase_order_select_vendor','Select Vendor'));?></option><?php foreach($db->query("SELECT kode_pemasok,nama FROM pemasok ORDER BY nama") as $v){ ?><option value="<?=po_h($v->kode_pemasok);?>" <?=$data_edit->seller_code==$v->kode_pemasok?'selected':'';?>><?=po_h($v->kode_pemasok.' - '.$v->nama);?></option><?php } ?></select><input type="hidden" name="customer_id" id="customer_id" value="<?=po_h($data_edit->customer_id);?>"></div>
+        <div class="form-group"><label><?=po_h(po_form_t('purchase_order_address','Address'));?></label><textarea name="seller_address" id="seller_address" class="form-control" rows="2"><?=po_h($data_edit->seller_address);?></textarea></div>
+        <div class="row"><div class="col-sm-4 form-group"><label><?=po_h(po_form_t('purchase_order_phone','Phone'));?></label><input name="seller_phone" id="seller_phone" class="form-control" value="<?=po_h($data_edit->seller_phone);?>"></div><div class="col-sm-4 form-group"><label><?=po_h(po_form_t('purchase_order_pic','PIC'));?></label><input name="seller_pic" id="seller_pic" class="form-control" value="<?=po_h($data_edit->seller_pic);?>"></div><div class="col-sm-4 form-group"><label><?=po_h(po_form_t('purchase_order_email','Email'));?></label><input name="seller_email" id="seller_email" class="form-control" value="<?=po_h($data_edit->seller_email);?>"></div></div>
+      </div></div></div>
+      <div class="col-md-6"><div class="box box-info po-section"><div class="box-header with-border"><h3 class="box-title"><i class="fa fa-map-marker"></i> <?=po_h(po_form_t('purchase_order_ship_to','Ship To'));?></h3></div><div class="box-body">
+        <div class="form-group"><label><?=po_h(po_form_t('purchase_order_consignee','Consignee'));?></label><input name="consignee_name" class="form-control" value="<?=po_h($data_edit->consignee_name);?>"></div>
+        <div class="form-group"><label><?=po_h(po_form_t('purchase_order_address','Address'));?></label><textarea name="consignee_address" class="form-control" rows="2"><?=po_h($data_edit->consignee_address);?></textarea></div>
+        <div class="row"><div class="col-sm-6 form-group"><label><?=po_h(po_form_t('purchase_order_phone','Phone'));?></label><input name="consignee_phone" class="form-control" value="<?=po_h($data_edit->consignee_phone);?>"></div><div class="col-sm-6 form-group"><label><?=po_h(po_form_t('purchase_order_email','Email'));?></label><input name="consignee_email" class="form-control" value="<?=po_h($data_edit->consignee_email);?>"></div></div>
+      </div></div></div>
+    </div>
+    <div class="box box-warning po-section"><div class="box-header with-border"><h3 class="box-title"><i class="fa fa-list"></i> <?=po_h(po_form_t('purchase_order_items','PO Items'));?></h3><div class="box-tools"><button type="button" id="btn_add_manual" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> <?=po_h(po_form_t('purchase_order_add_manual_item','Add Manual Item'));?></button></div></div><div class="box-body table-responsive">
+      <table class="table table-bordered table-condensed po-items"><thead><tr><th></th><th><?=po_h(po_form_t('purchase_order_source','Source'));?></th><th><?=po_h(po_form_t('purchase_order_material','Material'));?></th><th><?=po_h(po_form_t('purchase_order_qty','Qty'));?></th><th><?=po_h(po_form_t('purchase_order_received','Received'));?></th><th><?=po_h(po_form_t('purchase_order_uom','UOM'));?></th><th><?=po_h(po_form_t('purchase_order_price','Price'));?></th><th><?=po_h(po_form_t('purchase_order_amount','Amount'));?></th><th><?=po_h(po_form_t('purchase_order_remark','Remark'));?></th></tr></thead><tbody id="isi_tabel"></tbody></table>
+      <div class="text-right po-total-box"><?=po_h(po_form_t('purchase_order_total','Total'));?>: <span id="po_total">0,00</span></div>
+    </div></div>
+    <div class="text-right"><a href="<?=base_index();?>purchase-order" class="btn btn-default"><i class="fa fa-arrow-left"></i> <?=po_h(po_form_t('common_back','Back'));?></a> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=po_h(po_form_t('purchase_order_update','Update Purchase Order'));?></button></div>
+  </form>
+</section>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+<script>
+var existingItems=<?=json_encode($details);?>, rowIndex=0;
+var poFormLang=<?=json_encode($poFormLang, JSON_UNESCAPED_UNICODE);?>;
+function esc(v){return $('<div>').text(v==null?'':v).html();}function fmt(n){return(parseFloat(n)||0).toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function refreshTotal(){var total=0;$('.amount-field').each(function(){total+=parseFloat($(this).val()||0)||0;});$('#po_total').text(fmt(total));}
+function calculateRow(row){var qty=parseFloat(row.find('.qty-field').val()||0)||0,price=parseFloat(row.find('.price-field').val()||0)||0;row.find('.amount-field').val((qty*price).toFixed(2));refreshTotal();}
+function isManualItem(item){return !!item.manual_item || !(item.id_pr_detail||item.rfq_item_id||item.rfq_quotation_id);}
+function materialCell(item,received){var manual=isManualItem(item),selected=item.material_code?'<option value="'+esc(item.material_code)+'" selected>'+esc(item.material_code+' - '+(item.material_name||''))+'</option>':'';if(manual&&received<=0){return '<select class="form-control material-select" name="kode[]" required>'+selected+'</select><input class="form-control material-name-input" name="name[]" value="'+esc(item.material_name||'')+'" placeholder="'+esc(poFormLang.material_placeholder)+'" readonly required><input type="hidden" name="spec[]" value="'+esc(item.spec||'')+'">';}return '<input class="form-control" name="kode[]" value="'+esc(item.material_code||'')+'" readonly required><input class="form-control material-name-input" name="name[]" value="'+esc(item.material_name||'')+'" readonly required><input type="hidden" name="spec[]" value="'+esc(item.spec||'')+'">';}
+function addPoRow(item){item=item||{};rowIndex++;var received=parseFloat(item.received_qty||0)||0,sourceText=isManualItem(item)?poFormLang.source_manual:($('#source_type').val()||'PO');var html='<tr id="po_row_'+rowIndex+'"><td><button type="button" class="btn btn-danger btn-xs btn-remove-row" '+(received>0?'disabled title="'+esc(poFormLang.received)+'"':'')+'><i class="fa fa-trash"></i></button><input type="hidden" name="id_po_detail[]" value="'+esc(item.id_po_detail||'')+'"><input type="hidden" name="id_pr[]" value="'+esc(item.id_pr||'')+'"><input type="hidden" name="id_pr_detail[]" value="'+esc(item.id_pr_detail||'')+'"><input type="hidden" name="rfq_id[]" value="'+esc(item.rfq_id||'')+'"><input type="hidden" name="rfq_item_id[]" value="'+esc(item.rfq_item_id||'')+'"><input type="hidden" name="rfq_quotation_id[]" value="'+esc(item.rfq_quotation_id||'')+'"></td><td><span class="label label-default">'+sourceText+'</span></td><td>'+materialCell(item,received)+'</td><td><input type="number" step="0.00001" min="'+received+'" class="form-control qty-field" name="qty[]" value="'+esc(item.qty||'')+'" required></td><td><input class="form-control" value="'+esc(received)+'" readonly></td><td><input class="form-control" name="unit[]" value="'+esc(item.uom||'')+'" required></td><td><input type="number" step="0.00001" min="0" class="form-control price-field" name="harga[]" value="'+esc(item.price||0)+'" required></td><td><input class="form-control amount-field" value="0" readonly></td><td><input class="form-control" name="ket[]" value="'+esc(item.remarks||'')+'"></td></tr>';$('#isi_tabel').append(html);initMaterialSelect($('#po_row_'+rowIndex));calculateRow($('#po_row_'+rowIndex));}
+function initMaterialSelect(row){if(!$.fn.select2)return;row.find('.material-select').each(function(){var el=$(this);if(el.data('select2'))return;el.select2({placeholder:poFormLang.search_material,allowClear:true,width:'100%',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=material_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};},cache:true}});});}
+function filterStorageLocation(){var plant=$('#plant').val();$('#storage_location option').each(function(){var p=$(this).data('plant');$(this).toggle(!p||!plant||String(p)===String(plant));});}
+function loadVendor(code){$.post('<?=base_admin();?>modul/purchase_order/purchase_order_action.php?act=cari_vendor',{kode_pemasok:code},function(res){if(res&&res.success){$('#customer_id').val(res.data.kode_pemasok);$('#seller_address').val([res.data.alamat,res.data.kota,res.data.negara].filter(Boolean).join(', '));$('#seller_phone').val(res.data.notelp);$('#seller_email').val(res.data.email);}},'json');}
+$(function(){if($.fn.datepicker){$('.date-field').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}if($.fn.select2){$('.select2-basic,#seller_code').select2({width:'100%'});}filterStorageLocation();$('#plant').on('change input',filterStorageLocation);$.each(existingItems,function(_,item){addPoRow(item);});$('#seller_code').on('change',function(){loadVendor(this.value);});$('#btn_add_manual').on('click',function(){addPoRow({manual_item:true});});$(document).on('select2:select','.material-select',function(e){var d=e.params.data||{},row=$(this).closest('tr');row.find('input[name="name[]"]').val(d.material_name||'');row.find('input[name="spec[]"]').val(d.spec||'');row.find('input[name="unit[]"]').val(d.uom||'');});$(document).on('select2:clear','.material-select',function(){var row=$(this).closest('tr');row.find('input[name="name[]"],input[name="spec[]"],input[name="unit[]"]').val('');});$(document).on('input','.qty-field,.price-field',function(){calculateRow($(this).closest('tr'));});$(document).on('click','.btn-remove-row',function(){$(this).closest('tr').remove();refreshTotal();});$('#edit_purchase_order').on('submit',function(e){e.preventDefault();if($('#isi_tabel tr').length===0){$('.isi_warning').text(poFormLang.no_item_required);$('.error_data').show();return;}$.ajax({url:$(this).attr('action'),type:'POST',data:$(this).serialize(),dataType:'json',success:function(res){var r=$.isArray(res)?res[0]:res;if(r.status==='good'){window.location='<?=base_index();?>purchase-order';return;}$('.isi_warning').text(r.error_message||poFormLang.update_failed);$('.error_data').show();},error:function(xhr){$('.isi_warning').text(xhr.responseText);$('.error_data').show();}});});});
 </script>

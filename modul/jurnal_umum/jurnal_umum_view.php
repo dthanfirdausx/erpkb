@@ -1,1182 +1,192 @@
-<!-- Content Header (Page header) -->
+<?php
+if (!function_exists('fin_t')) {
+  function fin_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('fin_h')) {
+  function fin_h($key, $fallback = '') { return htmlspecialchars((string) fin_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('fin_js')) {
+  function fin_js($key, $fallback = '') { return json_encode(fin_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+$accounts = $db->query("SELECT r.no_rek,r.nama_rek FROM rekening r LEFT JOIN rekening c ON c.induk=r.no_rek WHERE c.no_rek IS NULL ORDER BY r.no_rek");
+$currencies = $db->query("SELECT jenis_valas FROM matauang GROUP BY jenis_valas ORDER BY jenis_valas='IDR' DESC, jenis_valas");
+$costCenters = $db->query("SELECT id,cost_center_code,cost_center_name FROM erp_cost_center WHERE status='Aktif' ORDER BY cost_center_code");
+$profitCenters = $db->query("SELECT id,profit_center_code,profit_center_name FROM erp_profit_center WHERE status='Aktif' ORDER BY profit_center_code");
+$taxCodes = $db->query("SELECT id,tax_code,tax_name,rate FROM erp_tax_code WHERE status='Aktif' ORDER BY tax_code");
+function ju_opt($value, $label, $selected = false) {
+  return '<option value="'.htmlspecialchars($value, ENT_QUOTES, 'UTF-8').'"'.($selected?' selected':'').'>'.htmlspecialchars($label, ENT_QUOTES, 'UTF-8').'</option>';
+}
+?>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> 
-                <section class="content-header">
-                    <h1>
-                        Jurnal Umum
-                    </h1>
-                        <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>jurnal-umum">Jurnal Umum</a></li>
-                        <li class="active">Jurnal Umum List</li>
-                    </ol>
-                </section>
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                                <?php
-                                  foreach ($db->fetch_all("sys_menu") as $isi) {
-                                      if (uri_segment(1)==$isi->url) {
-                                          if ($role_act["insert_act"]=="Y") {
-                                      ?>
-                                      <a href="javascript:void(0)" 
-   class="btn btn-primary"
-   data-toggle="modal"
-   data-target="#modal_jurnal">
-
-   <i class="fa fa-plus"></i> Tambah
-</a>
-                                      <?php
-                                          }
-                                      }
-                                  }
-                                ?>
-                            </div><!-- /.box-header -->
-                            <div class="box-body table-responsive">
-                                <div class="row">
-                                    
-                            </div>
- <div class="alert alert-warning fade in error_data_delete" style="display:none">
-          <button type="button" class="close hide_alert_notif">&times;</button>
-          <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
-        </div>
-        <form id="form_filter_jurnal" class="form-horizontal">
-
-    <!-- Tanggal -->
-    <div class="form-group">
-
-        <label class="control-label col-lg-2">
-            Tanggal Jurnal
-        </label>
-
-        <div class="col-lg-2">
-
-            <div class="input-group date" id="tgl1">
-
-                <input type="text"
-                       class="form-control"
-                       id="start_date"
-                       placeholder="tanggal awal"
-                       autocomplete="off"/>
-
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-2">
-
-            <div class="input-group date" id="tgl2">
-
-                <input type="text"
-                       class="form-control"
-                       id="end_date"
-                       placeholder="tanggal akhir"
-                       autocomplete="off"/>
-
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- No Jurnal -->
-    <div class="form-group">
-
-        <label class="control-label col-lg-2">
-            No Jurnal
-        </label>
-
-        <div class="col-lg-4">
-
-            <input type="text"
-                   id="filter_no_jurnal"
-                   class="form-control"
-                   placeholder="Cari nomor jurnal">
-
-        </div>
-
-    </div>
-
-    <!-- Tombol -->
-    <div class="form-group">
-
-        <label class="control-label col-lg-2">
-            &nbsp;
-        </label>
-
-        <div class="col-lg-10">
-
-            <a class="btn btn-primary"
-               id="btn_filter">
-
-                <i class="fa fa-search"></i>
-                Filter
-            </a>
-
-            <a class="btn btn-default"
-               id="btn_reset">
-
-                <i class="fa fa-refresh"></i>
-                Reset
-            </a>
-
-            <a class="btn btn-success"
-               id="btn_excel">
-
-                <i class="fa fa-file-excel-o"></i>
-                Export Excel
-            </a>
-
-            <a class="btn btn-info"
-               id="btn_import">
-
-                <i class="fa fa-upload"></i>
-                Import Excel
-            </a>
-
-        </div>
-
-    </div>
-
-</form>
-                        <table id="dtb_jurnal_umum" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th>No</th>
-                                  <th>Nomor Jurnal</th>
-                                  <th>Tanggal</th>
-                                  <th>Nomor Bukti</th>
-                                  <th>Debet</th>
-                                  <th>Kredit</th>
-                                  <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-                </div>
-              </div>
-              <div class="modal fade" id="modal_jurnal">
-    <div class="modal-dialog modal-lg" style="width: 80%">
-        <div class="modal-content">
-
-            <form id="input_jurnal_umum"
-                  method="post"
-                  action="<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=in">
-
-                <div class="modal-header bg-primary">
-                    <button type="button" class="close" data-dismiss="modal">
-                        &times;
-                    </button>
-
-                    <h4 class="modal-title">
-                        Tambah Jurnal Umum
-                    </h4>
-                </div>
-
-                <div class="modal-body">
-
-                    <div class="row">
-
-                        <div class="col-md-4">
-                            <label>No Jurnal</label>
-                            <input type="text"
-                                   name="no_jurnal"
-                                   value="<?= generate_no_jurnal() ?>"
-                                   class="form-control"
-                                   readonly>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label>Tanggal</label>
-
-                            <div class="input-group date" id="tgl4">
-                                <input type="text"
-                                       class="form-control"
-                                       name="tgl_jurnal" autocomplete="off">
-
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label>No Bukti</label>
-
-                            <input type="text"
-                                   name="no_bukti"
-                                   class="form-control">
-                        </div>
-
-                    </div>
-
-                    <br>
-
-                    <div class="form-group">
-                        <label>Keterangan</label>
-
-                        <textarea 
-                               name="ket"
-                               class="form-control"></textarea>
-                    </div>
-
-                    <hr>
-
-                    <h4>Detail Jurnal</h4>
-
-                    <table class="table table-bordered" id="table_detail">
-
-                        <thead>
-                            <tr>
-                                <th width="35%">COA</th>
-                                <th width="20%">Debet</th>
-                                <th width="20%">Kredit</th>
-                                <th width="15%">Valuta</th>
-                                <th width="5%" style="text-align: center;">
-                                    <button type="button"
-                                            class="btn btn-success btn-xs"
-                                            id="add_row">
-
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <tr>
-
-                              <td>
-    <select style="width: 100px" 
-            name="no_rek[]" 
-            class="form-control select2"
-            data-placeholder="Pilih COA ...">
-
-        <option value="">Pilih COA</option>
-
-        <?php
-        foreach ($db->fetch_all("rekening") as $isi) {
-
-            echo "
-            <option value='$isi->no_rek'>
-                $isi->no_rek - $isi->nama_rek
-            </option>";
-        }
-        ?>
-
-    </select>
-</td>
-                                <td>
-                                    <input type="text"
-                                           name="debet[]"
-                                           class="form-control debet">
-                                </td>
-
-                                <td>
-                                    <input type="text"
-                                           name="kredit[]"
-                                           class="form-control kredit">
-                                </td>
-
-                                <td>
-                                    <select name="valuta[]"
-                                            class="form-control select2">
-
-                                        <?php
-                                        foreach ($db->query("select * from matauang group by jenis_valas") as $isi) {
-
-                                          if ($isi->jenis_valas=='IDR') {
-                                             echo "
-                                            <option value='$isi->jenis_valas' selected>
-                                                $isi->jenis_valas
-                                            </option>";
-                                          }else{
-                                             echo "
-                                            <option value='$isi->jenis_valas'>
-                                                $isi->jenis_valas
-                                            </option>";
-                                          }
-
-                                           
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-
-                                <td align="center">
-
-                                    <button type="button"
-                                            class="btn btn-danger btn-xs remove_row">
-
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                        <tfoot>
-
-                            <tr>
-
-                                <th align="right">TOTAL</th>
-
-                                <th>
-                                    <input type="text"
-                                           id="total_debet"
-                                           class="form-control"
-                                           readonly>
-                                </th>
-
-                                <th>
-                                    <input type="text"
-                                           id="total_kredit"
-                                           class="form-control"
-                                           readonly>
-                                </th>
-
-                                <th colspan="2"></th>
-
-                            </tr>
-
-                        </tfoot>
-
-                    </table>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button"
-                            class="btn btn-default"
-                            data-dismiss="modal">
-
-                        Close
-                    </button>
-
-                    <button type="submit"
-                            class="btn btn-primary">
-
-                        <i class="fa fa-save"></i>
-                        Simpan
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="modal_detail_jurnal">
-
-    <div class="modal-dialog modal-lg">
-
-        <div class="modal-content">
-
-            <div class="modal-header bg-primary">
-
-                <button type="button"
-                        class="close"
-                        data-dismiss="modal">
-
-                    &times;
-
-                </button>
-
-                <h4 class="modal-title">
-                    Detail Jurnal
-                </h4>
-
-            </div>
-
-            <div class="modal-body" id="detail_jurnal_body">
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="modal fade" id="modal_import">
-
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-
-            <form id="form_import_excel"
-                  enctype="multipart/form-data">
-
-                <div class="modal-header bg-success">
-
-                    <button type="button"
-                            class="close"
-                            data-dismiss="modal">
-
-                        &times;
-
-                    </button>
-
-                    <h4 class="modal-title">
-                        Import Excel Jurnal
-                    </h4>
-
-                </div>
-
-                <div class="modal-body">
-
-                    <div class="alert alert-info">
-
-                        <i class="fa fa-info-circle"></i>
-
-                        Format file harus sesuai template.
-
-                        <br><br>
-
-                        <a href="<?= base_url() ?>upload/template/template_jurnal.xlsx"
-                           class="btn btn-success btn-sm"
-                           target="_BLANK">
-
-                            <i class="fa fa-download"></i>
-                            Download Template Excel
-
-                        </a>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label>File Excel</label>
-
-                        <input type="file"
-                               name="file_excel"
-                               class="form-control"
-                               accept=".xls,.xlsx"
-                               required>
-
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button"
-                            class="btn btn-default"
-                            data-dismiss="modal">
-
-                        Close
-
-                    </button>
-
-                    <button type="submit"
-                            class="btn btn-success">
-
-                        <i class="fa fa-upload"></i>
-                        Import
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="modal fade" id="modal_edit_jurnal">
-
-    <div class="modal-dialog modal-lg" style="width:80%">
-
-        <div class="modal-content">
-
-            <div id="edit_jurnal_body">
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-        <?php
-
-            foreach ($db->fetch_all("sys_menu") as $isi) {
-
-            //jika url = url dari table menu
-            if (uri_segment(1)==$isi->url) {
-              //check edit permission
-              if ($role_act["up_act"]=="Y") {
-              $edit = "<button data-id='+aData[indek]+' class=\"btn btn-primary btn-sm edit_jurnal\" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></button>";
-              } else {
-                  $edit ="";
-              }
-            if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/jurnal_umum/jurnal_umum_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_jurnal_umum"><i class="fa fa-trash"></i></button>';
-            } else {
-                $del="";
-            }
-                             }
-            } 
-
-        ?>
-
-    </section><!-- /.content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script type="text/javascript"> 
+<style>
+.ju-filter .form-group{margin-bottom:12px}.ju-total{font-size:18px;font-weight:700}.ju-line-table th,.ju-line-table td{font-size:12px;vertical-align:middle!important}.ju-line-table input,.ju-line-table select{font-size:12px}.ju-section{font-weight:700;color:#3c8dbc;border-bottom:1px solid #d2d6de;margin:12px 0 10px;padding-bottom:6px}
+</style>
 
-        
-$(document).ready(function() {
+<section class="content-header">
+  <h1><?=fin_h('finance_general_journal', 'General Journal');?> <small>SAP FI Journal Entry</small></h1>
+  <ol class="breadcrumb">
+    <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=fin_h('common_home', 'Home');?></a></li>
+    <li>Akunting</li>
+    <li class="active"><?=fin_h('finance_general_journal', 'General Journal');?></li>
+  </ol>
+</section>
 
-  $('#tgl4').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        todayHighlight: true
-    });
+<section class="content">
+  <div class="row">
+    <div class="col-md-3"><div class="info-box"><span class="info-box-icon bg-green"><i class="fa fa-check"></i></span><div class="info-box-content"><span class="info-box-text"><?=fin_h('finance_posted', 'Posted');?></span><span class="info-box-number"><?=$db->query("SELECT COUNT(*) total FROM jurnal_header WHERE posting_status='POSTED'")->fetch()->total;?></span></div></div></div>
+    <div class="col-md-3"><div class="info-box"><span class="info-box-icon bg-yellow"><i class="fa fa-pencil"></i></span><div class="info-box-content"><span class="info-box-text"><?=fin_h('finance_draft', 'Draft');?></span><span class="info-box-number"><?=$db->query("SELECT COUNT(*) total FROM jurnal_header WHERE posting_status='DRAFT'")->fetch()->total;?></span></div></div></div>
+    <div class="col-md-3"><div class="info-box"><span class="info-box-icon bg-red"><i class="fa fa-undo"></i></span><div class="info-box-content"><span class="info-box-text">Reversed</span><span class="info-box-number"><?=$db->query("SELECT COUNT(*) total FROM jurnal_header WHERE posting_status='REVERSED'")->fetch()->total;?></span></div></div></div>
+    <div class="col-md-3"><div class="info-box"><span class="info-box-icon bg-blue"><i class="fa fa-calendar"></i></span><div class="info-box-content"><span class="info-box-text">Open Period</span><span class="info-box-number"><?=$db->query("SELECT COUNT(*) total FROM erp_financial_period WHERE status='OPEN'")->fetch()->total;?></span></div></div></div>
+  </div>
 
-
-   $('.select2').select2({
-      //  placeholder: "Pilih COA ...",
-        allowClear: true,
-        width: '100%',
-        dropdownParent: $('#modal_jurnal')
-    });
-});
-
-$(document).on('click','.edit_jurnal',function(){
-
-    var id = $(this).data('id');
-
-    $('#modal_edit_jurnal').modal('show');
-
-    $('#edit_jurnal_body').html(`
-
-        <div style="padding:20px;text-align:center;">
-
-            <i class="fa fa-spinner fa-spin"></i>
-            Loading...
-
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Journal Entry Cockpit</h3>
+      <div class="box-tools">
+        <button class="btn btn-primary btn-sm" id="btn_add_journal"><i class="fa fa-plus"></i> Create Journal</button>
+        <button class="btn btn-info btn-sm" id="btn_import"><i class="fa fa-upload"></i> Import Excel</button>
+        <a class="btn btn-default btn-sm" href="<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=template"><i class="fa fa-download"></i> Template</a>
+      </div>
+    </div>
+    <div class="box-body">
+      <form id="form_filter_jurnal" class="form-horizontal ju-filter">
+        <div class="form-group">
+          <label class="control-label col-md-1">Tanggal</label>
+          <div class="col-md-2"><div class="input-group date"><input id="start_date" class="form-control" value="<?=date('Y-m-01');?>"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div>
+          <div class="col-md-2"><div class="input-group date"><input id="end_date" class="form-control" value="<?=date('Y-m-d');?>"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div>
+          <label class="control-label col-md-1"><?=fin_h('common_status', 'Status');?></label>
+          <div class="col-md-2"><select id="filter_status" class="form-control select2-filter"><option value="">All</option><option value="DRAFT"><?=fin_h('finance_draft', 'Draft');?></option><option value="POSTED"><?=fin_h('finance_posted', 'Posted');?></option><option value="REVERSED">Reversed</option></select></div>
+          <label class="control-label col-md-1">Doc Type</label>
+          <div class="col-md-2"><select id="filter_doc_type" class="form-control select2-filter"><option value="">All</option><option value="SA">SA - General Ledger</option><option value="AJE">AJE - Adjustment</option><option value="KR">KR - Vendor Invoice</option><option value="DR">DR - Customer Invoice</option><option value="CM">CM - Credit Memo</option><option value="DM">DM - Debit Memo</option><option value="KZ">KZ - Vendor Payment</option><option value="DZ">DZ - Incoming Payment</option><option value="RV">RV - Reversal</option></select></div>
         </div>
-
-    `);
-
-    $.ajax({
-
-        url : '<?=base_admin();?>modul/jurnal_umum/edit_jurnal.php?id='+id,
-
-        success:function(result){
-
-            $('#edit_jurnal_body').html(result);
-
-        }
-
-    });
-
-});
-
-$(document).on('submit','#form_edit_jurnal',function(e){
-
-    e.preventDefault();
-
-    $.ajax({
-
-        url : $(this).attr('action'),
-        type:'POST',
-        data:$(this).serialize(),
-        dataType:'json',
-
-        beforeSend:function(){
-
-            Swal.fire({
-                title:'Updating...',
-                text:'Sedang proses update jurnal',
-                allowOutsideClick:false,
-                didOpen: () => {
-                    Swal.showLoading()
-                }
-            });
-
-        },
-
-        success:function(response){
-
-            Swal.close();
-
-            if(response.status == 'success'){
-
-                Swal.fire({
-                    icon:'success',
-                    title:'Berhasil',
-                    text:response.message
-                });
-
-                $('#modal_edit_jurnal').modal('hide');
-
-                dtb_jurnal_umum.ajax.reload(null,false);
-
-            }else{
-
-                Swal.fire({
-                    icon:'error',
-                    title:'Gagal',
-                    text:response.message
-                });
-
-            }
-
-        }
-
-    });
-
-});
-
-
-$('#btn_excel').click(function(){
-
-    var tgl_awal  = $('#start_date').val();
-    var tgl_akhir = $('#end_date').val();
-    var no_jurnal = $('#filter_no_jurnal').val();
-
-    window.open(
-
-        "<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=excel"+
-
-        "&tgl_awal="+tgl_awal+
-        "&tgl_akhir="+tgl_akhir+
-        "&no_jurnal="+no_jurnal
-
-    );
-
-});
-
-         
-
-          $(document).on('click','.detail_jurnal',function(){
-
-    var id = $(this).data('id');
-
-    $('#modal_detail_jurnal').modal('show');
-
-    $('#detail_jurnal_body').html('Loading...');
-
-    $.ajax({
-
-        url : '<?=base_admin();?>modul/jurnal_umum/detail_jurnal.php?id='+id,
-
-        success:function(result){
-
-            $('#detail_jurnal_body').html(result);
-
-        }
-
-    });
-
-});
-
-          $(document).on('click','#add_row',function(){
-
-
-
-    var html = `
-    <tr>
-
-         <td>
-            <select style="width: 100px" 
-                    name="no_rek[]" 
-                    class="form-control select2"
-                    data-placeholder="Pilih COA ...">
-
-                <option value="">Pilih COA</option>
-
-                <?php
-                foreach ($db->fetch_all("rekening") as $isi) {
-
-                    echo "
-                    <option value='$isi->no_rek'>
-                        $isi->no_rek - $isi->nama_rek
-                    </option>";
-                }
-                ?>
-
-            </select>
-        </td>
-
-        <td>
-            <input type="text"
-                   name="debet[]"
-                   class="form-control debet">
-        </td>
-
-        <td>
-            <input type="text"
-                   name="kredit[]"
-                   class="form-control kredit">
-        </td>
-
-        <td>
-            <select name="valuta[]" class="form-control select2">
-
-                <?php
-                foreach ($db->query("select * from matauang group by jenis_valas") as $isi) {
-
-                   if ($isi->jenis_valas=='IDR') {
-                                             echo "
-                                            <option value='$isi->jenis_valas' selected>
-                                                $isi->jenis_valas
-                                            </option>";
-                                          }else{
-                                             echo "
-                                            <option value='$isi->jenis_valas'>
-                                                $isi->jenis_valas
-                                            </option>";
-                                          }
-                }
-                ?>
-
-            </select> 
-        </td>
-
-        <td align="center">
-
-            <button type="button"
-                    class="btn btn-danger btn-xs remove_row">
-
-                <i class="fa fa-trash"></i>
-
-            </button>
-
-        </td>
-
-    </tr>
-    `;
-
-    $('#table_detail tbody').append(html);
-     // INIT SELECT2 BARIS TERBARU
-   $('#table_detail tbody tr:last .select2').select2({
-    placeholder: "Pilih COA ...",
-    allowClear: true,
-    width: '100%',
-    dropdownParent: $('#modal_jurnal')
-});
-
-});
-
-          $(document).on('click','.remove_row',function(){
-
-    $(this).closest('tr').remove();
-
-    hitung_total();
-
-});
-
-    $(document).on('keyup','.debet,.kredit',function(){
-
-    hitung_total();
-
-});
-
-function hitung_total(){
-
-    var total_debet = 0;
-    var total_kredit = 0;
-
-    $('.debet').each(function(){ 
-
-        total_debet += parseFloat($(this).val()) || 0;
-
-    });
-
-    $('.kredit').each(function(){
-
-        total_kredit += parseFloat($(this).val()) || 0;
-
-    });
-
-    $('#total_debet').val(total_debet);
-    $('#total_kredit').val(total_kredit);
-
+        <div class="form-group">
+          <label class="control-label col-md-1">Source</label>
+          <div class="col-md-4"><input id="filter_source" class="form-control" placeholder="MANUAL_GL, SALES_INVOICE, GOODS_RECEIPT..."></div>
+          <div class="col-md-7">
+            <button type="button" class="btn btn-primary" id="btn_filter"><i class="fa fa-search"></i> <?=fin_h('common_filter', 'Filter');?></button>
+            <button type="button" class="btn btn-default" id="btn_reset"><i class="fa fa-refresh"></i> <?=fin_h('common_reset', 'Reset');?></button>
+            <button type="button" class="btn btn-success" id="btn_excel"><i class="fa fa-file-excel-o"></i> <?=fin_h('common_export_excel', 'Export Excel');?></button>
+          </div>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table id="dtb_jurnal_umum" class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th><?=fin_h('common_no', 'No');?></th><th><?=fin_h('finance_journal_no', 'Journal No');?></th><th><?=fin_h('common_status', 'Status');?></th><th>Doc Type</th><th>Date</th><th><?=fin_h('finance_reference', 'Reference');?></th><th>Source</th><th><?=fin_h('finance_debit', 'Debit');?></th><th><?=fin_h('finance_credit', 'Credit');?></th><th><?=fin_h('common_action', 'Action');?></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="modal_jurnal">
+  <div class="modal-dialog modal-lg" style="width:96%">
+    <div class="modal-content">
+      <form id="journal_form" action="<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=in" method="post">
+        <input type="hidden" name="id" id="journal_id">
+        <input type="hidden" name="posting_status" id="posting_status" value="DRAFT">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><i class="fa fa-book"></i> Journal Entry</h4>
+        </div>
+        <div class="modal-body">
+          <div class="ju-section">Document Header</div>
+          <div class="row">
+            <div class="col-md-2"><label><?=fin_h('finance_journal_no', 'Journal No');?></label><input name="no_jurnal" id="no_jurnal" class="form-control" value="<?=generate_no_jurnal();?>" readonly></div>
+            <div class="col-md-2"><label>Document Type</label><select name="document_type" id="document_type" class="form-control select2-modal"><option value="SA">SA - General Ledger</option><option value="AJE">AJE - Adjustment</option><option value="KR">KR - Vendor Invoice</option><option value="DR">DR - Customer Invoice</option><option value="KZ">KZ - Vendor Payment</option><option value="DZ">DZ - Incoming Payment</option></select></div>
+            <div class="col-md-2"><label><?=fin_h('finance_posting_date', 'Posting Date');?></label><div class="input-group date"><input name="tgl_jurnal" id="tgl_jurnal" class="form-control" value="<?=date('Y-m-d');?>" required><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div>
+            <div class="col-md-3"><label><?=fin_h('finance_reference', 'Reference');?></label><input name="no_bukti" id="no_bukti" class="form-control" placeholder="No bukti/ref transaksi"></div>
+            <div class="col-md-3"><label>Source Module</label><input name="source_module" id="source_module" class="form-control" value="MANUAL_GL"></div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <div class="col-md-3"><label>Source Document</label><input name="source_document_no" id="source_document_no" class="form-control"></div>
+            <div class="col-md-9"><label>Header Text</label><input name="ket" id="ket" class="form-control" required placeholder="Deskripsi jurnal"></div>
+          </div>
+
+          <div class="ju-section">Line Items</div>
+          <div class="table-responsive">
+            <table class="table table-bordered ju-line-table" id="table_detail">
+              <thead>
+                <tr>
+                  <th style="width:22%"><?=fin_h('finance_coa', 'COA');?></th><th style="width:16%">Line Text</th><th style="width:10%"><?=fin_h('finance_debit', 'Debit');?></th><th style="width:10%"><?=fin_h('finance_credit', 'Credit');?></th><th style="width:7%">Curr</th><th style="width:7%">Kurs</th><th style="width:10%">Cost Ctr</th><th style="width:10%">Profit Ctr</th><th style="width:8%"><?=fin_h('finance_tax', 'Tax');?></th><th style="width:4%"><button type="button" class="btn btn-success btn-xs" id="add_row"><i class="fa fa-plus"></i></button></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr><th colspan="2" class="text-right">TOTAL</th><th><input id="total_debet" class="form-control text-right ju-total" readonly></th><th><input id="total_kredit" class="form-control text-right ju-total" readonly></th><th colspan="6"><span id="balance_info" class="label label-default">Not calculated</span></th></tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><?=fin_h('common_close', 'Close');?></button>
+          <button type="button" class="btn btn-warning save_journal" data-status="DRAFT"><i class="fa fa-save"></i> Save Draft</button>
+          <button type="button" class="btn btn-success save_journal" data-status="POSTED"><i class="fa fa-check"></i> Post Journal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_detail_jurnal"><div class="modal-dialog modal-lg" style="width:92%"><div class="modal-content"><div class="modal-header bg-primary"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Journal Detail</h4></div><div class="modal-body" id="detail_jurnal_body"></div></div></div></div>
+<div class="modal fade" id="modal_import"><div class="modal-dialog"><div class="modal-content"><form id="form_import_excel" enctype="multipart/form-data"><div class="modal-header bg-info"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Import Journal Excel</h4></div><div class="modal-body"><p class="text-muted">Gunakan template resmi terbaru. Kolom merah wajib diisi, dan <strong>Import Group</strong> harus sama untuk semua baris dalam satu jurnal. <strong>No Jurnal</strong> boleh dikosongkan agar sistem membuat nomor otomatis.</p><a href="<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=template" class="btn btn-default btn-sm"><i class="fa fa-download"></i> Download Template</a><hr><input type="file" name="file_excel" class="form-control" accept=".xls,.xlsx" required></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><?=fin_h('common_close', 'Close');?></button><button class="btn btn-info"><i class="fa fa-upload"></i> Import</button></div></form></div></div></div>
+
+<script>
+var accountOptions = `<?php foreach($accounts as $r){ echo ju_opt($r->no_rek, $r->no_rek.' - '.$r->nama_rek); } ?>`;
+var currencyOptions = `<?php foreach($currencies as $r){ echo ju_opt($r->jenis_valas, $r->jenis_valas, $r->jenis_valas==='IDR'); } ?>`;
+var costOptions = `<option value=""></option><?php foreach($costCenters as $r){ echo ju_opt($r->id, $r->cost_center_code.' - '.$r->cost_center_name); } ?>`;
+var profitOptions = `<option value=""></option><?php foreach($profitCenters as $r){ echo ju_opt($r->id, $r->profit_center_code.' - '.$r->profit_center_name); } ?>`;
+var taxOptions = `<option value=""></option><?php foreach($taxCodes as $r){ echo ju_opt($r->id, $r->tax_code.' - '.$r->tax_name.' '.$r->rate.'%'); } ?>`;
+
+function lineRow(data){
+  data = data || {};
+  return `<tr>
+    <td><select name="no_rek[]" class="form-control select2-line coa" required><option value=""></option>${accountOptions}</select></td>
+    <td><input name="line_text[]" class="form-control" value="${data.line_text||''}"></td>
+    <td><input name="debet[]" class="form-control text-right money debet" value="${data.debet||''}"></td>
+    <td><input name="kredit[]" class="form-control text-right money kredit" value="${data.kredit||''}"></td>
+    <td><select name="valuta[]" class="form-control select2-line valuta">${currencyOptions}</select></td>
+    <td><input name="kurs[]" class="form-control text-right" value="${data.kurs||'1'}"></td>
+    <td><select name="cost_center_id[]" class="form-control select2-line">${costOptions}</select></td>
+    <td><select name="profit_center_id[]" class="form-control select2-line">${profitOptions}</select></td>
+    <td><select name="tax_code_id[]" class="form-control select2-line">${taxOptions}</select></td>
+    <td class="text-center"><button type="button" class="btn btn-danger btn-xs remove_row"><i class="fa fa-trash"></i></button></td>
+  </tr>`;
 }
-
-$('#form_import_excel').submit(function(e){
-
-    e.preventDefault();
-
-    var formData = new FormData(this);
-
-    $.ajax({
-
-        url : '<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=import',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-
-        beforeSend:function(){
-
-            Swal.fire({
-                title: 'Importing...',
-                text: 'Sedang upload excel',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                }
-            });
-
-        },
-
-        success:function(response){
-
-            Swal.close();
-
-            if(response.status == 'success'){
-
-                Swal.fire({
-                    icon:'success',
-                    title:'Berhasil',
-                    text:response.message
-                });
-
-                $('#modal_import').modal('hide');
-
-                dtb_jurnal_umum.ajax.reload(null,false);
-
-            }else{
-
-                Swal.fire({
-                    icon:'error',
-                    title:'Gagal',
-                    text:response.message
-                });
-
-            }
-
-        },
-
-        error:function(xhr){
-
-            Swal.close();
-
-            Swal.fire({
-                icon:'error',
-                title:'Server Error',
-                text:'Terjadi kesalahan server'
-            });
-
-            console.log(xhr.responseText);
-
-        }
-
-    });
-
-});
-
-$('#input_jurnal_umum').submit(function(e){
-
-    e.preventDefault();
-
-    var debet  = parseFloat($('#total_debet').val()) || 0;
-    var kredit = parseFloat($('#total_kredit').val()) || 0;
-
-    if(debet != kredit){
-
-        Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            text: 'Total Debet dan Kredit harus sama'
-        });
-
-        return false;
-
-    }
-
-    var formData = $(this).serialize();
-
-    $.ajax({
-
-        url: $(this).attr('action'),
-        type: 'POST',
-        data: formData,
-        dataType: 'json',
-
-        beforeSend:function(){
-
-            Swal.fire({
-                title: 'Menyimpan...',
-                text: 'Sedang proses simpan jurnal',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                }
-            });
-
-        },
-
-        success:function(response){
-
-            Swal.close();
-
-            if(response.status == 'success'){
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: response.message
-                });
-
-                $('#modal_jurnal').modal('hide'); 
-
-                $('#input_jurnal_umum')[0].reset();
-
-                $('#table_detail tbody').html('');
-
-                $('#add_row').click();
-
-                dtb_jurnal_umum.ajax.reload(null,false);
-
-            }else{
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal',
-                    text: response.message
-                });
-
-            }
-
-        },
-
-        error:function(xhr){
-
-            Swal.close();
-
-            Swal.fire({
-                icon: 'error',
-                title: 'Server Error',
-                text: 'Terjadi kesalahan server'
-            });
-
-            console.log(xhr.responseText);
-
-        }
-
-    });
-
-});
-      
-      var dtb_jurnal_umum = $("#dtb_jurnal_umum").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-            var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html(' <?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
-           'bProcessing': true,
-            'bServerSide': true,
-            
-           'columnDefs': [ {
-            'targets': [6],
-              'orderable': false,
-              'searchable': false
-            },
-                {
-            'width': '5%',
-            'targets': 0,
-            'orderable': false,
-            'searchable': false,
-            'className': 'dt-center'
-          }
-             ],
-
-    
-            'ajax':{
-              url :'<?=base_admin();?>modul/jurnal_umum/jurnal_umum_data.php',
-              type: 'post',
-
-              data:function(d){
-
-                  d.start_date = $('#start_date').val();
-                  d.end_date   = $('#end_date').val();
-
-              },
-
-              error: function (xhr, error, thrown) {
-
-                  console.log(xhr);
-
-              }
-},
-        });
-
-      $('#btn_filter').click(function(){
-
-    dtb_jurnal_umum.draw();
-
-});
-
-$('#btn_reset').click(function(){
-
-    $('#start_date').val('');
-    $('#end_date').val('');
-
-    dtb_jurnal_umum.draw();
-
-});
-
-$('#btn_import').click(function(){
-
-    $('#modal_import').modal('show');
-
-});
-
-  $('#dtb_jurnal_umum').on('draw.dt', function() {
-          init_selected()
-      });
-
-      $('#select_all').on('click', function() {
-          select_deselect('select')
-      });
-      $('#deselect_all').on('click', function() {
-          select_deselect('unselect')
+function initSelect(scope){ $(scope).find('.select2-line,.select2-modal').select2({width:'100%',dropdownParent:$('#modal_jurnal'),allowClear:true}); }
+function addLine(data){ $('#table_detail tbody').append(lineRow(data)); initSelect('#table_detail tbody tr:last'); if(data){ var tr=$('#table_detail tbody tr:last'); tr.find('.coa').val(data.no_rek).trigger('change'); tr.find('.valuta').val(data.valuta||'IDR').trigger('change'); tr.find('[name="cost_center_id[]"]').val(data.cost_center_id||'').trigger('change'); tr.find('[name="profit_center_id[]"]').val(data.profit_center_id||'').trigger('change'); tr.find('[name="tax_code_id[]"]').val(data.tax_code_id||'').trigger('change'); } calcTotal(); }
+function calcTotal(){ var d=0,k=0; $('.debet').each(function(){d+=parseFloat(String($(this).val()).replace(/,/g,''))||0}); $('.kredit').each(function(){k+=parseFloat(String($(this).val()).replace(/,/g,''))||0}); $('#total_debet').val(d.toFixed(2)); $('#total_kredit').val(k.toFixed(2)); var ok=Math.abs(d-k)<=0.01 && d>0; $('#balance_info').removeClass().addClass('label '+(ok?'label-success':'label-danger')).text(ok?'Balanced':'Not Balanced'); }
+
+$(function(){
+  $('.input-group.date').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});
+  $('.select2-filter').select2({width:'100%'});
+  var table = $('#dtb_jurnal_umum').DataTable({
+    processing:true, serverSide:true, order:[[4,'desc']],
+    ajax:{url:'<?=base_admin();?>modul/jurnal_umum/jurnal_umum_data.php',type:'post',data:function(d){d.start_date=$('#start_date').val();d.end_date=$('#end_date').val();d.posting_status=$('#filter_status').val();d.document_type=$('#filter_doc_type').val();d.source_module=$('#filter_source').val();}},
+    columnDefs:[{targets:[0,9],orderable:false,searchable:false},{targets:[7,8],className:'text-right'}]
   });
-
-
-
-  $(document).on('click', '#dtb_jurnal_umum tbody tr td', function(event) {
-      var btn = $(this).find('button');
-      if (btn.length == 0) {
-          $(this).parents('tr').toggleClass('DTTT_selected selected');
-          var selected = check_selected();
-          init_selected();
-
-      }
-  });
-
-
-
-  function init_selected() {
-      var selected = check_selected();
-      var btn_hide = $('#select_all, #deselect_all, #bulk_delete, .selected-data');
-      if (selected.length > 0) {
-          btn_hide.show()
-      } else {
-          btn_hide.hide()
-      }
-  }
-
-
-  function check_selected() {
-      var table_select = $('#dtb_jurnal_umum tbody tr.selected');
-      var array_data_delete = [];
-      table_select.each(function() {
-          var check_data = $(this).find('.hapus_dtb_notif').attr('data-id');
-          if (typeof check_data != 'undefined') {
-              array_data_delete.push(check_data)
-          }
-      });
-      $('.selected-data').text(array_data_delete.length + ' <?=$lang["selected_data"];?>');
-      return array_data_delete
-  }
-
-
-  function select_deselect(type) {
-      if (type == 'select') {
-          $('#dtb_jurnal_umum tbody tr').addClass('DTTT_selected selected')
-      } else {
-          $('#dtb_jurnal_umum tbody tr').removeClass('DTTT_selected selected')
-      }
-      init_selected()
-  }
-
-
-
-
-/* Add a click handler for the delete row */
-  $('#bulk_delete').click( function() {
-    var anSelected = fnGetSelected( dtb_jurnal_umum );
-    var data_array_id = check_selected();
-    var all_ids = data_array_id.toString();
-    $('#ucing').modal({ keyboard: false }).one('click', '#delete', function (e) {
-        $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=del_massal',
-            data: {data_ids:all_ids},
-               success: function(responseText) {
-                  $('#loadnya').hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=='die') {
-                            $('#informasi').modal('show');
-                          } else if(responseText[index].status=='error') {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          } else if(responseText[index].status=='good') {
-                            $('.error_data_delete').hide();
-                               $('#loadnya').hide();
-                               $(anSelected).remove();
-                               dtb_jurnal_umum.draw();
-                          } else {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          }
-                    });
-                }
-            //async:false
-        });
-
-        $('#ucing').modal('hide');
-
-    });
-
-  });
-
-  /* Get the rows which are currently selected */
-  function fnGetSelected( oTableLocal )
-  {
-      return oTableLocal.$('tr.selected');
-  }
+  $('#btn_filter').on('click',function(){table.draw();});
+  $('#btn_reset').on('click',function(){$('#form_filter_jurnal')[0].reset();$('.select2-filter').val('').trigger('change');table.draw();});
+  $('#btn_excel').on('click',function(){window.open('<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=excel&tgl_awal='+encodeURIComponent($('#start_date').val())+'&tgl_akhir='+encodeURIComponent($('#end_date').val())+'&posting_status='+encodeURIComponent($('#filter_status').val())+'&document_type='+encodeURIComponent($('#filter_doc_type').val()));});
+  $('#btn_import').on('click',function(){$('#modal_import').modal('show');});
+  $('#btn_add_journal').on('click',function(){ $('#journal_form')[0].reset(); $('#journal_id').val(''); $('#journal_form').attr('action','<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=in'); $('#no_jurnal').val('<?=generate_no_jurnal();?>'); $('#table_detail tbody').html(''); addLine(); addLine(); $('#modal_jurnal').modal('show'); initSelect('#modal_jurnal'); });
+  $('#add_row').on('click',function(){addLine();});
+  $(document).on('click','.remove_row',function(){$(this).closest('tr').remove(); calcTotal();});
+  $(document).on('keyup change','.debet,.kredit,.money',calcTotal);
+  $(document).on('click','.save_journal',function(){ $('#posting_status').val($(this).data('status')); if(Math.abs((parseFloat($('#total_debet').val())||0)-(parseFloat($('#total_kredit').val())||0))>0.01){Swal.fire('Tidak balance','Total debit dan credit harus sama.','warning');return;} $.post($('#journal_form').attr('action'),$('#journal_form').serialize(),function(res){ if(res.status==='success'){Swal.fire('Berhasil',res.message,'success');$('#modal_jurnal').modal('hide');table.ajax.reload(null,false);}else{Swal.fire('Gagal',res.message,'error');}},'json').fail(function(xhr){Swal.fire('Server Error',xhr.responseText,'error');}); });
+  $(document).on('click','.detail_jurnal',function(){ $('#modal_detail_jurnal').modal('show'); $('#detail_jurnal_body').html(<?=fin_js('common_loading', 'Loading...');?>); $('#detail_jurnal_body').load('<?=base_admin();?>modul/jurnal_umum/detail_jurnal.php?id='+$(this).data('id')); });
+  $(document).on('click','.edit_jurnal',function(){ $.getJSON('<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=get&id='+$(this).data('id')).done(function(res){ if(res.status!=='success'){Swal.fire('Gagal',res.message,'error');return;} $('#journal_form')[0].reset(); $('#journal_form').attr('action','<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=update'); $('#journal_id').val(res.header.id); $('#no_jurnal').val(res.header.no_jurnal); $('#document_type').val(res.header.document_type); $('#tgl_jurnal').val(res.header.tgl_jurnal); $('#no_bukti').val(res.header.no_bukti); $('#source_module').val(res.header.source_module); $('#source_document_no').val(res.header.source_document_no); $('#ket').val(res.header.ket); $('#table_detail tbody').html(''); $.each(res.lines,function(_,line){addLine(line);}); $('#modal_jurnal').modal('show'); initSelect('#modal_jurnal'); }); });
+  $(document).on('click','.post_jurnal',function(){ var id=$(this).data('id'); Swal.fire({title:'Post jurnal?',text:'Setelah posting, jurnal tidak bisa diedit dan harus direversal bila salah.',icon:'question',showCancelButton:true}).then(function(r){if(r.isConfirmed){$.post('<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=post',{id:id},function(res){res.status==='success'?Swal.fire('Berhasil',res.message,'success'):Swal.fire('Gagal',res.message,'error');table.ajax.reload(null,false);},'json');}}); });
+  $(document).on('click','.reverse_jurnal',function(){ var id=$(this).data('id'); Swal.fire({title:'Tanggal reversal',input:'text',inputValue:'<?=date('Y-m-d');?>',showCancelButton:true,confirmButtonText:'Create Reversal'}).then(function(r){if(r.isConfirmed){$.post('<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=reverse',{id:id,tgl_reversal:r.value},function(res){res.status==='success'?Swal.fire('Berhasil',res.message,'success'):Swal.fire('Gagal',res.message,'error');table.ajax.reload(null,false);},'json');}}); });
+  $(document).on('click','.delete_jurnal',function(){ var id=$(this).data('id'); Swal.fire({title:'Hapus draft?',icon:'warning',showCancelButton:true}).then(function(r){if(r.isConfirmed){$.post('<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=delete',{id:id},function(res){res.status==='success'?Swal.fire('Berhasil',res.message,'success'):Swal.fire('Gagal',res.message,'error');table.ajax.reload(null,false);},'json');}}); });
+  $('#form_import_excel').on('submit',function(e){ e.preventDefault(); var fd=new FormData(this); $.ajax({url:'<?=base_admin();?>modul/jurnal_umum/jurnal_umum_action.php?act=import',type:'POST',data:fd,processData:false,contentType:false,dataType:'json',success:function(res){res.status==='success'?Swal.fire('Berhasil',res.message,'success'):Swal.fire('Gagal',res.message,'error'); if(res.status==='success'){$('#modal_import').modal('hide');table.ajax.reload(null,false);}},error:function(xhr){Swal.fire('Server Error',xhr.responseText,'error');}}); });
+});
 </script>
-            

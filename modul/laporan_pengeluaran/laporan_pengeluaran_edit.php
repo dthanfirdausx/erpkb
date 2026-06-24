@@ -1,14 +1,14 @@
 <!-- Content Header (Page header) -->
               <section class="content-header">
-                  <h1>Laporan Pengeluaran</h1>
+                  <h1><?=customs_h('outgoing_report','Laporan Pengeluaran');?></h1>
                     <ol class="breadcrumb">
                         <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a>
                         </li>
                         <li>
-                        <a href="<?=base_index();?>laporan-pengeluaran">Laporan Pengeluaran</a>
+                        <a href="<?=base_index();?>laporan-pengeluaran"><?=customs_h('outgoing_report','Laporan Pengeluaran');?></a>
                         </li>
-                        <li class="active">Edit Laporan Pengeluaran</li>
+                        <li class="active"><?=customs_h('legacy_edit_laporan_pengeluaran','Edit Laporan Pengeluaran');?></li>
                     </ol>
               </section>
 
@@ -18,7 +18,7 @@
                   <div class="col-lg-12">
                       <div class="box box-solid box-primary">
                           <div class="box-header">
-                              <h3 class="box-title">Edit Laporan Pengeluaran</h3>
+                              <h3 class="box-title"><?=customs_h('legacy_edit_laporan_pengeluaran','Edit Laporan Pengeluaran');?></h3>
                               <div class="box-tools pull-right">
                                   <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-pencil"></i></button>
                               </div>

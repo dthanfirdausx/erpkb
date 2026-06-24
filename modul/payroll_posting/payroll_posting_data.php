@@ -1,0 +1,26 @@
+<?php
+if (!function_exists('hr_t')) {
+  function hr_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('hr_h')) {
+  function hr_h($key, $fallback = '') { return htmlspecialchars((string) hr_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('hr_js')) {
+  function hr_js($key, $fallback = '') { return json_encode(hr_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+if (session_status() === PHP_SESSION_NONE) session_start();
+include "../../inc/config.php";
+session_check_json();
+function pypd_h($v){return htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');}
+function pypd_label($s){$map=array('DRAFT'=>'default','READY'=>'info','POSTED'=>'success','REVERSED'=>'warning','CANCELLED'=>'danger');$c=isset($map[$s])?$map[$s]:'default';return '<span class="label label-'.$c.'">'.pypd_h($s).'</span>';}
+$draw=isset($_POST['draw'])?(int)$_POST['draw']:1;$start=isset($_POST['start'])?max(0,(int)$_POST['start']):0;$length=isset($_POST['length'])?(int)$_POST['length']:25;if($length<=0||$length>500)$length=25;
+$from=isset($_POST['tgl_awal'])&&$_POST['tgl_awal']!==''?$_POST['tgl_awal']:date('Y-m-01');$to=isset($_POST['tgl_akhir'])&&$_POST['tgl_akhir']!==''?$_POST['tgl_akhir']:date('Y-m-t');$area=isset($_POST['payroll_area'])?trim($_POST['payroll_area']):'';$status=isset($_POST['posting_status'])?trim($_POST['posting_status']):'';$variant=isset($_POST['posting_variant'])?trim($_POST['posting_variant']):'';$kw=isset($_POST['keyword'])?trim($_POST['keyword']):'';
+$w=" WHERE pp.posting_date BETWEEN ? AND ? ";$p=array($from,$to);if($area!==''){$w.=" AND pp.payroll_area=? ";$p[]=$area;}if($status!==''){$w.=" AND pp.posting_status=? ";$p[]=$status;}if($variant!==''){$w.=" AND pp.posting_variant=? ";$p[]=$variant;}if($kw!==''){$like='%'.$kw.'%';$w.=" AND (pp.posting_no LIKE ? OR pp.payroll_run_no LIKE ? OR pp.external_reference LIKE ? OR pp.sap_reference LIKE ?) ";array_push($p,$like,$like,$like,$like);}
+$kpi=$db->fetch("SELECT COUNT(*) total,SUM(posting_status='READY') ready,SUM(posting_status='POSTED') posted,SUM(posting_status='REVERSED') reversed,SUM(total_employee) employees,SUM(net_amount) net FROM erp_payroll_posting");
+$cnt=$db->fetch("SELECT COUNT(*) jml FROM erp_payroll_posting pp $w",$p);$total=$cnt?(int)$cnt->jml:0;
+$orderMap=array(2=>'pp.posting_no',3=>'pp.payroll_run_no',4=>'pp.posting_date',5=>'pp.payroll_area',6=>'pp.total_employee',7=>'pp.net_amount',8=>'pp.posting_status',9=>'pp.updated_at');$orderBy='pp.posting_date DESC,pp.posting_no';if(isset($_POST['order'][0]['column'])){$col=(int)$_POST['order'][0]['column'];$dir=(isset($_POST['order'][0]['dir'])&&strtolower($_POST['order'][0]['dir'])==='desc')?'DESC':'ASC';if(isset($orderMap[$col]))$orderBy=$orderMap[$col].' '.$dir;}
+$rows=$db->query("SELECT pp.*,jh.no_jurnal FROM erp_payroll_posting pp LEFT JOIN jurnal_header jh ON jh.id=pp.journal_header_id $w ORDER BY $orderBy LIMIT $start,$length",$p);
+$data=array();$no=$start+1;foreach($rows as $r){$postDisabled=$r->posting_status==='POSTED'||$r->posting_status==='REVERSED'?' disabled':'';$revDisabled=$r->posting_status==='POSTED'?'':' disabled';$delDisabled=in_array($r->posting_status,array('POSTED','REVERSED'),true)?' disabled':'';$act='<div class="pyp-action"><button class="btn btn-info btn-xs btn-pyp-detail" data-id="'.(int)$r->id.'" title="'.hr_h('common_detail', 'Detail').'"><i class="fa fa-eye"></i></button> <button class="btn btn-primary btn-xs btn-pyp-edit" data-id="'.(int)$r->id.'" title="'.hr_h('common_edit', 'Edit').'"><i class="fa fa-pencil"></i></button> <button class="btn btn-success btn-xs btn-pyp-post" data-id="'.(int)$r->id.'" title="Post"'.$postDisabled.'><i class="fa fa-cloud-upload"></i></button> <button class="btn btn-warning btn-xs btn-pyp-reverse" data-id="'.(int)$r->id.'" title="Reverse"'.$revDisabled.'><i class="fa fa-undo"></i></button> <button class="btn btn-danger btn-xs btn-pyp-delete" data-id="'.(int)$r->id.'" data-no="'.pypd_h($r->posting_no).'" title="'.hr_h('common_delete', 'Delete').'"'.$delDisabled.'><i class="fa fa-trash"></i></button></div>';
+  $data[]=array($no++,$act,'<strong>'.pypd_h($r->posting_no).'</strong><br><small>'.pypd_h($r->sap_reference).'</small>','<strong>'.pypd_h($r->payroll_run_no).'</strong><br><small>Journal '.pypd_h($r->no_jurnal?:'-').'</small>','<strong>'.pypd_h($r->posting_date).'</strong><br><small>Doc '.pypd_h($r->document_date).'</small>','<strong>'.pypd_h($r->payroll_area).'</strong><br><small>'.pypd_h($r->posting_variant).'</small>','<span class="badge bg-blue">'.(int)$r->total_employee.' employee</span>','Gross '.number_format((float)$r->gross_amount,0).'<br><small>Net <b>'.number_format((float)$r->net_amount,0).'</b></small>',pypd_label($r->posting_status),pypd_h($r->updated_by?:$r->created_by?:'-').'<br><small>'.pypd_h($r->updated_at?:$r->created_at).'</small>');}
+header('Content-Type: application/json; charset=utf-8');echo json_encode(array('draw'=>$draw,'recordsTotal'=>$total,'recordsFiltered'=>$total,'data'=>$data,'kpi'=>array('total'=>$kpi?(int)$kpi->total:0,'ready'=>$kpi?(int)$kpi->ready:0,'posted'=>$kpi?(int)$kpi->posted:0,'reversed'=>$kpi?(int)$kpi->reversed:0,'employees'=>$kpi?(int)$kpi->employees:0,'net'=>$kpi?(float)$kpi->net:0)));
+?>

@@ -1,26 +1,98 @@
+<?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
+<style>
+  .si-form-page .box {
+    border-radius: 10px;
+    border-top: 0;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .08);
+  }
+  .si-form-hero {
+    background: linear-gradient(135deg, #1f4e79 0%, #2f80ed 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 24px rgba(31, 78, 121, .22);
+  }
+  .si-form-hero h3 {
+    margin: 0 0 6px;
+    font-weight: 700;
+  }
+  .si-form-hero p {
+    margin: 0;
+    opacity: .92;
+  }
+  .si-section-title {
+    margin: 18px 0 14px;
+    padding: 10px 12px;
+    border-left: 4px solid #2f80ed;
+    background: #f7fbff;
+    color: #1f2d3d;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+  .si-billing-card {
+    border: 1px solid #e8edf3;
+    border-radius: 10px;
+    padding: 16px 16px 4px;
+    margin-bottom: 15px;
+    background: #fff;
+  }
+  #detail_pemasukan table {
+    font-size: 12px;
+  }
+  #detail_pemasukan th {
+    white-space: nowrap;
+    background: #f8fafc;
+  }
+  .si-action-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    background: #fff;
+    border-top: 1px solid #e8edf3;
+    margin: 18px -16px -4px;
+    padding: 12px 16px;
+    box-shadow: 0 -6px 14px rgba(15, 23, 42, .06);
+  }
+</style>
+
 <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Sales Invoice</h1>
+        <h1><?=sd_h('sales_invoice', 'Sales Invoice');?></h1>
         <ol class="breadcrumb">
             <li>
-              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=sd_h('common_home', 'Home');?></a>
             </li>
             <li>
-              <a href="<?=base_index();?>sales-invoice">Sales Invoice</a>
+              <a href="<?=base_index();?>sales-invoice"><?=sd_h('sales_invoice', 'Sales Invoice');?></a>
             </li>
             <li class="active">Add Sales Invoice</li>
         </ol>
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content si-form-page">
+    <div class="si-form-hero">
+      <h3>Create Billing Document</h3>
+      <p>Pilih Surat Jalan dari Billing Due List. Item invoice akan mengikuti dokumen sumber agar nilai billing, pajak, dan jurnal tetap konsisten.</p>
+    </div>
     <div class="row">
       <div class="col-lg-12">
-        <div class="box box-solid box-primary">
-          <div class="box-header">
-            <h3 class="box-title">Add Sales Invoice</h3>
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-file-text-o"></i> Add Sales Invoice</h3>
             <div class="box-tools pull-right">
-              <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
+              <a href="<?=base_index();?>sales-invoice" class="btn btn-default btn-sm"><i class="fa fa-arrow-left"></i> <?php echo $lang["back_button"];?></a>
             </div>
           </div>
           <div class="box-body">
@@ -29,6 +101,18 @@
           <span class="isi_warning"></span>
         </div>
             <form id="input_sales_invoice" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/sales_invoice/sales_invoice_action.php?act=in">
+              <div class="si-billing-card">
+              <div class="si-section-title"><i class="fa fa-list-alt"></i> Billing Source</div>
+              <div class="form-group">
+                <label class="control-label col-lg-2">Billing Type</label>
+                <div class="col-lg-10">
+                  <select name="billing_type" id="billing_type" class="form-control chzn-select" required>
+                    <option value="F2" selected>F2 - Customer Invoice</option>
+                    <option value="L2">L2 - Debit Memo</option>
+                    <option value="G2">G2 - Credit Memo</option>
+                  </select>
+                </div>
+              </div>
                 <div class="form-group">
                 <label for="PO NO" class="control-label col-lg-2">No Sales Invoice </label>
                 <div class="col-lg-10">
@@ -40,12 +124,26 @@
                 <div class="col-lg-10">
                   <select  id="no_do" name="no_do" onchange="pilih_so(this.value)" data-placeholder="Pilih No DO ..." class="form-control chzn-select" tabindex="2" required="">
                        <option value=""></option>
-                       <?php foreach ($db->fetch_all("surat_jalan") as $isi) {
-    echo "<option value='$isi->id'>$isi->no_surat_jalan</option>";
-} ?>
+                       <?php
+                       $eligibleDo = $db->query("
+                         SELECT sj.id,sj.no_surat_jalan,sj.posting_date,sj.tgl_surat_jalan,sj.no_sales_order,COALESCE(p.nama,sj.kode_penerima) customer_name
+                         FROM surat_jalan sj
+                         LEFT JOIN penerima p ON p.kode_penerima=COALESCE(NULLIF(sj.bill_to_party,''),NULLIF(sj.ship_to_party,''),NULLIF(sj.kode_penerima,''))
+                         LEFT JOIN sales_invoice si ON si.no_do=sj.no_surat_jalan AND si.billing_status<>'CANCELLED'
+                         WHERE sj.status<>'dibatalkan' AND si.id_sales IS NULL
+                         ORDER BY COALESCE(sj.posting_date,sj.tgl_surat_jalan) DESC,sj.id DESC
+                       ");
+                       foreach ($eligibleDo as $isi) {
+                         echo "<option value='".(int)$isi->id."'>".$isi->no_surat_jalan." | ".$isi->no_sales_order." | ".$isi->customer_name."</option>";
+                       } ?>
                       </select>
+                  <p class="help-block">Billing Due List: hanya Surat Jalan yang belum dibilling dan tidak dibatalkan.</p>
                 </div>
               </div><!-- /.form-group -->
+              </div>
+
+              <div class="si-billing-card">
+              <div class="si-section-title"><i class="fa fa-users"></i> Business Partner & Commercial</div>
                       <div class="form-group">
                         <label for="Bill To" class="control-label col-lg-2">Bill To <span style="color:#FF0000">*</span></label>
                         <div class="col-lg-10">
@@ -80,32 +178,32 @@
                 </div>
               </div>
           </div><!-- /.form-group -->
-          
+
               <div class="form-group" style="display: none">
-                <label for="Invooice No" class="control-label col-lg-2">Invoice No </label>
+                <label for="Invooice No" class="control-label col-lg-2"><?=sd_h('sales_invoice_no', 'Invoice No');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="invoice_no" id="no_invoice" placeholder="Invoice No" class="form-control" >
+                  <input type="text" name="invoice_no" id="no_invoice" placeholder="<?=sd_h('sales_invoice_no', 'Invoice No');?>" class="form-control" >
                 </div>
-              </div><!-- /.form-group --> 
-              
+              </div><!-- /.form-group -->
+
               <div class="form-group">
                 <label for="PO NO" class="control-label col-lg-2">PO NO </label>
                 <div class="col-lg-10">
                   <input type="text" name="nopo" id="nopo" placeholder="PO NO" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
-               <div class="form-group" >  
+               <div class="form-group" >
                 <label for="PO NO" class="control-label col-lg-2">No Sales Order</label>
                 <div class="col-lg-10">
                   <input type="text" name="no_sales_order" id="no_sales_order" placeholder="No Sales Order" class="form-control" >
-                   
+
                 </div>
               </div><!-- /.form-group -->
-              
+
               <div class="form-group">
                 <label for="Term" class="control-label col-lg-2">Term </label>
                 <div class="col-lg-10">
-                 
+
                   <select  id="term" name="term" data-placeholder="Pilih Payment Term ..." class="form-control chzn-select" tabindex="2" >
                    <option value=""></option>
                    <?php foreach ($db->fetch_all("term_payment") as $isi) {
@@ -114,14 +212,14 @@
                       // }else{
                         echo "<option value='$isi->jenis_term'>$isi->jenis_term</option>";
                      // }
-                      
-                   } 
+
+                   }
                    ?>
                   </select>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
-                        <label for="Currency" class="control-label col-lg-2">Currency </label>
+                        <label for="Currency" class="control-label col-lg-2"><?=sd_h('sales_currency', 'Currency');?> </label>
                         <div class="col-lg-10">
             <select  id="valuta" name="valuta" data-placeholder="Pilih Currency ..." class="form-control chzn-select" tabindex="2" >
                <option value=""></option>
@@ -143,38 +241,41 @@
                 </div>
               </div>
           </div><!-- /.form-group -->
-          
-             
-              
+              </div>
+
+              <div class="si-billing-card">
+              <div class="si-section-title"><i class="fa fa-percent"></i> Tax, Bank & Signature</div>
+
+
               <div class="form-group">
                 <label for="Bank Detail" class="control-label col-lg-2">Bank Detail </label>
                 <div class="col-lg-10">
 
-            
+
                 <textarea id="editbox" name="bank_detail" class="editbox"><?= infokb()->bank ?></textarea>
-            
-                   
-                </div> 
+
+
+                </div>
               </div><!-- /.form-group -->
-                
+
                 <div class="form-group">
-                  <label for="Tax" class="control-label col-lg-2">Tax </label>
+                  <label for="Tax" class="control-label col-lg-2"><?=sd_h('sales_tax', 'Tax');?> </label>
                   <div class="col-lg-10">
-                    
+
                 <div class="radio radio-success radio-inline">
                   <input type="radio" name="tax"  id="radio1" value="1" required="" >
                     <label for="radio1" style="padding-left: 5px;">
                       Yes
                     </label>
                 </div>
-                
+
                 <div class="radio radio-success radio-inline">
                   <input type="radio" name="tax"  id="radio2" value="0" required="">
                     <label for="radio2" style="padding-left: 5px;">
-                      No
+                      <?=sd_h('common_no', 'No');?>
                     </label>
                 </div>
-                
+
                   </div>
                 </div><!-- /.form-group -->
                  <div class="form-group">
@@ -187,9 +288,13 @@
                 <label for="DO No" class="control-label col-lg-2">Catatan </label>
                 <div class="col-lg-10">
                   <textarea class="form-control" name="catatan" placeholder="catatan"></textarea>
-                </div> 
+                </div>
               </div><!-- /.form-group -->
-              <div class="form-group" id="detail_pemasukan">              
+              </div>
+
+              <div class="si-billing-card">
+              <div class="si-section-title"><i class="fa fa-cubes"></i> Billing Items</div>
+              <div class="form-group" id="detail_pemasukan">
                <div class="col-lg-12">
                 <table class="table">
                  <thead>
@@ -202,12 +307,12 @@
 
                       <th style="width: 300px">Kode Barang</th>
                       <th style="width: 70px">Unit</th>
-                      <th>Qty</th>
-                      <th>Price</th>
-                        <th>Amount</th>
+                      <th><?=sd_h('sales_qty', 'Qty');?></th>
+                      <th><?=sd_h('sales_price', 'Price');?></th>
+                        <th><?=sd_h('sales_amount', 'Amount');?></th>
                       <th>Material Number</th>
                       <th>Material Description</th>
-                    
+
                     </tr>
                  </thead>
                  <tbody id="isi_tabel">
@@ -281,14 +386,14 @@
            name="material_description[]">
   </td>
 
-  
+
 
 </tr>
                  </tbody>
                  <tfoot>
                    <tr>
-                     <td colspan="3">Total</td>
-                   
+                     <td colspan="3"><?=sd_h('sales_total', 'Total');?></td>
+
                      <td>
                        <input type="text" id="form_total_qty" readonly="" class="form-control" style="text-align: right;">
                      </td>
@@ -301,7 +406,7 @@
                      <td></td>
                      <td></td>
                    </tr>
-                 </tfoot>  
+                 </tfoot>
                  </table>
                </div>
                <input type="hidden" id="jml" value="1">
@@ -310,13 +415,14 @@
                <input type="text" id="total_nilai" value="0"> -->
 
               </div><!-- /.form-group -->
-                      
-              <div class="form-group">
+              </div>
+
+              <div class="form-group si-action-bar">
                 <label for="tags" class="control-label col-lg-2">&nbsp;</label>
                 <div class="col-lg-10">
              <a href="<?=base_index();?>sales-invoice" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
-                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-           
+                 <button type="submit" id="btn_save_invoice" class="btn btn-primary" disabled><i class="fa fa-save"></i> Post Billing</button>
+
                 </div>
               </div><!-- /.form-group -->
 
@@ -350,7 +456,7 @@
   function get_nomor(tgl){
        $.ajax({
           url: "<?= base_url() ?>get_nomor.php",
-          data: { 
+          data: {
             jenis: 'INV' ,
             tgl : tgl
         },
@@ -359,13 +465,15 @@
           success: function (data) {
            $("#no_sales_invoice").val(data.nomor);
            // $("#satuan").val(data.satuan);
-          } 
+          }
        });
    }
 
    get_nomor("<?= date("Y-m-d") ?>");
+   $("#invoice_date").val("<?= date("Y-m-d") ?>");
+   $("#detail_pemasukan").html('<div class="col-lg-12"><div class="alert alert-info"><i class="fa fa-info-circle"></i> Pilih DO/Surat Jalan dari Billing Due List untuk memuat item invoice. Item akan dikunci sesuai dokumen sumber.</div></div>');
 
-  function cek_valuta(kode){ 
+  function cek_valuta(kode){
   //  var kode = $("#KODE_VALUTA").val();
   $("#kurs").attr('readonly',true);
   $("#kurs").val('get data ...');
@@ -373,11 +481,11 @@
        url : "<?= base_url() ?>modul/pengeluaran_hamparan/pengeluaran_hamparan_action.php?act=get_currency",
        type : "POST",
        data : {
-         kode : kode, 
+         kode : kode,
          //d_header : $("#ID").val()
        },
       // dataTye : 'JSON',
-       success : function(data){ 
+       success : function(data){
           $("#kurs").val(data);
           $("#kurs").attr('readonly',false);
         // save_data(data,'NDPBM',$('#ID').val(),'ws_header','id_header');
@@ -386,15 +494,16 @@
     });
   }
 
-    function pilih_so(id_sj){ 
+    function pilih_so(id_sj){
 
-    $.ajax({ 
+    $.ajax({
       url: "<?= base_url() ?>modul/sales_invoice/sales_invoice_action.php?act=get_so",
       data: { id_sj: id_sj },
       type : 'POST',
       success: function (data) {
         $("#detail_pemasukan").html(data);
-      } 
+        $("#btn_save_invoice").prop("disabled", false);
+      }
     });
 
     $.ajax({
@@ -406,19 +515,20 @@
 
         $("#bill_to").val(data.kode_penerima).trigger('chosen:updated');
         $("#ship_to").val(data.kode_penerima).trigger('chosen:updated');
-        $("#valuta").val(data.currency).trigger('chosen:updated'); 
+        $("#valuta").val(data.currency).trigger('chosen:updated');
 
-        $("#nopo").val(data.no_po);
+        if(data.status === 'error'){ $(".isi_warning").text(data.error_message); $(".error_data").fadeIn(); return; }
         $("#nopo").val(data.no_po);
         $("#no_sales_order").val(data.no_sales_order);
         $("#ship_date").val(data.tgl_surat_jalan);
-        if (data.tax=='include') {
+        $("#term").val(data.term).trigger('chosen:updated');
+        if (data.tax=='1') {
           $("input[name='tax'][value='1']").prop("checked", true);
         }else{
           $("input[name='tax'][value='0']").prop("checked", true);
         }
 
-      } 
+      }
     });
 }
     function hapus_baris(id) {
@@ -453,7 +563,7 @@
 
 '</tr>';
 
-      
+
 
         $("#isi_tabel").append(baris);
         $("#jml").val(id_baris);
@@ -464,9 +574,9 @@
        var b = $("#form_harga_"+id).val();
        var jml = parseFloat($("#jml").val());
        var i = parseFloat('1');
-       // var total_qty   = parseFloat($("#total_qty").val()); 
-       // var total_harga = parseFloat($("#total_harga").val()); 
-       // var total_nilai = parseFloat($("#total_nilai").val()); 
+       // var total_qty   = parseFloat($("#total_qty").val());
+       // var total_harga = parseFloat($("#total_harga").val());
+       // var total_nilai = parseFloat($("#total_nilai").val());
        if (a=='') {
         a=0;
        }else{
@@ -484,27 +594,27 @@
        var total_harga = 0;
        for (i = 1; i <= jml; i++) {
            total = total + parseFloat($("#form_nilai_"+i).val());
-           total_qty = total_qty + parseFloat($("#form_qty_"+i).val()); 
+           total_qty = total_qty + parseFloat($("#form_qty_"+i).val());
            if ($("#form_harga_"+i).val()=='') {
              total_harga = total_harga + 0;
            }else{
             total_harga = total_harga + parseFloat($("#form_harga_"+i).val());
            }
-           
-       } 
+
+       }
 
        //total_nilai = total_nilai + c;
       // alert(total);
-       $("#form_total_nilai").val(total.toFixed(2));  
-       $("#form_total_qty").val(total_qty.toFixed(4)); 
-       $("#form_total_harga").val(total_harga.toFixed(2)); 
-       //$("#total_nilai").val(total); 
-      // total_nilai = total_nilai - c; 
+       $("#form_total_nilai").val(total.toFixed(2));
+       $("#form_total_qty").val(total_qty.toFixed(4));
+       $("#form_total_harga").val(total_harga.toFixed(2));
+       //$("#total_nilai").val(total);
+      // total_nilai = total_nilai - c;
 
     }
 
-      function cari_kode(id) {   
-    
+      function cari_kode(id) {
+
                       $('#form_kode_'+id).autocomplete({
                         source: function (request, response) {
                           $.ajax({
@@ -524,13 +634,13 @@
                           })
                         },
                         select: function (event, ui) {
-                             $('#form_kode_'+id).val(ui.item.kd_barang+" - "+ui.item.nm_barang); 
+                             $('#form_kode_'+id).val(ui.item.kd_barang+" - "+ui.item.nm_barang);
                              $("#kode_input_"+id).val(ui.item.kd_barang);
                             $.ajax({
                               type : 'POST',
                               data : {
                                 id:id,
-                                kd_barang : ui.item.kd_barang 
+                                kd_barang : ui.item.kd_barang
                               },
                               url : "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=get_unit",
                               success:function(data){
@@ -549,85 +659,85 @@
                        };
   }
     $(document).ready(function() {
-     
+
           //chosen select
           $(".chzn-select").chosen();
           $(".chzn-select-deselect").chosen({
               allow_single_deselect: true
           });
-        
-    
-    $("#tgl1").datepicker({ 
+
+
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    
+
       //trigger validation onchange
       $('select').on('change', function() {
           $(this).valid();
       });
       //hidden validate because we use chosen select
       $.validator.setDefaults({ ignore: ":hidden:not(select)" });
-      
+
     $("#input_sales_invoice").validate({
         errorClass: "help-block",
         errorElement: "span",
@@ -651,43 +761,43 @@
                 error.insertAfter(element);
             }
         },
-        
+
         rules: {
-            
+
           bill_to: {
           required: true,
           //minlength: 2
           },
-        
+
           ship_to: {
           required: true,
           //minlength: 2
           },
-        
+
         },
          messages: {
-            
+
           bill_to: {
           required: "This field is required",
           //minlength: "Your username must consist of at least 2 characters"
           },
-        
+
           ship_to: {
           required: "This field is required",
           //minlength: "Your username must consist of at least 2 characters"
           },
-        
+
         },
-    
+
         submitHandler: function(form) {
             $("#loadnya").show();
             $(form).ajaxSubmit({
                 url : $(this).attr("action"),
                 dataType: "json",
                 type : "post",
-                error: function(data ) { 
+                error: function(data ) {
                   $("#loadnya").hide();
-                  console.log(data); 
+                  console.log(data);
                 },
                 success: function(responseText) {
                   $("#loadnya").hide();

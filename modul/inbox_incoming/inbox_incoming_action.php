@@ -159,6 +159,7 @@ foreach ($q as $k) {
         SET 
             posisi = 'GUDANG', 
             move_code = '101',
+            destination_material_code = kd_barang,
             remark = CONCAT('Terima dari transfer ', '$no_spb'),
             document_date = '".date("Y-m-d")."'
         WHERE no_ref = '$no_spb'

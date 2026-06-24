@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>Ubah Password</h1>
+                    <h1><?=erp_h('password_change_title', 'Change Password');?></h1>
                    <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>ubah-password">Ubah Password</a></li>
-                        <li class="active">Detail Ubah Password</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=erp_h('common_home', 'Home');?></a></li>
+                        <li><a href="<?=base_index();?>ubah-password"><?=erp_h('password_change_title', 'Change Password');?></a></li>
+                        <li class="active"><?=erp_h('password_detail_title', 'Change Password Detail');?></li>
                     </ol>
                 </section>
 
@@ -14,7 +14,7 @@
                     <div class="col-lg-12">
                         <div class="box box-solid box-primary">
                             <div class="box-header">
-                            <h3 class="box-title">Detail Ubah Password</h3>
+                            <h3 class="box-title"><?=erp_h('password_detail_title', 'Change Password Detail');?></h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button class="btn btn-info btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>

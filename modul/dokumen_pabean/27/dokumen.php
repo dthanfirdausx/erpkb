@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Dokumen Lampiran</h3>
+          <h3 class="box-title"><?=customs_h('supporting_documents','Dokumen Lampiran');?></h3>
           <button id="btn_tambah" class="btn btn-primary" style="float:right" onclick="show_tambah()"><i class="fa fa-plus"></i> Tambah</button>
         </div>
         
@@ -12,8 +12,8 @@
             <tr>
               <th>Seri</th>
               <th style="width: 200px">Jenis</th>
-              <th>Nomor</th>
-              <th>Tanggal</th>
+              <th><?=customs_h('number','Nomor');?></th>
+              <th><?=customs_h('date','Tanggal');?></th>
               <th>Fasilitas</th>
               <th>Izin</th>
               <th>Kantor</th>
@@ -67,7 +67,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Jenis Dokumen</h4>
+                      <h4 class="modal-title"><?=customs_h('document_type','Jenis Dokumen');?></h4>
                     </div>
                     <div class="modal-body">
                       <form id="input_dokumen_pabean" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/dokumen_pabean/dokumen_pabean_action.php?act=in_dokumen">
@@ -82,7 +82,7 @@
                           </div><!-- /.form-group -->
                           
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Jenis Dokumen </label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('document_type','Jenis Dokumen');?> </label>
                             <div class="col-lg-9">
                               <select onchange="save_data(this.value,'kodeDokumen',$('#id_dokumen').val(),'ws_dokumen','idDokumen')" style="width:100%" name="KODE_JENIS_DOKUMEN" id="KODE_JENIS_DOKUMEN" class="form-control form-ref-dokumen" > 
                                  
@@ -97,14 +97,14 @@
                           </div>
 
                            <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Nomor Dokumen </label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('document_number','Nomor Dokumen');?> </label>
                             <div class="col-lg-9">
                               <input type="text" name="NOMOR_DOKUMEN" onkeyup="save_data(this.value,'nomorDokumen',$('#id_dokumen').val(),'ws_dokumen','idDokumen')" id="NOMOR_DOKUMEN" class="form-control">
                             </div>
                           </div>
 
                            <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Tanggal</label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('date','Tanggal');?></label>
                             <div class="col-lg-9">
                               <input type="text" onchange="save_data(this.value,'tanggalDokumen',$('#id_dokumen').val(),'ws_dokumen','idDokumen')" name="TANGGAL_DOKUMEN" id="TANGGAL_DOKUMEN" class="form-control tgl" autocomplete="off">
                             </div>

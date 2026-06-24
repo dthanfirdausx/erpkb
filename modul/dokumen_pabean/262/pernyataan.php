@@ -11,7 +11,7 @@
               <input type="text" class="form-control" name="kotaTtd"  id="kotaTtd" value="<?= $data_header->kotaTtd ?>" placeholder="Kota" onkeyup="save_data(this.value,'kotaTtd',<?= $data_header->id_header ?>,'ws_header','id_header')" >
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Tanggal</label>
+              <label for="exampleInputEmail1"><?=customs_h('date','Tanggal');?></label>
               <input type="text" class="form-control tgl" name="tanggalTtd"  id="tanggalTtd" value="<?= $data_header->tanggalTtd ?>" placeholder="Tanggal TTD" onchange="save_data(this.value,'tanggalTtd',<?= $data_header->id_header ?>,'ws_header','id_header')" >
             </div>
           </div>

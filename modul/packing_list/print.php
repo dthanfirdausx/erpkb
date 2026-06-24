@@ -1,5 +1,15 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php";
+require_once __DIR__ . "/../print_pdf_helper.php";
 
 $info_pt = info_pt();
 $id = $_GET['id'];
@@ -54,6 +64,12 @@ GROUP BY d.kode
 
 ");
 
+if (!$header) {
+    http_response_code(404);
+    echo erp_t('export_document_not_found','Dokumen tidak ditemukan.');
+    exit;
+}
+
 $q = $db->query("
 
 SELECT
@@ -69,6 +85,7 @@ ON b.kd_barang = d.kode
 WHERE d.no_sj = '$header->no_sj'
 
 ");
+ob_start();
 
 ?>
 
@@ -79,7 +96,7 @@ WHERE d.no_sj = '$header->no_sj'
 
 <meta charset="UTF-8">
 
-<title>Packing List</title>
+<title><?=sd_h('sales_packing_list', 'Packing List');?></title>
 
 <style>
 
@@ -198,7 +215,7 @@ window.print();
             </tr>
 
             <tr>
-                <td><b>DELIVERY DATE</b></td>
+                <td><b>DELIVERY <?=erp_export_label('DATE');?></b></td>
                 <td>: <?= date('d-m-Y', strtotime($header->tgl_sj)) ?></td>
             </tr>
 
@@ -275,7 +292,7 @@ $no++;
 <tr class="bold">
 
     <td colspan="2" class="center">
-        TOTAL
+        <?=erp_export_label('TOTAL');?>
     </td>
 
     <td class="center">
@@ -301,13 +318,13 @@ $no++;
 <tr>
 
     <td>
-        Prepared By
+        <?=erp_export_label('Prepared By');?>
         <br><br><br><br>
         __________________
     </td>
 
     <td>
-        Approved By
+        <?=erp_export_label('Approved By');?>
         <br><br><br><br>
         __________________
     </td>
@@ -324,3 +341,7 @@ $no++;
 
 </body>
 </html>
+<?php
+$html = ob_get_clean();
+erpkb_pdf_output($html, 'packing_list_'.preg_replace('/[^A-Za-z0-9_\-]/', '_', (string)$header->no_packing_list).'.pdf', 'L');
+?>

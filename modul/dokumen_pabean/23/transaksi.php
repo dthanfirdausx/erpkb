@@ -39,7 +39,7 @@
                                  <?php
                                  $q = $db->query("select *  from ref_incoterm");
                                  foreach ($q as $k) {
-                                  if ($k->id_incoterm==$data_header->KODE_HARGA) {
+                                  if ($k->id_incoterm==$data_header->kodeIncoterm) {
                                     echo "<option value='$k->id_incoterm' selected>$k->id_incoterm - $k->nama_incoterm</option>";
                                   }else{
                                     echo "<option value='$k->id_incoterm'>$k->id_incoterm - $k->nama_incoterm</option>";
@@ -106,7 +106,7 @@
                                  <?php
                                  $q = $db->query("select * from ref_asuransi");
                                  foreach ($q as $k) { 
-                                  if ($k->kode_valuta==$data_header->kodeAsuransi) {
+                                  if ($k->kode_asuransi==$data_header->kodeAsuransi) {
                                      echo "<option value='$k->kode_asuransi' selected>$k->kode_asuransi - $k->nama_asuransi</option>";
                                   }else{
                                      echo "<option value='$k->kode_asuransi'>$k->kode_asuransi - $k->nama_asuransi</option>";
@@ -151,7 +151,7 @@
 
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Keterangan Pajak</h3>
+              <h3 class="box-title"><?=customs_h('tax_information','Keterangan Pajak');?></h3>
             </div>
             <form role="form">
               <div class="box-body">
@@ -227,7 +227,7 @@
       // dataTye : 'JSON',
        success : function(data){ 
          $("#NDPBM").val(data);
-         save_data(data,'NDPBM',$('#ID').val(),'ws_header','id_header');
+         save_data(data,'ndpbm',$('#ID').val(),'ws_header','id_header');
         // $("#kantor_pabean_pengawas").val(data);
        }
     });

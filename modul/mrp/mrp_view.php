@@ -1,290 +1,60 @@
-<!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        MRP
-                    </h1>
-                        <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>mrp">MRP</a></li>
-                        <li class="active">MRP List</li>
-                    </ol>
-                </section>
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                                <?php
-                                  foreach ($db->fetch_all("sys_menu") as $isi) {
-                                      if (uri_segment(1)==$isi->url) {
-                                          if ($role_act["insert_act"]=="Y") {
-                                      ?>
-                                      <a href="<?=base_index();?>mrp/tambah" class="btn btn-primary "><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
-                                      <?php
-                                          }
-                                      }
-                                  }
-                                ?>
-                            </div><!-- /.box-header -->
-                            <div class="box-body table-responsive">
-                                <div class="row">
-                                    <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
-                                    <button id="select_all" class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> <?php echo $lang["select_all"];?></button>
-                                    <button id="deselect_all" class="btn btn-primary btn-xs"><i class="fa fa-remove"></i> <?php echo $lang["deselect_all"];?></button>
-                                    <button id="bulk_delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> <?php echo $lang["delete_selected"];?></button> <span class="selected-data"></span>
-                            </div>
-                            </div>
- <div class="alert alert-warning fade in error_data_delete" style="display:none">
-          <button type="button" class="close hide_alert_notif">&times;</button>
-          <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
-        </div>
-                        <table id="dtb_mrp" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th>No</th>
-                                  <th>Order</th>
-                                  <th>Style</th>
-                                  <th>Qty</th>
-                                  <th>Term</th>
-                                  <th>Delivery</th>
-                                  <th>Receipt</th>
-                                  <th>PO</th>
-                                  <th>Buyer</th>
-                                  <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-                </div>
-              </div>
-              <div id="modal_detail_bahan" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg" style="width: 90%">
-
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Detail Bahan</h4>
-                    </div>
-                    <div class="modal-body" id="detail_bahan">
-                      
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-        <?php
-
-            foreach ($db->fetch_all("sys_menu") as $isi) {
-
-            //jika url = url dari table menu
-            if (uri_segment(1)==$isi->url) {
-              //check edit permission
-              if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+' href=".base_index()."mrp/edit/'+aData[indek]+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
-              } else {
-                  $edit ="";
-              }
-            if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/mrp/mrp_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_mrp"><i class="fa fa-trash"></i></button>';
-            } else {
-                $del="";
-            }
-                             }
-            }
-
-        ?>
-
-    </section><!-- /.content -->
-
-        <script type="text/javascript">
-
-          function detail_bahan(id) {
-             $.ajax({
-               url : "<?= base_url() ?>modul/mrp/mrp_action.php?act=detail_bahan",
-               type : "POST",
-               // processData: false,
-               // contentType: false,
-               // cache: false,
-               // enctype: 'multipart/form-data',
-               data : {
-                id : id
-               },
-               //dataType : 'JSON',
-               success : function(data){
-                   $("#modal_detail_bahan").modal('show');
-                   $("#detail_bahan").html(data);
-               }
-           });
-          }
-      
-      
-      var dtb_mrp = $("#dtb_mrp").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-            var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
-           'bProcessing': true,
-            'bServerSide': true,
-            
-           'columnDefs': [ {
-            'targets': [9],
-              'orderable': false,
-              'searchable': false
-            },
-                {
-            'width': '5%',
-            'targets': 0,
-            'orderable': false,
-            'searchable': false,
-            'className': 'dt-center'
-          }
-             ],
-
-    
-            'ajax':{
-              url :'<?=base_admin();?>modul/mrp/mrp_data.php',
-            type: 'post',  // method  , by default get
-            error: function (xhr, error, thrown) {
-            console.log(xhr);
-
-            }
-          },
-        });
-
-  $('#dtb_mrp').on('draw.dt', function() {
-          init_selected()
-      });
-
-      // $('#select_all').on('click', function() {
-      //     select_deselect('select')
-      // });
-      $('#deselect_all').on('click', function() {
-          select_deselect('unselect')
-  });
-
-
-
-  // $(document).on('click', '#dtb_mrp tbody tr td', function(event) {
-  //     var btn = $(this).find('button');
-  //     if (btn.length == 0) {
-  //         $(this).parents('tr').toggleClass('DTTT_selected selected');
-  //         var selected = check_selected();
-  //         init_selected();
-
-  //     }
-  // });
-
-
-
-  function init_selected() {
-      var selected = check_selected();
-      var btn_hide = $('#select_all, #deselect_all, #bulk_delete, .selected-data');
-      if (selected.length > 0) {
-          btn_hide.show()
-      } else {
-          btn_hide.hide()
-      }
-  }
-
-
-  function check_selected() {
-      var table_select = $('#dtb_mrp tbody tr.selected');
-      var array_data_delete = [];
-      table_select.each(function() {
-          var check_data = $(this).find('.hapus_dtb_notif').attr('data-id');
-          if (typeof check_data != 'undefined') {
-              array_data_delete.push(check_data)
-          }
-      });
-      $('.selected-data').text(array_data_delete.length + ' <?=$lang["selected_data"];?>');
-      return array_data_delete
-  }
-
-
-  function select_deselect(type) {
-      if (type == 'select') {
-          $('#dtb_mrp tbody tr').addClass('DTTT_selected selected')
-      } else {
-          $('#dtb_mrp tbody tr').removeClass('DTTT_selected selected')
-      }
-      init_selected()
-  }
-
-
-
-
-/* Add a click handler for the delete row */
-  $('#bulk_delete').click( function() {
-    var anSelected = fnGetSelected( dtb_mrp );
-    var data_array_id = check_selected();
-    var all_ids = data_array_id.toString();
-    $('#ucing').modal({ keyboard: false }).one('click', '#delete', function (e) {
-        $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '<?=base_admin();?>modul/mrp/mrp_action.php?act=del_massal',
-            data: {data_ids:all_ids},
-               success: function(responseText) {
-                  $('#loadnya').hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=='die') {
-                            $('#informasi').modal('show');
-                          } else if(responseText[index].status=='error') {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          } else if(responseText[index].status=='good') {
-                            $('.error_data_delete').hide();
-                               $('#loadnya').hide();
-                               $(anSelected).remove();
-                               dtb_mrp.draw();
-                          } else {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          }
-                    });
-                }
-            //async:false
-        });
-
-        $('#ucing').modal('hide');
-
-    });
-
-  });
-
-  /* Get the rows which are currently selected */
-  function fnGetSelected( oTableLocal )
-  {
-      return oTableLocal.$('tr.selected');
-  }
+<?php
+if (!function_exists('prod_t')) {
+  function prod_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('prod_h')) {
+  function prod_h($key, $fallback = '') { return htmlspecialchars((string) prod_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('prod_js')) {
+  function prod_js($key, $fallback = '') { return json_encode(prod_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+$defaultFrom=date('Y-m-01');$defaultTo=date('Y-m-t');
+$plants=$db->query("SELECT id,plant_code,plant_name FROM erp_plant WHERE status='Aktif' ORDER BY plant_code");
+?>
+<style>
+.mrp-hero{background:linear-gradient(135deg,#0f766e,#7c2d12);color:#fff;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 10px 24px rgba(15,23,42,.16)}.mrp-hero h1{margin:0 0 6px;font-size:26px;font-weight:700}.mrp-hero p{margin:0;opacity:.92}.mrp-card{border-radius:12px;background:#fff;border:1px solid #e5edf5;box-shadow:0 5px 16px rgba(15,23,42,.05);margin-bottom:14px}.mrp-items th,.mrp-items td,#dtb_mrp th,#dtb_mrp td{font-size:12px;vertical-align:middle}.select2-container{width:100%!important}.required-label:after{content:' *';color:#dd4b39}.mrp-action{white-space:nowrap}.mrp-source-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:10px}.mrp-shortage{color:#b91c1c;font-weight:700}.mrp-covered{color:#047857;font-weight:700}
+#modal_mrp .modal-dialog{margin-top:12px;margin-bottom:12px}
+#modal_mrp .modal-body{max-height:calc(100vh - 185px);overflow-y:auto;overflow-x:hidden}
+#modal_mrp .table-responsive{overflow-x:auto!important;overflow-y:visible!important}
+#modal_mrp .mrp-items{min-width:1480px;margin-bottom:0}
+#modal_mrp .modal-footer{background:#fff;border-top:1px solid #e5e7eb}
+</style>
+<section class="content-header"><h1><?=prod_h('production_mrp', 'MRP');?> <small>SAP PP Material Requirements Planning</small></h1><ol class="breadcrumb"><li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=prod_h('common_home', 'Home');?></a></li><li class="active"><?=prod_h('production_mrp', 'MRP');?></li></ol></section>
+<section class="content">
+  <div class="mrp-hero"><div class="row"><div class="col-md-8"><h1>MRP Workbench</h1><p>Hitung kebutuhan material dari Demand Management, BOM, dan stock tersedia untuk membuat planned supply.</p></div><div class="col-md-4 text-right"><button id="btn_open_mrp" class="btn btn-warning"><i class="fa fa-plus"></i> Create MRP Run</button></div></div></div>
+  <div class="box mrp-card"><div class="box-header"><h3 class="box-title"><i class="fa fa-filter"></i> Filter MRP</h3></div><div class="box-body"><form class="form-horizontal" onsubmit="return false;"><div class="form-group"><label class="control-label col-lg-2"><?=prod_h('production_period', 'Period');?></label><div class="col-lg-2"><div class="input-group date mrp-date"><input id="filter_tgl_awal" class="form-control" value="<?=$defaultFrom;?>"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div><div class="col-lg-2"><div class="input-group date mrp-date"><input id="filter_tgl_akhir" class="form-control" value="<?=$defaultTo;?>"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div><label class="control-label col-lg-1"><?=prod_h('production_plant', 'Plant');?></label><div class="col-lg-2"><select id="filter_plant" class="form-control"><option value=""><?=prod_h('common_all', 'All');?></option><?php foreach($plants as $p){ ?><option value="<?=htmlspecialchars($p->plant_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($p->plant_code.' - '.$p->plant_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div><label class="control-label col-lg-1"><?=prod_h('common_status', 'Status');?></label><div class="col-lg-2"><select id="filter_status" class="form-control"><option value=""><?=prod_h('common_all', 'All');?></option><option>DRAFT</option><option>RELEASED</option><option>CANCELLED</option></select></div></div><div class="form-group"><label class="control-label col-lg-2"><?=prod_h('common_search', 'Search');?></label><div class="col-lg-5"><input id="filter_keyword" class="form-control" placeholder="MRP no / material / source / parent material"></div><div class="col-lg-5"><button id="btn_filter_mrp" class="btn btn-primary"><i class="fa fa-filter"></i> <?=prod_h('common_filter', 'Filter');?></button> <button id="btn_reset_mrp" class="btn btn-default"><i class="fa fa-refresh"></i> <?=prod_h('common_reset', 'Reset');?></button> <button id="btn_export_mrp" class="btn btn-success"><i class="fa fa-file-excel-o"></i> <?=prod_h('common_export_excel', 'Export Excel');?></button></div></div></form></div></div>
+  <div class="box mrp-card"><div class="box-body"><div class="alert alert-warning error_data_delete" style="display:none"><button type="button" class="close hide_alert_notif">&times;</button><span class="isi_warning_delete"></span></div><div class="table-responsive"><table id="dtb_mrp" class="table table-bordered table-striped" style="width:100%"><thead><tr><th><?=prod_h('common_no', 'No');?></th><th><?=prod_h('common_action', 'Action');?></th><th>MRP Run</th><th><?=prod_h('production_period', 'Period');?></th><th><?=prod_h('production_plant', 'Plant');?></th><th><?=prod_h('production_items', 'Items');?></th><th>Gross Req</th><th>Shortage</th><th>Exception</th><th><?=prod_h('common_status', 'Status');?></th><th><?=prod_h('common_created_by', 'Created By');?></th></tr></thead><tbody></tbody></table></div></div></div>
+  <div id="modal_mrp" class="modal fade"><div class="modal-dialog modal-lg" style="width:97%"><div class="modal-content"><form id="form_mrp"><input type="hidden" name="id" id="mrp_id"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Create MRP Run</h4></div><div class="modal-body">
+    <div class="alert alert-info">MRP menghitung <strong>net requirement</strong> = gross requirement + safety stock - stock tersedia. Line shortage bisa menjadi dasar PR, PO, atau Production Order.</div>
+    <div class="row"><div class="col-md-2 form-group"><label>MRP Type</label><select name="mrp_type" id="mrp_type" class="form-control"><option value="NET_CHANGE">Net Change</option><option value="REGENERATIVE">Regenerative</option><option value="MANUAL">Manual</option></select></div><div class="col-md-2 form-group"><label>Planning Scope</label><select name="planning_scope" id="planning_scope" class="form-control"><option value="PLANT"><?=prod_h('production_plant', 'Plant');?></option><option value="MATERIAL"><?=prod_h('production_material', 'Material');?></option><option value="DEMAND_PLAN">Demand Plan</option></select></div><div class="col-md-2 form-group"><label class="required-label">From</label><input name="period_from" id="period_from" class="form-control date-field" value="<?=$defaultFrom;?>" required></div><div class="col-md-2 form-group"><label class="required-label">To</label><input name="period_to" id="period_to" class="form-control date-field" value="<?=$defaultTo;?>" required></div><div class="col-md-2 form-group"><label><?=prod_h('production_plant', 'Plant');?></label><select id="plant_id" name="plant_id" class="form-control"><option value="">All Plant</option><?php foreach($db->query("SELECT id,plant_code,plant_name FROM erp_plant WHERE status='Aktif' ORDER BY plant_code") as $p){ ?><option value="<?=intval($p->id);?>" data-code="<?=htmlspecialchars($p->plant_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($p->plant_code.' - '.$p->plant_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select><input type="hidden" name="plant_code" id="plant_code"></div><div class="col-md-2 form-group"><label>Source Demand</label><select id="source_demand_id" name="source_demand_id" class="form-control"></select></div></div>
+    <div class="mrp-source-box"><button type="button" id="btn_load_demand" class="btn btn-info"><i class="fa fa-download"></i> Load Released Demand</button> <button type="button" id="btn_add_line" class="btn btn-default"><i class="fa fa-plus"></i> Add Manual Line</button> <span class="text-muted" style="margin-left:8px">Load Demand akan explode BOM jika master BOM tersedia.</span></div>
+    <div class="form-group"><label><?=prod_h('common_remarks', 'Remarks');?></label><input name="remarks" id="remarks" class="form-control" placeholder="Scenario planning / catatan MRP"></div>
+    <div class="table-responsive"><table class="table table-bordered table-condensed mrp-items"><thead><tr><th style="width:44px">#</th><th style="width:220px"><?=prod_h('production_material', 'Material');?></th><th>Description</th><th style="width:110px">Req Date</th><th style="width:110px">Gross Req</th><th style="width:100px">Stock</th><th style="width:90px">Safety</th><th style="width:105px">Net Req</th><th style="width:70px"><?=prod_h('production_uom', 'UOM');?></th><th style="width:115px">Proc.</th><th>Source / Parent</th><th><?=prod_h('common_remarks', 'Remarks');?></th></tr></thead><tbody id="mrp_lines"></tbody></table></div>
+  </div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><?=prod_h('common_cancel', 'Cancel');?></button><button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=prod_h('production_save_mrp', 'Save MRP');?></button></div></form></div></div></div>
+  <div id="modal_mrp_detail" class="modal fade"><div class="modal-dialog modal-lg" style="width:96%"><div class="modal-content"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">MRP Detail</h4></div><div class="modal-body" id="mrp_detail_body"></div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal"><?=prod_h('common_close', 'Close');?></button></div></div></div></div>
+</section>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function mrpError(m){$('.isi_warning_delete').text(m||<?=prod_js('production_mrp_process_failed', 'MRP failed to process.');?>);$('.error_data_delete').fadeIn();}
+function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
+function nval(v){var x=parseFloat(String(v||0).replace(',','.'));return isNaN(x)?0:x;}
+var lineNo=0;
+function initMaterialSelect(el){if(!$.fn.select2)return;el.select2({width:'100%',dropdownParent:$('#modal_mrp'),placeholder:'Cari material...',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/mrp/mrp_action.php?act=material_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}}).on('select2:select',function(e){var d=e.params.data,tr=$(this).closest('tr');tr.find('input[name="material_name[]"]').val(d.material_name||'');tr.find('input[name="material_type[]"]').val(d.material_type||'');tr.find('input[name="uom[]"]').val(d.uom||'');tr.find('input[name="safety_stock[]"]').val(d.safety_stock||0);calcLine(tr);});}
+function calcLine(tr){var gross=nval(tr.find('input[name="gross_requirement[]"]').val()),stock=nval(tr.find('input[name="available_stock[]"]').val()),safety=nval(tr.find('input[name="safety_stock[]"]').val()),net=Math.max(gross+safety-stock,0);tr.find('input[name="net_requirement[]"]').val(net.toFixed(5));tr.find('.net-text').toggleClass('mrp-shortage',net>0).toggleClass('mrp-covered',net<=0).text(net>0?'Shortage':'Covered');}
+function appendLine(x){lineNo++;x=x||{};var rowId='mrp_line_'+lineNo;var matOpt=x.material_code?'<option value="'+esc(x.material_code)+'" selected>'+esc(x.material_code+' - '+(x.material_name||''))+'</option>':'';var net=nval(x.net_requirement),row='<tr id="'+rowId+'"><td class="text-center"><button type="button" class="btn btn-xs btn-danger btn-mrp-remove-line"><i class="fa fa-trash"></i></button></td><td><select name="material_code[]" class="form-control mrp-material" required>'+matOpt+'</select><input type="hidden" name="material_type[]" value="'+esc(x.material_type||'')+'"></td><td><input name="material_name[]" class="form-control" value="'+esc(x.material_name||'')+'" readonly></td><td><input name="requirement_date[]" class="form-control date-field" value="'+esc(x.requirement_date||$('#period_from').val())+'" required></td><td><input type="number" step="0.00001" min="0.00001" name="gross_requirement[]" class="form-control text-right calc-mrp" value="'+esc(x.gross_requirement||'')+'" required></td><td><input type="number" step="0.00001" name="available_stock[]" class="form-control text-right calc-mrp" value="'+esc(x.available_stock||0)+'" readonly></td><td><input type="number" step="0.00001" name="safety_stock[]" class="form-control text-right calc-mrp" value="'+esc(x.safety_stock||0)+'" readonly></td><td><input type="number" step="0.00001" name="net_requirement[]" class="form-control text-right" value="'+esc(net.toFixed(5))+'" readonly><small class="net-text '+(net>0?'mrp-shortage':'mrp-covered')+'">'+(net>0?'Shortage':'Covered')+'</small></td><td><input name="uom[]" class="form-control" value="'+esc(x.uom||'')+'" readonly></td><td><select name="procurement_type[]" class="form-control"><option value="EXTERNAL" '+(x.procurement_type==='EXTERNAL'?'selected':'')+'>External</option><option value="IN_HOUSE" '+(x.procurement_type==='IN_HOUSE'?'selected':'')+'>In-house</option><option value="BOTH" '+(x.procurement_type==='BOTH'?'selected':'')+'>Both</option></select></td><td><input name="source_type[]" class="form-control" value="'+esc(x.source_type||'MANUAL')+'" readonly><input name="source_ref[]" class="form-control" value="'+esc(x.source_ref||'')+'" placeholder="Source Ref"><input name="parent_material_code[]" class="form-control" value="'+esc(x.parent_material_code||'')+'" placeholder="Parent Material"></td><td><input name="line_remarks[]" class="form-control" value="'+esc(x.remarks||'')+'"></td></tr>';$('#mrp_lines').append(row);initMaterialSelect($('#'+rowId+' .mrp-material'));if($.fn.datepicker)$('#'+rowId+' .date-field').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}
+function filters(){return{tgl_awal:$('#filter_tgl_awal').val(),tgl_akhir:$('#filter_tgl_akhir').val(),status:$('#filter_status').val(),plant:$('#filter_plant').val(),keyword:$('#filter_keyword').val()};}
+function openForm(title){lineNo=0;$('#form_mrp')[0].reset();$('#mrp_id').val('');$('#mrp_lines').html('');$('#source_demand_id').val(null).trigger('change');$('#plant_id').val('').trigger('change');$('#modal_mrp .modal-title').text(title||'Create MRP Run');appendLine();$('#modal_mrp').modal({backdrop:'static',keyboard:false});}
+$(function(){if($.fn.datepicker){$('.mrp-date,.date-field').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}if($.fn.select2){$('#filter_plant,#filter_status,#plant_id,#mrp_type,#planning_scope').select2({width:'100%'});$('#source_demand_id').select2({width:'100%',placeholder:'Cari released demand...',allowClear:true,dropdownParent:$('#modal_mrp'),ajax:{url:'<?=base_admin();?>modul/mrp/mrp_action.php?act=demand_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}}).on('select2:select',function(e){var d=e.params.data;$('#period_from').val(d.period_from||$('#period_from').val());$('#period_to').val(d.period_to||$('#period_to').val());$('#planning_scope').val('DEMAND_PLAN').trigger('change');});}
+var dt=null;function reloadTable(resetPaging){if(dt&&dt.draw)dt.draw(resetPaging===false?false:undefined);}
+try{if($.fn.DataTable){dt=$('#dtb_mrp').DataTable({bProcessing:true,bServerSide:true,pageLength:25,dom:"<'row'<'col-sm-12'B>>"+"<'row'<'col-sm-6'l><'col-sm-6'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-7'p>>",buttons:[{extend:'collection',text:<?=prod_js('common_export_data', 'Export Data');?>,buttons:['copyHtml5','excelHtml5','csvHtml5','pdfHtml5']}],columnDefs:[{targets:[0,1],orderable:false,searchable:false},{targets:[6,7],className:'text-right'},{width:'42px',targets:0},{width:'150px',targets:1}],ajax:{url:'<?=base_admin();?>modul/mrp/mrp_data.php',type:'post',data:function(d){$.extend(d,filters());},error:function(xhr){console.log(xhr.responseText);mrpError(<?=prod_js('production_mrp_load_failed', 'MRP data failed to load.');?>);}}});}}catch(e){console.error(e);mrpError(<?=prod_js('production_mrp_load_failed_create_available', 'MRP data failed to load. Create button remains available.');?>);}
+$('#btn_open_mrp').click(function(){openForm('Create MRP Run');});$('#plant_id').change(function(){$('#plant_code').val($('#plant_id option:selected').data('code')||'');});$('#btn_add_line').click(function(){appendLine();});$(document).on('click','.btn-mrp-remove-line',function(){$(this).closest('tr').remove();});$(document).on('keyup change','.calc-mrp',function(){calcLine($(this).closest('tr'));});
+$('#btn_load_demand').click(function(){var id=$('#source_demand_id').val();if(!id){mrpError('Pilih released demand dulu.');return;}$.post('<?=base_admin();?>modul/mrp/mrp_action.php?act=demand_lines',{demand_id:id,plant_code:$('#plant_code').val()},function(r){if(r.status==='good'){$('#mrp_lines').html('');lineNo=0;(r.lines||[]).forEach(appendLine);if(!(r.lines||[]).length)mrpError('Demand tidak punya open requirement.');}else mrpError(r.error_message);},'json').fail(function(xhr){mrpError(xhr.responseText);});});
+$('#btn_filter_mrp').click(function(){reloadTable();});$('#filter_keyword').keyup(function(e){if(e.keyCode===13)reloadTable();});$('#btn_reset_mrp').click(function(){$('#filter_tgl_awal').val('<?=$defaultFrom;?>');$('#filter_tgl_akhir').val('<?=$defaultTo;?>');$('#filter_status,#filter_plant').val('').trigger('change');$('#filter_keyword').val('');reloadTable();});$('#btn_export_mrp').click(function(){window.location='<?=base_admin();?>modul/mrp/mrp_action.php?act=excel&'+$.param(filters());});
+$('#form_mrp').submit(function(e){e.preventDefault();var btn=$(this).find('button[type=submit]');btn.prop('disabled',true).html('<i class="fa fa-spinner fa-spin"></i> <?=prod_h('common_saving', 'Saving...');?>');$.post('<?=base_admin();?>modul/mrp/mrp_action.php?act=save',$(this).serialize(),function(r){if(r.status==='good'){$('#modal_mrp').modal('hide');reloadTable(false);}else mrpError(r.error_message);btn.prop('disabled',false).html('<i class="fa fa-save"></i> <?=prod_h('production_save_mrp', 'Save MRP');?>');},'json').fail(function(xhr){mrpError(xhr.responseText);btn.prop('disabled',false).html('<i class="fa fa-save"></i> <?=prod_h('production_save_mrp', 'Save MRP');?>');});});
+$(document).on('click','.btn-mrp-detail',function(){$.post('<?=base_admin();?>modul/mrp/mrp_action.php?act=detail',{id:$(this).data('id')},function(html){$('#mrp_detail_body').html(html);$('#modal_mrp_detail').modal('show');});});
+$(document).on('click','.btn-mrp-edit',function(){var id=$(this).data('id');$.post('<?=base_admin();?>modul/mrp/mrp_action.php?act=get',{id:id},function(r){if(r.status!=='good'){mrpError(r.error_message);return;}openForm('Edit MRP Run');var h=r.header||{};$('#mrp_id').val(h.id);$('#mrp_type').val(h.mrp_type).trigger('change');$('#planning_scope').val(h.planning_scope).trigger('change');$('#period_from').val(h.period_from);$('#period_to').val(h.period_to);$('#plant_id').val(h.plant_id||'').trigger('change');$('#plant_code').val(h.plant_code||'');$('#remarks').val(h.remarks||'');$('#mrp_lines').html('');lineNo=0;(r.lines||[]).forEach(appendLine);},'json');});
+$(document).on('click','.btn-mrp-release',function(){var id=$(this).data('id'),no=$(this).data('no');Swal.fire({title:'Release MRP?',text:no+' akan menjadi dasar planning supply.',icon:'question',showCancelButton:true,confirmButtonText:<?=prod_js('production_release', 'Release');?>}).then(function(x){if(!x.isConfirmed)return;$.post('<?=base_admin();?>modul/mrp/mrp_action.php?act=release',{id:id},function(r){if(r.status==='good')reloadTable(false);else mrpError(r.error_message);},'json');});});
+$(document).on('click','.btn-mrp-delete',function(){var id=$(this).data('id'),no=$(this).data('no');Swal.fire({title:erpLang('confirm_delete_title','Delete Confirmation'),text:no+' akan dihapus permanen.',icon:'warning',showCancelButton:true,confirmButtonText:erpLang('common_delete','Delete'),cancelButtonText:erpLang('common_cancel','Cancel')}).then(function(x){if(!x.isConfirmed)return;$.post('<?=base_admin();?>modul/mrp/mrp_action.php?act=delete',{id:id},function(r){if(r.status==='good')reloadTable(false);else mrpError(r.error_message);},'json');});});
+$(document).on('click','.btn-mrp-cancel',function(){var id=$(this).data('id'),no=$(this).data('no');Swal.fire({title:'Cancel MRP?',input:'text',inputLabel:'Reason '+no,showCancelButton:true,confirmButtonText:'Cancel',inputValidator:function(v){return !v?<?=prod_js('production_reason_required', 'Reason is required');?>:undefined;}}).then(function(x){if(!x.isConfirmed)return;$.post('<?=base_admin();?>modul/mrp/mrp_action.php?act=cancel',{id:id,reason:x.value},function(r){if(r.status==='good')reloadTable(false);else mrpError(r.error_message);},'json');});});$('.hide_alert_notif').click(function(){$('.error_data_delete').hide();});
+});
 </script>
-            

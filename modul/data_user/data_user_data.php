@@ -24,7 +24,7 @@ $columns = array(
   //set group by column
   //$new_table->group_by = "group by sys_users.id";
 
-  $query = $datatable->get_custom("select sys_users.first_name,sys_users.username,sys_users.email,sys_group_users.level,sys_users.id from sys_users inner join sys_group_users on sys_users.group_level=sys_group_users.id",$columns);
+  $query = $datatable->get_custom("select sys_users.first_name,sys_users.username,sys_users.email,sys_group_users.level,sys_users.id from sys_users inner join sys_group_users on sys_users.group_level=sys_group_users.id where sys_group_users.level<>'employee_self_service'",$columns);
 
   //buat inisialisasi array data
   $data = array();

@@ -3,27 +3,16 @@ include "../../inc/config.php";
 
 $columns = array(
     'vpemasukanbyjenisdokpab.jenis_dokpab',
-    'vpemasukanbyjenisdokpab.no_aju',
     'vpemasukanbyjenisdokpab.no_dokpab',
     'vpemasukanbyjenisdokpab.tgl_dokpab',
     'vpemasukanbyjenisdokpab.no_bpb',
     'vpemasukanbyjenisdokpab.tgl_bpb',
-    'vpemasukanbyjenisdokpab.efaktur',
-    'vpemasukanbyjenisdokpab.tgl_efaktur',
     'vpemasukanbyjenisdokpab.nama',
-    // 'vpemasukanbyjenisdokpab.kategori',
-    // 'vpemasukanbyjenisdokpab.kd_sub_kategori',
-    // 'vpemasukanbyjenisdokpab.sub_kategori',
     'vpemasukanbyjenisdokpab.kode',
     'vpemasukanbyjenisdokpab.nm_barang',
     'vpemasukanbyjenisdokpab.unit',
     'vpemasukanbyjenisdokpab.jumlah',
-    'vpemasukanbyjenisdokpab.valuta',
     'vpemasukanbyjenisdokpab.nilai',
-    'vpemasukanbyjenisdokpab.berat',
-    'vpemasukanbyjenisdokpab.nd_catatan',
-    'vpemasukanbyjenisdokpab.nm_kategori',
-    'vpemasukanbyjenisdokpab.nomor',
   );
 
   //if you want to exclude column for searching, put columns name in array
@@ -41,17 +30,26 @@ $columns = array(
   //set group by column
   //$new_table->group_by = "group by vpemasukanbyjenisdokpab.";
   $wh = "";
-  if ($_POST['tgl_awal']!='' && $_POST['tgl_akhir']=='') {
-    $wh = "and vpemasukanbyjenisdokpab.tgl_bpb between  '".$_POST['tgl_awal']."' and '".date("Y-m-d")."' ";
-  }else if ($_POST['tgl_awal']!='' && $_POST['tgl_akhir']!='') {
-    $wh = "and vpemasukanbyjenisdokpab.tgl_bpb between  '".$_POST['tgl_awal']."' and '".$_POST['tgl_akhir']."' ";
-  } 
-
-  if ($_POST['jenisbc']!='' && $_POST['jenisbc']!='all' ) {
-    $wh.= " and vpemasukanbyjenisdokpab.jenis_dokpab='".$_POST['jenisbc']."' ";   
+  $params = array();
+  $tgl_awal = isset($_POST['tgl_awal']) ? trim($_POST['tgl_awal']) : '';
+  $tgl_akhir = isset($_POST['tgl_akhir']) ? trim($_POST['tgl_akhir']) : '';
+  $jenisbc = isset($_POST['jenisbc']) ? trim($_POST['jenisbc']) : '';
+  if ($tgl_awal!='' && $tgl_akhir=='') {
+    $wh = "and vpemasukanbyjenisdokpab.tgl_bpb between ? and ? ";
+    $params[] = $tgl_awal;
+    $params[] = date("Y-m-d");
+  }else if ($tgl_awal!='' && $tgl_akhir!='') {
+    $wh = "and vpemasukanbyjenisdokpab.tgl_bpb between ? and ? ";
+    $params[] = $tgl_awal;
+    $params[] = $tgl_akhir;
   }
 
-  $query = $datatable->get_custom("select vpemasukanbyjenisdokpab.no_invoice,vpemasukanbyjenisdokpab.tgl_invoice, vpemasukanbyjenisdokpab.nomor, vpemasukanbyjenisdokpab.jenis_dokpab,vpemasukanbyjenisdokpab.no_aju,vpemasukanbyjenisdokpab.no_dokpab,vpemasukanbyjenisdokpab.tgl_dokpab,vpemasukanbyjenisdokpab.no_bpb,vpemasukanbyjenisdokpab.tgl_bpb,vpemasukanbyjenisdokpab.efaktur,vpemasukanbyjenisdokpab.tgl_efaktur,vpemasukanbyjenisdokpab.nama,vpemasukanbyjenisdokpab.kategori,vpemasukanbyjenisdokpab.kd_sub_kategori,vpemasukanbyjenisdokpab.sub_kategori,vpemasukanbyjenisdokpab.kode,vpemasukanbyjenisdokpab.nm_barang,vpemasukanbyjenisdokpab.unit,vpemasukanbyjenisdokpab.jumlah,vpemasukanbyjenisdokpab.valuta,vpemasukanbyjenisdokpab.nilai,vpemasukanbyjenisdokpab.berat,vpemasukanbyjenisdokpab.nd_catatan,vpemasukanbyjenisdokpab.nm_kategori,vpemasukanbyjenisdokpab.nomor from vpemasukanbyjenisdokpab where 1=1 $wh ",$columns);
+  if ($jenisbc!='' && $jenisbc!='all' ) {
+    $wh.= " and vpemasukanbyjenisdokpab.jenis_dokpab=? ";
+    $params[] = $jenisbc;
+  }
+
+  $query = $datatable->get_custom("select vpemasukanbyjenisdokpab.jenis_dokpab,vpemasukanbyjenisdokpab.no_dokpab,vpemasukanbyjenisdokpab.tgl_dokpab,vpemasukanbyjenisdokpab.no_bpb,vpemasukanbyjenisdokpab.tgl_bpb,vpemasukanbyjenisdokpab.nama,vpemasukanbyjenisdokpab.kode,vpemasukanbyjenisdokpab.nm_barang,vpemasukanbyjenisdokpab.unit,vpemasukanbyjenisdokpab.jumlah,vpemasukanbyjenisdokpab.nilai from vpemasukanbyjenisdokpab where 1=1 $wh ",$columns,$params);
 
   //buat inisialisasi array data
   $data = array();
@@ -62,31 +60,17 @@ $columns = array(
     //array data
     $ResultData = array();
     $ResultData[] = $datatable->number($i);
-  
     $ResultData[] = $value->jenis_dokpab;
-    $ResultData[] = $value->no_aju;
     $ResultData[] = $value->no_dokpab;
     $ResultData[] = $value->tgl_dokpab;
     $ResultData[] = $value->no_bpb;
     $ResultData[] = $value->tgl_bpb;
-    $ResultData[] = $value->no_invoice;
-    $ResultData[] = $value->tgl_invoice;
-    $ResultData[] = $value->efaktur;
-    $ResultData[] = $value->tgl_efaktur;
     $ResultData[] = $value->nama;
-    // $ResultData[] = $value->kategori;
-    // $ResultData[] = $value->kd_sub_kategori;
-    // $ResultData[] = $value->sub_kategori;
     $ResultData[] = $value->kode;
     $ResultData[] = $value->nm_barang;
     $ResultData[] = $value->unit;
-    $ResultData[] = $value->jumlah;
-    $ResultData[] = $value->valuta;
-    $ResultData[] = $value->nilai;
-    $ResultData[] = $value->berat;
-    $ResultData[] = $value->nd_catatan;
-    $ResultData[] = $value->nm_kategori;
-    $ResultData[] = $value->nomor;
+    $ResultData[] = number_format((float)$value->jumlah, 2, '.', ',');
+    $ResultData[] = number_format((float)$value->nilai, 2, '.', ',');
 
     $data[] = $ResultData;
     $i++;

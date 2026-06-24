@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>Mutasi Barang Modal</h1>
+                    <h1><?=customs_h('mutation_capital_goods','Mutasi Barang Modal');?></h1>
                    <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>mutasi-barang-modal">Mutasi Barang Modal</a></li>
-                        <li class="active">Detail Mutasi Barang Modal</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+                        <li><a href="<?=base_index();?>mutasi-barang-modal"><?=customs_h('mutation_capital_goods','Mutasi Barang Modal');?></a></li>
+                        <li class="active"><?=customs_h('detail_capital_goods_mutation','Detail Mutasi Barang Modal');?></li>
                     </ol>
                 </section>
 
@@ -14,7 +14,7 @@
                     <div class="col-lg-12">
                         <div class="box box-solid box-primary">
                             <div class="box-header">
-                            <h3 class="box-title">Detail Mutasi Barang Modal</h3>
+                            <h3 class="box-title"><?=customs_h('detail_capital_goods_mutation','Detail Mutasi Barang Modal');?></h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button class="btn btn-info btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>

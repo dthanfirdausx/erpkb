@@ -1,5 +1,15 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php"; 
+require_once __DIR__ . "/../print_pdf_helper.php";
 $info_pt = info_pt();
 
 $q = $db->query("
@@ -8,6 +18,7 @@ FROM sales_order s
 LEFT JOIN penerima p ON p.kode_penerima=s.kode_penerima 
 WHERE s.id_sales_order=?",array($_GET['id']));
 
+ob_start();
 foreach ($q as $k) {
 ?>
 
@@ -15,7 +26,7 @@ foreach ($q as $k) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Proforma Invoice</title>
+<title><?=sd_h('sales_proforma_invoice', 'Proforma Invoice');?></title>
 
 <style>
 body{
@@ -73,7 +84,7 @@ td, th{
 <!-- HEADER -->
 <div class="header">
     <div class="logo">GBLIGHT</div>
-    <div class="title">PROFORMA INVOICE</div>
+    <div class="title"><?=erp_export_title('PROFORMA INVOICE');?></div>
 </div>
 
 <!-- NO -->
@@ -88,7 +99,7 @@ td, th{
 <table>
 <tr>
 <td width="50%">
-<b>TO:</b><br><br>
+<b><?=erp_export_label('TO');?>:</b><br><br>
 <?= $k->nama_penerima ?><br>
 <?= $k->alamat ?><br>
 NPWP : <?= $k->npwp ?? '-' ?>
@@ -106,8 +117,8 @@ NPWP : 0609792072016000
 <!-- INFO -->
 <table>
 <tr>
-<td>PURCHASE ORDER NO.</td>
-<td>SHIPMENT MODE</td>
+<td><?=erp_export_label('PURCHASE ORDER NO.');?></td>
+<td><?=erp_export_label('SHIPMENT MODE');?></td>
 <td>REMARK</td>
 </tr>
 
@@ -119,7 +130,7 @@ NPWP : 0609792072016000
 
 <tr>
 <td>PAYMENT TERM</td>
-<td colspan="2">SHIPPING ADDRESS</td>
+<td colspan="2"><?=erp_export_label('SHIPPING ADDRESS');?></td>
 </tr>
 
 <tr class="big-row">
@@ -170,7 +181,7 @@ $no++;
 }
 
 // ==================
-// PPN LOGIC
+// <?=erp_export_label('PPN');?> LOGIC
 // ==================
 $ppn = 0;
 
@@ -179,10 +190,10 @@ if(strtolower($k->tax) == 'exclude'){
 }
 ?>
 
-<!-- TOTAL -->
-<!-- TOTAL -->
+<!-- <?=erp_export_label('TOTAL');?> -->
+<!-- <?=erp_export_label('TOTAL');?> -->
 <tr class="bold">
-<td colspan="2">TOTAL :</td>
+<td colspan="2"><?=erp_export_label('TOTAL');?> :</td>
 <td class="right"><?= number_format($total_qty,2) ?></td>
 <td></td>
 <td class="right"><label style="float: left;"><?php echo ($k->currency == 'USD') ? "$ " : "Rp."; ?></label><?= number_format($total,2) ?></td>
@@ -191,13 +202,13 @@ if(strtolower($k->tax) == 'exclude'){
 
 <?php if($ppn > 0){ ?>
 <tr class="bold">
-<td colspan="4">PPN 11%</td>
+<td colspan="4"><?=erp_export_label('PPN');?> 11%</td>
 <td class="right"><label style="float: left;"><?php echo ($k->currency == 'USD') ? "$ " : "Rp."; ?></label><?= number_format($ppn,2) ?></td>
 <td></td>
 </tr>
 
 <tr class="bold">
-<td colspan="4">GRAND TOTAL</td>
+<td colspan="4">GRAND <?=erp_export_label('TOTAL');?></td>
 <td class="right"><label style="float: left;"><?php echo ($k->currency == 'USD') ? "$ " : "Rp."; ?></label><?= number_format($total + $ppn,2) ?></td>
 <td></td>
 </tr>
@@ -231,9 +242,9 @@ echo ($k->currency == 'USD') ? penyebut_en($total + $ppn) : penyebut_id($total +
 
 <tr>
 <td class="signature">
-Name:<br><br>
-Title:<br><br>
-DATE :
+<?=erp_export_label('Name');?>:<br><br>
+<?=erp_export_label('Title');?>:<br><br>
+<?=erp_export_label('DATE');?> :
 </td>
 
 <td></td>
@@ -241,7 +252,7 @@ DATE :
 <td class="signature">
 <b>SUNG KYEU SIN</b><br>
 <b>DIRECTOR</b><br><br>
-DATE : <?= tgl_indo($k->so_date) ?>
+<?=erp_export_label('DATE');?> : <?= tgl_indo($k->so_date) ?>
 </td>
 </tr>
 </table>
@@ -251,4 +262,8 @@ DATE : <?= tgl_indo($k->so_date) ?>
 </body>
 </html>
 
-<?php } ?>
+<?php }
+$html = ob_get_clean();
+$docNo = isset($k) ? $k->no_sales_order : ('sales_order_'.$id);
+erpkb_pdf_output($html, 'proforma_invoice_'.preg_replace('/[^A-Za-z0-9_\-]/', '_', (string)$docNo).'.pdf', 'P');
+?>

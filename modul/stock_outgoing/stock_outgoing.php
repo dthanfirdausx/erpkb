@@ -1,38 +1,12 @@
 <?php
-switch (uri_segment(2)) {
-    case "tambah":
-          foreach ($db->fetch_all("sys_menu") as $isi) {
-               if (uri_segment(1)==$isi->url&&uri_segment(2)=="tambah") {
-                          if ($role_act["insert_act"]=="Y") {
-                             include "stock_outgoing_add.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
 
-      }
-    break;
-  case "edit":
-    $data_edit = $db->fetch_single_row("v_stock_outgoing","",uri_segment(3));
-        foreach ($db->fetch_all("sys_menu") as $isi) {
-                      if (uri_segment(1)==$isi->url&&uri_segment(2)=="edit") {
-                          if ($role_act["up_act"]=="Y") {
-                             include "stock_outgoing_edit.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
-
-      }
-
-    break;
-    case "detail":
-    $data_edit = $db->fetch_single_row("v_stock_outgoing","",uri_segment(3));
-    include "stock_outgoing_detail.php";
-    break;
-    default:
-    include "stock_outgoing_view.php";
-    break;
+if (!function_exists('wh_t')) {
+  function wh_t($key, $fallback = '') { return lang_text($key, $fallback); }
 }
-
+if (!function_exists('wh_h')) {
+  function wh_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+}
+// Stock outgoing saat ini adalah report read-only berbasis stock_layer.
+// Aksi tambah/edit/detail legacy dikunci agar tidak membaca view/tabel lama.
+include "stock_outgoing_view.php";
 ?>

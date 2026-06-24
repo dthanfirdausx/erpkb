@@ -1,0 +1,75 @@
+CREATE TABLE IF NOT EXISTS erp_employee_master (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  employee_no varchar(20) NOT NULL,
+  personnel_no varchar(20) DEFAULT NULL,
+  first_name varchar(80) NOT NULL,
+  last_name varchar(80) DEFAULT NULL,
+  full_name varchar(160) NOT NULL,
+  gender enum('MALE','FEMALE','OTHER') NOT NULL DEFAULT 'MALE',
+  birth_place varchar(80) DEFAULT NULL,
+  birth_date date DEFAULT NULL,
+  marital_status enum('SINGLE','MARRIED','DIVORCED','WIDOWED') DEFAULT 'SINGLE',
+  nationality varchar(3) NOT NULL DEFAULT 'ID',
+  religion varchar(30) DEFAULT NULL,
+  identity_type enum('KTP','PASSPORT','KITAS','OTHER') NOT NULL DEFAULT 'KTP',
+  identity_no varchar(50) DEFAULT NULL,
+  tax_no varchar(50) DEFAULT NULL,
+  bpjs_kesehatan_no varchar(50) DEFAULT NULL,
+  bpjs_tk_no varchar(50) DEFAULT NULL,
+  email varchar(100) DEFAULT NULL,
+  phone varchar(50) DEFAULT NULL,
+  address varchar(255) DEFAULT NULL,
+  city varchar(100) DEFAULT NULL,
+  postal_code varchar(20) DEFAULT NULL,
+  emergency_contact_name varchar(100) DEFAULT NULL,
+  emergency_contact_phone varchar(50) DEFAULT NULL,
+  hire_date date NOT NULL,
+  probation_end_date date DEFAULT NULL,
+  termination_date date DEFAULT NULL,
+  employment_status enum('ACTIVE','PROBATION','CONTRACT','INACTIVE','TERMINATED') NOT NULL DEFAULT 'ACTIVE',
+  employee_group enum('DIRECTOR','MANAGER','STAFF','NON_STAFF','OPERATOR','CONTRACT','DAILY_WORKER','TRAINEE') NOT NULL DEFAULT 'STAFF',
+  employee_subgroup varchar(50) DEFAULT NULL,
+  company_structure_id int(11) DEFAULT NULL,
+  department_code char(8) DEFAULT NULL,
+  job_title_id int(11) DEFAULT NULL,
+  manager_employee_id int(11) DEFAULT NULL,
+  cost_center_code varchar(20) DEFAULT NULL,
+  profit_center_code varchar(20) DEFAULT NULL,
+  payroll_area varchar(30) DEFAULT NULL,
+  pay_grade varchar(30) DEFAULT NULL,
+  work_location_type enum('OFFICE','PLANT','WAREHOUSE','FIELD','REMOTE','HYBRID') NOT NULL DEFAULT 'OFFICE',
+  shift_code varchar(30) DEFAULT NULL,
+  user_id int(11) DEFAULT NULL,
+  valid_from date NOT NULL DEFAULT '2026-01-01',
+  valid_to date NOT NULL DEFAULT '9999-12-31',
+  sap_reference varchar(50) DEFAULT NULL,
+  remarks text DEFAULT NULL,
+  created_by varchar(50) DEFAULT NULL,
+  created_at datetime NOT NULL DEFAULT current_timestamp(),
+  updated_by varchar(50) DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_employee_no (employee_no),
+  KEY idx_emp_status (employment_status),
+  KEY idx_emp_dept (department_code),
+  KEY idx_emp_job_title (job_title_id),
+  KEY idx_emp_org (company_structure_id),
+  KEY idx_emp_manager (manager_employee_id),
+  KEY idx_emp_cost (cost_center_code),
+  KEY idx_emp_user (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+UPDATE sys_menu
+   SET nav_act='employee_master_data', main_table='erp_employee_master', icon='fa-address-card', dt_table='Y', tampil='Y'
+ WHERE url='employee-master-data';
+
+INSERT INTO sys_menu_role (id_menu,group_level,read_act,insert_act,update_act,delete_act,import_act)
+SELECT m.id,g.level,'Y',
+       IF(g.level IN ('admin','system_administrator','hrd'),'Y','N'),
+       IF(g.level IN ('admin','system_administrator','hrd'),'Y','N'),
+       IF(g.level IN ('admin','system_administrator'),'Y','N'),
+       'N'
+FROM sys_menu m
+JOIN sys_group_users g
+LEFT JOIN sys_menu_role r ON r.id_menu=m.id AND r.group_level=g.level
+WHERE m.url='employee-master-data' AND r.id IS NULL;

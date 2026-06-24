@@ -1,0 +1,56 @@
+CREATE TABLE IF NOT EXISTS erp_production_version (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  production_version_no varchar(30) NOT NULL,
+  material_code varchar(100) NOT NULL,
+  material_name varchar(255) DEFAULT NULL,
+  plant_id int(11) DEFAULT NULL,
+  plant_code varchar(20) NOT NULL,
+  version_code varchar(10) NOT NULL DEFAULT '01',
+  version_description varchar(150) DEFAULT NULL,
+  bom_id int(11) NOT NULL,
+  bom_no varchar(30) DEFAULT NULL,
+  routing_id int(11) NOT NULL,
+  routing_no varchar(30) DEFAULT NULL,
+  valid_from date NOT NULL,
+  valid_to date DEFAULT NULL,
+  lot_size_from decimal(18,5) DEFAULT NULL,
+  lot_size_to decimal(18,5) DEFAULT NULL,
+  production_line varchar(100) DEFAULT NULL,
+  procurement_type varchar(30) DEFAULT 'IN_HOUSE',
+  issue_storage_location varchar(30) DEFAULT NULL,
+  receipt_storage_location varchar(30) DEFAULT NULL,
+  version_status varchar(20) DEFAULT 'DRAFT',
+  is_default enum('Y','N') DEFAULT 'N',
+  locked enum('Y','N') DEFAULT 'N',
+  remarks text DEFAULT NULL,
+  created_by varchar(100) DEFAULT NULL,
+  created_at datetime DEFAULT CURRENT_TIMESTAMP,
+  updated_by varchar(100) DEFAULT NULL,
+  updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  released_by varchar(100) DEFAULT NULL,
+  released_at datetime DEFAULT NULL,
+  inactive_reason varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_pv_no (production_version_no),
+  UNIQUE KEY uk_pv_material_plant_version (material_code,plant_code,version_code),
+  KEY idx_pv_selection (material_code,plant_code,version_status,valid_from,valid_to,lot_size_from,lot_size_to),
+  KEY idx_pv_bom (bom_id),
+  KEY idx_pv_routing (routing_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE production_order
+  ADD COLUMN IF NOT EXISTS production_version_id int(11) NULL AFTER order_strategy,
+  ADD COLUMN IF NOT EXISTS production_version_no varchar(30) NULL AFTER production_version_id,
+  ADD COLUMN IF NOT EXISTS bom_id int(11) NULL AFTER production_version_no,
+  ADD COLUMN IF NOT EXISTS bom_no varchar(30) NULL AFTER bom_id,
+  ADD COLUMN IF NOT EXISTS routing_id int(11) NULL AFTER bom_no,
+  ADD COLUMN IF NOT EXISTS routing_no varchar(30) NULL AFTER routing_id;
+
+UPDATE sys_menu
+SET nav_act='production_version',
+    main_table='erp_production_version',
+    page_name='Production Version',
+    icon='fa-code-fork',
+    tampil='Y',
+    type_menu='page'
+WHERE url='production-version';

@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>Laporan Pemasukan Per Jenis Dokumen Pabean</h1>
+                    <h1><?=customs_h('legacy_laporan_pemasukan_per_jenis_dokumen_pabean','Laporan Pemasukan Per Jenis Dokumen Pabean');?></h1>
                    <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>laporan-pemasukan-per-jenis-dokumen-pabean">Laporan Pemasukan Per Jenis Dokumen Pabean</a></li>
-                        <li class="active">Detail Laporan Pemasukan Per Jenis Dokumen Pabean</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+                        <li><a href="<?=base_index();?>laporan-pemasukan-per-jenis-dokumen-pabean"><?=customs_h('incoming_report_by_doc_type','Laporan Pemasukan Per Jenis Dokumen Pabean');?></a></li>
+                        <li class="active"><?=customs_h('legacy_detail_laporan_pemasukan_per_jenis_dokumen_pabean','Detail Laporan Pemasukan Per Jenis Dokumen Pabean');?></li>
                     </ol>
                 </section>
 
@@ -14,7 +14,7 @@
                     <div class="col-lg-12">
                         <div class="box box-solid box-primary">
                             <div class="box-header">
-                            <h3 class="box-title">Detail Laporan Pemasukan Per Jenis Dokumen Pabean</h3>
+                            <h3 class="box-title"><?=customs_h('legacy_detail_laporan_pemasukan_per_jenis_dokumen_pabean','Detail Laporan Pemasukan Per Jenis Dokumen Pabean');?></h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button class="btn btn-info btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>

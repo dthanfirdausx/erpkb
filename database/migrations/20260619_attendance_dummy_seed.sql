@@ -1,0 +1,46 @@
+START TRANSACTION;
+
+DELETE FROM erp_attendance
+ WHERE attendance_no IN ('ATT-20260617-0001','ATT-20260617-0002','ATT-20260617-0003','ATT-20260617-0004','ATT-20260617-0005','ATT-20260617-0006','ATT-20260617-0007','ATT-20260617-0008','ATT-20260618-0001','ATT-20260618-0002');
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0001',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 07:00:00','2026-06-17 15:00:00','2026-06-17 06:55:00','2026-06-17 15:05:00',60,8,7.17,0,0,0,'REGULAR','MACHINE','POSTED','SAP-ATT-0001','Normal attendance operator mixing.', 'IGPRD','IGPRD',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0007' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0002',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 15:00:00','2026-06-17 23:00:00','2026-06-17 15:18:00','2026-06-17 23:05:00',60,8,6.78,18,0,0,'REGULAR','MACHINE','APPROVED','SAP-ATT-0002','Late in karena briefing terlambat.', 'IGPRD','IGPRD',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0008' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0003',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 07:30:00','2026-06-17 16:30:00','2026-06-17 07:25:00','2026-06-17 16:00:00',60,8,7.58,0,30,0,'REGULAR','MACHINE','RECORDED','SAP-ATT-0003','Early leave warehouse untuk administrasi dokumen.', 'IGWH_IN','IGWH_IN',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0009' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0004',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 08:00:00','2026-06-17 17:00:00','2026-06-17 07:58:00','2026-06-17 19:00:00',60,8,10.03,0,0,2.03,'OVERTIME','MACHINE','APPROVED','SAP-ATT-0004','Overtime QA final inspection.', 'Siti Aminah','Siti Aminah',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0006' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,absence_reason,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0005',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 09:00:00','2026-06-17 18:00:00',NULL,NULL,60,8,0,0,0,0,'SICK','WEB','APPROVED','SICK_LEAVE','SAP-ATT-0005','Sakit, sudah disetujui HR.', 'Nadia','Nadia',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0010' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,absence_reason,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0006',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 08:30:00','2026-06-17 17:30:00',NULL,NULL,60,8,0,0,0,0,'ABSENT','WEB','RECORDED','NO_CLOCK','SAP-ATT-0006','Belum ada clock in remote support.', 'Tinna','Tinna',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0003' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,correction_reason,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0007',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 07:00:00','2026-06-17 15:00:00','2026-06-17 07:03:00','2026-06-17 15:04:00',60,8,7.02,3,0,0,'REGULAR','MANUAL','DRAFT','Manual correction dari supervisor maintenance.','SAP-ATT-0007','Draft koreksi attendance.', 'Budi Hartono','Budi Hartono',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0011' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260617-0008',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-17','2026-06-17 08:00:00','2026-06-17 17:00:00','2026-06-17 08:00:00','2026-06-17 17:10:00',60,8,8.17,0,0,0.17,'REGULAR','WEB','POSTED','SAP-ATT-0008','Finance support normal.', 'Nadia','Nadia',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0002' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260618-0001',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-18','2026-06-18 07:00:00','2026-06-18 15:00:00','2026-06-18 06:57:00','2026-06-18 15:02:00',60,8,7.08,0,0,0,'REGULAR','MACHINE','POSTED','SAP-ATT-0009','Normal attendance.', 'IGPRD','IGPRD',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0007' LIMIT 1;
+
+INSERT INTO erp_attendance (attendance_no,employee_id,employee_no,department_code,shift_schedule_id,assignment_no,shift_id,shift_code,work_location_id,attendance_date,planned_start,planned_end,actual_clock_in,actual_clock_out,break_minutes,planned_hours,actual_hours,late_minutes,early_leave_minutes,overtime_hours,attendance_type,attendance_source,attendance_status,sap_reference,remarks,created_by,updated_by,updated_at)
+SELECT 'ATT-20260618-0002',e.id,e.employee_no,e.department_code,ss.id,ss.assignment_no,ss.shift_id,ss.shift_code,ss.work_location_id,'2026-06-18','2026-06-18 15:00:00','2026-06-18 23:00:00','2026-06-18 14:55:00','2026-06-18 23:30:00',60,8,7.58,0,0,0.50,'OVERTIME','MACHINE','APPROVED','SAP-ATT-0010','Overtime coating support.', 'IGPRD','IGPRD',NOW()
+  FROM erp_employee_master e JOIN erp_shift_schedule ss ON ss.employee_id=e.id WHERE e.employee_no='EMP-0008' LIMIT 1;
+
+COMMIT;

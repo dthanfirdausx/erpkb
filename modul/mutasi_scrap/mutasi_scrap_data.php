@@ -1,239 +1,97 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 include "../../inc/config.php";
-      $start_date = "1970-01-01";
-      $end_date = date("Y-m-d");
-      if ($_POST['tgl_awal']!='') {
-        $start_date = $_POST['tgl_awal'];
-      }
-      if ($_POST['tgl_akhir']!='') {
-         $end_date   = $_POST['tgl_akhir'];
-      }
-     
-      $month = date('m',strtotime($start_date));
-      $year = date('Y',strtotime($start_date));
-      $cek = $month-1;
-      if($cek==0){
-        $bln = 12;
-        $thn = $year-1;
-      }else{  
-        $bln = $cek;
-        $thn = $year;
-      }
-      if ((int)date("d",strtotime($start_date))=='1') {
-        $start_date2='1900-00-00';
-        $end_date2='1900-00-00';
-      }else{
-        $tg = explode("-", $start_date);
-        $start_date2 = $tg[0]."-".$tg[1]."-01";
-        if ((int)date("d",strtotime($start_date))<10) {
-          $akhir = "0".((int)date("d",strtotime($start_date))-1);
-        }else{
-          $akhir = date("d",strtotime($start_date))-1; 
-        }
-        $end_date2 = $tg[0]."-".$tg[1]."-".$akhir;
-      }
-      if (!isset($_SESSION['IKB4_status_UserID'])) {
-        $user = "admin";
-      }else{
-         $user= $_SESSION['IKB4_status_UserID'];       
-       }  
-     
-//      echo "create view vmutasiscrap as 
-//  SELECT a.kd_barang, a.nm_barang, a.type as tipe, a.satuan, 
-//       ifnull(b.stock,0)+ifnull(b1.jumlah,0)+ifnull(b2.jumlah,0)-ifnull(b3.jumlah,0) as saldo_awal,
-//       ifnull(c.jumlah,0)+ifnull(g.jumlah,0) as pemasukan, 
-//       ifnull(d.jumlah,0)+ifnull(h.jumlah,0) as pengeluaran, 
-//       ifnull(e.jumlah,0) as penyesuaian, 
-//       (ifnull(b.stock,0)+ifnull(b1.jumlah,0)+ifnull(b2.jumlah,0)-ifnull(b3.jumlah,0))+(ifnull(c.jumlah,0)+ifnull(g.jumlah,0))-(ifnull(d.jumlah,0)+ifnull(h.jumlah,0))+ifnull(e.jumlah,0) as saldo_akhir, 
-//       ifnull(f.jumlah,0) as stock_opname, 
-//       '0' as selisih, 
-//       'Sesuai' as ket ,'$user' as userid,'$start_date' as dari,'$end_date' as sampai
-//   FROM barang as a
-//   LEFT JOIN (SELECT tgl_closing as tgl_closing,@max := tgl_closing,stock, kd_barang from closing a
-// WHERE tgl_closing=(select max(tgl_closing) from closing where kd_barang=a.kd_barang and tgl_closing<'$start_date')) as b
-//         ON b.kd_barang = a.kd_barang
-//   LEFT JOIN (select kode, sum(jumlah) as jumlah from outgoing_terima_detail
-//         where dari='PRODUKSI' and tgl_lpb between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) as b1
-//         ON b1.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pemasukan_detail
-//         where tgl_bpb between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) AS b2
-//         ON b2.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pengeluaran_detail
-//         where tgl_sj between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) AS b3 
-//         ON b3.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pemasukan_detail
-//         where tgl_bpb between '$start_date' and '$end_date' group by kode) AS c
-//         ON c.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pengeluaran_detail
-//         where tgl_sj between '$start_date' and '$end_date' group by kode) AS d 
-//         ON d.kode=a.kd_barang         
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from adjusment_detail
-//         where tgl_adj between '$start_date' and '$end_date' group by kode) AS e
-//         ON e.kode=a.kd_barang
-//   LEFT JOIN  (SELECT kode_brg,max(tglstock),stockopname as jumlah  FROM stockopname_scrap
-//         WHERE tglstock between '$start_date' and '$end_date' group by kode_brg) as f
-//         ON f.kode_brg=a.kd_barang     
-//   LEFT JOIN (select kode, sum(jumlah) as jumlah from outgoing_terima_detail
-//         where tgl_lpb  between '$start_date' and '$end_date' group by kode) as g
-//         ON g.kode=a.kd_barang        
-//   LEFT JOIN (select kode, sum(jumlah) as jumlah from produksi_terima_detail
-//         where tgl_lpb between '$start_date' and '$end_date' group by kode) as h
-//         ON h.kode=a.kd_barang           
-//   WHERE a.kd_kategori='K04' ORDER BY a.kd_barang ASC"; 
-//        $db->query("drop view vmutasiscrap"); 
-//        $db->query("create view vmutasiscrap as 
-//  SELECT a.kd_barang, a.nm_barang, a.type as tipe, a.satuan, 
-//       ifnull(b.stock,0)+ifnull(b1.jumlah,0)+ifnull(b2.jumlah,0)-ifnull(b3.jumlah,0) as saldo_awal,
-//       ifnull(c.jumlah,0)+ifnull(g.jumlah,0) as pemasukan, 
-//       ifnull(d.jumlah,0)+ifnull(h.jumlah,0) as pengeluaran, 
-//       ifnull(e.jumlah,0) as penyesuaian, 
-//       (ifnull(b.stock,0)+ifnull(b1.jumlah,0)+ifnull(b2.jumlah,0)-ifnull(b3.jumlah,0))+(ifnull(c.jumlah,0)+ifnull(g.jumlah,0))-(ifnull(d.jumlah,0)+ifnull(h.jumlah,0))+ifnull(e.jumlah,0) as saldo_akhir, 
-//       ifnull(f.jumlah,0) as stock_opname, 
-//       '0' as selisih, 
-//       'Sesuai' as ket ,'$user' as userid,'$start_date' as dari,'$end_date' as sampai
-//   FROM barang as a
-//   LEFT JOIN (SELECT tgl_closing as tgl_closing,@max := tgl_closing,stock, kd_barang from closing a
-// WHERE tgl_closing=(select max(tgl_closing) from closing where kd_barang=a.kd_barang and tgl_closing<'$start_date')) as b
-//         ON b.kd_barang = a.kd_barang
-//   LEFT JOIN (select kode, sum(jumlah) as jumlah from outgoing_terima_detail
-//         where dari='PRODUKSI' and tgl_lpb between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) as b1
-//         ON b1.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pemasukan_detail
-//         where tgl_bpb between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) AS b2
-//         ON b2.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pengeluaran_detail
-//         where tgl_sj between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) AS b3 
-//         ON b3.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pemasukan_detail
-//         where tgl_bpb between '$start_date' and '$end_date' group by kode) AS c
-//         ON c.kode=a.kd_barang
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from pengeluaran_detail
-//         where tgl_sj between '$start_date' and '$end_date' group by kode) AS d 
-//         ON d.kode=a.kd_barang         
-//   LEFT JOIN  (select kode, sum(jumlah) as jumlah from adjusment_detail
-//         where tgl_adj between '$start_date' and '$end_date' group by kode) AS e
-//         ON e.kode=a.kd_barang
-//   LEFT JOIN  (SELECT kode_brg,max(tglstock),stockopname as jumlah  FROM stockopname_scrap
-//         WHERE tglstock between '$start_date' and '$end_date' group by kode_brg) as f
-//         ON f.kode_brg=a.kd_barang     
-//   LEFT JOIN (select kode, sum(jumlah) as jumlah from outgoing_terima_detail
-//         where tgl_lpb  between '$start_date' and '$end_date' group by kode) as g
-//         ON g.kode=a.kd_barang        
-//   LEFT JOIN (select kode, sum(jumlah) as jumlah from produksi_terima_detail
-//         where tgl_lpb between '$start_date' and '$end_date' group by kode) as h
-//         ON h.kode=a.kd_barang           
-//   WHERE a.kd_kategori='K04' ORDER BY a.kd_barang ASC");
-//        echo $db->getErrorMessage();  
-        //echo "CALL spmutasibb('$user','$start_date','$end_date','$start_date2','$end_date2','$bln','$thn')  <br>";  
-      //  $db->query("CALL spmutasiscrap('$user','$start_date','$end_date')");  
+function ms_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+function ms_num($value, $dec = 2) { return number_format((float)$value, $dec, ',', '.'); }
+function ms_post($key, $default = '') { return isset($_POST[$key]) ? trim((string)$_POST[$key]) : $default; }
 
-$columns = array(
-    'mutasi_scrap.kd_barang',
-    'mutasi_scrap.nm_barang', 
-    'mutasi_scrap.type',
-    'mutasi_scrap.satuan',
-    'mutasi_scrap.saldo_awal',
-    'mutasi_scrap.pemasukan',
-    'mutasi_scrap.pengeluaran',
-    'mutasi_scrap.penyesuaian',
-    'mutasi_scrap.saldo_akhir',
-    'mutasi_scrap.stock_opname',
-    'mutasi_scrap.selisih',
-    'mutasi_scrap.ket',
-    'mutasi_scrap.userid',
-    'mutasi_scrap.kd_barang',
+$draw = isset($_POST['draw']) ? (int)$_POST['draw'] : 1;
+$start = isset($_POST['start']) ? max(0, (int)$_POST['start']) : 0;
+$length = isset($_POST['length']) ? (int)$_POST['length'] : 25;
+if ($length <= 0 || $length > 500) $length = 25;
+
+$tglAwal = ms_post('tgl_awal', date('Y-m-01'));
+$tglAkhir = ms_post('tgl_akhir', date('Y-m-d'));
+$material = ms_post('material_code');
+$plantId = ms_post('plant_id');
+$slocId = ms_post('storage_location_id');
+$binId = ms_post('storage_bin_id');
+$stockType = ms_post('stock_type');
+$keyword = ms_post('keyword');
+$search = isset($_POST['search']['value']) ? trim((string)$_POST['search']['value']) : '';
+if ($keyword === '' && $search !== '') $keyword = $search;
+
+$where = " WHERE b.kd_kategori='K04' ";
+$filterParams = array();
+if ($material !== '') { $where .= " AND b.kd_barang=? "; $filterParams[] = $material; }
+if ($plantId !== '') { $where .= " AND COALESCE(dt.plant_id,sl.plant_id)=? "; $filterParams[] = $plantId; }
+if ($slocId !== '') { $where .= " AND COALESCE(dt.storage_location_id,dt.destination_storage_location_id,sl.storage_location_id)=? "; $filterParams[] = $slocId; }
+if ($binId !== '') { $where .= " AND COALESCE(dt.storage_bin_id,dt.destination_storage_bin_id,sl.storage_bin_id)=? "; $filterParams[] = $binId; }
+if ($stockType !== '') { $where .= " AND COALESCE(dt.stock_type,dt.destination_stock_type,sl.stock_type,'UNRESTRICTED')=? "; $filterParams[] = $stockType; }
+if ($keyword !== '') {
+  $where .= " AND (b.kd_barang LIKE ? OR b.nm_barang LIKE ? OR dt.no_ref LIKE ? OR dt.no_bpb LIKE ? OR dt.no_aju LIKE ? OR dt.no_dokpab LIKE ? OR dt.remark LIKE ?) ";
+  $kw = '%'.$keyword.'%';
+  for ($i=0; $i<7; $i++) $filterParams[] = $kw;
+}
+
+$movementExpr = "CASE WHEN dt.id_detail IS NULL THEN 'IN' WHEN dt.direction='OUT' OR COALESCE(dt.qty,0)<0 OR dt.move_code IN ('102','122','201','221','261','262','532','551','601','602','702','712') THEN 'OUT' ELSE 'IN' END";
+$adjustExpr = "CASE WHEN dt.move_code IN ('701','702','711','712') OR COALESCE(dt.ref_type,'') LIKE '%DIFF%' OR COALESCE(dt.ref_type,'') LIKE '%OPNAME%' OR COALESCE(dt.ref_type,'') LIKE '%ADJUST%' THEN 1 ELSE 0 END";
+$signedQtyExpr = "CASE WHEN ($movementExpr)='OUT' THEN -ABS(COALESCE(dt.qty,0)) ELSE ABS(COALESCE(dt.qty,0)) END";
+
+$baseSql = "
+  SELECT b.id,b.kd_barang,b.nm_barang,b.satuan,ep.plant_code,es.storage_code,eb.bin_code,
+         COALESCE(dt.stock_type,dt.destination_stock_type,sl.stock_type,'UNRESTRICTED') AS stock_type,
+         COALESCE(SUM(CASE WHEN dt.document_date < ? THEN $signedQtyExpr ELSE 0 END),0) AS saldo_awal,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=0 AND ($movementExpr)='IN' THEN ABS(COALESCE(dt.qty,0)) ELSE 0 END),0) AS pemasukan,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=0 AND ($movementExpr)='OUT' THEN ABS(COALESCE(dt.qty,0)) ELSE 0 END),0) AS pengeluaran,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=1 THEN $signedQtyExpr ELSE 0 END),0) AS penyesuaian,
+         COALESCE(SUM(CASE WHEN dt.document_date <= ? THEN $signedQtyExpr ELSE 0 END),0) AS saldo_akhir,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? THEN 1 ELSE 0 END),0) AS movement_lines
+  FROM barang b
+  LEFT JOIN detail_transaksi dt ON dt.kd_barang=b.kd_barang
+    AND dt.document_date <= ?
+    AND (dt.posisi='GUDANG' OR dt.lokasi LIKE '%GUDANG%' OR dt.lokasi LIKE '%WAREHOUSE%' OR dt.posisi IS NULL)
+    AND COALESCE(dt.is_reversal,0)=0
+  LEFT JOIN stock_layer sl ON sl.id=dt.ref_id AND sl.kode=b.kd_barang
+  LEFT JOIN erp_plant ep ON ep.id=COALESCE(dt.plant_id,sl.plant_id)
+  LEFT JOIN erp_storage_location es ON es.id=COALESCE(dt.storage_location_id,dt.destination_storage_location_id,sl.storage_location_id)
+  LEFT JOIN erp_storage_bin eb ON eb.id=COALESCE(dt.storage_bin_id,dt.destination_storage_bin_id,sl.storage_bin_id)
+  $where
+  GROUP BY b.id,b.kd_barang,b.nm_barang,b.satuan,ep.plant_code,es.storage_code,eb.bin_code,stock_type
+  HAVING saldo_awal<>0 OR pemasukan<>0 OR pengeluaran<>0 OR penyesuaian<>0 OR saldo_akhir<>0
+";
+$params = array($tglAwal.' 00:00:00',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAkhir.' 23:59:59');
+$queryParams = array_merge($params, $filterParams);
+$countRow = $db->fetch("SELECT COUNT(*) total FROM ($baseSql) x", $queryParams);
+
+$orderMap = array(1=>'kd_barang',2=>'nm_barang',3=>'satuan',4=>'saldo_awal',5=>'pemasukan',6=>'pengeluaran',7=>'penyesuaian',8=>'saldo_akhir');
+$orderCol = 'kd_barang'; $orderDir = 'ASC';
+if (isset($_POST['order'][0]['column'])) { $idx=(int)$_POST['order'][0]['column']; if(isset($orderMap[$idx])) $orderCol=$orderMap[$idx]; }
+if (isset($_POST['order'][0]['dir']) && strtolower($_POST['order'][0]['dir']) === 'desc') $orderDir='DESC';
+$rows = $db->query("SELECT * FROM ($baseSql) y ORDER BY $orderCol $orderDir LIMIT $start,$length", $queryParams);
+
+$data = array(); $no = $start + 1;
+foreach ($rows as $row) {
+  $saldoAkhir=(float)$row->saldo_akhir; $stockOpname=$saldoAkhir; $selisih=$stockOpname-$saldoAkhir;
+  $ket=array();
+  if((int)$row->movement_lines>0) $ket[]=(int)$row->movement_lines.' line transaksi';
+  if($row->plant_code || $row->storage_code || $row->bin_code) $ket[]=trim((string)$row->plant_code.' / '.(string)$row->storage_code.' / '.(string)$row->bin_code,' /');
+  if($row->stock_type) $ket[]=$row->stock_type;
+  $data[] = array(
+    $no++,
+    '<strong>'.ms_h($row->kd_barang).'</strong>',
+    ms_h($row->nm_barang),
+    ms_h($row->satuan),
+    ms_num($row->saldo_awal),
+    '<a href="javascript:void(0)" class="ms-detail-link" data-material="'.ms_h($row->kd_barang).'" data-type="IN">'.ms_num($row->pemasukan).'</a>',
+    '<a href="javascript:void(0)" class="ms-detail-link" data-material="'.ms_h($row->kd_barang).'" data-type="OUT">'.ms_num($row->pengeluaran).'</a>',
+    '<a href="javascript:void(0)" class="ms-detail-link" data-material="'.ms_h($row->kd_barang).'" data-type="ADJ">'.ms_num($row->penyesuaian).'</a>',
+    ms_num($saldoAkhir),
+    ms_num($stockOpname),
+    ms_num($selisih),
+    ms_h(implode(' | ', $ket))
   );
-
-  //if you want to exclude column for searching, put columns name in array
-  //$new_table->disable_search = array('type','mutasi_scrap.id');
-  
-  //set numbering is true
-  $datatable->set_numbering_status(1);
-
-  //set order by column
-  $datatable->set_order_by("mutasi_scrap.kd_barang");
-
-  //set order by type
-  $datatable->set_order_type("desc");
-
-  //set group by column
-  //$new_table->group_by = "group by mutasi_scrap.id"; 
-
-  $query = $datatable->get_custom("select mutasi_scrap.kd_barang,mutasi_scrap.nm_barang,mutasi_scrap.type,mutasi_scrap.satuan,mutasi_scrap.saldo_awal,mutasi_scrap.pemasukan,mutasi_scrap.pengeluaran,mutasi_scrap.penyesuaian,mutasi_scrap.saldo_akhir,mutasi_scrap.stock_opname,mutasi_scrap.selisih,mutasi_scrap.ket,mutasi_scrap.userid,mutasi_scrap.kd_barang from (SELECT a.kd_barang, a.nm_barang, a.type, a.satuan, 
-      ifnull(b.stock,0)+ifnull(b1.jumlah,0)+ifnull(b2.jumlah,0)-ifnull(b3.jumlah,0) as saldo_awal,
-      ifnull(c.jumlah,0)+ifnull(g.jumlah,0) as pemasukan, 
-      ifnull(d.jumlah,0)+ifnull(h.jumlah,0) as pengeluaran, 
-      ifnull(e.jumlah,0) as penyesuaian, 
-      (ifnull(b.stock,0)+ifnull(b1.jumlah,0)+ifnull(b2.jumlah,0)-ifnull(b3.jumlah,0))+(ifnull(c.jumlah,0)+ifnull(g.jumlah,0))-(ifnull(d.jumlah,0)+ifnull(h.jumlah,0))+ifnull(e.jumlah,0) as saldo_akhir, 
-      ifnull(f.jumlah,0) as stock_opname, 
-      '0' as selisih, 
-      'Sesuai' as ket ,'$user' as userid,'$start_date' as dari,'$end_date' as sampai
-  FROM barang as a
-  LEFT JOIN (SELECT tgl_closing as tgl_closing,@max := tgl_closing,stock, kd_barang from closing a
-WHERE tgl_closing=(select max(tgl_closing) from closing where kd_barang=a.kd_barang and tgl_closing<'$start_date')) as b
-        ON b.kd_barang = a.kd_barang
-  LEFT JOIN (select kode, sum(jumlah) as jumlah from outgoing_terima_detail
-        where dari='PRODUKSI' and tgl_lpb between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) as b1
-        ON b1.kode=a.kd_barang
-  LEFT JOIN  (select kode, sum(jumlah) as jumlah from pemasukan_detail
-        where tgl_bpb between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) AS b2
-        ON b2.kode=a.kd_barang
-  LEFT JOIN  (select kode, sum(jumlah) as jumlah from pengeluaran_detail
-        where tgl_sj between date_sub(@max,interval -1 day) and date_sub('$start_date',interval 1 day) group by kode) AS b3 
-        ON b3.kode=a.kd_barang
-  LEFT JOIN  (select kode, sum(jumlah) as jumlah from pemasukan_detail
-        where tgl_bpb between '$start_date' and '$end_date' group by kode) AS c
-        ON c.kode=a.kd_barang
-  LEFT JOIN  (select kode, sum(jumlah) as jumlah from pengeluaran_detail
-        where tgl_sj between '$start_date' and '$end_date' group by kode) AS d 
-        ON d.kode=a.kd_barang         
-  LEFT JOIN  (select kode, sum(jumlah) as jumlah from adjusment_detail
-        where tgl_adj between '$start_date' and '$end_date' group by kode) AS e
-        ON e.kode=a.kd_barang
-  LEFT JOIN  (SELECT kode_brg,max(tglstock),stockopname as jumlah  FROM stockopname_scrap
-        WHERE tglstock between '$start_date' and '$end_date' group by kode_brg) as f
-        ON f.kode_brg=a.kd_barang     
-  LEFT JOIN (select kode, sum(jumlah) as jumlah from outgoing_terima_detail
-        where tgl_lpb  between '$start_date' and '$end_date' group by kode) as g
-        ON g.kode=a.kd_barang        
-  LEFT JOIN (select kode, sum(jumlah) as jumlah from produksi_terima_detail
-        where tgl_lpb between '$start_date' and '$end_date' group by kode) as h
-        ON h.kode=a.kd_barang           
-  WHERE a.kd_kategori='K04' ORDER BY a.kd_barang ASC) mutasi_scrap where pemasukan!=0 or pengeluaran!=0 ",$columns); 
-
-  //buat inisialisasi array data
-  $data = array();
-
-  $i=1;
-  foreach ($query as $value) {
-
-    //array data
-    $ResultData = array();
-    $ResultData[] = $datatable->number($i);
-  
-    $ResultData[] = $value->kd_barang;
-    $ResultData[] = $value->nm_barang;
-    $ResultData[] = $value->type;
-    $ResultData[] = $value->satuan;
-    $ResultData[] = number_format($value->saldo_awal,2,",",".");
-    $ResultData[] = "<a style='cursor:pointer' onclick='info_detail(\"$value->kd_barang\",1)' >".number_format($value->pemasukan,2,",",".")."</a>";
-    $ResultData[] = "<a style='cursor:pointer' onclick='info_detail(\"$value->kd_barang\",2)' >".number_format($value->pengeluaran,2,",",".")."</a>";
-    $ResultData[] = number_format($value->penyesuaian,2,",",".");
-    $ResultData[] = number_format($value->saldo_akhir,2,",",".");
-    $ResultData[] = number_format($value->stock_opname,2,",",".");
-    $ResultData[] = number_format($value->selisih,2,",",".");
-    $ResultData[] = $value->ket;
-    $ResultData[] = $value->userid;
-    $ResultData[] = $value->kd_barang;
-
-    $data[] = $ResultData;
-    $i++;
-  }
-
-//set data
-$datatable->set_data($data);
-//create our json
-$datatable->create_data();
-
+}
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode(array('draw'=>$draw,'recordsTotal'=>$countRow?(int)$countRow->total:0,'recordsFiltered'=>$countRow?(int)$countRow->total:0,'data'=>$data));
 ?>

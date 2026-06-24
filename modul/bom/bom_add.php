@@ -1,12 +1,23 @@
+<?php
+if (!function_exists('prod_t')) {
+  function prod_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('prod_h')) {
+  function prod_h($key, $fallback = '') { return htmlspecialchars((string) prod_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('prod_js')) {
+  function prod_js($key, $fallback = '') { return json_encode(prod_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
 <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>BOM</h1>
+        <h1><?=prod_h('production_bom', 'BOM');?></h1>
         <ol class="breadcrumb">
             <li>
-              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=prod_h('common_home', 'Home');?></a>
             </li>
             <li>
-              <a href="<?=base_index();?>bom">BOM</a>
+              <a href="<?=base_index();?>bom"><?=prod_h('production_bom', 'BOM');?></a>
             </li>
             <li class="active">Add BOM</li>
         </ol>
@@ -73,7 +84,7 @@
                      <th style="width: 400px">Kode Barang</th>
                      <th style="width: 100px">Unit</th>
                     
-                     <th>Qty</th>                     
+                     <th><?=prod_h('production_qty', 'Qty');?></th>                     
                      <th>Ket</th>
                    </tr>
                  </thead>

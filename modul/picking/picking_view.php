@@ -1,239 +1,49 @@
-<!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        Picking
-                    </h1>
-                        <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>picking">Picking</a></li>
-                        <li class="active">Picking List</li>
-                    </ol>
-                </section>
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                               
-                            </div><!-- /.box-header -->
-                            <div class="box-body table-responsive">
-                                <div class="row">
-                                    <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
-                                    <button id="select_all" class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> <?php echo $lang["select_all"];?></button>
-                                    <button id="deselect_all" class="btn btn-primary btn-xs"><i class="fa fa-remove"></i> <?php echo $lang["deselect_all"];?></button>
-                                    <button id="bulk_delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> <?php echo $lang["delete_selected"];?></button> <span class="selected-data"></span>
-                            </div>
-                            </div>
- <div class="alert alert-warning fade in error_data_delete" style="display:none">
-          <button type="button" class="close hide_alert_notif">&times;</button>
-          <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
-        </div>
-                        <table id="dtb_picking" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th></th>
-                                  <th>No Aju</th>
-                                  <th>Tgl Aju</th>
-                                  <th>Jenis Dokpab</th>
-                                  <th>No Dokpab</th>
-                                  <th>Tgl Dokpab</th>
-                                 <!--  <th>Action</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-                </div>
-              </div>
-        <?php
-
-            foreach ($db->fetch_all("sys_menu") as $isi) {
-
-            //jika url = url dari table menu
-            if (uri_segment(1)==$isi->url) {
-              //check edit permission
-              if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+' href=".base_index()."picking/edit/'+aData[indek]+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
-              } else {
-                  $edit ="";
-              }
-            if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/picking/picking_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_picking"><i class="fa fa-trash"></i></button>';
-            } else {
-                $del="";
-            }
-                             }
-            }
-
-        ?>
-
-    </section><!-- /.content -->
-
-        <script type="text/javascript">
-      
-      
-      var dtb_picking = $("#dtb_picking").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-            var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>picking/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
-           'bProcessing': true,
-            'bServerSide': true,
-            
-           'columnDefs': [ {
-            'targets': [5],
-              'orderable': false,
-              'searchable': false
-            },
-                {
-            'width': '5%',
-            'targets': 0,
-            'orderable': false,
-            'searchable': false,
-            'className': 'dt-center'
-          }
-             ],
-
-    
-            'ajax':{
-              url :'<?=base_admin();?>modul/picking/picking_data.php',
-            type: 'post',  // method  , by default get
-            error: function (xhr, error, thrown) {
-            console.log(xhr);
-
-            }
-          },
-        });
-
-  $('#dtb_picking').on('draw.dt', function() {
-          init_selected()
-      });
-
-      $('#select_all').on('click', function() {
-          select_deselect('select')
-      });
-      $('#deselect_all').on('click', function() {
-          select_deselect('unselect')
-  });
-
-
-
-  $(document).on('click', '#dtb_picking tbody tr td', function(event) {
-      var btn = $(this).find('button');
-      if (btn.length == 0) {
-          $(this).parents('tr').toggleClass('DTTT_selected selected');
-          var selected = check_selected();
-          init_selected();
-
-      }
-  });
-
-
-
-  function init_selected() {
-      var selected = check_selected();
-      var btn_hide = $('#select_all, #deselect_all, #bulk_delete, .selected-data');
-      if (selected.length > 0) {
-          btn_hide.show()
-      } else {
-          btn_hide.hide()
-      }
-  }
-
-
-  function check_selected() {
-      var table_select = $('#dtb_picking tbody tr.selected');
-      var array_data_delete = [];
-      table_select.each(function() {
-          var check_data = $(this).find('.hapus_dtb_notif').attr('data-id');
-          if (typeof check_data != 'undefined') {
-              array_data_delete.push(check_data)
-          }
-      });
-      $('.selected-data').text(array_data_delete.length + ' <?=$lang["selected_data"];?>');
-      return array_data_delete
-  }
-
-
-  function select_deselect(type) {
-      if (type == 'select') {
-          $('#dtb_picking tbody tr').addClass('DTTT_selected selected')
-      } else {
-          $('#dtb_picking tbody tr').removeClass('DTTT_selected selected')
-      }
-      init_selected()
-  }
-
-
-
-
-/* Add a click handler for the delete row */
-  $('#bulk_delete').click( function() {
-    var anSelected = fnGetSelected( dtb_picking );
-    var data_array_id = check_selected();
-    var all_ids = data_array_id.toString();
-    $('#ucing').modal({ keyboard: false }).one('click', '#delete', function (e) {
-        $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '<?=base_admin();?>modul/picking/picking_action.php?act=del_massal',
-            data: {data_ids:all_ids},
-               success: function(responseText) {
-                  $('#loadnya').hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=='die') {
-                            $('#informasi').modal('show');
-                          } else if(responseText[index].status=='error') {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          } else if(responseText[index].status=='good') {
-                            $('.error_data_delete').hide();
-                               $('#loadnya').hide();
-                               $(anSelected).remove();
-                               dtb_picking.draw();
-                          } else {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          }
-                    });
-                }
-            //async:false
-        });
-
-        $('#ucing').modal('hide');
-
-    });
-
-  });
-
-  /* Get the rows which are currently selected */
-  function fnGetSelected( oTableLocal )
-  {
-      return oTableLocal.$('tr.selected');
-  }
+<?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+include_once "picking_lib.php";
+$defaultFrom=date('Y-01-01');$defaultTo=date('Y-m-d');
+$customers=$db->query("SELECT kode_penerima,nama FROM penerima ORDER BY nama");
+$pickers=$db->query("SELECT DISTINCT picker FROM erp_picking WHERE COALESCE(picker,'')<>'' ORDER BY picker");
+$summary=pick_summary($db,array('tgl_awal'=>$defaultFrom,'tgl_akhir'=>$defaultTo,'customer'=>'all','status'=>'all'));
+?>
+<style>
+.pick-hero{background:linear-gradient(135deg,#0f766e,#1d4ed8);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 10px 24px rgba(15,23,42,.18)}
+.pick-hero h1{margin:0 0 6px;font-size:26px;font-weight:700}.pick-hero p{margin:0;opacity:.92}
+.pick-kpi{border-radius:12px;background:#fff;border:1px solid #e5edf5;padding:15px;margin-bottom:14px;box-shadow:0 4px 14px rgba(15,23,42,.05)}
+.pick-kpi span{display:block;color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.pick-kpi strong{display:block;font-size:23px;margin-top:6px;color:#111827}
+.pick-kpi i{float:right;font-size:26px;color:#0f766e;opacity:.55}.pick-filter .form-group{margin-bottom:12px}
+#dtb_picking th,#dtb_picking td{font-size:12px;vertical-align:middle}.select2-container{width:100%!important}.progress-xs{height:6px}.pick-item-table th,.pick-item-table td{font-size:12px;vertical-align:middle}.pick-item-table .form-control{font-size:12px;height:31px;padding:4px 7px}
+</style>
+<section class="content-header"><h1><?=sd_h('sales_picking', 'Picking');?> <small>SAP SD/WM Picking</small></h1><ol class="breadcrumb"><li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=sd_h('common_home', 'Home');?></a></li><li><a href="#">Sales & Distribution</a></li><li class="active"><?=sd_h('sales_picking', 'Picking');?></li></ol></section>
+<section class="content">
+  <div class="pick-hero"><div class="row"><div class="col-md-8"><h1><?=sd_h('sales_picking', 'Picking');?></h1><p>Konfirmasi pengambilan barang berdasarkan Outbound Delivery sebelum proses packing dan goods issue.</p></div><div class="col-md-4 text-right"><button id="btn_add_pick" class="btn btn-success"><i class="fa fa-plus"></i> Create Picking</button></div></div></div>
+  <div class="row"><div class="col-sm-3"><div class="pick-kpi"><i class="fa fa-list-alt"></i><span>Total Picking</span><strong><?=number_format((float)$summary->total_docs,0,',','.');?></strong></div></div><div class="col-sm-3"><div class="pick-kpi"><i class="fa fa-clock-o"></i><span>Created</span><strong><?=number_format((float)$summary->created_docs,0,',','.');?></strong></div></div><div class="col-sm-3"><div class="pick-kpi"><i class="fa fa-check"></i><span>Picked</span><strong><?=number_format((float)$summary->picked_docs,0,',','.');?></strong></div></div><div class="col-sm-3"><div class="pick-kpi"><i class="fa fa-cubes"></i><span>Picked Qty</span><strong><?=number_format((float)$summary->picked_qty,2,',','.');?></strong></div></div></div>
+  <div class="box"><div class="box-header with-border"><h3 class="box-title"><i class="fa fa-filter"></i> Filter Picking</h3></div><div class="box-body"><form class="form-horizontal pick-filter" onsubmit="return false;">
+    <div class="form-group"><label class="control-label col-lg-2">Picking Date</label><div class="col-lg-2"><div class="input-group date pick-date"><input id="filter_tgl_awal" class="form-control" value="<?=$defaultFrom;?>"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div><div class="col-lg-2"><div class="input-group date pick-date"><input id="filter_tgl_akhir" class="form-control" value="<?=$defaultTo;?>"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div><label class="control-label col-lg-1"><?=sd_h('sales_customer', 'Customer');?></label><div class="col-lg-5"><select id="filter_customer" class="form-control"><option value="all"><?=sd_h('sales_all_customer', 'All Customer');?></option><?php foreach($customers as $c){ ?><option value="<?=pick_h($c->kode_penerima);?>"><?=pick_h($c->kode_penerima.' - '.$c->nama);?></option><?php } ?></select></div></div>
+    <div class="form-group"><label class="control-label col-lg-2"><?=sd_h('common_status', 'Status');?></label><div class="col-lg-2"><select id="filter_status" class="form-control"><option value="all"><?=sd_h('common_all', 'All');?></option><option>CREATED</option><option>IN_PROCESS</option><option>PICKED</option><option>CANCELLED</option></select></div><label class="control-label col-lg-2">Picker</label><div class="col-lg-2"><select id="filter_picker" class="form-control"><option value=""><?=sd_h('common_all', 'All');?></option><?php foreach($pickers as $p){ ?><option value="<?=pick_h($p->picker);?>"><?=pick_h($p->picker);?></option><?php } ?></select></div><label class="control-label col-lg-1"><?=sd_h('common_search', 'Search');?></label><div class="col-lg-3"><input id="filter_keyword" class="form-control" placeholder="Picking/Delivery/SO/customer"></div></div>
+    <div class="form-group"><div class="col-lg-offset-2 col-lg-10"><button id="btn_filter_pick" class="btn btn-primary"><i class="fa fa-filter"></i> <?=sd_h('common_filter', 'Filter');?></button> <button id="btn_reset_pick" class="btn btn-default"><i class="fa fa-refresh"></i> <?=sd_h('common_reset', 'Reset');?></button> <button id="btn_excel_pick" class="btn btn-success"><i class="fa fa-file-excel-o"></i> <?=sd_h('common_export_excel', 'Export Excel');?></button></div></div>
+  </form></div></div>
+  <div class="box"><div class="box-body"><div class="alert alert-warning error_data_delete" style="display:none"><button type="button" class="close hide_alert_notif">&times;</button><i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span></div><div class="table-responsive"><table id="dtb_picking" class="table table-bordered table-striped table-condensed" style="width:100%"><thead><tr><th><?=sd_h('common_no', 'No');?></th><th><?=sd_h('common_action', 'Action');?></th><th><?=sd_h('sales_picking', 'Picking');?></th><th><?=sd_h('sales_date', 'Date');?></th><th><?=sd_h('sales_customer', 'Customer');?></th><th><?=sd_h('common_status', 'Status');?></th><th><?=sd_h('sales_items', 'Items');?></th><th>Delivery Qty</th><th>Picked Qty</th><th><?=sd_h('sales_warehouse', 'Warehouse');?></th><th>Picker</th><th>SO</th></tr></thead><tbody></tbody></table></div></div></div>
+</section>
+<div id="modal_pick" class="modal fade"><div class="modal-dialog modal-lg" style="width:96%"><div class="modal-content"><form id="form_pick"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Create Picking</h4></div><div class="modal-body"><div class="row"><div class="col-sm-4"><div class="form-group"><label><?=sd_h('sales_outbound_delivery', 'Outbound Delivery');?></label><select id="delivery_select" name="delivery_id" class="form-control" required></select></div></div><div class="col-sm-2"><div class="form-group"><label>Picking Date</label><input name="picking_date" class="form-control pick-date-input" value="<?=date('Y-m-d');?>"></div></div><div class="col-sm-3"><div class="form-group"><label><?=sd_h('sales_warehouse', 'Warehouse');?></label><input name="warehouse" class="form-control"></div></div><div class="col-sm-3"><div class="form-group"><label>Picker</label><input name="picker" class="form-control" value="<?=pick_h(pick_user());?>"></div></div></div><div class="table-responsive"><table class="table table-bordered table-condensed pick-item-table" id="table_pick_items"><thead><tr><th><?=sd_h('common_no', 'No');?></th><th><?=sd_h('sales_material', 'Material');?></th><th>Store</th><th>Delivery Qty</th><th>Picked Qty</th><th><?=sd_h('sales_uom', 'UOM');?></th><th>Batch</th><th>Source Bin</th><th>Remark</th></tr></thead><tbody><tr><td colspan="9" class="text-center text-muted">Pilih Outbound Delivery untuk load item.</td></tr></tbody></table></div><div class="form-group"><label><?=sd_h('common_remarks', 'Remarks');?></label><textarea name="remarks" class="form-control" rows="2"></textarea></div></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><?=sd_h('common_close', 'Close');?></button><button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Picking</button></div></form></div></div></div>
+<div id="modal_pick_detail" class="modal fade"><div class="modal-dialog modal-lg" style="width:96%"><div class="modal-content"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Picking Detail</h4></div><div class="modal-body" id="pick_detail_body"></div></div></div></div>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+<script>
+function pickFilters(){return{tgl_awal:$('#filter_tgl_awal').val(),tgl_akhir:$('#filter_tgl_akhir').val(),customer:$('#filter_customer').val(),status:$('#filter_status').val(),picker:$('#filter_picker').val(),keyword:$('#filter_keyword').val()};}
+function pickError(m){$('.isi_warning_delete').text(m||<?=sd_js('sales_picking_process_failed', 'Picking data failed to process.');?>);$('.error_data_delete').fadeIn();}
+$(function(){if($.fn.datepicker){$('.pick-date,.pick-date-input').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}if($.fn.select2){$('#filter_customer,#filter_status,#filter_picker').select2({width:'100%'});$('#delivery_select').select2({width:'100%',placeholder:'Cari Outbound Delivery...',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/picking/picking_action.php?act=delivery_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}}).on('select2:select',function(e){loadDeliveryItems(e.params.data.id);});}
+var dt=$('#dtb_picking').DataTable({bProcessing:true,bServerSide:true,pageLength:25,ordering:false,dom:"<'row'<'col-sm-12'B>>"+"<'row'<'col-sm-6'l><'col-sm-6'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-7'p>>",buttons:[{extend:'collection',text:<?=sd_js('common_export_data', 'Export Data');?>,buttons:['copyHtml5','excelHtml5','csvHtml5','pdfHtml5']}],columnDefs:[{targets:[0,1],orderable:false,searchable:false},{targets:[6,7,8],className:'text-right'},{width:'42px',targets:0},{width:'60px',targets:1}],ajax:{url:'<?=base_admin();?>modul/picking/picking_data.php',type:'post',data:function(d){$.extend(d,pickFilters());},error:function(xhr){console.log(xhr);pickError(<?=sd_js('sales_picking_load_failed', 'Picking data failed to load.');?>);}}});
+function loadDeliveryItems(id){$.post('<?=base_admin();?>modul/picking/picking_action.php?act=delivery_items',{delivery_id:id},function(html){$('#table_pick_items tbody').html(html);},'html').fail(function(){pickError(<?=sd_js('sales_delivery_item_load_failed', 'Delivery item failed to load.');?>);});}
+$('#btn_add_pick').on('click',function(){$('#form_pick')[0].reset();$('#delivery_select').val(null).trigger('change');$('#table_pick_items tbody').html('<tr><td colspan="9" class="text-center text-muted">Pilih Outbound Delivery untuk load item.</td></tr>');$('#modal_pick').modal('show');});
+$('#btn_filter_pick').on('click',function(){dt.draw();});$('#filter_keyword').on('keyup',function(e){if(e.keyCode===13)dt.draw();});$('#btn_reset_pick').on('click',function(){$('#filter_tgl_awal').val('<?=$defaultFrom;?>');$('#filter_tgl_akhir').val('<?=$defaultTo;?>');$('#filter_keyword').val('');$('#filter_customer,#filter_status').val('all').trigger('change');$('#filter_picker').val('').trigger('change');dt.draw();});$('#btn_excel_pick').on('click',function(){window.location='<?=base_admin();?>modul/picking/picking_action.php?act=excel&'+$.param(pickFilters());});
+$('#form_pick').on('submit',function(e){e.preventDefault();$.post('<?=base_admin();?>modul/picking/picking_action.php?act=save',$(this).serialize(),function(r){if(r.status==='good'){$('#modal_pick').modal('hide');dt.draw(false);}else{pickError(r.error_message||<?=sd_js('sales_picking_save_failed', 'Picking failed to save.');?>);}},'json').fail(function(xhr){console.log(xhr.responseText);pickError(<?=sd_js('sales_picking_save_failed', 'Picking failed to save.');?>);});});
+$(document).on('click','.btn-pick-detail',function(){$.post('<?=base_admin();?>modul/picking/picking_action.php?act=detail',{id:$(this).data('id')},function(html){$('#pick_detail_body').html(html);$('#modal_pick_detail').modal('show');}).fail(function(){pickError('Detail gagal dibuka.');});});$(document).on('click','.hide_alert_notif',function(){$('.error_data_delete').hide();});});
 </script>
-            

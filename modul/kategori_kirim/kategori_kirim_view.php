@@ -1,12 +1,12 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Kategori Kirim
+                        <?=erp_h('master_shipping_category','Shipping Category');?>
                     </h1>
                         <ol class="breadcrumb">
                         <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>kategori-kirim">Kategori Kirim</a></li>
-                        <li class="active">Kategori Kirim List</li>
+                        <li><a href="<?=base_index();?>kategori-kirim"><?=erp_h('master_shipping_category','Shipping Category');?></a></li>
+                        <li class="active"><?=erp_h('master_shipping_category','Shipping Category');?> <?=erp_h('master_list_title','List');?></li>
                     </ol>
                 </section>
 
@@ -21,7 +21,7 @@
                                       if (uri_segment(1)==$isi->url) {
                                           if ($role_act["insert_act"]=="Y") {
                                       ?>
-                                      <a id="add_kategori_kirim" class="btn btn-primary "><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
+                                      <a id="add_kategori_kirim" class="btn btn-primary "><i class="fa fa-plus"></i> <?=erp_h('add_button','Add New');?></a>
                                       <?php
                                           }
                                       }
@@ -43,10 +43,10 @@
                         <table id="dtb_kategori_kirim" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                  <th>No</th>
-                                  <th>Kode Catatan</th>
-                                  <th>Nama Catatan</th>
-                                  <th>Action</th>
+                                  <th><?=erp_h('common_no','No');?></th>
+                                  <th><?=erp_h('master_term_kode_catatan','Note Code');?></th>
+                                  <th><?=erp_h('master_term_nama_catatan','Note Name');?></th>
+                                  <th><?=erp_h('common_action','Action');?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +69,7 @@
                   $edit ="";
               }
             if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/kategori_kirim/kategori_kirim_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_kategori_kirim"><i class="fa fa-trash"></i></button>';
+                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/kategori_kirim/kategori_kirim_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="'.erp_attr('common_delete','Delete').'" data-variable="dtb_kategori_kirim"><i class="fa fa-trash"></i></button>';
             } else {
                 $del="";
             }
@@ -78,7 +78,7 @@
 
         ?>
 
-    <div class="modal" id="modal_kategori_kirim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog modal-lg"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?php echo $lang["add_button"];?> Kategori Kirim</h4> </div> <div class="modal-body" id="isi_kategori_kirim"> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>
+    <div class="modal" id="modal_kategori_kirim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog modal-lg"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="<?=erp_attr('common_close','Close');?>"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?=erp_h('add_button','Add New');?> <?=erp_h('master_shipping_category','Shipping Category');?></h4> </div> <div class="modal-body" id="isi_kategori_kirim"> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>
     
     </section><!-- /.content -->
 
@@ -122,7 +122,7 @@
       var dtb_kategori_kirim = $("#dtb_kategori_kirim").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
             var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>kategori-kirim/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
+            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>kategori-kirim/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="<?=erp_attr('common_detail','Detail');?>"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
               $(nRow).attr('id', 'line_'+aData[indek]);
               },
               "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -130,7 +130,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text: ERPKB_LANG.common_export_data || 'Export Data',
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

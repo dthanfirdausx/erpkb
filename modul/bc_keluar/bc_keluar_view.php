@@ -1,33 +1,27 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        BC Keluar
+                        <?=erp_h('master_outbound_customs_type','Outbound Customs Type');?>
                     </h1>
                         <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>bc-keluar">BC Keluar</a></li>
-                        <li class="active">BC Keluar List</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+                        <li><a href="<?=base_index();?>bc-keluar"><?=erp_h('master_outbound_customs_type','Outbound Customs Type');?></a></li>
+                        <li class="active"><?=erp_h('master_outbound_customs_type','Outbound Customs Type');?> <?=erp_h('master_list_title','List');?></li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
+<?php
+$mdtActionsHtml = '';
+if (isset($role_act["insert_act"]) && $role_act["insert_act"]=="Y") {
+  $mdtActionsHtml = '<a id="add_bc_keluar" class="btn btn-warning"><i class="fa fa-plus"></i> '.$lang["add_button"].'</a>';
+}
+include __DIR__ . "/../master_data_toolbar.php";
+?>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
-                                <div class="box-header">
-                                <?php
-                                  foreach ($db->fetch_all("sys_menu") as $isi) {
-                                      if (uri_segment(1)==$isi->url) {
-                                          if ($role_act["insert_act"]=="Y") {
-                                      ?>
-                                      <a id="add_bc_keluar" class="btn btn-primary "><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
-                                      <?php
-                                          }
-                                      }
-                                  }
-                                ?>
-                            </div><!-- /.box-header -->
                             <div class="box-body table-responsive">
                                 <div class="row">
                                     <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
@@ -43,11 +37,11 @@
                         <table id="dtb_bc_keluar" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                  <th>No</th>
-                                  <th>Kode</th>
-                                  <th>Jenis</th>
-                                  <th>Nama</th>
-                                  <th>Action</th>
+                                  <th><?=customs_h('no','No');?></th>
+                                  <th><?=erp_h('master_term_kode_bc','BC Code');?></th>
+                                  <th><?=erp_h('master_term_jenis_dokumen','Document Type');?></th>
+                                  <th><?=erp_h('master_term_nama','Name');?></th>
+                                  <th><?=customs_h('action','Action');?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,7 +64,7 @@
                   $edit ="";
               }
             if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/bc_keluar/bc_keluar_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_bc_keluar"><i class="fa fa-trash"></i></button>';
+                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/bc_keluar/bc_keluar_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="'.htmlspecialchars(customs_t('delete','Hapus'), ENT_QUOTES, 'UTF-8').'" data-variable="dtb_bc_keluar"><i class="fa fa-trash"></i></button>';
             } else {
                 $del="";
             }
@@ -79,7 +73,7 @@
 
         ?>
 
-    <div class="modal" id="modal_bc_keluar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog modal-lg"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?php echo $lang["add_button"];?> BC Keluar</h4> </div> <div class="modal-body" id="isi_bc_keluar"> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>
+    <div class="modal" id="modal_bc_keluar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog modal-lg"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="<?=erp_attr('common_close','Close');?>"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?=erp_h('add_button','Add New');?> <?=erp_h('master_outbound_customs_type','Outbound Customs Type');?></h4> </div> <div class="modal-body" id="isi_bc_keluar"> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>
     
     </section><!-- /.content -->
 
@@ -123,7 +117,7 @@
       var dtb_bc_keluar = $("#dtb_bc_keluar").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
             var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>bc-keluar/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
+            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>bc-keluar/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="<?=customs_h('detail','Detail');?>"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
               $(nRow).attr('id', 'line_'+aData[indek]);
               },
               "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -131,7 +125,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text: ERPKB_LANG.common_export_data || 'Export Data',
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

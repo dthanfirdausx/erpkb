@@ -1,14 +1,14 @@
 <!-- Content Header (Page header) -->
               <section class="content-header">
-                  <h1>Laporan Pengeluaran Per Dokumen Pabean</h1>
+                  <h1><?=customs_h('outgoing_report_by_doc','Laporan Pengeluaran Per Dokumen Pabean');?></h1>
                     <ol class="breadcrumb">
                         <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a>
                         </li>
                         <li>
-                        <a href="<?=base_index();?>laporan-pengeluaran-per-dokumen-pabean">Laporan Pengeluaran Per Dokumen Pabean</a>
+                        <a href="<?=base_index();?>laporan-pengeluaran-per-dokumen-pabean"><?=customs_h('outgoing_report_by_doc','Laporan Pengeluaran Per Dokumen Pabean');?></a>
                         </li>
-                        <li class="active">Edit Laporan Pengeluaran Per Dokumen Pabean</li>
+                        <li class="active"><?=customs_h('legacy_edit_laporan_pengeluaran_per_dokumen_pabean','Edit Laporan Pengeluaran Per Dokumen Pabean');?></li>
                     </ol>
               </section>
 
@@ -18,7 +18,7 @@
                   <div class="col-lg-12">
                       <div class="box box-solid box-primary">
                           <div class="box-header">
-                              <h3 class="box-title">Edit Laporan Pengeluaran Per Dokumen Pabean</h3>
+                              <h3 class="box-title"><?=customs_h('legacy_edit_laporan_pengeluaran_per_dokumen_pabean','Edit Laporan Pengeluaran Per Dokumen Pabean');?></h3>
                               <div class="box-tools pull-right">
                                   <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-pencil"></i></button>
                               </div>
@@ -37,7 +37,7 @@
                 </div>
               </div><!-- /.form-group -->
               
-                            <input type="hidden" name="id" value="<?=$data_edit->;?>">
+                            <input type="hidden" name="id" value="<?=isset($data_edit->id) ? $data_edit->id : '';?>">
                             <div class="form-group">
                                 <label for="tags" class="control-label col-lg-2">&nbsp;</label>
                                 <div class="col-lg-10">

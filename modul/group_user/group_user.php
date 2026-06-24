@@ -1,5 +1,7 @@
 <?php
-session_check_adm();
+if (!isset($_SESSION['group_level']) || !in_array($_SESSION['group_level'], array('admin', 'system_administrator'), true)) {
+    exit('permission denied');
+}
 switch (uri_segment(2)) {
 	case "tambah":
           include "group_user_add.php";

@@ -1,6 +1,7 @@
 <?php
 
 include "../../inc/config.php";
+require_once __DIR__ . "/../print_pdf_helper.php";
 
 $id = $_GET['id'];
 
@@ -48,13 +49,20 @@ WHERE t.id_transfer = '$id'
 
 ");
 
+if (!$header) {
+    http_response_code(404);
+    echo erp_t('export_document_not_found','Dokumen tidak ditemukan.');
+    exit;
+}
+ob_start();
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 
-<title>Print LPB Produksi</title>
+<title><?=erp_export_title('Print LPB Produksi');?></title>
 
 <style>
 <style>
@@ -101,7 +109,7 @@ table td{
 <body onload="window.print()">
 
 <h2 style="text-align:center">
-    LPB PRODUKSI
+    <?=erp_export_title('LPB PRODUKSI');?>
 </h2>
 
 <br>
@@ -109,13 +117,13 @@ table td{
 <table class="no-border">
 
 <tr>
-    <td width="200">No LPB</td>
+    <td width="200"><?=erp_export_label('No LPB');?></td>
     <td width="10">:</td>
     <td><?= $header->no_terima ?></td>
 </tr>
 
 <tr>
-    <td>No SPB</td>
+    <td><?=erp_export_label('No SPB');?></td>
     <td>:</td>
     <td><?= $header->no_transfer ?></td>
 </tr>
@@ -127,7 +135,7 @@ table td{
 </tr>
 
 <tr>
-    <td>No RO</td>
+    <td><?=erp_export_label('No RO');?></td>
     <td>:</td>
     <td><?= $header->no_ro ?></td>
 </tr>
@@ -176,7 +184,7 @@ table td{
     <th>Kode Barang</th>
     <th>Nama Barang</th>
   
-    <th>Qty RO</th>
+    <th><?=erp_export_label('Qty RO');?></th>
     <th>Qty</th>
     <th>Satuan</th>
 
@@ -342,3 +350,7 @@ foreach($q as $r){
 
 </body>
 </html>
+<?php
+$html = ob_get_clean();
+erpkb_pdf_output($html, 'lpb_produksi_'.preg_replace('/[^A-Za-z0-9_\-]/', '_', (string)$header->no_terima).'.pdf', 'P');
+?>

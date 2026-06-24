@@ -1,0 +1,839 @@
+.dokumen-pabean-page .modal {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.dpb-modal {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.dokumen-pabean-page > .row,
+.dokumen-pabean-page > .row > [class*="col-"] {
+  min-height: calc(100vh - 118px);
+}
+
+.dokumen-pabean-page > .row > [class*="col-"] > .box.box-solid.box-primary {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 118px);
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, .08);
+  overflow: hidden;
+}
+
+.dokumen-pabean-page > .row > [class*="col-"] > .box.box-solid.box-primary > .box-header {
+  flex: 0 0 auto;
+}
+
+.dokumen-pabean-page > .row > [class*="col-"] > .box.box-solid.box-primary > .box-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+.dokumen-pabean-page > .row > [class*="col-"] > .box.box-solid.box-primary > .box-body > .nav-tabs {
+  flex: 0 0 auto;
+}
+
+.dokumen-pabean-page > .row > [class*="col-"] > .box.box-solid.box-primary > .box-body > .tab-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 4px 18px;
+}
+
+.dokumen-pabean-page .box.box-primary {
+  border-top: 0;
+  border-radius: 12px;
+  border: 1px solid #e5edf5;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, .055);
+  overflow: hidden;
+}
+
+.dokumen-pabean-page .box.box-primary > .box-header {
+  min-height: 48px;
+  padding: 13px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e8eef5;
+}
+
+.dokumen-pabean-page .box.box-primary > .box-header .box-title {
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.dokumen-pabean-page .box.box-primary > .box-header .btn,
+.dokumen-pabean-page .box.box-primary > .box-header [id^="btn_tambah"] {
+  margin-top: -4px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.dokumen-pabean-page .box.box-primary > .box-body {
+  padding: 16px;
+  background: #fff;
+}
+
+.dokumen-pabean-page .tab-content > .tab-pane > .row:first-child {
+  margin-top: 0;
+}
+
+.dokumen-pabean-page .nav-tabs {
+  padding: 0 10px;
+  border-bottom: 1px solid #e5edf5;
+  background: #f8fafc;
+}
+
+.dokumen-pabean-page .nav-tabs > li > a {
+  margin-right: 4px;
+  padding: 11px 14px;
+  color: #475569;
+  border: 0;
+  border-radius: 10px 10px 0 0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dokumen-pabean-page .nav-tabs > li.active > a,
+.dokumen-pabean-page .nav-tabs > li.active > a:hover,
+.dokumen-pabean-page .nav-tabs > li.active > a:focus {
+  color: #0f766e;
+  background: #fff;
+  border: 1px solid #e5edf5;
+  border-bottom-color: #fff;
+}
+
+.dokumen-pabean-page .nav-tabs > li > a:hover {
+  color: #0f766e;
+  background: #eefdfa;
+}
+
+.dokumen-pabean-page .form-group {
+  margin-bottom: 14px;
+}
+
+.dokumen-pabean-page label,
+.dokumen-pabean-page .control-label {
+  color: #334155;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dokumen-pabean-page .control-label {
+  padding-top: 8px;
+}
+
+.dokumen-pabean-page .form-control,
+.dokumen-pabean-page select.form-control,
+.dokumen-pabean-page textarea.form-control {
+  min-height: 36px;
+  border: 1px solid #dbe5ef;
+  border-radius: 8px;
+  color: #0f172a;
+  box-shadow: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+
+.dokumen-pabean-page textarea.form-control {
+  min-height: 78px;
+  resize: vertical;
+}
+
+.dokumen-pabean-page .form-control:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, .12);
+}
+
+.dokumen-pabean-page .form-control[readonly],
+.dokumen-pabean-page .form-control[disabled],
+.dokumen-pabean-page fieldset[disabled] .form-control {
+  background: #f8fafc;
+  color: #64748b;
+}
+
+.dokumen-pabean-page .select2-container {
+  width: 100% !important;
+}
+
+.dokumen-pabean-page .select2-container .select2-choice,
+.dokumen-pabean-page .select2-container .select2-selection {
+  min-height: 36px;
+  border-color: #dbe5ef;
+  border-radius: 8px;
+}
+
+.dokumen-pabean-page .select2-container .select2-choice {
+  line-height: 34px;
+}
+
+.dokumen-pabean-page .select2-container .select2-choice .select2-arrow {
+  border-left-color: #dbe5ef;
+  border-radius: 0 8px 8px 0;
+}
+
+.dokumen-pabean-page .table {
+  margin-bottom: 0;
+  background: #fff;
+  border: 1px solid #e5edf5;
+}
+
+.dokumen-pabean-page .table > thead > tr > th {
+  background: #f8fafc;
+  color: #334155;
+  border-bottom: 1px solid #dbe5ef;
+  font-size: 12px;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.dokumen-pabean-page .table > tbody > tr > td {
+  color: #334155;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.dokumen-pabean-page .table .btn {
+  border-radius: 7px;
+  padding: 4px 8px;
+}
+
+.dokumen-pabean-page .tab-pane > .row:last-child .btn,
+.dokumen-pabean-page .tab-pane > .row:last-child a.btn {
+  min-width: 92px;
+  margin-top: 8px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.dokumen-pabean-page .alert {
+  border-radius: 10px;
+}
+
+.dokumen-pabean-page .modal.in {
+  display: block !important;
+}
+
+.dpb-modal.in {
+  display: block !important;
+}
+
+.dokumen-pabean-page .modal-dialog {
+  width: calc(100vw - 48px);
+  max-width: 760px;
+  margin: 16px auto;
+}
+
+.dpb-modal .modal-dialog {
+  width: calc(100vw - 48px);
+  max-width: 760px;
+  margin: 16px auto;
+}
+
+.dokumen-pabean-page .modal-dialog.modal-lg,
+.dokumen-pabean-page #modal_barang .modal-dialog,
+.dokumen-pabean-page #modal_dokuman_fasilitas .modal-dialog,
+.dokumen-pabean-page #modal_jaminan .modal-dialog {
+  width: calc(100vw - 32px) !important;
+  max-width: 1440px;
+}
+
+.dpb-modal .modal-dialog.modal-lg,
+#modal_barang.dpb-modal .modal-dialog,
+#modal_dokuman_fasilitas.dpb-modal .modal-dialog,
+#modal_jaminan.dpb-modal .modal-dialog {
+  width: calc(100vw - 32px) !important;
+  max-width: 1440px;
+}
+
+.dokumen-pabean-page .modal-content {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 52px rgba(15, 23, 42, .28);
+  overflow: hidden;
+}
+
+.dpb-modal .modal-content {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 52px rgba(15, 23, 42, .28);
+  overflow: hidden;
+}
+
+.dokumen-pabean-page .modal-header {
+  flex: 0 0 auto;
+  min-height: 58px;
+  padding: 15px 22px;
+  background: linear-gradient(135deg, #0f172a, #0f766e);
+  color: #fff;
+  border-bottom: 0;
+}
+
+.dpb-modal .modal-header {
+  flex: 0 0 auto;
+  min-height: 58px;
+  padding: 15px 22px;
+  background: linear-gradient(135deg, #0f172a, #0f766e);
+  color: #fff;
+  border-bottom: 0;
+}
+
+.dokumen-pabean-page .modal-header .modal-title {
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.dpb-modal .modal-header .modal-title {
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.dokumen-pabean-page .modal-header .close {
+  color: #fff;
+  opacity: .9;
+  text-shadow: none;
+}
+
+.dpb-modal .modal-header .close {
+  color: #fff;
+  opacity: .9;
+  text-shadow: none;
+}
+
+.dokumen-pabean-page .modal-header .close:hover {
+  opacity: 1;
+}
+
+.dpb-modal .modal-header .close:hover {
+  opacity: 1;
+}
+
+.dokumen-pabean-page .modal-header > .modal-footer {
+  display: none;
+}
+
+.dpb-modal .modal-header > .modal-footer {
+  display: none;
+}
+
+.dokumen-pabean-page .modal-body,
+.dokumen-pabean-page .modal-body-barang,
+.dokumen-pabean-page .modal-body-barang-detail,
+.dokumen-pabean-page .modal-body-fasilitas {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  padding: 18px 22px;
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #f8fafc;
+}
+
+.dpb-modal .modal-body,
+.dpb-modal .modal-body-barang,
+.dpb-modal .modal-body-barang-detail,
+.dpb-modal .modal-body-fasilitas {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  padding: 18px 22px;
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #f8fafc;
+}
+
+.dokumen-pabean-page .modal-body-barang {
+  min-height: 420px;
+}
+
+.dpb-modal .modal-body-barang {
+  min-height: 420px;
+}
+
+.dokumen-pabean-page .modal-body-barang-detail {
+  display: none;
+}
+
+.dpb-modal .modal-body-barang-detail {
+  display: none;
+}
+
+.dokumen-pabean-page .modal-body .box,
+.dokumen-pabean-page .modal-body-barang .box,
+.dokumen-pabean-page .modal-body-barang-detail .box,
+.dokumen-pabean-page .modal-body-fasilitas .box {
+  margin-bottom: 14px;
+  border: 1px solid #e5edf5;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, .055);
+  overflow: hidden;
+}
+
+.dpb-modal .modal-body .box,
+.dpb-modal .modal-body-barang .box,
+.dpb-modal .modal-body-barang-detail .box,
+.dpb-modal .modal-body-fasilitas .box {
+  margin-bottom: 14px;
+  border: 1px solid #e5edf5;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, .055);
+  overflow: hidden;
+}
+
+.dokumen-pabean-page .modal-body .box-header,
+.dokumen-pabean-page .modal-body-barang .box-header,
+.dokumen-pabean-page .modal-body-barang-detail .box-header,
+.dokumen-pabean-page .modal-body-fasilitas .box-header {
+  background: #fff;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.dpb-modal .modal-body .box-header,
+.dpb-modal .modal-body-barang .box-header,
+.dpb-modal .modal-body-barang-detail .box-header,
+.dpb-modal .modal-body-fasilitas .box-header {
+  background: #fff;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.dokumen-pabean-page .modal-footer {
+  flex: 0 0 auto;
+  padding: 12px 22px;
+  background: #fff;
+  border-top: 1px solid #e8eef5;
+  box-shadow: 0 -8px 22px rgba(15, 23, 42, .06);
+}
+
+.dpb-modal .modal-footer {
+  flex: 0 0 auto;
+  padding: 12px 22px;
+  background: #fff;
+  border-top: 1px solid #e8eef5;
+  box-shadow: 0 -8px 22px rgba(15, 23, 42, .06);
+}
+
+.dokumen-pabean-page .modal-footer .btn {
+  min-width: 92px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.dpb-modal .modal-footer .btn {
+  min-width: 92px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+#modal_barang.dpb-modal .modal-dialog,
+.dokumen-pabean-page #modal_barang .modal-dialog {
+  max-width: 1320px;
+}
+
+#modal_barang.dpb-modal .modal-content,
+.dokumen-pabean-page #modal_barang .modal-content {
+  max-height: calc(100vh - 24px);
+}
+
+#modal_barang.dpb-modal .modal-header,
+.dokumen-pabean-page #modal_barang .modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  min-height: 56px;
+  padding: 14px 22px;
+}
+
+#modal_barang.dpb-modal .modal-header > .modal-footer,
+.dokumen-pabean-page #modal_barang .modal-header > .modal-footer {
+  display: none !important;
+}
+
+#modal_barang.dpb-modal .modal-title,
+.dokumen-pabean-page #modal_barang .modal-title {
+  position: relative;
+  padding-left: 30px;
+  line-height: 1.8;
+}
+
+#modal_barang.dpb-modal .modal-title:before,
+.dokumen-pabean-page #modal_barang .modal-title:before {
+  content: "\f1b2";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-family: FontAwesome;
+  font-size: 17px;
+  font-weight: normal;
+  opacity: .9;
+}
+
+#modal_barang.dpb-modal .modal-body-barang,
+#modal_barang.dpb-modal .modal-body-barang-detail,
+.dokumen-pabean-page #modal_barang .modal-body-barang,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail {
+  padding: 20px;
+  background: #eef3f8;
+}
+
+#modal_barang.dpb-modal .modal-body-barang > .col-md-12,
+#modal_barang.dpb-modal .modal-body-barang-detail > .col-md-12,
+.dokumen-pabean-page #modal_barang .modal-body-barang > .col-md-12,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail > .col-md-12 {
+  float: none;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#modal_barang.dpb-modal .modal-body-barang > .col-md-12 > form > .row,
+#modal_barang.dpb-modal .modal-body-barang-detail > .col-md-12 > form > .row,
+.dokumen-pabean-page #modal_barang .modal-body-barang > .col-md-12 > form > .row,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail > .col-md-12 > form > .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .box.box-primary,
+#modal_barang.dpb-modal .modal-body-barang-detail .box.box-primary,
+.dokumen-pabean-page #modal_barang .modal-body-barang .box.box-primary,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .box.box-primary {
+  margin-bottom: 16px;
+  border: 1px solid #dbe5ef;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, .06);
+}
+
+#modal_barang.dpb-modal .modal-body-barang .box.box-primary > .box-header,
+#modal_barang.dpb-modal .modal-body-barang-detail .box.box-primary > .box-header,
+.dokumen-pabean-page #modal_barang .modal-body-barang .box.box-primary > .box-header,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .box.box-primary > .box-header {
+  min-height: 44px;
+  padding: 11px 14px;
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+
+#modal_barang.dpb-modal .modal-body-barang .box.box-primary > .box-header .box-title,
+#modal_barang.dpb-modal .modal-body-barang-detail .box.box-primary > .box-header .box-title,
+.dokumen-pabean-page #modal_barang .modal-body-barang .box.box-primary > .box-header .box-title,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .box.box-primary > .box-header .box-title {
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .box.box-primary > .box-header .box-title:before,
+#modal_barang.dpb-modal .modal-body-barang-detail .box.box-primary > .box-header .box-title:before,
+.dokumen-pabean-page #modal_barang .modal-body-barang .box.box-primary > .box-header .box-title:before,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .box.box-primary > .box-header .box-title:before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 18px;
+  margin-right: 8px;
+  border-radius: 999px;
+  background: #0f766e;
+  vertical-align: -4px;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .box.box-primary .form-group,
+#modal_barang.dpb-modal .modal-body-barang-detail .box.box-primary .form-group,
+.dokumen-pabean-page #modal_barang .modal-body-barang .box.box-primary .form-group,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .box.box-primary .form-group {
+  padding: 0 14px;
+  margin-bottom: 11px;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .box.box-primary .form-group:first-of-type,
+#modal_barang.dpb-modal .modal-body-barang-detail .box.box-primary .form-group:first-of-type,
+.dokumen-pabean-page #modal_barang .modal-body-barang .box.box-primary .form-group:first-of-type,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .box.box-primary .form-group:first-of-type {
+  padding-top: 14px;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .box.box-primary .form-group:last-child,
+#modal_barang.dpb-modal .modal-body-barang-detail .box.box-primary .form-group:last-child,
+.dokumen-pabean-page #modal_barang .modal-body-barang .box.box-primary .form-group:last-child,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .box.box-primary .form-group:last-child {
+  padding-bottom: 14px;
+}
+
+#modal_barang.dpb-modal .modal-body-barang label,
+#modal_barang.dpb-modal .modal-body-barang-detail label,
+.dokumen-pabean-page #modal_barang .modal-body-barang label,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail label {
+  display: block;
+  margin-bottom: 5px;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .form-control,
+#modal_barang.dpb-modal .modal-body-barang-detail .form-control,
+.dokumen-pabean-page #modal_barang .modal-body-barang .form-control,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .form-control {
+  min-height: 34px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .select2-container .select2-choice,
+#modal_barang.dpb-modal .modal-body-barang-detail .select2-container .select2-choice,
+.dokumen-pabean-page #modal_barang .modal-body-barang .select2-container .select2-choice,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .select2-container .select2-choice {
+  min-height: 34px;
+  line-height: 32px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .table,
+#modal_barang.dpb-modal .modal-body-barang-detail .table,
+.dokumen-pabean-page #modal_barang .modal-body-barang .table,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#modal_barang.dpb-modal .modal-body-barang .table > thead > tr > th,
+#modal_barang.dpb-modal .modal-body-barang-detail .table > thead > tr > th,
+.dokumen-pabean-page #modal_barang .modal-body-barang .table > thead > tr > th,
+.dokumen-pabean-page #modal_barang .modal-body-barang-detail .table > thead > tr > th {
+  white-space: nowrap;
+}
+
+#modal_barang.dpb-modal .modal-footer,
+.dokumen-pabean-page #modal_barang .modal-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+}
+
+.dokumen-pabean-page .modal .form-group {
+  margin-bottom: 13px;
+}
+
+.dpb-modal .form-group {
+  margin-bottom: 13px;
+}
+
+.dokumen-pabean-page .modal .form-group,
+.dpb-modal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.dokumen-pabean-page .modal label {
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dpb-modal label {
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dokumen-pabean-page .modal label,
+.dokumen-pabean-page .modal .control-label,
+.dpb-modal label,
+.dpb-modal .control-label {
+  color: #334155;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dokumen-pabean-page .modal .control-label,
+.dpb-modal .control-label {
+  padding-top: 8px;
+}
+
+.dokumen-pabean-page .modal .form-control {
+  min-height: 36px;
+  border-color: #dbe5ef;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.dpb-modal .form-control {
+  min-height: 36px;
+  border-color: #dbe5ef;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.dokumen-pabean-page .modal textarea.form-control,
+.dpb-modal textarea.form-control {
+  min-height: 78px;
+  resize: vertical;
+}
+
+.dokumen-pabean-page .modal .form-control:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, .12);
+}
+
+.dpb-modal .form-control:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, .12);
+}
+
+.dokumen-pabean-page .modal .table-responsive {
+  overflow-x: auto !important;
+}
+
+.dpb-modal .table-responsive {
+  overflow-x: auto !important;
+}
+
+.dokumen-pabean-page .modal .table {
+  background: #fff;
+}
+
+.dpb-modal .table {
+  background: #fff;
+}
+
+.dokumen-pabean-page .modal .select2-container {
+  width: 100% !important;
+}
+
+.dpb-modal .select2-container {
+  width: 100% !important;
+}
+
+.dokumen-pabean-page .modal .select2-container .select2-choice,
+.dokumen-pabean-page .modal .select2-selection {
+  min-height: 36px;
+  border-color: #dbe5ef;
+  border-radius: 8px;
+}
+
+.dpb-modal .select2-container .select2-choice,
+.dpb-modal .select2-selection {
+  min-height: 36px;
+  border-color: #dbe5ef;
+  border-radius: 8px;
+}
+
+.dokumen-pabean-page .modal .select2-container .select2-choice,
+.dpb-modal .select2-container .select2-choice {
+  line-height: 34px;
+}
+
+.dokumen-pabean-page .modal .select2-container .select2-choice .select2-arrow,
+.dpb-modal .select2-container .select2-choice .select2-arrow {
+  border-left-color: #dbe5ef;
+  border-radius: 0 8px 8px 0;
+}
+
+.dokumen-pabean-page .modal .table > thead > tr > th,
+.dpb-modal .table > thead > tr > th {
+  background: #f8fafc;
+  color: #334155;
+  border-bottom: 1px solid #dbe5ef;
+  font-size: 12px;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.dokumen-pabean-page .modal .table > tbody > tr > td,
+.dpb-modal .table > tbody > tr > td {
+  color: #334155;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.select2-drop,
+.select2-dropdown {
+  z-index: 10650 !important;
+}
+
+.modal-backdrop {
+  background-color: #0f172a;
+}
+
+.modal-backdrop.in {
+  opacity: .52;
+}
+
+@media (max-width: 991px) {
+  .dokumen-pabean-page .modal-dialog,
+  .dokumen-pabean-page .modal-dialog.modal-lg,
+  .dokumen-pabean-page #modal_barang .modal-dialog,
+  .dokumen-pabean-page #modal_dokuman_fasilitas .modal-dialog,
+  .dokumen-pabean-page #modal_jaminan .modal-dialog {
+    width: calc(100vw - 20px) !important;
+    margin: 10px auto;
+  }
+
+  .dpb-modal .modal-dialog,
+  .dpb-modal .modal-dialog.modal-lg,
+  #modal_barang.dpb-modal .modal-dialog,
+  #modal_dokuman_fasilitas.dpb-modal .modal-dialog,
+  #modal_jaminan.dpb-modal .modal-dialog {
+    width: calc(100vw - 20px) !important;
+    margin: 10px auto;
+  }
+
+  .dokumen-pabean-page .modal-content {
+    max-height: calc(100vh - 20px);
+    border-radius: 12px;
+  }
+
+  .dpb-modal .modal-content {
+    max-height: calc(100vh - 20px);
+    border-radius: 12px;
+  }
+
+  .dokumen-pabean-page .modal-header,
+  .dokumen-pabean-page .modal-body,
+  .dokumen-pabean-page .modal-body-barang,
+  .dokumen-pabean-page .modal-body-barang-detail,
+  .dokumen-pabean-page .modal-body-fasilitas,
+  .dokumen-pabean-page .modal-footer {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .dpb-modal .modal-header,
+  .dpb-modal .modal-body,
+  .dpb-modal .modal-body-barang,
+  .dpb-modal .modal-body-barang-detail,
+  .dpb-modal .modal-body-fasilitas,
+  .dpb-modal .modal-footer {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}

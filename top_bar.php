@@ -1,4 +1,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+.native-language-switcher{padding:8px 8px 0 0}
+.native-language-switcher .language-select-wrap{position:relative;display:inline-block}
+.native-language-switcher .language-flag{display:none}
+.native-language-switcher select{height:34px;min-width:162px;border-radius:18px;border:1px solid #2f80b7;background:#3c8dbc;color:#fff;font-size:12px;font-weight:600;padding:5px 28px 5px 14px;outline:none;appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer}
+.native-language-switcher select option{color:#334155;background:#fff}
+.native-language-switcher:after{content:"\f107";font-family:FontAwesome;position:absolute;margin-left:-24px;margin-top:8px;color:#fff;pointer-events:none}
+</style>
 <header class="main-header">
 
         <!-- Logo -->
@@ -6,66 +14,43 @@
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
-           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
+           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" aria-label="<?=erp_h('top_nav_toggle_navigation', 'Toggle navigation');?>">
+            <span class="sr-only"><?=erp_h('top_nav_toggle_navigation', 'Toggle navigation');?></span>
           </a>
           <!-- Navbar Right Menu -->
 
           <div class="navbar-custom-menu">
+
             <ul class="nav navbar-nav">
 
-             <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" 
-       href="#"  
-       role="button" 
-       data-bs-toggle="dropdown">
-
-        <?php $language = $_SESSION['lang'] ?? 'id'; ?>
-
-        <?php if($language == 'id'): ?>
-            <img src="https://flagcdn.com/w20/id.png"> Indonesia
-        <?php elseif($language == 'en'): ?>
-            <img src="https://flagcdn.com/w20/us.png"> English
-        <?php elseif($language == 'ko'): ?>
-            <img src="https://flagcdn.com/w20/kr.png"> 한국어
-        <?php elseif($language == 'zh'): ?>
-            <img src="https://flagcdn.com/w20/cn.png"> 中文
-        <?php endif; ?>
-
-    </a>
-
-    <ul class="dropdown-menu dropdown-menu-end">
-
-        <li class="<?= ($language=='id') ? 'active' : '' ?>">
-            <a class="dropdown-item" href="#" onclick="changeLanguage('id')">
-                <img src="https://flagcdn.com/w20/id.png">
-                Indonesia
-            </a>
-        </li>
-
-        <li class="<?= ($language=='en') ? 'active' : '' ?>">
-            <a class="dropdown-item" href="#" onclick="changeLanguage('en')">
-                <img src="https://flagcdn.com/w20/us.png">
-                English
-            </a>
-        </li>
-
-        <li class="<?= ($language=='ko') ? 'active' : '' ?>">
-            <a class="dropdown-item" href="#" onclick="changeLanguage('ko')">
-                <img src="https://flagcdn.com/w20/kr.png">
-                한국어 (Korean)
-            </a>
-        </li>
-
-        <li class="<?= ($language=='zh') ? 'active' : '' ?>">
-            <a class="dropdown-item" href="#" onclick="changeLanguage('zh')">
-                <img src="https://flagcdn.com/w20/cn.png">
-                中文 (Chinese)
-            </a>
-        </li>
-
-    </ul>
-</li>
+	            <li class="native-language-switcher">
+	              <?php
+	              $languageFlags = array(
+	                'id' => '🇮🇩',
+	                'en' => '🇺🇸',
+	                'ko' => '🇰🇷',
+	                'zh' => '🇨🇳',
+	                'ja' => '🇯🇵'
+	              );
+	              $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'en';
+	              $currentFlag = isset($languageFlags[$currentLanguage]) ? $languageFlags[$currentLanguage] : '🌐';
+	              ?>
+		              <form method="post" action="<?=base_admin();?>inc/set_language.php" id="native_language_form">
+		                <input type="hidden" name="redirect_to" value="<?=htmlspecialchars($_SERVER['REQUEST_URI'],ENT_QUOTES,'UTF-8');?>">
+		                <div class="language-select-wrap">
+		                  <span class="language-flag" aria-hidden="true"><?=$currentFlag;?></span>
+		                  <select name="language" aria-label="<?=erp_h('top_nav_language', 'Language');?>" onchange="document.getElementById('native_language_form').submit()">
+		                    <?php
+		                    foreach (erpkb_available_languages() as $code => $meta) {
+		                      $selected = $currentLanguage === $code ? 'selected' : '';
+		                      $flag = isset($languageFlags[$code]) ? $languageFlags[$code] : '🌐';
+		                      echo '<option value="'.htmlspecialchars($code,ENT_QUOTES,'UTF-8').'" '.$selected.'>'.$flag.' '.htmlspecialchars($meta['label'],ENT_QUOTES,'UTF-8').'</option>';
+		                    }
+		                    ?>
+	                  </select>
+	                </div>
+	              </form>
+	            </li>
               
             <!--   Messages: style can be found in dropdown.less
             <li class="dropdown messages-menu">
@@ -259,18 +244,27 @@
             
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="<?=base_url();?>upload/back_profil_foto/<?=$db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->foto_user?>" class="user-image" alt="User Image"/>
+                  <img src="<?=erpkb_user_photo_url($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->foto_user, 'back_profil_foto');?>" class="user-image" alt="<?=erp_h('left_nav_user_image', 'User Image');?>"/>
                   <span class="hidden-xs"><?=ucwords($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->first_name)?> <?=ucwords($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->last_name);?></span>
                 </a>
 
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu erpkb-user-menu-dropdown">
                   <!-- User image -->
-                  <li class="user-header">
-                    <img src="<?=base_url();?>upload/back_profil_foto/<?=$db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->foto_user?>" class="img-circle" alt="User Image" />
-                    <p>
-              <?=ucwords($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->first_name)?> <?=ucwords($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->last_name);?> - <?=$db->fetch_single_row('sys_group_users','level',$_SESSION['group_level'])->deskripsi?>
-            <small>Member since <?=$db->fetch_custom_single("SELECT MONTHNAME(STR_TO_DATE(month(date_created), '%m')) as bulan from sys_users where id=? ",array('id'=>$_SESSION['id_user']))->bulan;?> <?=$db->fetch_custom_single("select year(date_created) as tahun from sys_users where id=?",array('id'=>$_SESSION['id_user']))->tahun;?> </small>
-                                    </p>
+                  <li class="user-header erpkb-user-dropdown-header">
+                    <img src="<?=erpkb_user_photo_url($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->foto_user, 'back_profil_foto');?>" class="img-circle erpkb-user-dropdown-avatar" alt="<?=erp_h('left_nav_user_image', 'User Image');?>" />
+                    <div class="erpkb-user-dropdown-name">
+                      <?=ucwords($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->first_name)?> <?=ucwords($db->fetch_single_row('sys_users','id',$_SESSION['id_user'])->last_name);?>
+                    </div>
+                    <div class="erpkb-user-dropdown-role">
+                      <?=$db->fetch_single_row('sys_group_users','level',$_SESSION['group_level'])->deskripsi?>
+                    </div>
+                    <div class="erpkb-user-dropdown-meta">
+                      <?php $topBarCreated = $db->fetch_custom_single("SELECT MONTH(date_created) as bulan, YEAR(date_created) as tahun from sys_users where id=? ",array('id'=>$_SESSION['id_user'])); ?>
+                      <?=erp_h('top_nav_member_since', 'Member since');?> <?=erp_e(erpkb_month_name($topBarCreated->bulan));?> <?=erp_e($topBarCreated->tahun);?>
+                    </div>
+                    <?php if (!empty($_SESSION['impersonator'])) { ?>
+                    <div class="erpkb-login-as-badge"><?=erp_h('left_nav_login_as_by', 'Login as by');?> <?=htmlspecialchars($_SESSION['impersonator']['username'], ENT_QUOTES, 'UTF-8');?></div>
+                    <?php } ?>
                   </li>
                   <!-- Menu Body -->
      <!--              <li class="user-body">
@@ -285,12 +279,10 @@
                     </div>
                   </li> -->
                   <!-- Menu Footer-->
-                   <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="<?=base_index();?>profil" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="<?=base_admin();?>logout.php" class="btn btn-default btn-flat">Sign out</a>
+                   <li class="user-footer erpkb-user-dropdown-footer">
+                                    <div class="erpkb-user-dropdown-actions">
+                                        <a href="<?=base_index();?>profil" class="btn btn-default btn-flat"><?=erp_h('common_profile', 'Profile');?></a>
+                                        <a href="<?=base_admin();?>logout.php" class="btn btn-default btn-flat"><?=erp_h('common_sign_out', 'Sign out');?></a>
                                     </div>
                                 </li>
 
@@ -302,7 +294,98 @@
         </nav>
       </header>
 
-<div class="modal modal-danger" id="ucing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?php echo $lang['confirm'];?></h4> </div> <div class="modal-body"> <p> <i class="fa fa-info-circle fa-2x" style=" vertical-align: middle;margin-right:5px"></i> <span> <?php echo $lang['delete_confirm'];?></span></p> </div> <div class="modal-footer"> <button type="button" id="delete" class="btn btn-danger">Delete</button> <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div><!-- /.modal -->
-<div class="modal modal-warning" id="informasi" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog"> <div class="modal-content"><div class="modal-header"> <h4 class="modal-title"><?=$lang['info'];?></h4> </div> <div class="modal-body"> <p id="isi_informasi">
-<?=$lang['session_over'];?>
-</p> </div> <div class="modal-footer"> <a href="<?=base_admin();?>" class="btn btn-outline pull-left"><?=$lang['relogin'];?></a> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div><!-- /.modal -->
+<div class="modal modal-danger" id="ucing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="<?=erp_h('common_close', 'Close');?>"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?=erp_h('common_confirm', 'Confirm');?></h4> </div> <div class="modal-body"> <p> <i class="fa fa-info-circle fa-2x" style=" vertical-align: middle;margin-right:5px"></i> <span> <?=erp_h('modal_delete_confirm', 'Are you sure you want to delete this data?');?></span></p> </div> <div class="modal-footer"> <button type="button" id="delete" class="btn btn-danger"><?=erp_h('common_delete', 'Delete');?></button> <button type="button" class="btn btn-default" data-dismiss="modal"><?=erp_h('common_cancel', 'Cancel');?></button> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div><!-- /.modal -->
+<div class="modal modal-warning" id="informasi" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog"> <div class="modal-content"><div class="modal-header"> <h4 class="modal-title"><?=erp_h('common_info', 'Information');?></h4> </div> <div class="modal-body"> <p id="isi_informasi">
+<?=erp_h('session_expired', 'Sorry, your login session has expired');?>
+</p> </div> <div class="modal-footer"> <a href="<?=base_admin();?>" class="btn btn-outline pull-left"><?=erp_h('session_relogin', 'Click here to log in again');?></a> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div><!-- /.modal -->
+<style>
+.navbar-nav>.user-menu>.dropdown-menu.erpkb-user-menu-dropdown {
+  width: 310px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, .18);
+  overflow: hidden;
+  z-index: 10050;
+}
+.navbar-nav>.user-menu>.dropdown-menu.erpkb-user-menu-dropdown>li.user-header.erpkb-user-dropdown-header {
+  height: auto;
+  min-height: 0;
+  padding: 18px 16px 14px;
+  background: #fff !important;
+  text-align: center;
+  border-bottom: 1px solid #edf2f7;
+}
+.erpkb-user-dropdown-avatar {
+  width: 86px !important;
+  height: 86px !important;
+  padding: 3px;
+  background: #f8fafc;
+  border: 2px solid #d8e1ec !important;
+  object-fit: cover;
+}
+.erpkb-user-dropdown-name {
+  margin-top: 10px;
+  color: #1f2937;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.erpkb-user-dropdown-role {
+  margin-top: 3px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.erpkb-user-dropdown-meta {
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.3;
+}
+.erpkb-login-as-badge {
+  display: inline-block;
+  margin-top: 9px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #f59e0b;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.navbar-nav>.user-menu>.dropdown-menu.erpkb-user-menu-dropdown>.user-footer.erpkb-user-dropdown-footer {
+  padding: 12px;
+  background: #f8fafc;
+}
+.erpkb-user-dropdown-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.erpkb-user-dropdown-actions .btn {
+  flex: 1;
+  border-radius: 6px !important;
+}
+</style>
+<script>
+$(document).on('click', '#btn_stop_login_as', function(e) {
+  e.preventDefault();
+  $.ajax({
+    url: '<?=base_admin();?>modul/data_user/data_user_action.php?act=stop_login_as',
+    type: 'POST',
+    dataType: 'json',
+    success: function(response) {
+      var result = response[0] || {};
+      if (result.status === 'good') {
+        window.location.href = result.redirect || '<?=base_index();?>data-user';
+        return;
+      }
+      alert(result.error_message || <?=erp_js('impersonation_stop_failed', 'Failed to return to admin user.');?>);
+    },
+    error: function(xhr) {
+      alert(xhr.responseText || <?=erp_js('impersonation_stop_failed', 'Failed to return to admin user.');?>);
+    }
+  });
+});
+</script>

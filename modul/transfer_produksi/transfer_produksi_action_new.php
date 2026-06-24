@@ -39,8 +39,9 @@ switch ($_GET["act"]) {
     //$isi = implode(",", $datax);
   }
     
-  }
-  echo json_encode($res);
+	  }
+	}
+	  echo json_encode($res);
     break;
 
   case "show_detail":
@@ -87,8 +88,11 @@ switch ($_GET["act"]) {
    $kode = $_POST['kode'];
    $jumlah = $_POST['jumlah'];
    $res= array();
-   $q = $db->query("select sum(stock) as stock from stock_barang where kd_barang='$kode' ");
-  // echo "select sum(stock) as stock from stock_barang where kd_barang='$kode'";
+   $q = $db->query("SELECT COALESCE(SUM(sl.qty_sisa),0) AS stock
+                   FROM stock_layer sl
+                   INNER JOIN barang b ON b.kd_barang=sl.kode
+                   WHERE sl.qty_sisa>0 AND sl.lokasi='GUDANG'
+                     AND (b.kd_barang=? OR b.id=?)", array($kode, $kode));
    foreach ($q as $k) {
     if ($k->stock!=NULL) {
       if ($jumlah<=$k->stock) {
@@ -307,10 +311,6 @@ having (ifnull(sum(pd.jumlah),0) - (ifnull(sum(pt.jumlah),0)+ifnull(sum(pr.jumla
   //             if ($jumlah<0) {
   //               $stok=$temp;
   //             }
-  //             $db->query("INSERT INTO stock_incoming (kd_barang,no_aju,tgl_aju,tgl_masuk,jenis_dokpab,
-  //               no_dokpab,tgl_dokpab,jumlah,status,no_urut,no_ref,no_urutref) VALUES 
-  //               ('".$kode."','".$noaju."','".$tglaju."','".$tglmasuk."','".$jenisdokpab."','".$nodokpab."',
-  //               '".$tgldokpab."','".$stok."','".$status."','".$nourut."','".$noref."','".$nourutref."')");
   //             update_stock($stok,"minus",$jenisdokpab,'incoming',$kode,$_SESSION['username']);         
   //           }
   //       }

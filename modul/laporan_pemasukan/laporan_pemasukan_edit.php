@@ -1,14 +1,14 @@
 <!-- Content Header (Page header) -->
               <section class="content-header">
-                  <h1>Laporan Pemasukan</h1>
+                  <h1><?=customs_h('incoming_report','Laporan Pemasukan');?></h1>
                     <ol class="breadcrumb">
                         <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a>
                         </li>
                         <li>
-                        <a href="<?=base_index();?>laporan-pemasukan">Laporan Pemasukan</a>
+                        <a href="<?=base_index();?>laporan-pemasukan"><?=customs_h('incoming_report','Laporan Pemasukan');?></a>
                         </li>
-                        <li class="active">Edit Laporan Pemasukan</li>
+                        <li class="active"><?=customs_h('legacy_edit_laporan_pemasukan','Edit Laporan Pemasukan');?></li>
                     </ol>
               </section>
 
@@ -18,7 +18,7 @@
                   <div class="col-lg-12">
                       <div class="box box-solid box-primary">
                           <div class="box-header">
-                              <h3 class="box-title">Edit Laporan Pemasukan</h3>
+                              <h3 class="box-title"><?=customs_h('legacy_edit_laporan_pemasukan','Edit Laporan Pemasukan');?></h3>
                               <div class="box-tools pull-right">
                                   <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-pencil"></i></button>
                               </div>

@@ -1,14 +1,14 @@
 <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Satuan Packing</h1>
+        <h1><?=erp_h('master_packing_unit','Packing Unit');?></h1>
         <ol class="breadcrumb">
             <li>
               <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
             </li>
             <li>
-              <a href="<?=base_index();?>satuan-packing">Satuan Packing</a>
+              <a href="<?=base_index();?>satuan-packing"><?=erp_h('master_packing_unit','Packing Unit');?></a>
             </li>
-            <li class="active">Add Satuan Packing</li>
+            <li class="active"><?=erp_h('add_button','Add New');?> <?=erp_h('master_packing_unit','Packing Unit');?></li>
         </ol>
     </section>
 
@@ -18,7 +18,7 @@
       <div class="col-lg-12">
         <div class="box box-solid box-primary">
           <div class="box-header">
-            <h3 class="box-title">Add Satuan Packing</h3>
+            <h3 class="box-title"><?=erp_h('add_button','Add New');?> <?=erp_h('master_packing_unit','Packing Unit');?></h3>
             <div class="box-tools pull-right">
               <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
             </div>
@@ -31,9 +31,9 @@
             <form id="input_satuan_packing" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/satuan_packing/satuan_packing_action.php?act=in">
                       
               <div class="form-group">
-                <label for="satuan packing" class="control-label col-lg-2">satuan packing </label>
+                <label for="<?=erp_h('master_term_satuan_packing','Packing Unit');?>" class="control-label col-lg-2"><?=erp_h('master_term_satuan_packing','Packing Unit');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="satuan_packing" placeholder="satuan packing" class="form-control" >
+                  <input type="text" name="satuan_packing" placeholder="<?=erp_h('master_term_satuan_packing','Packing Unit');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
@@ -41,8 +41,8 @@
               <div class="form-group">
                 <label for="tags" class="control-label col-lg-2">&nbsp;</label>
                 <div class="col-lg-10">
-             <a href="<?=base_index();?>satuan-packing" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
-                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
+             <a href="<?=base_index();?>satuan-packing" class="btn btn-default "><i class="fa fa-step-backward"></i> <?=erp_h('common_back','Back');?></a>
+                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=erp_h('common_save','Save');?></button>
            
                 </div>
               </div><!-- /.form-group -->

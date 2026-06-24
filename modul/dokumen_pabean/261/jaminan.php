@@ -9,15 +9,15 @@
         <table class="table">
           <thead>
             <tr>
-              <th>No</th>
+              <th><?=customs_h('no','No');?></th>
               <th>Jenis</th>
-              <th>Nomor</th>
-              <th>Tanggal</th>
+              <th><?=customs_h('number','Nomor');?></th>
+              <th><?=customs_h('date','Tanggal');?></th>
               <th>Nilai</th>
               <th>Jatuh Tempo</th>
               <th>Penjamin</th>
-              <th>Nomor BPJ</th>
-              <th>Tanggal BPJ</th>
+              <th><?=customs_h('bpj_number','Nomor BPJ');?></th>
+              <th><?=customs_h('bpj_date','Tanggal BPJ');?></th>
               <th></th> 
             </tr>
           </thead>
@@ -100,13 +100,13 @@
                             </div>
                           </div>
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-4">Nomor Jaminan </label>
+                            <label for="nomor" class="control-label col-lg-4"><?=customs_h('guarantee_number','Nomor Jaminan');?> </label>
                             <div class="col-lg-8">
                               <input type="text" name="nomorJaminan" id="nomorJaminan" class="form-control" onkeyup="save_data(this.value,'nomorJaminan',$('#idJaminan').val(),'ws_jaminan','idJaminan')" >
                             </div>
                           </div>
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-4">Tanggal Jaminan </label>
+                            <label for="nomor" class="control-label col-lg-4"><?=customs_h('guarantee_date','Tanggal Jaminan');?> </label>
                             <div class="col-lg-8">
                               <input type="text" name="tanggalJaminan" id="tanggalJaminan" class="form-control" onchange="save_data(this.value,'tanggalJaminan',$('#idJaminan').val(),'ws_jaminan','idJaminan')" autocomplete="off" >
                             </div>
@@ -127,7 +127,7 @@
                           
                         </div>
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-4">Tanggal Jatuh Tempo</label>
+                            <label for="nomor" class="control-label col-lg-4"><?=customs_h('due_date','Tanggal Jatuh Tempo');?></label>
                             <div class="col-lg-8">
                               <input type="text" name="tanggalJatuhTempo" id="tanggalJatuhTempo" class="form-control" onchange="save_data(this.value,'tanggalJatuhTempo',$('#idJaminan').val(),'ws_jaminan','idJaminan')" autocomplete="off">
                             </div>
@@ -149,13 +149,13 @@
                           
                         </div>
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-4">Nomor Bukti Penerimaan Jaminan</label>
+                            <label for="nomor" class="control-label col-lg-4"><?=customs_h('guarantee_receipt_number','Nomor Bukti Penerimaan Jaminan');?></label>
                             <div class="col-lg-8">
                               <input type="text" name="nomorBpj" id="nomorBpj" class="form-control" onkeyup="save_data(this.value,'nomorBpj',$('#idJaminan').val(),'ws_jaminan','idJaminan')" >
                             </div>
                           </div>
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-4">Tanggal Bukti Penerimaan Jaminan</label>
+                            <label for="nomor" class="control-label col-lg-4"><?=customs_h('guarantee_receipt_date','Tanggal Bukti Penerimaan Jaminan');?></label>
                             <div class="col-lg-8">
                               <input type="text" name="tanggalBpj" id="tanggalBpj" class="form-control" onchange="save_data(this.value,'tanggalBpj',$('#idJaminan').val(),'ws_jaminan','idJaminan')" autocomplete="off">
                             </div>

@@ -1,29 +1,10 @@
 <?php
 switch (uri_segment(2)) {
     case "tambah":
-          foreach ($db->fetch_all("sys_menu") as $isi) {
-               if (uri_segment(1)==$isi->url&&uri_segment(2)=="tambah") {
-                          if ($role_act["insert_act"]=="Y") {
-                             include "incoming_terima_add.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
-
-      }
+      echo "<section class='content'><div class='alert alert-info'><strong>Input manual dinonaktifkan.</strong> GR from Production Order harus diposting dari dokumen transfer produksi outstanding di workbench.</div><a href='".base_index()."incoming-terima' class='btn btn-default'><i class='fa fa-arrow-left'></i> Kembali</a></section>";
     break;
   case "edit":
-    $data_edit = $db->fetch_single_row("incoming_terima","no_lpb",uri_segment(3));
-        foreach ($db->fetch_all("sys_menu") as $isi) {
-                      if (uri_segment(1)==$isi->url&&uri_segment(2)=="edit") {
-                          if ($role_act["up_act"]=="Y") {
-                             include "incoming_terima_edit.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
-
-      }
+    echo "<section class='content'><div class='alert alert-info'><strong>Edit manual tidak tersedia.</strong> Dokumen material yang sudah diposting harus dikoreksi melalui proses reversal, bukan edit langsung.</div><a href='".base_index()."incoming-terima' class='btn btn-default'><i class='fa fa-arrow-left'></i> Kembali</a></section>";
 
     break;
     case "detail":

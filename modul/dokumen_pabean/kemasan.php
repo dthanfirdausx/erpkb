@@ -10,7 +10,7 @@
           <thead>
             <tr>
               <th>Seri</th>
-              <th>Jumlah</th>
+              <th><?=customs_h('qty','Jumlah');?></th>
               <th>Jenis</th>
               <th>Merk</th>
               <th></th> 
@@ -61,7 +61,7 @@
           <thead>
             <tr>
               <th>Seri</th>
-              <th>Nomor</th>
+              <th><?=customs_h('number','Nomor');?></th>
               <th>Ukuran</th>
               <th>Jenis</th>
               <th>Tipe</th>
@@ -134,7 +134,7 @@
                           </div><!-- /.form-group -->
 
                            <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Jumlah </label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('qty','Jumlah');?> </label>
                             <div class="col-lg-9">
                               <input type="text" name="JUMLAH_KEMASAN" onkeyup="save_data(this.value,'JUMLAH_KEMASAN',$('#id_kemasan').val(),'tpb_kemasan')" id="JUMLAH_KEMASAN" class="form-control">
                             </div>

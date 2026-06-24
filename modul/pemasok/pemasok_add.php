@@ -9,70 +9,70 @@ include "../../inc/config.php";
       <form id="input_pemasok" method="post" class="form-horizontal foto_banyak" action="<?=base_admin();?>modul/pemasok/pemasok_action.php?act=in">
                       
               <div class="form-group">
-                <label for="Kode Pemasok" class="control-label col-lg-2">Kode Pemasok </label>
+                <label for="Kode Pemasok" class="control-label col-lg-2"><?=erp_h('master_term_kode_pemasok','Vendor Code');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="kode_pemasok" readonly="" value="<?= GetNextPemasokNo() ?>" placeholder="Kode Pemasok" class="form-control" >
+                  <input type="text" name="kode_pemasok" readonly="" value="<?= GetNextPemasokNo() ?>" placeholder="<?=erp_attr('master_term_kode_pemasok','Vendor Code');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="NPWP" class="control-label col-lg-2">NPWP </label>
+                <label for="NPWP" class="control-label col-lg-2"><?=erp_h('master_term_npwp','Tax ID');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="npwp" placeholder="NPWP" class="form-control" >
+                  <input type="text" name="npwp" placeholder="<?=erp_attr('master_term_npwp','Tax ID');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama Pemasok" class="control-label col-lg-2">Nama Pemasok </label>
+                <label for="Nama Pemasok" class="control-label col-lg-2"><?=erp_h('master_term_nama_pemasok','Vendor Name');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="nama" placeholder="Nama Pemasok" class="form-control" >
+                  <input type="text" name="nama" placeholder="<?=erp_attr('master_term_nama_pemasok','Vendor Name');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Alamat" class="control-label col-lg-2">Alamat </label>
+                <label for="Alamat" class="control-label col-lg-2"><?=erp_h('master_term_alamat','Address');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="alamat" placeholder="Alamat" class="form-control" >
+                  <input type="text" name="alamat" placeholder="<?=erp_attr('master_term_alamat','Address');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Kota" class="control-label col-lg-2">Kota </label>
+                <label for="Kota" class="control-label col-lg-2"><?=erp_h('master_term_kota','City');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="kota" placeholder="Kota" class="form-control" >
+                  <input type="text" name="kota" placeholder="<?=erp_attr('master_term_kota','City');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Negara" class="control-label col-lg-2">Negara </label>
+                <label for="Negara" class="control-label col-lg-2"><?=erp_h('master_term_negara','Country');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="negara" placeholder="Negara" class="form-control" >
+                  <input type="text" name="negara" placeholder="<?=erp_attr('master_term_negara','Country');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Telp" class="control-label col-lg-2">Telp </label>
+                <label for="Telp" class="control-label col-lg-2"><?=erp_h('master_term_telepon','Phone');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="notelp" placeholder="Telp" class="form-control" >
+                  <input type="text" name="notelp" placeholder="<?=erp_attr('master_term_telepon','Phone');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Fax" class="control-label col-lg-2">Fax </label>
+                <label for="Fax" class="control-label col-lg-2"><?=erp_h('master_term_fax','Fax');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="nofax" placeholder="Fax" class="form-control" >
+                  <input type="text" name="nofax" placeholder="<?=erp_attr('master_term_fax','Fax');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Email" class="control-label col-lg-2">Email </label>
+                <label for="Email" class="control-label col-lg-2"><?=erp_h('master_term_email','Email');?> </label>
                 <div class="col-lg-10">
-                  <input type="text" name="email" placeholder="Email" class="form-control" >
+                  <input type="text" name="email" placeholder="<?=erp_attr('master_term_email','Email');?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
               
           <div class="form-group">
-              <label for="Status" class="control-label col-lg-2">Status </label>
+              <label for="Status" class="control-label col-lg-2"><?=erp_h('common_status','Status');?> </label>
               <div class="col-lg-10">
                 <input name="status" class="make-switch" type="checkbox" checked>
               </div>
@@ -82,8 +82,8 @@ include "../../inc/config.php";
 
               <div class="form-group">
                 <div class="col-lg-12">
-                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $lang["submit_button"];?></button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?php echo $lang["cancel_button"];?></button>
+                  <div class="modal-footer"> <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=erp_h('common_save','Save');?></button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> <?=erp_h('common_cancel','Cancel');?></button>
                   </div>
                 </div>
               </div><!-- /.form-group -->

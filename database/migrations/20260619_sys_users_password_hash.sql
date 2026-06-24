@@ -1,0 +1,2 @@
+ALTER TABLE sys_users
+  MODIFY password VARCHAR(255) NULL;

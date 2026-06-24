@@ -1,6 +1,7 @@
 <!-- Content Header (Page header) -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="<?= base_url() ?>modul/dokumen_pabean/dokumen_pabean_modal.css" rel="stylesheet" />
 <script type="text/javascript">
   function save_data(val,kolom,id,tabel,kol_id){
       $.ajax({
@@ -22,25 +23,25 @@
     }
 </script>
     <section class="content-header">
-        <h1>Dokumen Pabean <?= $nama_pendek ?></h1> 
+        <h1><?=customs_h('documents','Dokumen Pabean');?> <?= $nama_pendek ?></h1> 
         <ol class="breadcrumb">
             <li>
-              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+              <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a>
             </li>
             <li>
-              <a href="<?=base_index();?>dokumen-pabean">Dokumen Pabean</a>
+              <a href="<?=base_index();?>dokumen-pabean"><?=customs_h('documents','Dokumen Pabean');?></a>
             </li>
-            <li class="active">Add Dokumen <?= $nama_pendek ?></li>
+            <li class="active"><?=customs_h('add_document','Add Dokumen');?> <?= $nama_pendek ?></li>
         </ol>
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content dokumen-pabean-page">
     <div class="row">
       <div class="col-lg-12">
         <div class="box box-solid box-primary">
           <div class="box-header">
-            <h3 class="box-title">Add Dokumen <?= $nama_pendek ?></h3>
+            <h3 class="box-title"><?=customs_h('add_document','Add Dokumen');?> <?= $nama_pendek ?></h3>
             <div class="box-tools pull-right">
               <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
             </div>
@@ -53,8 +54,8 @@
 
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#tab_header">Header</a></li>
-          <li><a data-toggle="tab" href="#tab_entitas">Entitas</a></li>
-          <li><a data-toggle="tab" href="#tab_dokumen">Dokumen</a></li>
+          <li><a data-toggle="tab" href="#tab_entitas"><?=customs_h('entity','Entitas');?></a></li>
+          <li><a data-toggle="tab" href="#tab_dokumen"><?=customs_h('document','Dokumen');?></a></li>
           <li><a data-toggle="tab" href="#tab_pengangkut">Pengangkut</a></li>
           <li><a data-toggle="tab" href="#tab_kemasan">Kemasan & Peti Kemas</a></li>
           <li><a data-toggle="tab" href="#tab_transaksi">Transaksi</a></li>
@@ -119,6 +120,14 @@
     </div>
 
     </section><!-- /.content -->
+
+<script type="text/javascript">
+$(function(){
+  $('.dokumen-pabean-page .modal').each(function(){
+    $(this).addClass('dpb-modal').appendTo('body');
+  });
+});
+</script>
 
 <script type="text/javascript">
     

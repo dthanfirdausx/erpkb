@@ -1,0 +1,36 @@
+ALTER TABLE production_order_confirmation
+  ADD COLUMN IF NOT EXISTS scrap_handling enum('LOSS','STOCK') NOT NULL DEFAULT 'LOSS' AFTER scrap_qty,
+  ADD COLUMN IF NOT EXISTS scrap_material_code varchar(100) DEFAULT NULL AFTER scrap_handling,
+  ADD COLUMN IF NOT EXISTS scrap_material_name varchar(255) DEFAULT NULL AFTER scrap_material_code,
+  ADD COLUMN IF NOT EXISTS scrap_uom varchar(20) DEFAULT NULL AFTER scrap_material_name,
+  ADD COLUMN IF NOT EXISTS scrap_stock_layer_id int(11) DEFAULT NULL AFTER scrap_uom,
+  ADD COLUMN IF NOT EXISTS scrap_material_doc_id bigint(20) DEFAULT NULL AFTER scrap_stock_layer_id;
+
+CREATE TABLE IF NOT EXISTS erp_production_scrap_trace (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  confirmation_id bigint(20) NOT NULL,
+  confirmation_no varchar(30) NOT NULL,
+  scrap_stock_layer_id int(11) DEFAULT NULL,
+  scrap_material_doc_id bigint(20) DEFAULT NULL,
+  source_issue_id bigint(20) DEFAULT NULL,
+  source_issue_detail_id bigint(20) DEFAULT NULL,
+  source_issue_trace_id bigint(20) DEFAULT NULL,
+  source_stock_layer_id int(11) DEFAULT NULL,
+  raw_material_code varchar(100) DEFAULT NULL,
+  raw_material_name varchar(255) DEFAULT NULL,
+  qty decimal(18,5) NOT NULL DEFAULT 0.00000,
+  uom varchar(20) DEFAULT NULL,
+  lot_no varchar(50) DEFAULT NULL,
+  no_bpb varchar(50) DEFAULT NULL,
+  no_aju varchar(50) DEFAULT NULL,
+  jenis_dokpab varchar(20) DEFAULT NULL,
+  no_dokpab varchar(50) DEFAULT NULL,
+  hs_code varchar(20) DEFAULT NULL,
+  trace_source enum('DIRECT','INHERITED') NOT NULL DEFAULT 'DIRECT',
+  created_at datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id),
+  KEY idx_pc_scrap_conf (confirmation_id),
+  KEY idx_pc_scrap_layer (scrap_stock_layer_id),
+  KEY idx_pc_scrap_raw (raw_material_code),
+  KEY idx_pc_scrap_aju (no_aju)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

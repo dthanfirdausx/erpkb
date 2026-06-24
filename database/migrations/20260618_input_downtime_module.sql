@@ -1,0 +1,60 @@
+CREATE TABLE IF NOT EXISTS erp_production_downtime (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  downtime_no varchar(50) NOT NULL,
+  id_production_order bigint(20) DEFAULT NULL,
+  no_production_order varchar(30) DEFAULT NULL,
+  id_operation bigint(20) DEFAULT NULL,
+  operation_no varchar(20) DEFAULT NULL,
+  operation_name varchar(150) DEFAULT NULL,
+  work_center varchar(100) NOT NULL,
+  work_center_name varchar(150) DEFAULT NULL,
+  plant_code varchar(20) DEFAULT NULL,
+  shift_id int(11) DEFAULT NULL,
+  shift_code varchar(20) DEFAULT NULL,
+  downtime_date date NOT NULL,
+  start_time datetime NOT NULL,
+  end_time datetime NOT NULL,
+  duration_minutes decimal(18,2) NOT NULL DEFAULT 0.00,
+  downtime_category enum('MACHINE','MATERIAL','MANPOWER','METHOD','QUALITY','UTILITY','SETUP','OTHER') NOT NULL DEFAULT 'MACHINE',
+  reason_code varchar(50) DEFAULT NULL,
+  reason_text varchar(255) NOT NULL,
+  responsibility varchar(100) DEFAULT NULL,
+  action_taken varchar(255) DEFAULT NULL,
+  impact_type enum('PLANNED','UNPLANNED') NOT NULL DEFAULT 'UNPLANNED',
+  approval_status enum('DRAFT','POSTED','CANCELLED') NOT NULL DEFAULT 'POSTED',
+  remarks text DEFAULT NULL,
+  created_by varchar(100) DEFAULT NULL,
+  created_at datetime DEFAULT CURRENT_TIMESTAMP,
+  updated_by varchar(100) DEFAULT NULL,
+  updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  cancelled_by varchar(100) DEFAULT NULL,
+  cancelled_at datetime DEFAULT NULL,
+  cancel_reason varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_downtime_no (downtime_no),
+  KEY idx_downtime_date_wc (downtime_date,work_center,plant_code),
+  KEY idx_downtime_po (id_production_order,no_production_order),
+  KEY idx_downtime_status (approval_status,downtime_category)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS erp_production_downtime_history (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  downtime_id bigint(20) NOT NULL,
+  status_lama varchar(30) DEFAULT NULL,
+  status_baru varchar(30) NOT NULL,
+  remarks varchar(255) DEFAULT NULL,
+  changed_by varchar(100) DEFAULT NULL,
+  changed_at datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_downtime_history (downtime_id,changed_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+UPDATE sys_menu
+SET nav_act='input_downtime',
+    page_name='Input Downtime',
+    url='input-downtime',
+    main_table='erp_production_downtime',
+    icon='fa-clock-o',
+    tampil='Y',
+    type_menu='page'
+WHERE url='input-downtime';

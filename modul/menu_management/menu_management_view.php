@@ -1,3 +1,11 @@
+<?php
+if ($_SESSION['group_level'] === 'system_administrator' && isset($_GET['user'])) {
+  $selectedGroup = $db->fetch_single_row('sys_group_users', 'id', intval($_GET['user']));
+  if ($selectedGroup && $selectedGroup->level === 'admin') {
+    unset($_GET['user']);
+  }
+}
+?>
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -12,6 +20,7 @@
 
                 <!-- Main content -->
                 <section class="content">
+<?php include __DIR__ . "/../master_data_toolbar.php"; ?>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
@@ -27,10 +36,8 @@
                         <option value="">Choose Group User</option>
                           <?php 
 
-foreach ($db->query("select sys_group_users.id, sys_group_users.level_name 
-  from sys_users inner join sys_group_users 
-on sys_users.group_level=sys_group_users.id
-group by sys_group_users.id") as $isi) {
+$groupFilter = $_SESSION['group_level'] === 'system_administrator' ? "where level!='admin'" : '';
+foreach ($db->query("select id, level_name from sys_group_users $groupFilter order by level_name") as $isi) {
 
                   if (intval($_GET['user'])==$isi->id) {
                      echo "<option value='$isi->id' selected>$isi->level_name</option>";

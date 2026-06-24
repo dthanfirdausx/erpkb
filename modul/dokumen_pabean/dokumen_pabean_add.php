@@ -27,7 +27,7 @@
       <div class="col-lg-12">
         <div class="box box-solid box-primary">
           <div class="box-header">
-            <h3 class="box-title">Add Dokumen x <?= $nama_pendek ?></h3>
+            <h3 class="box-title"><?=customs_h('add_document','Add Dokumen');?> <?= $nama_pendek ?></h3>
             <div class="box-tools pull-right">
               <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
             </div>
@@ -40,8 +40,8 @@
 
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#tab_header">Header</a></li>
-          <li><a data-toggle="tab" href="#tab_entitas">Entitas</a></li>
-          <li><a data-toggle="tab" href="#tab_dokumen">Dokumen</a></li>
+          <li><a data-toggle="tab" href="#tab_entitas"><?=customs_h('entity','Entitas');?></a></li>
+          <li><a data-toggle="tab" href="#tab_dokumen"><?=customs_h('document','Dokumen');?></a></li>
           <li><a data-toggle="tab" href="#tab_pengangkut">Pengangkut</a></li>
           <li><a data-toggle="tab" href="#tab_kemasan">Kemasan & Peti Kemas</a></li>
           <li><a data-toggle="tab" href="#tab_transaksi">Transaksi</a></li>
@@ -99,6 +99,14 @@
     </div>
 
     </section><!-- /.content -->
+
+<script type="text/javascript">
+$(function(){
+  $('.dokumen-pabean-page .modal').each(function(){
+    $(this).addClass('dpb-modal').appendTo('body');
+  });
+});
+</script>
 
 <script type="text/javascript">
     

@@ -1,73 +1,97 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 include "../../inc/config.php";
-     
-$columns = array(  
-    'mutasi_barangmodal.kd_barang',
-    'mutasi_barangmodal.nm_barang', 
-   // 'mutasi_barangmodal.type',
-    'mutasi_barangmodal.satuan',
-    'mutasi_barangmodal.saldo_awal',
-    'mutasi_barangmodal.pemasukan',
-    'mutasi_barangmodal.pengeluaran',
-    'mutasi_barangmodal.penyesuaian',
-    'mutasi_barangmodal.saldo_akhir',
-    'mutasi_barangmodal.stock_opname',
-    'mutasi_barangmodal.selisih',
-    'mutasi_barangmodal.ket',
-    'mutasi_barangmodal.userid',
-    'mutasi_barangmodal.id',
+function mbm_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+function mbm_num($value, $dec = 2) { return number_format((float)$value, $dec, ',', '.'); }
+function mbm_post($key, $default = '') { return isset($_POST[$key]) ? trim((string)$_POST[$key]) : $default; }
+
+$draw = isset($_POST['draw']) ? (int)$_POST['draw'] : 1;
+$start = isset($_POST['start']) ? max(0, (int)$_POST['start']) : 0;
+$length = isset($_POST['length']) ? (int)$_POST['length'] : 25;
+if ($length <= 0 || $length > 500) $length = 25;
+
+$tglAwal = mbm_post('tgl_awal', date('Y-m-01'));
+$tglAkhir = mbm_post('tgl_akhir', date('Y-m-d'));
+$material = mbm_post('material_code');
+$plantId = mbm_post('plant_id');
+$slocId = mbm_post('storage_location_id');
+$binId = mbm_post('storage_bin_id');
+$stockType = mbm_post('stock_type');
+$keyword = mbm_post('keyword');
+$search = isset($_POST['search']['value']) ? trim((string)$_POST['search']['value']) : '';
+if ($keyword === '' && $search !== '') $keyword = $search;
+
+$where = " WHERE b.kd_kategori='K03' ";
+$filterParams = array();
+if ($material !== '') { $where .= " AND b.kd_barang=? "; $filterParams[] = $material; }
+if ($plantId !== '') { $where .= " AND COALESCE(dt.plant_id,sl.plant_id)=? "; $filterParams[] = $plantId; }
+if ($slocId !== '') { $where .= " AND COALESCE(dt.storage_location_id,dt.destination_storage_location_id,sl.storage_location_id)=? "; $filterParams[] = $slocId; }
+if ($binId !== '') { $where .= " AND COALESCE(dt.storage_bin_id,dt.destination_storage_bin_id,sl.storage_bin_id)=? "; $filterParams[] = $binId; }
+if ($stockType !== '') { $where .= " AND COALESCE(dt.stock_type,dt.destination_stock_type,sl.stock_type,'UNRESTRICTED')=? "; $filterParams[] = $stockType; }
+if ($keyword !== '') {
+  $where .= " AND (b.kd_barang LIKE ? OR b.nm_barang LIKE ? OR dt.no_ref LIKE ? OR dt.no_bpb LIKE ? OR dt.no_aju LIKE ? OR dt.no_dokpab LIKE ? OR dt.remark LIKE ?) ";
+  $kw = '%'.$keyword.'%';
+  for ($i=0; $i<7; $i++) $filterParams[] = $kw;
+}
+
+$movementExpr = "CASE WHEN dt.id_detail IS NULL THEN 'IN' WHEN dt.direction='OUT' OR COALESCE(dt.qty,0)<0 OR dt.move_code IN ('102','122','201','221','261','262','532','551','601','602','702','712') THEN 'OUT' ELSE 'IN' END";
+$adjustExpr = "CASE WHEN dt.move_code IN ('701','702','711','712') OR COALESCE(dt.ref_type,'') LIKE '%DIFF%' OR COALESCE(dt.ref_type,'') LIKE '%OPNAME%' OR COALESCE(dt.ref_type,'') LIKE '%ADJUST%' THEN 1 ELSE 0 END";
+$signedQtyExpr = "CASE WHEN ($movementExpr)='OUT' THEN -ABS(COALESCE(dt.qty,0)) ELSE ABS(COALESCE(dt.qty,0)) END";
+
+$baseSql = "
+  SELECT b.id,b.kd_barang,b.nm_barang,b.satuan,ep.plant_code,es.storage_code,eb.bin_code,
+         COALESCE(dt.stock_type,dt.destination_stock_type,sl.stock_type,'UNRESTRICTED') AS stock_type,
+         COALESCE(SUM(CASE WHEN dt.document_date < ? THEN $signedQtyExpr ELSE 0 END),0) AS saldo_awal,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=0 AND ($movementExpr)='IN' THEN ABS(COALESCE(dt.qty,0)) ELSE 0 END),0) AS pemasukan,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=0 AND ($movementExpr)='OUT' THEN ABS(COALESCE(dt.qty,0)) ELSE 0 END),0) AS pengeluaran,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? AND ($adjustExpr)=1 THEN $signedQtyExpr ELSE 0 END),0) AS penyesuaian,
+         COALESCE(SUM(CASE WHEN dt.document_date <= ? THEN $signedQtyExpr ELSE 0 END),0) AS saldo_akhir,
+         COALESCE(SUM(CASE WHEN dt.document_date BETWEEN ? AND ? THEN 1 ELSE 0 END),0) AS movement_lines
+  FROM barang b
+  LEFT JOIN detail_transaksi dt ON dt.kd_barang=b.kd_barang
+    AND dt.document_date <= ?
+    AND (dt.posisi='GUDANG' OR dt.lokasi LIKE '%GUDANG%' OR dt.lokasi LIKE '%WAREHOUSE%' OR dt.posisi IS NULL)
+    AND COALESCE(dt.is_reversal,0)=0
+  LEFT JOIN stock_layer sl ON sl.id=dt.ref_id AND sl.kode=b.kd_barang
+  LEFT JOIN erp_plant ep ON ep.id=COALESCE(dt.plant_id,sl.plant_id)
+  LEFT JOIN erp_storage_location es ON es.id=COALESCE(dt.storage_location_id,dt.destination_storage_location_id,sl.storage_location_id)
+  LEFT JOIN erp_storage_bin eb ON eb.id=COALESCE(dt.storage_bin_id,dt.destination_storage_bin_id,sl.storage_bin_id)
+  $where
+  GROUP BY b.id,b.kd_barang,b.nm_barang,b.satuan,ep.plant_code,es.storage_code,eb.bin_code,stock_type
+  HAVING saldo_awal<>0 OR pemasukan<>0 OR pengeluaran<>0 OR penyesuaian<>0 OR saldo_akhir<>0
+";
+$params = array($tglAwal.' 00:00:00',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAkhir.' 23:59:59',$tglAwal.' 00:00:00',$tglAkhir.' 23:59:59',$tglAkhir.' 23:59:59');
+$queryParams = array_merge($params, $filterParams);
+$countRow = $db->fetch("SELECT COUNT(*) total FROM ($baseSql) x", $queryParams);
+
+$orderMap = array(1=>'kd_barang',2=>'nm_barang',3=>'satuan',4=>'saldo_awal',5=>'pemasukan',6=>'pengeluaran',7=>'penyesuaian',8=>'saldo_akhir');
+$orderCol = 'kd_barang'; $orderDir = 'ASC';
+if (isset($_POST['order'][0]['column'])) { $idx=(int)$_POST['order'][0]['column']; if(isset($orderMap[$idx])) $orderCol=$orderMap[$idx]; }
+if (isset($_POST['order'][0]['dir']) && strtolower($_POST['order'][0]['dir']) === 'desc') $orderDir='DESC';
+$rows = $db->query("SELECT * FROM ($baseSql) y ORDER BY $orderCol $orderDir LIMIT $start,$length", $queryParams);
+
+$data = array(); $no = $start + 1;
+foreach ($rows as $row) {
+  $saldoAkhir=(float)$row->saldo_akhir; $stockOpname=$saldoAkhir; $selisih=$stockOpname-$saldoAkhir;
+  $ket=array();
+  if((int)$row->movement_lines>0) $ket[]=(int)$row->movement_lines.' line transaksi';
+  if($row->plant_code || $row->storage_code || $row->bin_code) $ket[]=trim((string)$row->plant_code.' / '.(string)$row->storage_code.' / '.(string)$row->bin_code,' /');
+  if($row->stock_type) $ket[]=$row->stock_type;
+  $data[] = array(
+    $no++,
+    '<strong>'.mbm_h($row->kd_barang).'</strong>',
+    mbm_h($row->nm_barang),
+    mbm_h($row->satuan),
+    mbm_num($row->saldo_awal),
+    '<a href="javascript:void(0)" class="mbm-detail-link" data-material="'.mbm_h($row->kd_barang).'" data-type="IN">'.mbm_num($row->pemasukan).'</a>',
+    '<a href="javascript:void(0)" class="mbm-detail-link" data-material="'.mbm_h($row->kd_barang).'" data-type="OUT">'.mbm_num($row->pengeluaran).'</a>',
+    '<a href="javascript:void(0)" class="mbm-detail-link" data-material="'.mbm_h($row->kd_barang).'" data-type="ADJ">'.mbm_num($row->penyesuaian).'</a>',
+    mbm_num($saldoAkhir),
+    mbm_num($stockOpname),
+    mbm_num($selisih),
+    mbm_h(implode(' | ', $ket))
   );
-
-  //if you want to exclude column for searching, put columns name in array
-  //$new_table->disable_search = array('type','mutasi_barangmodal.id');
-  
-  //set numbering is true
-  $datatable->set_numbering_status(1);
-
-  //set order by column
-  $datatable->set_order_by("mutasi_barangmodal.id");
-
-  //set order by type 
-  $datatable->set_order_type("desc");
-
-  //set group by column
-  //$new_table->group_by = "group by mutasi_barangmodal.id";
-
-  $query = $datatable->get_custom("select mutasi_barangmodal.kd_barang,mutasi_barangmodal.nm_barang,mutasi_barangmodal.satuan,mutasi_barangmodal.saldo_awal,mutasi_barangmodal.pemasukan,mutasi_barangmodal.pengeluaran,mutasi_barangmodal.penyesuaian,mutasi_barangmodal.saldo_akhir,mutasi_barangmodal.stock_opname,mutasi_barangmodal.selisih,mutasi_barangmodal.ket,mutasi_barangmodal.userid,mutasi_barangmodal.id from v_mutasi_barang_modal mutasi_barangmodal where saldo_awal!='0' and saldo_akhir!='0'",$columns); 
-
-  //buat inisialisasi array data
-  $data = array();
-
-  $i=1;
-  foreach ($query as $value) {
-
-    //array data
-    $ResultData = array();
-    $ResultData[] = $datatable->number($i);
-  
-    $ResultData[] = $value->kd_barang;
-    $ResultData[] = $value->nm_barang;
-   // $ResultData[] = $value->type;
-    $ResultData[] = $value->satuan;
-    $ResultData[] = number_format($value->saldo_awal,2,",",".");
-    $ResultData[] = "<a style='cursor:pointer' onclick='info_detail(\"$value->kd_barang\",1)' >".number_format($value->pemasukan,2,",",".")."</a>";
-    $ResultData[] = "<a style='cursor:pointer' onclick='info_detail(\"$value->kd_barang\",2)' >".number_format($value->pengeluaran,2,",",".")."</a>";
-    $ResultData[] = number_format($value->penyesuaian,2,",",".");
-    $ResultData[] = number_format($value->saldo_akhir,2,",",".");
-    $ResultData[] = number_format($value->stock_opname,2,",",".");
-    $ResultData[] = number_format($value->selisih,2,",",".");
-    $ResultData[] = $value->ket;
-    $ResultData[] = $value->userid;
-    $ResultData[] = $value->id;
-
-    $data[] = $ResultData;
-    $i++;
-  }
-
-//set data
-$datatable->set_data($data);
-//create our json
-$datatable->create_data();
-
+}
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode(array('draw'=>$draw,'recordsTotal'=>$countRow?(int)$countRow->total:0,'recordsFiltered'=>$countRow?(int)$countRow->total:0,'data'=>$data));
 ?>

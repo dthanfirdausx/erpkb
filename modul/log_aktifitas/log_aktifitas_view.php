@@ -1,3 +1,5 @@
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -19,6 +21,58 @@
                                
                             </div><!-- /.box-header -->
                             <div class="box-body table-responsive">
+                                <form id="form_filter_log" class="form-horizontal">
+                                  <div class="form-group">
+                                    <label class="control-label col-lg-2">Tanggal Aktivitas</label>
+                                    <div class="col-lg-2">
+                                      <div class="input-group date">
+                                        <input type="text" id="start_date" class="form-control" placeholder="Tanggal mulai" autocomplete="off">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                      <div class="input-group date">
+                                        <input type="text" id="end_date" class="form-control" placeholder="Tanggal selesai" autocomplete="off">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="filter_user" class="control-label col-lg-2">User</label>
+                                    <div class="col-lg-4">
+                                      <select id="filter_user" class="form-control select2" data-placeholder="Semua User">
+                                        <option value="">Semua User</option>
+                                        <?php
+                                        $logUsers = $db->query(
+                                          "select distinct user from log_aktifitas
+                                           where lower(trim(coalesce(user, ''))) != 'guest'
+                                             and trim(coalesce(user, '')) != ''
+                                           order by user asc"
+                                        );
+                                        foreach ($logUsers as $logUser) {
+                                        ?>
+                                          <option value="<?= htmlspecialchars($logUser->user, ENT_QUOTES, 'UTF-8'); ?>">
+                                            <?= htmlspecialchars($logUser->user, ENT_QUOTES, 'UTF-8'); ?>
+                                          </option>
+                                        <?php } ?>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-lg-2">&nbsp;</label>
+                                    <div class="col-lg-10">
+                                      <button type="button" id="btn_filter_log" class="btn btn-primary">
+                                        <i class="fa fa-search"></i> Tampilkan
+                                      </button>
+                                      <button type="button" id="btn_reset_log" class="btn btn-default">
+                                        <i class="fa fa-refresh"></i> Reset
+                                      </button>
+                                      <button type="button" id="btn_excel_log" class="btn btn-success">
+                                        <i class="fa fa-file-excel-o"></i> Excel
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
                                 <div class="row">
                                     <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
                                     <button id="select_all" class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> <?php echo $lang["select_all"];?></button>
@@ -72,33 +126,34 @@
     </section><!-- /.content -->
 
         <script type="text/javascript">
-      
-      
+      $('.input-group.date').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true
+      });
+
+      $('#filter_user').select2({
+        width: '100%',
+        placeholder: 'Semua User',
+        allowClear: true
+      });
+
       var dtb_log_aktifitas = $("#dtb_log_aktifitas").DataTable({
            // "fnCreatedRow": function( nRow, aData, iDataIndex ) {
            //  var indek = aData.length-1;
            //  $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>log-aktifitas/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
            //    $(nRow).attr('id', 'line_'+aData[indek]);
            //    },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
+              "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
            'bProcessing': true,
             'bServerSide': true,
             
+           'order': [[3, 'desc']],
            'columnDefs': [ {
-            'targets': [3],
-              'orderable': false,
-              'searchable': false
-            },
-                {
+            'width': '70%',
+            'targets': 1
+          },
+          {
             'width': '5%',
             'targets': 0,
             'orderable': false,
@@ -111,12 +166,35 @@
             'ajax':{
               url :'<?=base_admin();?>modul/log_aktifitas/log_aktifitas_data.php',
             type: 'post',  // method  , by default get
+            data: function (d) {
+              d.start_date = $('#start_date').val();
+              d.end_date = $('#end_date').val();
+              d.filter_user = $('#filter_user').val();
+            },
             error: function (xhr, error, thrown) {
             console.log(xhr);
 
             }
           },
         });
+
+  $('#btn_filter_log').on('click', function () {
+    dtb_log_aktifitas.ajax.reload();
+  });
+
+  $('#btn_reset_log').on('click', function () {
+    $('#start_date, #end_date').val('');
+    $('#filter_user').val('').trigger('change');
+    dtb_log_aktifitas.ajax.reload();
+  });
+
+  $('#btn_excel_log').on('click', function () {
+    var url = '<?=base_admin();?>modul/log_aktifitas/log_aktifitas_action.php?act=excel';
+    url += '&start_date=' + encodeURIComponent($('#start_date').val());
+    url += '&end_date=' + encodeURIComponent($('#end_date').val());
+    url += '&filter_user=' + encodeURIComponent($('#filter_user').val());
+    window.location = url;
+  });
 
   $('#dtb_log_aktifitas').on('draw.dt', function() {
           init_selected()
@@ -234,4 +312,3 @@
       return oTableLocal.$('tr.selected');
   }
 </script>
-            

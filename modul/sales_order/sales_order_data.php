@@ -1,8 +1,18 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php";
 
 $columns = array(
    // 'so.id_quotation',
+    'so.no_sales_order',
     'so.so_date',
     'so.nama',
     'so.no_po',
@@ -28,16 +38,19 @@ $columns = array(
   //set group by column
   //$new_table->group_by = "group by so.id_sales_order";
   $where = " where 1=1 ";
+  $tgl_awal = isset($_POST['tgl_awal']) ? trim($_POST['tgl_awal']) : '';
+  $tgl_akhir = isset($_POST['tgl_akhir']) ? trim($_POST['tgl_akhir']) : '';
+  $customer = isset($_POST['customer']) ? trim($_POST['customer']) : 'all';
+  $status_so = isset($_POST['status_so']) ? trim($_POST['status_so']) : 'all';
  // $status_so = $_POST['status_so'];
 
-if(!empty($_POST['tgl_awal']) && !empty($_POST['tgl_akhir'])){
-  $where .= " AND so.so_date BETWEEN '".$_POST['tgl_awal']."' AND '".$_POST['tgl_akhir']."'";
-} 
-
-if($_POST['customer'] != 'all'){
-  $where .= " AND so.kode_penerima = '".$_POST['customer']."'";
+if(!empty($tgl_awal) && !empty($tgl_akhir)){
+  $where .= " AND so.so_date BETWEEN '".$tgl_awal."' AND '".$tgl_akhir."'";
 }
-$status_so = $_POST['status_so'];
+
+if($customer != 'all'){
+  $where .= " AND so.kode_penerima = '".$customer."'";
+}
 
 if($status_so != '' && $status_so != 'all'){
 

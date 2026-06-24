@@ -2,8 +2,92 @@
 header("Access-Control-Allow-Origin: *");
 session_start(); 
 include "../../inc/config.php";
+include_once "dokumen_pabean_lib.php";
 session_check_json();
 switch ($_GET["act"]) { 
+
+  case 'excel':
+    $initialOutputBufferLevel = ob_get_level();
+    ob_start();
+    ini_set('display_errors','0');
+    error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+    require '../../inc/lib/PHPExcel.php';
+    require_once '../../inc/excel_style_helper.php';
+    PHPExcel_Shared_File::setUseUploadTempDirectory(true);
+
+    $input = dpb_filter_input();
+    $rows = dpb_load_rows($db,$input);
+    $excel = new PHPExcel();
+    $sheet = $excel->setActiveSheetIndex(0);
+    $sheet->setTitle(erp_export_sheet_title('Dokumen Pabean'));
+    $headers = array(erp_export_label("No"),erp_export_label("Jenis BC"),erp_export_label("Kode Dokumen"),erp_export_label("Nama Dokumen"),erp_export_label("Nomor Aju"),erp_export_label("Nomor Daftar"),erp_export_label("Tanggal Dokumen"),erp_export_label("Tanggal TTD"),erp_export_label("Status"),erp_export_label("Total Item"),erp_export_label("Total Qty"));
+    foreach($headers as $c=>$h) $sheet->setCellValueByColumnAndRow($c,4,$h);
+    $r=5; $n=1; $totalItem=0; $totalQty=0;
+    foreach($rows as $row){
+      $totalItem += (float)$row->total_barang;
+      $totalQty += (float)$row->total_qty;
+      $values = array(
+        $n++,
+        $row->nama_pendek,
+        $row->kodeDokumen,
+        $row->nama_dokumen,
+        str_replace('-', '', (string)$row->nomorAju),
+        $row->nomorDokpab,
+        $row->tanggalDokumen ? date('Y-m-d',strtotime($row->tanggalDokumen)) : '',
+        $row->tanggalTtd ? date('Y-m-d',strtotime($row->tanggalTtd)) : '',
+        $row->statusDokumen,
+        (float)$row->total_barang,
+        (float)$row->total_qty
+      );
+      foreach($values as $c=>$v) $sheet->setCellValueByColumnAndRow($c,$r,$v);
+      $r++;
+    }
+    $summaryRow = $r+1;
+    $sheet->mergeCells('A'.$summaryRow.':I'.$summaryRow);
+    $sheet->setCellValue('A'.$summaryRow, erp_export_label('TOTAL'));
+    $sheet->setCellValue('J'.$summaryRow,$totalItem);
+    $sheet->setCellValue('K'.$summaryRow,$totalQty);
+    erpkb_excel_apply_standard_style($excel,array(
+      'sheet'=>$sheet,
+      'title'=>erp_export_title('CUSTOMS DOCUMENTS - H2H CEISA 4.0'),
+      'header_row'=>4,
+      'first_data_row'=>5,
+      'last_data_row'=>max(5,$r-1),
+      'column_count'=>11,
+      'numeric_columns'=>array('J','K'),
+      'filters'=>array(
+        'Periode'=>dpb_valid_date($input['tgl_awal'],date('Y-m-01')).' s/d '.dpb_valid_date($input['tgl_akhir'],date('Y-m-d')),
+        'Jenis BC'=>$input['jenis_bc'],
+        'Status'=>$input['status_dokumen'],
+        'Keyword'=>$input['keyword']
+      ),
+      'widths'=>array('A'=>6,'B'=>14,'C'=>12,'D'=>54,'E'=>28,'F'=>20,'G'=>16,'H'=>16,'I'=>16,'J'=>12,'K'=>14)
+    ));
+    $sheet->getStyle('A'.$summaryRow.':K'.$summaryRow)->getFont()->setBold(true);
+    $sheet->getStyle('A'.$summaryRow.':K'.$summaryRow)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('ECFDF5');
+    $sheet->getStyle('A'.$summaryRow.':K'.$summaryRow)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+    $sheet->getStyle('J'.$summaryRow.':K'.$summaryRow)->getNumberFormat()->setFormatCode('#,##0.00000');
+    $tmp = erpkb_excel_temp_file('dokumen_pabean_');
+    PHPExcel_IOFactory::createWriter($excel,'Excel2007')->save($tmp);
+    $size = @filesize($tmp);
+    $signature = @file_get_contents($tmp,false,null,0,2);
+    if(!$size || $signature !== 'PK'){
+      @unlink($tmp);
+      while(ob_get_level()>$initialOutputBufferLevel) ob_end_clean();
+      header('Content-Type:text/plain; charset=utf-8');
+      echo erp_t('export_excel_invalid_file','File Excel gagal dibuat dengan benar.');
+      exit;
+    }
+    while(ob_get_level()>$initialOutputBufferLevel) ob_end_clean();
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="dokumen_pabean_'.date('Ymd_His').'.xlsx"');
+    header('Content-Length: '.$size);
+    header('Cache-Control: max-age=0');
+    header('Pragma: public');
+    readfile($tmp);
+    @unlink($tmp);
+    exit;
+    break;
 
   case 'simpan_detail_bahan_baku':
    $id_detail_bahan_baku = $_POST['id_detail_bahan_baku'];
@@ -13,7 +97,7 @@ switch ($_GET["act"]) {
     <div class="col-md-6">
                   <div class="box box-primary">
                     <div class="box-header with-border">
-                         <h3 class="text-center" style="font-size: 18px">Bahan Baku Impor</h3>
+                         <h3 class="text-center" style="font-size: 18px"><?=customs_h('import_raw_material','Bahan Baku Impor');?></h3>
                         <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle"  type="button" data-toggle="dropdown">Aksi
                           <span class="caret"></span></button>
@@ -27,11 +111,11 @@ switch ($_GET["act"]) {
                     <table class="table">
                       <thead>
                         <tr>
-                          <th>Seri</th>
+                          <th><?=customs_h('serial','Seri');?></th>
                           <th>HS</th>
-                          <th>Uraian</th>
-                          <th>Nilai Barang</th>
-                          <th>Satuan</th>
+                          <th><?=customs_h('description','Uraian');?></th>
+                          <th><?=customs_h('goods_value','Nilai Barang');?></th>
+                          <th><?=customs_h('unit','Satuan');?></th>
                           <th></th>
                         </tr>
                       </thead>
@@ -59,7 +143,7 @@ switch ($_GET["act"]) {
               <div class="col-md-6">
                   <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="text-center" style="font-size: 18px">Bahan Baku Lokal</h3>
+                        <h3 class="text-center" style="font-size: 18px"><?=customs_h('local_raw_material','Bahan Baku Lokal');?></h3>
                          <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle"  type="button" data-toggle="dropdown">Aksi
                           <span class="caret"></span></button>
@@ -72,11 +156,11 @@ switch ($_GET["act"]) {
                     <table class="table">
                       <thead>
                         <tr>
-                          <th>Seri</th>
+                          <th><?=customs_h('serial','Seri');?></th>
                           <th>HS</th>
-                          <th>Uraian</th>
-                          <th>Nilai Barang</th>
-                          <th>Satuan</th>
+                          <th><?=customs_h('description','Uraian');?></th>
+                          <th><?=customs_h('goods_value','Nilai Barang');?></th>
+                          <th><?=customs_h('unit','Satuan');?></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -187,7 +271,7 @@ switch ($_GET["act"]) {
                            
                          
                            <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Nama Bank</label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('bank_name','Nama Bank');?></label>
                             <div class="col-lg-9">
                              <select class="form-bank form-control" name="kodeBank" id="kodeBank" style="width: 100%" onchange="save_data(this.value,'kode_bank',$('#id_detail_bank').val(),'ws_bank_devisa','id_detail_bank')" >
                                <?php 
@@ -258,14 +342,14 @@ switch ($_GET["act"]) {
                             </div>
                           </div>
                           <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Nomor Voy/Flight/No.Pol </label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('voy_flight_police_no','Nomor Voy/Flight/No.Pol');?> </label>
                             <div class="col-lg-9">
                               <input type="text" name="nomorPengangkut" onkeyup="save_data(this.value,'nomorPengangkut',$('#id_pengangkut').val(),'ws_pengangkut','id_pengangkut')" id="nomorPengangkut" class="form-control" value="<?= $k->nomorPengangkut ?>">
                             </div>
                           </div>
 
                            <div class="form-group">
-                            <label for="nomor" class="control-label col-lg-3">Bendera</label>
+                            <label for="nomor" class="control-label col-lg-3"><?=customs_h('flag','Bendera');?></label>
                             <div class="col-lg-9">
                              <select class="form-negara2 form-control" name="kodeBendera" id="kodeBendera" style="width: 100%" onchange="save_data(this.value,'kodeBendera',$('#id_pengangkut').val(),'ws_pengangkut','id_pengangkut')" >
                                </select>
@@ -827,7 +911,7 @@ $qda = $db->query("select * from ws_pengangkut left join ref_negara on ref_negar
                         <div class="col-md-4">
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Jenis</h3> 
+                      <h3 class="box-title"><?=customs_h('document_type','Jenis');?></h3> 
                     </div>
                             <div class="form-group">
                                 <label for="nomor" >Seri </label>
@@ -873,7 +957,7 @@ $qda = $db->query("select * from ws_pengangkut left join ref_negara on ref_negar
                         <div class="col-md-4">
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Keterangan Lainnya</h3>
+                      <h3 class="box-title"><?=customs_h('other_description','Keterangan Lainnya');?></h3>
                     </div>
                             <div class="form-group">
                                 <label for="nomor" >Kategori Barang </label>
@@ -916,7 +1000,7 @@ $qda = $db->query("select * from ws_pengangkut left join ref_negara on ref_negar
                           </div>
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Harga</h3>
+                      <h3 class="box-title"><?=customs_h('price','Harga');?></h3>
                     </div>
                      <div class="form-group">
                                 <label for="nomor" >Harga </label>
@@ -978,7 +1062,7 @@ $qda = $db->query("select * from ws_pengangkut left join ref_negara on ref_negar
                         <div class="col-md-4">
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Jumlah & Berat</h3>
+                      <h3 class="box-title"><?=customs_h('qty_weight','Jumlah & Berat');?></h3>
                     </div>
                             <div class="form-group">
                                 <label for="nomor" >Satuan </label>
@@ -1038,19 +1122,19 @@ $qda = $db->query("select * from ws_pengangkut left join ref_negara on ref_negar
                           </div>
                           <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Dokumen Fasilitas/Lartas</h3>
+                      <h3 class="box-title"><?=customs_h('facility_documents','Dokumen Fasilitas/Lartas');?></h3>
                       <a class="btn btn-primary" onclick="show_modal_fasilitas()" style="float: right;cursor: pointer;"><i class="fa fa-plus"></i>Tambah</a>
                     </div>
                     <table class="table">
                       <thead>
                         <tr>
-                          <th>Seri</th>
-                          <th>Jenis</th>
-                          <th>Nomor</th>
-                          <th>Tanggal</th>
-                          <th>Fasilitas</th>
-                          <th>Izin</th>
-                          <th>File</th>
+                          <th><?=customs_h('serial','Seri');?></th>
+                          <th><?=customs_h('document_type','Jenis');?></th>
+                          <th><?=customs_h('number','Nomor');?></th>
+                          <th><?=customs_h('date','Tanggal');?></th>
+                          <th><?=customs_h('facility','Fasilitas');?></th>
+                          <th><?=customs_h('permit','Izin');?></th>
+                          <th><?=customs_h('file','File');?></th>
                         </tr>
                       </thead>
                     </table>

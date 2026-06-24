@@ -1,404 +1,203 @@
-
-
-<!-- Main content -->
+<?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+function sj_form_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+$nextNo = "SJ-" . date('Ym') . "-" . str_pad(get_nomor('surat_jalan','id'), 4, '0', STR_PAD_LEFT);
+?>
+<style>
+.sj-page-hero{border-radius:14px;background:linear-gradient(135deg,#0f766e,#1d4ed8);color:#fff;padding:18px 20px;margin-bottom:16px;box-shadow:0 10px 24px rgba(15,23,42,.18)}
+.sj-page-hero h3{margin:0;font-weight:700}.sj-page-hero p{margin:6px 0 0;opacity:.92}
+.sj-card{border-radius:14px;border:1px solid #e5edf5;background:#fff;margin-bottom:16px;box-shadow:0 6px 18px rgba(15,23,42,.06)}
+.sj-card .sj-card-head{padding:14px 16px;border-bottom:1px solid #edf2f7;display:flex;align-items:center;justify-content:space-between}
+.sj-card .sj-card-head h4{margin:0;font-size:15px;font-weight:700}.sj-card .sj-card-body{padding:16px}
+.sj-step{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#0f766e;color:#fff;font-weight:700;margin-right:8px}
+.sj-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:8px}
+.sj-summary-box{border:1px solid #e5edf5;background:#f8fafc;border-radius:10px;padding:10px 12px;min-height:58px}
+.sj-summary-box span{display:block;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.04em}.sj-summary-box strong{display:block;margin-top:3px;color:#0f172a;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sj-item-table th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;background:#f8fafc!important;color:#475569;vertical-align:middle}.sj-item-table td{font-size:12px;vertical-align:middle}
+.sj-item-table .form-control{font-size:12px;height:30px;padding:4px 7px}.sj-readonly{background:#f8fafc!important;color:#334155!important}.select2-container{width:100%!important}.has-error .form-control{border-color:#dd4b39}
+.sj-sticky-actions{position:sticky;bottom:0;background:#fff;border-top:1px solid #e5edf5;padding:12px 0;margin-top:8px;z-index:5}
+@media(max-width:991px){.sj-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:767px){.sj-summary{grid-template-columns:1fr}}
+</style>
+<section class="content-header">
+  <h1><?=sd_h('sales_surat_jalan', 'Surat Jalan');?> <small>Create from Packing List</small></h1>
+  <ol class="breadcrumb">
+    <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=sd_h('common_home', 'Home');?></a></li>
+    <li><a href="<?=base_index();?>surat-jalan"><?=sd_h('sales_surat_jalan', 'Surat Jalan');?></a></li>
+    <li class="active">Tambah</li>
+  </ol>
+</section>
 <section class="content">
-<div class="row">
-  <div class="col-lg-12">
-    <div class="box box-solid box-primary">
-      <div class="box-header">
-        <h3 class="box-title">Tambah Surat Jalan</h3>
-        <div class="box-tools pull-right">
-          <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
-        </div>
+  <div class="sj-page-hero">
+    <h3><i class="fa fa-file-text-o"></i> Buat Surat Jalan dari Packing List</h3>
+    <p>Surat Jalan sekarang mengikuti flow SAP SD: data item diambil dari Packing List yang sudah selesai dipacking.</p>
+  </div>
+  <div class="alert alert-danger error_data" style="display:none">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <span class="isi_warning"></span>
+  </div>
+  <form id="input_surat_jalan" method="post" action="<?=base_admin();?>modul/surat_jalan/surat_jalan_action.php?act=in">
+    <input type="hidden" name="packing_list_id" id="packing_list_id">
+    <input type="hidden" name="delivery_id" id="delivery_id">
+    <input type="hidden" name="delivery_no" id="delivery_no">
+    <input type="hidden" name="picking_no" id="picking_no">
+    <input type="hidden" name="gi_id" id="gi_id">
+    <input type="hidden" name="gi_no" id="gi_no">
+    <input type="hidden" name="movement_type" id="movement_type">
+
+    <div class="sj-card">
+      <div class="sj-card-head">
+        <h4><span class="sj-step">1</span><?=sd_h('sales_reference', 'Reference');?></h4>
+        <span class="label label-info">Packing List status PACKED</span>
       </div>
-      <div class="box-body">
-       <div class="alert alert-danger error_data" style="display:none">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <span class="isi_warning"></span>
+      <div class="sj-card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>No Surat Jalan</label>
+              <input type="text" id="no_surat_jalan" name="no_surat_jalan" value="<?=sj_form_h($nextNo);?>" class="form-control sj-readonly" readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label><?=sd_h('sales_packing_list', 'Packing List');?> <span class="text-red">*</span></label>
+              <select id="packing_select" class="form-control" required></select>
+              <p class="help-block">Pilih Packing List yang belum pernah dibuatkan Surat Jalan.</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Tanggal Surat Jalan <span class="text-red">*</span></label>
+              <input type="text" class="form-control sj-date" name="tgl_surat_jalan" value="<?=date('Y-m-d');?>" readonly required>
+            </div>
+          </div>
         </div>
-        
-        <form id="input_surat_jalan" method="post" class="form-horizontal" 
-              action="<?=base_admin();?>modul/surat_jalan/surat_jalan_action.php?act=in"
-              enctype="multipart/form-data">
-          
-          <input type="hidden" id="id_sales_order" name="id_sales_order">
-          <div class="form-group">
-              <label class="control-label col-lg-2">No Surat Jalan</label>
-              <div class="col-lg-4">
-                <input type="text" id="no_surat_jalan" name="no_surat_jalan" value="<?= "SJ-" . date('ymd') . "-" . str_pad(get_nomor('surat_jalan','id'), 5, '0', STR_PAD_LEFT); ?>" class="form-control" readonly>
-              </div>
-            </div>
-          
-          
-          
-          <div class="form-group">
-            <label for="Sales Order" class="control-label col-lg-2">Sales Order <span style="color:#FF0000">*</span></label>
-            <div class="col-lg-10">
-              <input type="text" id="no_sales_order_search" name="no_sales_order_search" 
-                     placeholder="Ketik No Sales Order / No PO / Nama Penerima" class="form-control" required>
-            </div>
-          </div>
-          
-          <div id="info_sales_order" style="display:none;">
-            <div class="form-group">
-              <label class="control-label col-lg-2">No Sales Order</label>
-              <div class="col-lg-4">
-                <input type="text" id="no_sales_order" class="form-control" readonly>
-              </div>
-              <label class="control-label col-lg-2">Tanggal SO</label>
-              <div class="col-lg-4">
-                <input type="text" id="so_date" class="form-control" readonly>
-              </div>
-            </div>
-            
-            <div class="form-group" style="display: none">
-              <label class="control-label col-lg-2">No Invoice</label>
-              <div class="col-lg-4">
-                <input type="text" id="no_sales_invoice" class="form-control" readonly>
-              </div>
-              <label class="control-label col-lg-2">No PO Customer</label>
-              <div class="col-lg-4">
-                <input type="text" id="no_po" class="form-control" readonly>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="control-label col-lg-2">Penerima</label>
-              <div class="col-lg-10">
-                <input type="text" id="nama_penerima" class="form-control" readonly>
-                <input type="hidden" id="kode_penerima" name="kode_penerima">
-              </div>
-            </div>
-            
-            <div class="form-group" style="display: none">
-              <label class="control-label col-lg-2">No Polisi</label>
-              <div class="col-lg-4">
-                <input type="text" id="no_polisi" class="form-control">
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="Tanggal Surat Jalan" class="control-label col-lg-2">Tanggal Surat Jalan <span style="color:#FF0000">*</span></label>
-            <div class="col-lg-3">
-              <div class="input-group date" id="tgl_surat_jalan">
-                <input type="text" class="form-control" name="tgl_surat_jalan" autocomplete="off" required 
-                       value="<?=date('Y-m-d')?>">
-                <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-              </div> 
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="Alamat Pengiriman" class="control-label col-lg-2">Alamat Pengiriman <span style="color:#FF0000">*</span></label>
-            <div class="col-lg-10">
-              <textarea name="alamat_pengiriman" id="alamat_pengiriman" class="form-control" rows="3" required></textarea>
-            </div>
-          </div>
-          
-          <div class="form-group" style="display: none">
-            <label for="Sopir" class="control-label col-lg-2">Sopir <span style="color:#FF0000">*</span></label>
-            <div class="col-lg-10">
-              <input type="text" name="sopir" class="form-control" >
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="No Kendaraan" class="control-label col-lg-2">No Kendaraan <span style="color:#FF0000">*</span></label>
-            <div class="col-lg-10">
-              <input type="text" name="no_kendaraan" class="form-control" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="No Kendaraan" class="control-label col-lg-2">Attn <span style="color:#FF0000">*</span></label>
-            <div class="col-lg-10">
-              <input type="text" name="attn" class="form-control" required>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="Keterangan" class="control-label col-lg-2">Keterangan</label>
-            <div class="col-lg-10">
-              <textarea name="keterangan" class="form-control" rows="2"></textarea>
-            </div>
-          </div>
-          
-          <div class="form-group" id="panel_barang" style="display:none">
-            <div class="col-lg-12">
-              <div class="alert alert-info">
-                <strong>Note:</strong> Masukkan jumlah yang akan dikirim untuk setiap barang.
-              </div>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th style="width:30px;text-align: center">No</th>
-                    <th>Kode Barang</th>
-                    <th>Nama Barang</th>
-                    <th>Packing</th>
-                    <th>Satuan Packing</th>
-                    
-                    <th>Qty Kirim</th>
-                    <th>Satuan</th>
-                    <th>Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody id="isi_tabel">
-                  <!-- Baris detail akan ditambahkan via JS -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="tags" class="control-label col-lg-2">&nbsp;</label>
-            <div class="col-lg-10">
-              <a href="<?=base_index();?>surat-jalan" class="btn btn-default">
-                <i class="fa fa-step-backward"></i> Kembali
-              </a>
-              <button type="submit" class="btn btn-primary">
-                <i class="fa fa-save"></i> Buat Surat Jalan
-              </button>
-            </div>
-          </div>
-        </form>
+        <div class="row">
+          <div class="col-md-3"><div class="form-group"><label><?=sd_h('sales_document_date', 'Document Date');?></label><input type="text" class="form-control sj-date" name="document_date_display" id="document_date_display" value="<?=date('Y-m-d');?>" readonly></div></div>
+          <div class="col-md-3"><div class="form-group"><label><?=sd_h('sales_posting_date', 'Posting Date');?></label><input type="text" class="form-control sj-date" name="posting_date_display" id="posting_date_display" value="<?=date('Y-m-d');?>" readonly></div></div>
+          <div class="col-md-3"><div class="form-group"><label>Movement Type</label><input type="text" class="form-control sj-readonly" id="movement_type_display" value="601" readonly></div></div>
+          <div class="col-md-3"><div class="form-group"><label>Goods Issue</label><input type="text" class="form-control sj-readonly" id="gi_no_display" readonly></div></div>
+        </div>
+        <div class="sj-summary">
+          <div class="sj-summary-box"><span><?=sd_h('sales_packing_list', 'Packing List');?></span><strong id="pl_text">-</strong></div>
+          <div class="sj-summary-box"><span><?=sd_h('sales_outbound_delivery', 'Outbound Delivery');?></span><strong id="delivery_text">-</strong></div>
+          <div class="sj-summary-box"><span><?=sd_h('sales_order', 'Sales Order');?></span><strong id="so_text">-</strong></div>
+          <div class="sj-summary-box"><span><?=sd_h('sales_customer', 'Customer');?></span><strong id="customer_text">-</strong></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="sj-card">
+      <div class="sj-card-head"><h4><span class="sj-step">2</span>Shipping Information</h4></div>
+      <div class="sj-card-body">
+        <div class="row">
+          <div class="col-md-4"><div class="form-group"><label>No Invoice</label><input type="text" id="no_invoice" name="no_invoice" class="form-control"></div></div>
+          <div class="col-md-4"><div class="form-group"><label>No PO Customer</label><input type="text" id="no_po" name="no_po" class="form-control"></div></div>
+          <div class="col-md-4"><div class="form-group"><label>No Kendaraan <span class="text-red">*</span></label><input type="text" id="no_kendaraan" name="no_kendaraan" class="form-control" required></div></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"><div class="form-group"><label><?=sd_h('sales_shipping_point', 'Shipping Point');?></label><input type="text" id="shipping_point_display" class="form-control sj-readonly" readonly></div></div>
+          <div class="col-md-4"><div class="form-group"><label>Route</label><input type="text" id="route_display" class="form-control sj-readonly" readonly></div></div>
+          <div class="col-md-4"><div class="form-group"><label>Carrier</label><input type="text" id="carrier_display" class="form-control sj-readonly" readonly></div></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6"><div class="form-group"><label>Sopir</label><input type="text" id="sopir" name="sopir" class="form-control"></div></div>
+          <div class="col-md-6"><div class="form-group"><label>Attn <span class="text-red">*</span></label><input type="text" id="attn" name="attn" class="form-control" required></div></div>
+        </div>
+        <div class="form-group"><label>Alamat Pengiriman <span class="text-red">*</span></label><textarea id="alamat_pengiriman" name="alamat_pengiriman" class="form-control" rows="3" required></textarea></div>
+        <div class="form-group"><label>Keterangan</label><textarea name="keterangan" id="keterangan" class="form-control" rows="2" placeholder="Catatan pengiriman"></textarea></div>
+      </div>
+    </div>
+
+    <div class="sj-card">
+      <div class="sj-card-head">
+        <h4><span class="sj-step">3</span>Item Surat Jalan</h4>
+        <small class="text-muted">Qty berasal dari qty packed di Packing List.</small>
+      </div>
+      <div class="sj-card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-condensed sj-item-table">
+            <thead>
+              <tr>
+                <th style="width:44px" class="text-center"><?=sd_h('common_no', 'No');?></th>
+                <th style="min-width:120px">Kode</th>
+                <th style="min-width:220px">Nama Barang</th>
+                <th class="text-right">Delivery Qty</th>
+                <th style="width:130px">Packing</th>
+                <th style="width:120px">Qty Packing</th>
+                <th style="width:120px" class="text-right">Qty Kirim</th>
+                <th style="width:70px"><?=sd_h('sales_uom', 'UOM');?></th>
+                <th style="min-width:160px">Trace</th>
+                <th style="min-width:160px">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody id="isi_tabel"><tr><td colspan="10" class="text-center text-muted">Pilih Packing List untuk load item.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="sj-sticky-actions">
+      <a href="<?=base_index();?>surat-jalan" class="btn btn-default"><i class="fa fa-step-backward"></i> Kembali</a>
+      <button type="submit" id="btn_save_sj" class="btn btn-primary" disabled><i class="fa fa-save"></i> Buat Surat Jalan</button>
+    </div>
+  </form>
 </section>
-
-<link rel="stylesheet" href="<?= base_url() ?>assets/css/jquery-ui.css">
-<style type="text/css">
-  .ui-autocomplete { 
-    z-index:2147483647;
-    max-height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-</style>
-<script src="<?= base_url() ?>assets/js/jquery-ui.js"></script>
-
-<script type="text/javascript">
-  var option_satuan_packing = '';
-$(document).ready(function() {
-
-  $.ajax({
-    url: "<?= base_url() ?>modul/surat_jalan/surat_jalan_action.php?act=get_satuan_packing",
-    type: "GET",
-    dataType: "json",
-    success: function(res){
-        var opt = '<option value="">-- Pilih --</option>';
-        $.each(res, function(i, v){
-            opt += '<option value="'+v.satuan_packing+'">'+v.satuan_packing+'</option>';
-        });
-        window.option_satuan_packing = opt;
-    }
-});
-  // Autocomplete untuk Sales Order
-  $("#no_sales_order_search").autocomplete({
-    source: function(request, response) {
-      $.ajax({
-        url: "<?= base_url() ?>modul/surat_jalan/surat_jalan_action.php?act=get_sales_order",
-        data: { term: request.term },
-        type: 'POST',
-        dataType: "json",
-        success: function(data) {
-          response($.map(data, function(item) {
-            return {
-              label: item.label,
-              value: item.value,
-              id: item.id,
-              no_sales_order: item.no_sales_order,
-              no_sales_invoice: item.no_sales_invoice,
-              no_po: item.no_po,
-              kode_penerima: item.kode_penerima,
-              nama_penerima: item.nama_penerima,
-              shipping_address: item.shipping_address,
-              no_polisi: item.no_polisi,
-              so_date: item.so_date
-            };
-          }))
-        }
-      });
-    },
-    select: function(event, ui) {
-      $("#no_sales_order_search").val(ui.item.label);
-      $("#id_sales_order").val(ui.item.id);
-      $("#no_sales_order").val(ui.item.no_sales_order);
-      $("#no_sales_invoice").val(ui.item.no_sales_invoice);
-      $("#no_po").val(ui.item.no_po);
-      $("#kode_penerima").val(ui.item.kode_penerima);
-      $("#nama_penerima").val(ui.item.nama_penerima);
-      $("#alamat_pengiriman").val(ui.item.shipping_address);
-      $("#no_polisi").val(ui.item.no_polisi);
-      $("#so_date").val(ui.item.so_date);
-      
-      $("#info_sales_order").show();
-      
-      // Load detail barang dari sales order
-      $.ajax({
-        url: "<?= base_url() ?>modul/surat_jalan/surat_jalan_action.php?act=get_detail_sales_order",
-        type: 'POST',
-        data: { id_sales_order: ui.item.id },
-        dataType: "json",
-        success: function(data) {
-          var tbody = $("#isi_tabel");
-          tbody.empty();
-          
-          if (data.length === 0) {
-            tbody.append(
-              '<tr><td colspan="9" class="text-center">' +
-              '<div class="alert alert-warning">Tidak ada barang yang bisa dikirim. Semua barang sudah terkirim.</div>' +
-              '</td></tr>'
-            );
-            $("#panel_barang").show();
-            return;
-          }
-          
-          $.each(data, function(index, item) {
-            var no = index + 1;
-            tbody.append(
-              '<tr>' +
-              '<td style="text-align: center">' + no + '</td>' +
-              '<td><input type="text" class="form-control" value="' + item.kode_barang + '" readonly>' +
-                '<input type="hidden" name="id_detail[]" value="' + item.id_detail + '">' +
-                '<input type="hidden" name="kode_barang[]" value="' + item.kode_barang + '"></td>' +
-              '<td><input type="text" class="form-control" value="' + item.nama_barang + '" readonly>' +
-              '<input type="hidden" name="nama_barang[]" value="' + item.nama_barang + '"></td>' +
-
-              '<td>' +
-                  '<input type="text" name="packing[] class="form-control" >' +
-              '</td>' +
-
-              '<td>' +
-                  '<select name="satuan_packing[]" class="form-control">' +
-                      window.option_satuan_packing +
-                  '</select>' +
-              '</td>' +            
-              '<td><input type="number" class="form-control text-right qty-kirim" value="' + item.qty_order + '" name="qty_kirim[]" ' +
-                'value="' + item.sisa_qty + '" min="0" max="' + item.sisa_qty + '" step="0.01" required ' +
-                'onchange="validateQty(this, ' + item.sisa_qty + ')"></td>' +
-              '<td><input type="text" class="form-control" value="' + item.satuan + '" readonly>' +
-                '<input type="hidden" name="satuan[]" value="' + item.satuan + '"></td>' +
-              '<td><input type="text" class="form-control" name="keterangan_barang[]"></td>' +
-              '</tr>'
-            );
-          });
-          $("#panel_barang").show();
-        }
-      });
-      return false;
-    }
-  }).data("ui-autocomplete")._renderItem = function(ul, item) {
-    return $("<li></li>")
-      .data("ui-autocomplete-item", item)
-      .append('<a><div class="list_item_container">' + item.label + '</div></a>')
-      .appendTo(ul);
-  };
-  
-  // Datepicker
-  $(".date").datepicker({ 
-    format: "yyyy-mm-dd",
-    autoclose: true, 
-    todayHighlight: true
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script>
+<script>
+function sjError(msg){$('.isi_warning').text(msg||<?=sd_js('sales_surat_jalan_process_failed', 'Surat Jalan failed to process.');?>);$('.error_data').fadeIn();$('html,body').animate({scrollTop:$('.error_data').offset().top-80},250);}
+function sjSetText(id,value){$(id).text(value&&String(value).trim()!==''?value:'-');}
+function sjValidate(){
+  var ok=true, hasQty=false;
+  $('.sj-qty').each(function(){
+    var qty=parseFloat(String($(this).val()||'0').replace(',','.'))||0;
+    var max=parseFloat($(this).data('max'))||0;
+    if(qty>0) hasQty=true;
+    if(qty<0||qty>max+0.00001){ok=false;$(this).closest('td').addClass('has-error');}else{$(this).closest('td').removeClass('has-error');}
   });
-  
-  // Validasi jumlah kirim
-  window.validateQty = function(input, max) {
-    // var value = parseFloat(input.value);
-    // if (value > max) {
-    //   alert('Jumlah kirim tidak boleh melebihi sisa yang tersedia (' + max + ')');
-    //   input.value = max;
-    // }
-    // if (value < 0) {
-    //   input.value = 0;
-    // }
-  };
-  
-  // Validation
-  $("#input_surat_jalan").validate({
-    errorClass: "help-block",
-    errorElement: "span",
-    highlight: function(element, errorClass, validClass) {
-      $(element).parents(".form-group").removeClass("has-success").addClass("has-error");
-    },
-    unhighlight: function(element, errorClass, validClass) {
-      $(element).parents(".form-group").removeClass("has-error").addClass("has-success");
-    },
-    rules: {
-      id_sales_order: {
-        required: true
+  $('#btn_save_sj').prop('disabled',!(ok&&hasQty&&$('#packing_list_id').val()));
+  return ok&&hasQty;
+}
+function loadPackingItems(id){
+  $('#isi_tabel').html('<tr><td colspan="10" class="text-center text-muted"><i class="fa fa-spinner fa-spin"></i> Loading item...</td></tr>');
+  $.post('<?=base_admin();?>modul/surat_jalan/surat_jalan_action.php?act=packing_items',{packing_list_id:id},function(html){
+    $('#isi_tabel').html(html); sjValidate();
+  },'html').fail(function(xhr){console.log(xhr.responseText);sjError(<?=sd_js('sales_packing_item_load_failed', 'Packing List item failed to load.');?>);});
+}
+$(function(){
+  if($.fn.datepicker){$('.sj-date').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}
+  $('#packing_select').select2({
+    width:'100%', placeholder:'Cari Packing List...', minimumInputLength:1,
+    ajax:{url:'<?=base_admin();?>modul/surat_jalan/surat_jalan_action.php?act=packing_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}
+  }).on('select2:select',function(e){
+    var x=e.params.data;
+    $('#packing_list_id').val(x.id||''); $('#delivery_id').val(x.delivery_id||''); $('#delivery_no').val(x.delivery_no||''); $('#picking_no').val(x.picking_no||''); $('#gi_id').val(x.gi_id||''); $('#gi_no').val(x.gi_no||''); $('#movement_type').val(x.movement_type||'601');
+    sjSetText('#pl_text',x.no_packing_list); sjSetText('#delivery_text',x.delivery_no); sjSetText('#so_text',x.no_sales_order); sjSetText('#customer_text',(x.customer_code||'')+' - '+(x.customer_name||''));
+    $('#no_invoice').val(x.no_invoice||''); $('#no_po').val(x.no_po||''); $('#no_kendaraan').val(x.vehicle_no||''); $('#sopir').val(x.driver_name||''); $('#attn').val(x.customer_name||''); $('#alamat_pengiriman').val(x.customer_address||x.ship_to_address||''); $('#keterangan').val(x.remarks||'');
+    $('#posting_date_display').val(x.posting_date||$('input[name="tgl_surat_jalan"]').val()); $('#movement_type_display').val(x.movement_type||'601'); $('#gi_no_display').val(x.gi_no||'-'); $('#shipping_point_display').val(x.shipping_point||'-'); $('#route_display').val(x.route||'-'); $('#carrier_display').val(x.carrier||'-');
+    loadPackingItems(x.id);
+  });
+  $(document).on('keyup change','.sj-qty',sjValidate);
+  $('#input_surat_jalan').on('submit',function(e){
+    e.preventDefault();
+    if(!sjValidate()){sjError('Qty kirim wajib diisi dan tidak boleh melebihi qty Packing List.');return;}
+    $('#btn_save_sj').prop('disabled',true).html('<i class="fa fa-spinner fa-spin"></i> <?=sd_h('common_saving', 'Saving...');?>');
+    $(this).ajaxSubmit({
+      dataType:'json',
+      success:function(resp){
+        var good=false,msg=''; $.each(resp||[],function(_,r){if(r.status==='good')good=true;if(r.status==='error')msg=r.error_message;});
+        if(good){window.location='<?=base_index();?>surat-jalan';}
+        else{sjError(msg||<?=sd_js('sales_surat_jalan_save_failed', 'Surat Jalan failed to save.');?>);$('#btn_save_sj').prop('disabled',false).html('<i class="fa fa-save"></i> Buat Surat Jalan');}
       },
-      tgl_surat_jalan: {
-        required: true
-      },
-      alamat_pengiriman: {
-        required: true
-      },
-      sopir: {
-        required: true
-      },
-      no_kendaraan: {
-        required: true
-      }
-    },
-    messages: {
-      id_sales_order: "Pilih sales order terlebih dahulu",
-      tgl_surat_jalan: "Tanggal surat jalan harus diisi",
-      alamat_pengiriman: "Alamat pengiriman harus diisi",
-      sopir: "Nama sopir harus diisi",
-      no_kendaraan: "Nomor kendaraan harus diisi"
-    },
-    submitHandler: function(form) {
-      // Validasi apakah ada barang yang akan dikirim
-      var totalQtyKirim = 0;
-      $('.qty-kirim').each(function() {
-        totalQtyKirim += parseFloat($(this).val()) || 0;
-      });
-      
-      if (totalQtyKirim <= 0) {
-        alert('Minimal ada 1 barang dengan jumlah kirim lebih dari 0');
-        return false;
-      }
-      
-      if (confirm("Buat surat jalan baru?") == true) {
-        $("#loadnya").show();
-        $(form).ajaxSubmit({
-          url: $(form).attr("action"),
-          dataType: "json",
-          type: "post",
-          error: function(data) { 
-            $("#loadnya").hide();
-            console.log(data); 
-          },
-          success: function(responseText) {
-            $("#loadnya").hide();
-            console.log(responseText);
-            $.each(responseText, function(index) {
-              if (responseText[index].status == "die") {
-                $("#informasi").modal("show");
-              } else if(responseText[index].status == "error") {
-                $(".isi_warning").text(responseText[index].error_message);
-                $(".error_data").focus()
-                $(".error_data").fadeIn();
-              } else if(responseText[index].status == "good") {
-                $(".error_data").hide();
-                alert("Surat Jalan berhasil dibuat!");
-                window.location.href = "<?=base_index();?>surat-jalan";
-              } else {
-                console.log(responseText);
-                $(".isi_warning").text(responseText[index].error_message);
-                $(".error_data").focus()
-                $(".error_data").fadeIn();
-              }
-            });
-          }
-        });
-      }
-      return false;
-    }
+      error:function(xhr){console.log(xhr.responseText);sjError(<?=sd_js('sales_surat_jalan_save_failed', 'Surat Jalan failed to save.');?>);$('#btn_save_sj').prop('disabled',false).html('<i class="fa fa-save"></i> Buat Surat Jalan');}
+    });
   });
 });
 </script>

@@ -1,6 +1,20 @@
+<?php
+if (!function_exists('pr_legacy_t')) {
+  function pr_legacy_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('pr_legacy_h')) {
+  function pr_legacy_h($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+}
+$prLegacyJs = array(
+  'required' => pr_legacy_t('validation_required', 'This field is required'),
+  'vendorPlaceholder' => pr_legacy_t('purchase_requisition_vendor_placeholder', 'input pemasok'),
+  'pricePlaceholder' => pr_legacy_t('purchase_requisition_price_placeholder', 'input harga'),
+  'notePlaceholder' => pr_legacy_t('purchase_requisition_note_placeholder', 'input keterangan')
+);
+?>
 <!-- Content Header (Page header) -->
               <section class="content-header">
-                  <h1>Purchase Request</h1>
+                  <h1><?=pr_legacy_h(pr_legacy_t('purchase_requisition_title', 'Purchase Requisition'));?></h1>
                    
               </section>
 
@@ -10,7 +24,7 @@
                   <div class="col-lg-12">
                       <div class="box box-solid box-primary">
                           <div class="box-header">
-                              <h3 class="box-title">Edit Purchase Request</h3>
+                              <h3 class="box-title"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_price_compare_title', 'Edit Purchase Request'));?></h3>
                               <div class="box-tools pull-right">
                                   <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-pencil"></i></button>
                               </div>
@@ -23,7 +37,7 @@
                           <form id="edit_pr" method="post" class="form-horizontal" action="<?=base_admin();?>modul/pr/pr_action.php?act=compare">
                             
               <div class="form-group">
-                <label for="No RO" class="control-label col-lg-2">No RO </label>
+                <label for="No RO" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_no_ro', 'No RO'));?> </label>
                 <div class="col-lg-10">
                   <input type="text" name="no_ro" value="<?=$data_edit->no_ro;?>" class="form-control" readonly>
                   <input type="hidden" name="nomor" value="<?=$data_edit->nomor;?>" class="form-control" readonly>
@@ -31,7 +45,7 @@
               </div><!-- /.form-group -->
               
               <div class="form-group">
-              <label for="Tanggal RO" class="control-label col-lg-2">Tanggal RO <span style="color:#FF0000">*</span></label>
+              <label for="Tanggal RO" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_ro_date', 'Tanggal RO'));?> <span style="color:#FF0000">*</span></label>
               <div class="col-lg-3">
                 <div class="input-group date" id="tgl1">
                     <input type="text" class="form-control" value="<?=$data_edit->tgl_ro;?>" name="tgl_ro"  readonly />
@@ -42,9 +56,9 @@
               </div>
           </div><!-- /.form-group -->
           <div class="form-group">
-                        <label for="Departemen/Bagian" class="control-label col-lg-2">Departemen/Bagian <span style="color:#FF0000">*</span></label>
+                        <label for="Departemen/Bagian" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('common_department', 'Departemen/Bagian'));?> <span style="color:#FF0000">*</span></label>
                         <div class="col-lg-10">
-              <select  id="dept" name="dept" data-placeholder="Pilih Departemen/Bagian..." class="form-control chzn-select" tabindex="2" readonly>
+              <select  id="dept" name="dept" data-placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_select_department', 'Pilih Departemen/Bagian...'));?>" class="form-control chzn-select" tabindex="2" readonly>
                <option value=""></option>
                <?php foreach ($db->fetch_all("dept") as $isi) {
 
@@ -66,7 +80,7 @@
               </div><!-- /.form-group -->
               
           <div class="form-group">
-              <label for="catatan" class="control-label col-lg-2">catatan </label>
+              <label for="catatan" class="control-label col-lg-2"><?=pr_legacy_h(pr_legacy_t('vendor_evaluation_notes', 'Catatan'));?> </label>
               <div class="col-lg-10">
               <textarea class="form-control col-xs-12" rows="5" name="catatan" readonly><?=$data_edit->catatan;?> </textarea>
               </div>
@@ -78,9 +92,9 @@
                    <thead>
                    <tr> 
                      
-                     <th style="width: 30%" class="text-center">Nama Barang</th>
+                     <th style="width: 30%" class="text-center"><?=pr_legacy_h(pr_legacy_t('purchase_order_material_description', 'Nama Barang'));?></th>
                    
-                     <th class="text-center">Price Comparison</th>
+                     <th class="text-center"><?=pr_legacy_h(pr_legacy_t('purchase_requisition_price_comparison', 'Price Comparison'));?></th>
                    </tr>
                 <!--    <tr>
                      <th class="text-center">Vendor</th>
@@ -102,9 +116,9 @@
                         <thead>
                           <tr>
                             <th></th>
-                            <th>Pemasok</th>
-                            <th>Harga Penawaran</th>
-                            <th>Catatan</th>
+                            <th><?=pr_legacy_h(pr_legacy_t('vendor_evaluation_vendor', 'Pemasok'));?></th>
+                            <th><?=pr_legacy_h(pr_legacy_t('purchase_requisition_offer_price', 'Harga Penawaran'));?></th>
+                            <th><?=pr_legacy_h(pr_legacy_t('vendor_evaluation_notes', 'Catatan'));?></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -119,9 +133,9 @@
                               <a class="btn btn-primary" onclick="add_row('<?= $k->id ?>','<?= $no ?>')"><i class="fa fa-plus"></i></a>
                               <a class="btn btn-danger"  onclick="min_row('<?= $k->id ?>','<?= $no ?>')"> <i class="fa fa-minus"></i> </a>
                             </td>
-                            <td><input value="<?= $kc->pemasok."-".$kc->nama  ?>" type="text" id="form_kode_<?= $no ?>" onclick="cari_vendor('<?= $no ?>')" name="vendor[<?= $k->id ?>][]" class="form-control" placeholder="input pemasok"></td>
-                            <td><input value="<?= $kc->harga ?>" type="text" name="harga[<?= $k->id ?>][]" class="form-control" placeholder="input harga"></td>
-                            <td><input value="<?= $kc->ket ?>" type="text" name="ket[<?= $k->id ?>][]" class="form-control" placeholder="input keterangan"></td>
+                            <td><input value="<?=pr_legacy_h($kc->pemasok."-".$kc->nama);?>" type="text" id="form_kode_<?= $no ?>" onclick="cari_vendor('<?= $no ?>')" name="vendor[<?= $k->id ?>][]" class="form-control" placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_vendor_placeholder', 'input pemasok'));?>"></td>
+                            <td><input value="<?=pr_legacy_h($kc->harga);?>" type="text" name="harga[<?= $k->id ?>][]" class="form-control" placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_price_placeholder', 'input harga'));?>"></td>
+                            <td><input value="<?=pr_legacy_h($kc->ket);?>" type="text" name="ket[<?= $k->id ?>][]" class="form-control" placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_note_placeholder', 'input keterangan'));?>"></td>
                           </tr> 
                            <?php
                            $no++;
@@ -133,9 +147,9 @@
                             <a class="btn btn-primary" onclick="add_row('<?= $k->id ?>','<?= $no ?>')"><i class="fa fa-plus"></i></a>
                             <a class="btn btn-danger"  onclick="min_row('<?= $k->id ?>','<?= $no ?>')"> <i class="fa fa-minus"></i> </a>
                           </td>
-                          <td><input type="text" id="form_kode_<?= $no ?>" onclick="cari_vendor('<?= $no ?>')" name="vendor[<?= $k->id ?>][]" class="form-control" placeholder="input pemasok"></td>
-                          <td><input type="text" name="harga[<?= $k->id ?>][]" class="form-control" placeholder="input harga"></td>
-                          <td><input type="text" name="ket[<?= $k->id ?>][]" class="form-control" placeholder="input keterangan"></td>
+                          <td><input type="text" id="form_kode_<?= $no ?>" onclick="cari_vendor('<?= $no ?>')" name="vendor[<?= $k->id ?>][]" class="form-control" placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_vendor_placeholder', 'input pemasok'));?>"></td>
+                          <td><input type="text" name="harga[<?= $k->id ?>][]" class="form-control" placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_price_placeholder', 'input harga'));?>"></td>
+                          <td><input type="text" name="ket[<?= $k->id ?>][]" class="form-control" placeholder="<?=pr_legacy_h(pr_legacy_t('purchase_requisition_note_placeholder', 'input keterangan'));?>"></td>
                         </tr>
                         <?php
                       }
@@ -179,13 +193,14 @@
               </section><!-- /.content -->
 
 <script type="text/javascript">
+   var prLegacyLang = <?=json_encode($prLegacyJs);?>;
    function min_row(id,baris) {
       $("#baris_"+baris).remove();
     }
 
     function add_row(id,no) {
       var id_baris =  parseInt($("#jml").val())+1;
-      var baris = '<tr id="baris_'+id_baris+'"><td style="width: 100px"><a class="btn btn-primary" onclick="add_row(\''+id+'\',\''+id_baris+'\')"><i class="fa fa-plus"></i></a> <a class="btn btn-danger"  onclick="min_row(\''+id+'\',\''+id_baris+'\')"> <i class="fa fa-minus"></i> </a></td><td><input id="form_kode_'+id_baris+'" onkeyup="cari_vendor(\''+id_baris+'\')" type="text" name="vendor['+id+'][]" class="form-control" placeholder="input pemasok"></td><td><input type="text" name="harga['+id+'][]" class="form-control" placeholder="input harga"></td><td><input  type="text" name="ket['+id+'][]" class="form-control" placeholder="input keterangan"></td></tr>'; 
+      var baris = '<tr id="baris_'+id_baris+'"><td style="width: 100px"><a class="btn btn-primary" onclick="add_row(\''+id+'\',\''+id_baris+'\')"><i class="fa fa-plus"></i></a> <a class="btn btn-danger"  onclick="min_row(\''+id+'\',\''+id_baris+'\')"> <i class="fa fa-minus"></i> </a></td><td><input id="form_kode_'+id_baris+'" onkeyup="cari_vendor(\''+id_baris+'\')" type="text" name="vendor['+id+'][]" class="form-control" placeholder="'+prLegacyLang.vendorPlaceholder+'"></td><td><input type="text" name="harga['+id+'][]" class="form-control" placeholder="'+prLegacyLang.pricePlaceholder+'"></td><td><input  type="text" name="ket['+id+'][]" class="form-control" placeholder="'+prLegacyLang.notePlaceholder+'"></td></tr>'; 
       $("#tabel_"+id).append(baris);
         $("#jml").val(id_baris);
    }
@@ -301,12 +316,12 @@
          messages: {
             
           tgl_ro: {
-          required: "This field is required",
+          required: prLegacyLang.required,
           //minlength: "Your username must consist of at least 2 characters"
           },
         
           dept: {
-          required: "This field is required",
+          required: prLegacyLang.required,
           //minlength: "Your username must consist of at least 2 characters"
           },
         

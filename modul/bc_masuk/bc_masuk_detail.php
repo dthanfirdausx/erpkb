@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>BC Masuk</h1>
+                    <h1><?=erp_h('master_inbound_customs_type','Inbound Customs Type');?></h1>
                    <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>bc-masuk">BC Masuk</a></li>
-                        <li class="active">Detail BC Masuk</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=customs_h('home','Home');?></a></li>
+                        <li><a href="<?=base_index();?>bc-masuk"><?=erp_h('master_inbound_customs_type','Inbound Customs Type');?></a></li>
+                        <li class="active"><?=erp_h('common_detail','Detail');?> <?=erp_h('master_inbound_customs_type','Inbound Customs Type');?></li>
                     </ol>
                 </section>
 
@@ -14,7 +14,7 @@
                     <div class="col-lg-12">
                         <div class="box box-solid box-primary">
                             <div class="box-header">
-                            <h3 class="box-title">Detail BC Masuk</h3>
+                            <h3 class="box-title"><?=erp_h('common_detail','Detail');?> <?=erp_h('master_inbound_customs_type','Inbound Customs Type');?></h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button class="btn btn-info btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -25,21 +25,21 @@
                       <form class="form-horizontal">
                         
               <div class="form-group">
-                <label for="Kode " class="control-label col-lg-2">Kode  </label>
+                <label for="<?=erp_h('master_term_kode_bc','BC Code');?> " class="control-label col-lg-2"><?=erp_h('master_term_kode_bc','BC Code');?>  </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->kode;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Jenis Dokumen" class="control-label col-lg-2">Jenis Dokumen </label>
+                <label for="<?=erp_h('master_term_jenis_dokumen','Document Type');?>" class="control-label col-lg-2"><?=erp_h('master_term_jenis_dokumen','Document Type');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->jenis;?>" class="form-control">
                 </div>
               </div><!-- /.form-group -->
               
               <div class="form-group">
-                <label for="Nama" class="control-label col-lg-2">Nama </label>
+                <label for="<?=erp_h('master_term_nama','Name');?>" class="control-label col-lg-2"><?=erp_h('master_term_nama','Name');?> </label>
                 <div class="col-lg-10">
                   <input type="text" disabled="" value="<?=$data_edit->nama;?>" class="form-control">
                 </div>
@@ -47,7 +47,7 @@
               
                         
                       </form>
-                      <a href="<?=base_index();?>bc-masuk" class="btn btn-success "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
+                      <a href="<?=base_index();?>bc-masuk" class="btn btn-success "><i class="fa fa-step-backward"></i> <?=erp_h('common_back','Back');?></a>
 
                         </div>
                       </div>

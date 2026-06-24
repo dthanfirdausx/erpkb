@@ -1,29 +1,10 @@
 <?php
 switch (uri_segment(2)) {
     case "tambah":
-          foreach ($db->fetch_all("sys_menu") as $isi) {
-               if (uri_segment(1)==$isi->url&&uri_segment(2)=="tambah") {
-                          if ($role_act["insert_act"]=="Y") {
-                             include "pengeluaran_hamparan_add.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
-
-      }
+      echo "<section class='content'><div class='alert alert-info'><strong>Form legacy dinonaktifkan.</strong> Posting Goods Issue for Delivery sekarang dilakukan dari workbench utama agar stock layer, jurnal, dan trace dokumen BC selalu konsisten.</div><a href='".base_index()."pengeluaran-hamparan' class='btn btn-primary'><i class='fa fa-arrow-left'></i> Buka Goods Issue for Delivery Workbench</a></section>";
     break;
   case "edit":
-    $data_edit = $db->fetch_single_row("pengeluaran","id",uri_segment(3));
-        foreach ($db->fetch_all("sys_menu") as $isi) {
-                      if (uri_segment(1)==$isi->url&&uri_segment(2)=="edit") {
-                          if ($role_act["up_act"]=="Y") {
-                             include "pengeluaran_hamparan_edit.php";
-                          } else {
-                            echo "permission denied";
-                          }
-                       }
-
-      }
+    echo "<section class='content'><div class='alert alert-warning'><strong>Edit legacy dinonaktifkan.</strong> Goods Issue yang sudah posted harus dibalik dengan reversal, lalu posting ulang dari workbench agar FIFO stock, material document, jurnal, dan trace BC tetap audit-safe.</div><a href='".base_index()."pengeluaran-hamparan' class='btn btn-primary'><i class='fa fa-arrow-left'></i> Kembali ke Workbench</a></section>";
 
     break;
     case "detail":
@@ -31,7 +12,7 @@ switch (uri_segment(2)) {
     include "pengeluaran_hamparan_detail.php";
     break;
     default:
-    include "pengeluaran_hamparan_view.php";
+    include dirname(__DIR__)."/goods_issue_delivery/goods_issue_delivery_view.php";
     break;
 }
 

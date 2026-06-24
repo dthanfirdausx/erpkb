@@ -147,7 +147,11 @@ where p.no_transfer='".uri_segment(3)."' ");
                  // p.id='".uri_segment(3)."'";
                  $i=1;
                  foreach ($q as $k) {
-                   $qs = $db->query("select ifnull(sum(s.stock),0) as stock from stock_barang s join barang b on b.id=s.id_barang where (b.kd_barang='".$k->kode."' or s.id_barang='$k->id_barang') and id_bagian='1' ");
+                   $qs = $db->query("SELECT COALESCE(SUM(sl.qty_sisa),0) AS stock
+                                     FROM stock_layer sl
+                                     INNER JOIN barang b ON b.kd_barang=sl.kode
+                                     WHERE sl.qty_sisa>0 AND sl.lokasi='GUDANG'
+                                       AND (b.kd_barang=? OR b.id=?)", array($k->kode, $k->id_barang));
                     if ($qs->rowCount()>0) {
                       foreach ($qs as $ks) {
                         $stock = $ks->stock+$k->jml;
@@ -213,22 +217,6 @@ where p.no_transfer='".uri_segment(3)."' ");
     }else{
       $("#error_stock_"+id).hide();
     }
-    // $.ajax({
-    //       url: "<?= base_url() ?>get_stock.php?act=get_stock_incoming",
-    //       data: { 
-    //         kode: kode,
-    //         jumlah : jumlah
-    //       },
-    //       type : 'POST',
-    //       dataType : 'JSON',
-    //       success: function (data) {
-    //          if (data.status=='0') {
-    //           // alert(data.pesan);
-    //            $("#form_qty_"+id).val('');
-    //            $("#form_qty_"+id).focus();
-    //          }
-    //       }
-    //     });  
   }
 
    function get_detail_ro(no_ro){
@@ -297,7 +285,7 @@ where p.no_transfer='".uri_segment(3)."' ");
                              $("#id_input_"+id).val(ui.item.id_barang);
 
                               $.ajax({
-                                url: "<?= base_url() ?>get_stock.php?act=get_stock_incoming",
+                                url: "<?= base_url() ?>get_stock.php?act=get_stock_gudang",
                                 data: { 
                                   kode   :  ui.item.kd_barang,
                                   jumlah : '0'

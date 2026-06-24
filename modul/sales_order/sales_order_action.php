@@ -1,9 +1,119 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 session_start();
 
-include "../../inc/config.php"; 
+include "../../inc/config.php";
 session_check_json();
+function so_post($key, $default = '') {
+    return isset($_POST[$key]) ? trim((string)$_POST[$key]) : $default;
+}
+function so_post_num($key, $default = 0) {
+    if (!isset($_POST[$key])) return $default;
+    return (float)str_replace(',', '.', (string)$_POST[$key]);
+}
+function so_arr($key, $index, $default = '') {
+    return isset($_POST[$key][$index]) ? trim((string)$_POST[$key][$index]) : $default;
+}
+function so_arr_num($key, $index, $default = 0) {
+    if (!isset($_POST[$key][$index])) return $default;
+    return (float)str_replace(',', '.', (string)$_POST[$key][$index]);
+}
+function so_require_fields($fields) {
+    foreach ($fields as $field => $label) {
+        if (so_post($field) === '') action_response($label.' wajib diisi.');
+    }
+}
+function so_header_payload($isUpdate = false) {
+    $soldTo = so_post('sold_to_party');
+    $shipTo = so_post('ship_to_party', $soldTo);
+    $billTo = so_post('bill_to_party', $soldTo);
+    $payer = so_post('payer', $soldTo);
+    return array(
+        'order_type' => so_post('order_type', 'OR'),
+        'id_quotation' => so_post('id_quotation') !== '' ? so_post('id_quotation') : null,
+        'sales_org_id' => so_post('sales_org_id') !== '' ? so_post('sales_org_id') : null,
+        'distribution_channel_id' => so_post('distribution_channel_id') !== '' ? so_post('distribution_channel_id') : null,
+        'division_code' => so_post('division_code', '00'),
+        'so_date' => so_post('so_date'),
+        'consignee' => so_post('consignee'),
+        'currency' => so_post('currency'),
+        'rupiah_rate' => so_post_num('rupiah_rate', 1),
+        'delivery_term' => so_post('delivery_term'),
+        'incoterm' => strtoupper(so_post('incoterm')),
+        'vessel' => so_post('vessel'),
+        'dari' => so_post('dari'),
+        'ke' => so_post('ke'),
+        'no_po' => so_post('no_po'),
+        'rupiah_rate_sale' => so_post_num('rupiah_rate_sale', so_post_num('rupiah_rate', 1)),
+        'kode_penerima' => $soldTo,
+        'sold_to_party' => $soldTo,
+        'ship_to_party' => $shipTo,
+        'bill_to_party' => $billTo,
+        'payer' => $payer,
+        'tax' => so_post('tax', 'include'),
+        'no_store' => so_post('no_store'),
+        'notify_party' => so_post('notify_party'),
+        'other_reference' => so_post('other_reference'),
+        'sales_id' => so_post('sales_id'),
+        'purchase_ref' => so_post('purchase_ref'),
+        'user' => so_post('user', isset($_SESSION['username']) ? $_SESSION['username'] : 'system'),
+        'term' => so_post('term') !== '' ? so_post('term') : null,
+        'payment_term' => so_post('payment_term'),
+        'discount' => so_post_num('discount', 0),
+        'delivery_date' => so_post('delivery_date'),
+        'shipping_address' => so_post('shipping_address'),
+        'catatan' => so_post('catatan'),
+        'delivery_block' => so_post('delivery_block'),
+        'billing_block' => so_post('billing_block'),
+        'status' => 'Waiting for Approve',
+        'approval_status' => $isUpdate ? so_post('approval_status', 'SUBMITTED') : 'SUBMITTED',
+    );
+}
+function so_validate_items() {
+    if (empty($_POST['kode_input']) || !is_array($_POST['kode_input'])) action_response('Minimal satu item Sales Order wajib diisi.');
+    foreach ($_POST['kode_input'] as $i => $kode) {
+        if (trim((string)$kode) === '') action_response('Material baris '.($i + 1).' wajib diisi.');
+        if (so_arr_num('qty', $i) <= 0) action_response('Qty baris '.($i + 1).' wajib lebih dari 0.');
+        if (so_arr_num('harga', $i) < 0) action_response('Harga baris '.($i + 1).' tidak boleh minus.');
+    }
+}
+function so_insert_items($db, $idSalesOrder) {
+    foreach ($_POST['kode_input'] as $i => $kode) {
+        $qty = so_arr_num('qty', $i);
+        $price = so_arr_num('harga', $i);
+        $disc = so_arr_num('discount_percent', $i);
+        $tax = so_arr_num('tax_percent', $i);
+        $net = ($qty * $price) - (($qty * $price) * $disc / 100);
+        $amount = $net + ($net * $tax / 100);
+        $db->insert('sales_order_detail', array(
+            'id_sales_order' => $idSalesOrder,
+            'line_no' => so_arr('line_no', $i, ($i + 1) * 10),
+            'kd_barang' => trim((string)$kode),
+            'item_category' => so_arr('item_category', $i, 'TAN'),
+            'store' => so_arr('store', $i),
+            'plant_id' => so_arr('plant_id', $i) !== '' ? so_arr('plant_id', $i) : null,
+            'storage_location_id' => so_arr('storage_location_id', $i) !== '' ? so_arr('storage_location_id', $i) : null,
+            'requested_delivery_date' => so_arr('requested_delivery_date', $i) !== '' ? so_arr('requested_delivery_date', $i) : so_post('delivery_date'),
+            'qty' => $qty,
+            'confirmed_qty' => $qty,
+            'price' => $price,
+            'discount_percent' => $disc,
+            'tax_percent' => $tax,
+            'nilai' => $amount,
+            'ket' => so_arr('ket', $i),
+        ));
+        if ($db->getErrorMessage() !== '') action_response($db->getErrorMessage());
+    }
+}
 switch ($_GET["act"]) {
 
  
@@ -296,7 +406,7 @@ $sheet->freezePane('A5');
 // ==================
 // TITLE
 // ==================
-$sheet->setTitle("Sales Order");
+$sheet->setTitle(erp_export_sheet_title('Sales Order'));
 
 // ==================
 // OUTPUT
@@ -314,6 +424,68 @@ exit;
 break;
 
  
+
+  case "material_search":
+    $term = isset($_POST['term']) ? trim($_POST['term']) : '';
+    $rows = $db->query("SELECT kd_barang,nm_barang,satuan FROM barang WHERE kd_barang LIKE ? OR nm_barang LIKE ? ORDER BY kd_barang LIMIT 30", array('%'.$term.'%', '%'.$term.'%'));
+    $results = array();
+    if ($rows) {
+        foreach ($rows as $r) {
+            $results[] = array(
+                'id' => $r->kd_barang,
+                'text' => $r->kd_barang.' - '.$r->nm_barang,
+                'material_code' => $r->kd_barang,
+                'material_name' => $r->nm_barang,
+                'uom' => $r->satuan,
+                'price' => 0,
+            );
+        }
+    }
+    echo json_encode(array('results'=>$results));
+    break;
+
+  case "material_get":
+    $kode = isset($_POST['kode_barang']) ? trim($_POST['kode_barang']) : '';
+    $row = $db->fetch("SELECT kd_barang,nm_barang,satuan FROM barang WHERE kd_barang=? LIMIT 1", array($kode));
+    if (!$row) {
+        echo json_encode(array('status'=>'error','message'=>'Material tidak ditemukan.'));
+        break;
+    }
+    echo json_encode(array(
+        'status' => 'success',
+        'material_code' => $row->kd_barang,
+        'material_name' => $row->nm_barang,
+        'uom' => $row->satuan,
+        'price' => 0,
+    ));
+    break;
+
+  case "quotation_load":
+    $idQuotation = isset($_POST['id_quotation']) ? (int)$_POST['id_quotation'] : 0;
+    $header = $db->fetch("SELECT * FROM sales_quotation WHERE id_quotation=? LIMIT 1", array($idQuotation));
+    if (!$header) {
+        echo json_encode(array('status'=>'error','message'=>'Quotation tidak ditemukan.'));
+        break;
+    }
+    $items = array();
+    $rows = $db->query("SELECT d.*, b.nm_barang, b.satuan FROM sales_quotation_detail d LEFT JOIN barang b ON b.kd_barang=d.kd_barang WHERE d.id_quotation=? ORDER BY d.line_no,d.id_detail", array($idQuotation));
+    if ($rows) {
+        foreach ($rows as $r) {
+            $items[] = array(
+                'material_code' => $r->kd_barang,
+                'material_name' => $r->nm_barang,
+                'uom' => $r->uom ?: $r->satuan,
+                'qty' => $r->qty,
+                'price' => $r->price,
+                'discount_percent' => $r->discount_percent,
+                'tax_percent' => $r->tax_percent,
+                'required_date' => $r->requested_delivery_date ?: $header->requested_delivery_date,
+                'remark' => $r->ket,
+            );
+        }
+    }
+    echo json_encode(array('status'=>'success','header'=>$header,'items'=>$items));
+    break;
 
   case "get_pemasok":
     $kode_penerima = $_POST['kode_penerima'];
@@ -361,7 +533,7 @@ break;
                      <th style="width: 400px">Kode Barang</th>
                      <th style="width: 100px">Unit</th>
                     
-                     <th>Qty</th>  
+                     <th>'.sd_h('sales_qty', 'Qty').'</th>  
                      <th>Harga</th>    
                      <th>Nilai</th>               
                      <th>Ket</th>
@@ -400,7 +572,7 @@ break;
                  </tbody>
                   <tfoot>
                    <tr>
-                   <td colspan="3" style="text-align: center;">Total</td>
+                   <td colspan="3" style="text-align: center;">'.sd_h('sales_total', 'Total').'</td>
                    <td><input type="text" id="total_qty" value="<?= $total_qty ?>"  class="form-control" readonly="" style="text-align: right;"></td>
                    <td><input type="text" id="total_harga" value="<?= $total_harga ?>"  class="form-control" readonly="" style="text-align: right;"></td>
                    <td><input type="text" id="nilai_total" value="<?= $tot_nilai ?>"  class="form-control" readonly="" style="text-align: right;"></td>
@@ -537,63 +709,37 @@ break;
  
     break;
   case "in":
-    
-  
-  
-  
-  $data = array(
-      "no_sales_order" => get_nomor_transaksi("so"),
-      "no_sales_invoice" => get_no_si(),
-      "id_quotation" => $_POST["id_quotation"],
-      "so_date" => $_POST["so_date"],
-      "consignee" => $_POST["consignee"], 
-      "currency" => $_POST["currency"],
-      "rupiah_rate" => $_POST["rupiah_rate"],
-      "delivery_term" => $_POST["delivery_term"],
-        "vessel" => $_POST["vessel"],
-       "dari" => $_POST["dari"],
-        "notify_party" => $_POST["notify_party"],
-        "other_reference" => $_POST["other_reference"],
-      "ke" => $_POST["ke"],
-      "no_store" => $_POST["no_store"],
-       "no_po" => $_POST["no_po"],
-      "rupiah_rate_sale" => $_POST["rupiah_rate_sale"],
-      "kode_penerima" => $_POST["kode_penerima"],
-      "tax" => $_POST["tax"],
-     // "tax_item" =>
-      "status" => "Waiting for Approve",
-      "sales_id" => $_POST["sales_id"],
-      "purchase_ref" => $_POST["purchase_ref"],
-      "user" => $_POST["user"],
-      "term" => $_POST["term"],
-      "discount" => $_POST["discount"],
-      "delivery_date" => $_POST["delivery_date"],
-      "shipping_address" => $_POST["shipping_address"],
-  );
-  
-  if (isset($_POST['pajak'])) {
-    $data['tax_item'] =  json_encode($_POST["pajak"]);
-  }
-  
-  
-   
-    $in = $db->insert("sales_order",$data);
+    so_require_fields(array(
+        'order_type'=>'Order Type',
+        'sales_org_id'=>'Sales Organization',
+        'distribution_channel_id'=>'Distribution Channel',
+        'so_date'=>'SO Date',
+        'sold_to_party'=>'Sold-to Party',
+        'ship_to_party'=>'Ship-to Party',
+        'currency'=>'Currency',
+        'delivery_date'=>'Requested Delivery Date',
+    ));
+    so_validate_items();
+    $data = so_header_payload(false);
+    $data['no_sales_order'] = get_nomor_transaksi('so');
+    $data['no_sales_invoice'] = get_no_si();
+    $data['submitted_by'] = isset($_SESSION['username']) ? $_SESSION['username'] : 'system';
+    $data['submitted_at'] = date('Y-m-d H:i:s');
+    $db->query('START TRANSACTION');
+    if (!$db->insert('sales_order', $data)) {
+        $err = $db->getErrorMessage();
+        $db->query('ROLLBACK');
+        action_response($err);
+    }
     $id_sales_order = $db->last_insert_id();
-     foreach ($_POST['kode_input'] as $key => $value) {
-         $data_detail = array('id_sales_order' => $id_sales_order, 
-                             // 'tglpo' => $_POST["tglpo"],
-                              'kd_barang' => $_POST["kode_input"][$key],
-                              'qty' => $_POST["qty"][$key],
-                              'nilai' => $_POST["qty"][$key] *  $_POST["harga"][$key],
-                              'price' => $_POST["harga"][$key],
-                              'ket' => $_POST["ket"][$key],
-                            );
-       ///  print_r($data_detail);
-         $db->insert("sales_order_detail",$data_detail);
-      }
-    
-    
-    action_response($db->getErrorMessage());
+    so_insert_items($db, $id_sales_order);
+    $err = $db->getErrorMessage();
+    if ($err !== '') {
+        $db->query('ROLLBACK');
+        action_response($err);
+    }
+    $db->query('COMMIT');
+    action_response('', array('id_sales_order'=>$id_sales_order, 'no_sales_order'=>$data['no_sales_order']));
     break;
   case "delete":
     
@@ -613,60 +759,45 @@ break;
     action_response($db->getErrorMessage());
     break;
   case "up":
-    
-   $data = array(
-      "id_quotation" => $_POST["id_quotation"],
-      "so_date" => $_POST["so_date"],
-      "no_po" => $_POST["no_po"],
-      "currency" => $_POST["currency"],
-      "consignee" => $_POST["consignee"],
-       "vessel" => $_POST["vessel"], 
-       "delivery_term" => $_POST["delivery_term"],
-       "dari" => $_POST["dari"],
-      "ke" => $_POST["ke"],
-       "notify_party" => $_POST["notify_party"],
-        "other_reference" => $_POST["other_reference"],
-      "rupiah_rate" => $_POST["rupiah_rate"],
-      "rupiah_rate_sale" => $_POST["rupiah_rate_sale"],
-      "kode_penerima" => $_POST["kode_penerima"],
-      "tax" => $_POST["tax"],
-      "no_store" => $_POST["no_store"],
-   //    "tax_item" => json_encode($_POST["pajak"]),
-       "status" => "Waiting for Approve",
-      "sales_id" => $_POST["sales_id"],
-      "purchase_ref" => $_POST["purchase_ref"],
-      "user" => $_POST["user"],
-      "term" => $_POST["term"],
-      "discount" => $_POST["discount"],
-      "delivery_date" => $_POST["delivery_date"],
-      "shipping_address" => $_POST["shipping_address"],
-   );
-   // if ($_POST['"id_quotation']=="") {
-   //   unset($data['id_quotation']);
-   // }
-    $up = $db->update("sales_order",$data,"id_sales_order",$_POST["id"]);
-   $db->query("delete from sales_order_detail where id_sales_order='".$_POST["id"]."' "); 
-   foreach ($_POST['kode_input'] as $key => $value) {
-         $data_detail = array('id_sales_order' => $_POST["id"],  
-                             // 'tglpo' => $_POST["tglpo"],
-                              'kd_barang' => $_POST["kode_input"][$key],
-                              'qty' => $_POST["qty"][$key],
-                              'nilai' => $_POST["qty"][$key] *  $_POST["harga"][$key],
-                              'price' => $_POST["harga"][$key],
-                              'ket' => $_POST["ket"][$key],
-                            );
-       ///  print_r($data_detail);
-         $db->insert("sales_order_detail",$data_detail);
-      }
-   
-   
-   
-
-    
-    
-   
-    
-    action_response($db->getErrorMessage());
+    if (so_post('id') === '') action_response('ID Sales Order tidak valid.');
+    so_require_fields(array(
+        'order_type'=>'Order Type',
+        'sales_org_id'=>'Sales Organization',
+        'distribution_channel_id'=>'Distribution Channel',
+        'so_date'=>'SO Date',
+        'sold_to_party'=>'Sold-to Party',
+        'ship_to_party'=>'Ship-to Party',
+        'currency'=>'Currency',
+        'delivery_date'=>'Requested Delivery Date',
+    ));
+    so_validate_items();
+    $id = (int)so_post('id');
+    $hasFollowUp = $db->fetch("SELECT COUNT(*) jml FROM surat_jalan WHERE id_sales_order=? OR no_sales_order=(SELECT no_sales_order FROM sales_order WHERE id_sales_order=? LIMIT 1)", array($id, $id));
+    $data = so_header_payload(true);
+    unset($data['approval_status']);
+    $db->query('START TRANSACTION');
+    if (!$db->update('sales_order', $data, 'id_sales_order', $id)) {
+        $err = $db->getErrorMessage();
+        $db->query('ROLLBACK');
+        action_response($err);
+    }
+    if ($hasFollowUp && (int)$hasFollowUp->jml > 0) {
+        $db->query('COMMIT');
+        action_response('', array(
+            'id_sales_order' => $id,
+            'item_locked' => 'Y',
+            'message' => 'Header Sales Order berhasil diperbarui. Item tidak diubah karena sudah memiliki proses delivery.'
+        ));
+    }
+    $db->query("DELETE FROM sales_order_detail WHERE id_sales_order=?", array($id));
+    so_insert_items($db, $id);
+    $err = $db->getErrorMessage();
+    if ($err !== '') {
+        $db->query('ROLLBACK');
+        action_response($err);
+    }
+    $db->query('COMMIT');
+    action_response('', array('id_sales_order'=>$id));
     break;
   default:
     # code...

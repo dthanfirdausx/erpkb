@@ -1,35 +1,109 @@
+<?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
+<style>
+  .si-form-page .box {
+    border-radius: 10px;
+    border-top: 0;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .08);
+  }
+  .si-form-hero {
+    background: linear-gradient(135deg, #1f4e79 0%, #2f80ed 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 24px rgba(31, 78, 121, .22);
+  }
+  .si-form-hero h3 {
+    margin: 0 0 6px;
+    font-weight: 700;
+  }
+  .si-form-hero p {
+    margin: 0;
+    opacity: .92;
+  }
+  .si-section-title {
+    margin: 18px 0 14px;
+    padding: 10px 12px;
+    border-left: 4px solid #2f80ed;
+    background: #f7fbff;
+    color: #1f2d3d;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+  .si-billing-card {
+    border: 1px solid #e8edf3;
+    border-radius: 10px;
+    padding: 16px 16px 4px;
+    margin-bottom: 15px;
+    background: #fff;
+  }
+  #detail_pemasukan table {
+    font-size: 12px;
+  }
+  #detail_pemasukan th {
+    white-space: nowrap;
+    background: #f8fafc;
+  }
+  .si-action-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    background: #fff;
+    border-top: 1px solid #e8edf3;
+    margin: 18px -16px -4px;
+    padding: 12px 16px;
+    box-shadow: 0 -6px 14px rgba(15, 23, 42, .06);
+  }
+</style>
+
 <!-- Content Header (Page header) -->
               <section class="content-header">
-                  <h1>Sales Invoice</h1>
+                  <h1><?=sd_h('sales_invoice', 'Sales Invoice');?></h1>
                     <ol class="breadcrumb">
                         <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=sd_h('common_home', 'Home');?></a>
                         </li>
                         <li>
-                        <a href="<?=base_index();?>sales-invoice">Sales Invoice</a>
+                        <a href="<?=base_index();?>sales-invoice"><?=sd_h('sales_invoice', 'Sales Invoice');?></a>
                         </li>
                         <li class="active">Edit Sales Invoice</li>
                     </ol>
               </section>
 
               <!-- Main content -->
-              <section class="content">
+              <section class="content si-form-page">
+              <div class="si-form-hero">
+                <h3>Edit Billing Document</h3>
+                <p>Perubahan hanya untuk invoice yang belum POSTED. Invoice posted harus dicancel agar jejak billing dan jurnal tetap audit-friendly.</p>
+              </div>
               <div class="row">
                   <div class="col-lg-12">
-                      <div class="box box-solid box-primary">
-                          <div class="box-header">
-                              <h3 class="box-title">Edit Sales Invoice</h3>
+                      <div class="box">
+                          <div class="box-header with-border">
+                              <h3 class="box-title"><i class="fa fa-pencil"></i> Edit Sales Invoice</h3>
                               <div class="box-tools pull-right">
-                                  <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-pencil"></i></button>
+                                  <a href="<?=base_index();?>sales-invoice" class="btn btn-default btn-sm"><i class="fa fa-arrow-left"></i> <?php echo $lang["back_button"];?></a>
                               </div>
                           </div>
-                      <div class="box-body"> 
+                      <div class="box-body">
                        <div class="alert alert-danger error_data" style="display:none">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <span class="isi_warning"></span>
                       </div>
                           <form id="edit_sales_invoice" method="post" class="form-horizontal" action="<?=base_admin();?>modul/sales_invoice/sales_invoice_action.php?act=up">
                           <input type="hidden" name="id_sales" value="<?= $data_edit->id_sales ?>">
+                          <div class="si-billing-card">
+                          <div class="si-section-title"><i class="fa fa-list-alt"></i> Billing Header</div>
                              <div class="form-group">
                 <label for="PO NO" class="control-label col-lg-2">No Sales Invoice </label>
                 <div class="col-lg-10">
@@ -80,31 +154,31 @@
                 </div>
               </div>
           </div><!-- /.form-group -->
-          
+
               <div class="form-group" style="display: none">
                 <label for="Invooice No" class="control-label col-lg-2">Invooice No </label>
                 <div class="col-lg-10">
                   <input type="text" name="invoice_no" value="<?=$data_edit->invoice_no;?>" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
-              
+
               <div class="form-group">
                 <label for="PO NO" class="control-label col-lg-2">PO NO </label>
                 <div class="col-lg-10">
                   <input type="text" name="nopo" value="<?=$data_edit->nopo;?>" class="form-control" >
                 </div>
-              </div><!-- /.form-group --> 
-              <div class="form-group"> 
+              </div><!-- /.form-group -->
+              <div class="form-group">
                 <label for="PO NO" class="control-label col-lg-2">No Sales Order</label>
                 <div class="col-lg-10">
                     <input type="text" name="no_sales_order" value="<?= $data_edit->no_sales_order ?>" id="no_sales_order" placeholder="No Sales Order" class="form-control" >
                 </div>
               </div><!-- /.form-group -->
-              
+
               <div class="form-group">
                 <label for="Term" class="control-label col-lg-2">Term </label>
                 <div class="col-lg-10">
-                 <select  id="term" name="term" data-placeholder="Pilih Payment Term ..." class="form-control chzn-select" tabindex="2" > 
+                 <select  id="term" name="term" data-placeholder="Pilih Payment Term ..." class="form-control chzn-select" tabindex="2" >
                    <option value=""></option>
                    <?php foreach ($db->fetch_all("term_payment") as $isi) {
                       if ($data_edit->term==$isi->jenis_term) {
@@ -112,14 +186,14 @@
                       }else{
                         echo "<option value='$isi->jenis_term'>$isi->jenis_term</option>";
                       }
-                      
-                   } 
+
+                   }
                    ?>
                   </select>
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
-                        <label for="Currency" class="control-label col-lg-2">Currency </label>
+                        <label for="Currency" class="control-label col-lg-2"><?=sd_h('sales_currency', 'Currency');?> </label>
                         <div class="col-lg-10">
               <select  id="valuta" name="valuta" data-placeholder="Pilih Currency..." class="form-control chzn-select" tabindex="2" >
                <option value=""></option>
@@ -146,7 +220,7 @@
                 </div>
               </div>
           </div><!-- /.form-group -->
-          
+
               <div class="form-group">
                 <label for="DO No" class="control-label col-lg-2">DO No</label>
                 <div class="col-lg-10">
@@ -157,39 +231,43 @@
                           echo "<option value='$isi->no_surat_jalan' selected>$isi->no_surat_jalan</option>";
                         }
                             echo "<option value='$isi->no_surat_jalan'>$isi->no_surat_jalan</option>";
-                        } 
+                        }
                         ?>
 
                       </select>
-                  
+
                 </div>
               </div><!-- /.form-group -->
-              
+              </div>
+
+              <div class="si-billing-card">
+              <div class="si-section-title"><i class="fa fa-percent"></i> Tax, Bank & Signature</div>
+
               <div class="form-group">
                 <label for="Bank Detail" class="control-label col-lg-2">Bank Detail </label>
                 <div class="col-lg-10">
                    <textarea id="editbox" name="bank_detail" class="editbox"><?= infokb()->bank ?></textarea>
                 </div>
               </div><!-- /.form-group -->
-              
+
                 <div class="form-group">
-                  <label for="Tax" class="control-label col-lg-2">Tax </label>
+                  <label for="Tax" class="control-label col-lg-2"><?=sd_h('sales_tax', 'Tax');?> </label>
                       <div class="col-lg-10">
-                        
+
                 <div class="radio radio-success radio-inline">
                   <input type="radio" name="tax"  id="radio1" value="1" <?=($data_edit->tax=="1")?"checked":"";?> >
                     <label for="radio1" style="padding-left: 5px;">
                       Yes
                     </label>
                 </div>
-                
+
                 <div class="radio radio-success radio-inline">
                   <input type="radio" name="tax"  id="radio2" value="0" <?=($data_edit->tax=="0")?"checked":"";?> >
                     <label for="radio2" style="padding-left: 5px;">
-                      No
+                      <?=sd_h('common_no', 'No');?>
                     </label>
                 </div>
-                
+
                       </div>
                 </div><!-- /.form-group -->
                   <div class="form-group">
@@ -202,9 +280,13 @@
                 <label for="DO No" class="control-label col-lg-2">Catatan </label>
                 <div class="col-lg-10">
                   <textarea class="form-control" name="catatan" placeholder="catatan"><?= $data_edit->catatan ?></textarea>
-                </div> 
+                </div>
               </div><!-- /.form-group -->
-              <div class="form-group" id="detail_pemasukan">              
+              </div>
+
+              <div class="si-billing-card">
+              <div class="si-section-title"><i class="fa fa-cubes"></i> Billing Items</div>
+              <div class="form-group" id="detail_pemasukan">
                <div class="col-lg-12">
                 <table class="table" style="font-size: 12px">
                 <thead>
@@ -214,9 +296,9 @@
                     </th>
                     <th style="width: 300px">Kode Barang</th>
                       <th style="width: 70px">Unit</th>
-                      <th>Qty</th>
-                      <th>Price</th>
-                        <th>Amount</th>
+                      <th><?=sd_h('sales_qty', 'Qty');?></th>
+                      <th><?=sd_h('sales_price', 'Price');?></th>
+                        <th><?=sd_h('sales_amount', 'Amount');?></th>
                       <th>Material Number</th>
                       <th>Material Description</th>
                   </tr>
@@ -253,7 +335,7 @@
                   <input type="hidden" name="kode_input[]" value="<?= $kk->kd_barang ?>" id="kode_input_<?= $no ?>">
                   </td>
 
-                  <td><input type="text" id="form_unit_<?= $no ?>" name="unit[]" value="<?= $kk->unit ?>" class="form-control" ></td> 
+                  <td><input type="text" id="form_unit_<?= $no ?>" name="unit[]" value="<?= $kk->unit ?>" class="form-control" ></td>
 
                   <td>
                   <input type="text" value="<?= formatAngka($kk->qty) ?>"
@@ -282,7 +364,7 @@
     <input type="text"
            id="form_material_1"
            class="form-control"
-            value="<?= $kk->material_number ?>" 
+            value="<?= $kk->material_number ?>"
            name="material_number[]">
   </td>
 
@@ -291,11 +373,11 @@
     <input type="text"
            id="form_material_desc_1"
            class="form-control"
-           value="<?= $kk->material_description ?>" 
+           value="<?= $kk->material_description ?>"
            name="material_description[]">
   </td>
 
-                 
+
 
                   </tr>
                   <?php $no++; } ?>
@@ -331,9 +413,10 @@ readonly class="form-control text-right">
                <input type="text" id="total_nilai" value="0"> -->
 
               </div><!-- /.form-group -->
-                
+              </div>
+
                             <input type="hidden" name="id" value="<?=$data_edit->id_sales;?>">
-                            <div class="form-group">
+                            <div class="form-group si-action-bar">
                                 <label for="tags" class="control-label col-lg-2">&nbsp;</label>
                                 <div class="col-lg-10">
                                 <a href="<?=base_index();?>sales-invoice" class="btn btn-default "><i class="fa fa-step-backward"></i> <?php echo $lang["back_button"];?></a>
@@ -351,7 +434,7 @@ readonly class="form-control text-right">
     function get_nomor(tgl){
        $.ajax({
           url: "<?= base_url() ?>get_nomor.php",
-          data: { 
+          data: {
             jenis: 'INV' ,
             tgl : tgl
         },
@@ -360,11 +443,11 @@ readonly class="form-control text-right">
           success: function (data) {
            $("#no_sales_invoice").val(data.nomor);
            // $("#satuan").val(data.satuan);
-          } 
+          }
        });
    }
 
-   function formatRibuan(value) { 
+   function formatRibuan(value) {
     if (value === null || value === undefined) return '';
     const s = String(value).replace(/[^0-9\-]/g, ''); // hanya angka dan minus
     const isNegative = s.startsWith('-');
@@ -374,7 +457,7 @@ readonly class="form-control text-right">
   }
 
 
- 
+
  function hitung_total(){
 
   let total_qty = 0;
@@ -399,7 +482,7 @@ readonly class="form-control text-right">
 }
 
 
-  function cek_valuta(kode){ 
+  function cek_valuta(kode){
   //  var kode = $("#KODE_VALUTA").val();
   $("#kurs").attr('readonly',true);
   $("#kurs").val('get data ...');
@@ -407,11 +490,11 @@ readonly class="form-control text-right">
        url : "<?= base_url() ?>modul/pengeluaran_hamparan/pengeluaran_hamparan_action.php?act=get_currency",
        type : "POST",
        data : {
-         kode : kode, 
+         kode : kode,
          //d_header : $("#ID").val()
        },
       // dataTye : 'JSON',
-       success : function(data){ 
+       success : function(data){
           $("#kurs").val(data);
           $("#kurs").attr('readonly',false);
         // save_data(data,'NDPBM',$('#ID').val(),'ws_header','id_header');
@@ -428,23 +511,23 @@ readonly class="form-control text-right">
           success: function (data) {
             $("#detail_pemasukan").html(data);
            // $("#satuan").val(data.satuan);
-          } 
+          }
        });
         $.ajax({
           url: "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=get_pemasok",
           data: { no_po: no_po },
           type : 'POST',
           dataTye : 'JSON',
-          success: function (data) { 
+          success: function (data) {
             $("#pemasok").val(data.id_customer).trigger('chosen:updated');
             $('#pemasok').val(data.id_customer).trigger('change');
             $("#valuta").val(data.valuta).trigger('chosen:updated');
             $('#valuta').val(data.valuta).trigger('change');
            // $("#satuan").val(data.satuan);
-          } 
+          }
        });
     }
-    
+
     function hapus_baris(id) {
 
       $("#baris_"+id).remove();
@@ -504,8 +587,8 @@ function add_baris() {
 }
 
 
-      function cari_kode(id) {   
-    
+      function cari_kode(id) {
+
                       $('#form_kode_'+id).autocomplete({
                         source: function (request, response) {
                           $.ajax({
@@ -525,13 +608,13 @@ function add_baris() {
                           })
                         },
                         select: function (event, ui) {
-                             $('#form_kode_'+id).val(ui.item.kd_barang+" - "+ui.item.nm_barang); 
+                             $('#form_kode_'+id).val(ui.item.kd_barang+" - "+ui.item.nm_barang);
                              $("#kode_input_"+id).val(ui.item.kd_barang);
                             $.ajax({
                               type : 'POST',
                               data : {
                                 id:id,
-                                kd_barang : ui.item.kd_barang 
+                                kd_barang : ui.item.kd_barang
                               },
                               url : "<?= base_url() ?>modul/pemasukan_hamparan/pemasukan_hamparan_action.php?act=get_unit",
                               success:function(data){
@@ -550,78 +633,78 @@ function add_baris() {
                        };
   }
     $(document).ready(function() {
-    
-    $("#tgl1").datepicker({ 
+
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl1").datepicker({ 
+    $("#tgl1").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl1 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    $("#tgl2").datepicker({ 
+    $("#tgl2").datepicker({
     format: "yyyy-mm-dd",
-    autoclose: true, 
+    autoclose: true,
     todayHighlight: true
     }).on("change",function(){
       $("#tgl2 :input").valid();
     });
-    
+
       //trigger validation onchange
       $('select').on('change', function() {
           $(this).valid();
       });
       //hidden validate because we use chosen select
       $.validator.setDefaults({ ignore: ":hidden:not(select)" });
-      
+
     $("#edit_sales_invoice").validate({
         errorClass: "help-block",
         errorElement: "span",
@@ -645,34 +728,34 @@ function add_baris() {
                 error.insertAfter(element);
             }
         },
-        
+
         rules: {
-            
+
           bill_to: {
           required: true,
           //minlength: 2
           },
-        
+
           ship_to: {
           required: true,
           //minlength: 2
           },
-        
+
         },
          messages: {
-            
+
           bill_to: {
           required: "This field is required",
           //minlength: "Your username must consist of at least 2 characters"
           },
-        
+
           ship_to: {
           required: "This field is required",
           //minlength: "Your username must consist of at least 2 characters"
           },
-        
+
         },
-    
+
 
         submitHandler: function(form) {
             $("#loadnya").show();
@@ -680,9 +763,9 @@ function add_baris() {
                 url : $(this).attr("action"),
                 dataType: "json",
                 type : "post",
-                error: function(data ) { 
+                error: function(data ) {
                   $("#loadnya").hide();
-                  console.log(data); 
+                  console.log(data);
                 },
                 success: function(responseText) {
                   $("#loadnya").hide();

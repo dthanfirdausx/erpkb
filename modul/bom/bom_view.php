@@ -1,250 +1,54 @@
-<!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        BOM
-                    </h1>
-                        <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>bom">BOM</a></li>
-                        <li class="active">BOM List</li>
-                    </ol>
-                </section>
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                                <?php
-                                  foreach ($db->fetch_all("sys_menu") as $isi) {
-                                      if (uri_segment(1)==$isi->url) {
-                                          if ($role_act["insert_act"]=="Y") {
-                                      ?>
-                                      <a href="<?=base_index();?>bom/tambah" class="btn btn-primary "><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
-                                      <?php
-                                          }
-                                      }
-                                  }
-
-                                ?>
-                                <a href="<?=base_index();?>bom/import" class="btn btn-primary "><i class="fa fa-upload"></i> <?php echo "Import";?></a>
-                            </div><!-- /.box-header -->
-                            <div class="box-body table-responsive">
-                                <div class="row">
-                                    <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
-                                    <button id="select_all" class="btn btn-primary btn-xs"><i class="fa fa-check-square-o"></i> <?php echo $lang["select_all"];?></button>
-                                    <button id="deselect_all" class="btn btn-primary btn-xs"><i class="fa fa-remove"></i> <?php echo $lang["deselect_all"];?></button>
-                                    <button id="bulk_delete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> <?php echo $lang["delete_selected"];?></button> <span class="selected-data"></span>
-                            </div>
-                            </div>
- <div class="alert alert-warning fade in error_data_delete" style="display:none">
-          <button type="button" class="close hide_alert_notif">&times;</button>
-          <i class="icon fa fa-warning"></i> <span class="isi_warning_delete"></span>
-        </div>
-                        <table id="dtb_bom" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                  <th>No</th>
-                                  <th>Kode Barang Jadi</th>
-                                  <th>Nama Barang</th>
-                                  <th>satuan</th>
-                                  <th>jumlah</th>
-                                  <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-                </div>
-              </div>
-        <?php
-
-            foreach ($db->fetch_all("sys_menu") as $isi) {
-
-            //jika url = url dari table menu
-            if (uri_segment(1)==$isi->url) {
-              //check edit permission
-              if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+' href=".base_index()."bom/edit/'+aData[indek]+' class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
-              } else {
-                  $edit ="";
-              }
-            if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/bom/bom_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_bom"><i class="fa fa-trash"></i></button>';
-            } else {
-                $del="";
-            }
-                             }
-            }
-
-        ?>
-
-    </section><!-- /.content -->
-
-        <script type="text/javascript">
-      
-      
-      var dtb_bom = $("#dtb_bom").DataTable({
-           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-            var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>bom/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
-              $(nRow).attr('id', 'line_'+aData[indek]);
-              },
-              "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-              buttons: [
-              {
-                 extend: 'collection',
-                 text: 'Export Data',
-                 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
-
-              }
-              ],
-           'bProcessing': true,
-            'bServerSide': true,
-            
-           'columnDefs': [ {
-            'targets': [5],
-              'orderable': false,
-              'searchable': false
-            },
-                {
-            'width': '5%',
-            'targets': 0,
-            'orderable': false,
-            'searchable': false,
-            'className': 'dt-center'
-          }
-             ],
-
-    
-            'ajax':{
-              url :'<?=base_admin();?>modul/bom/bom_data.php',
-            type: 'post',  // method  , by default get
-            error: function (xhr, error, thrown) {
-            console.log(xhr);
-
-            }
-          },
-        });
-
-  $('#dtb_bom').on('draw.dt', function() {
-          init_selected()
-      });
-
-      $('#select_all').on('click', function() {
-          select_deselect('select')
-      });
-      $('#deselect_all').on('click', function() {
-          select_deselect('unselect')
-  });
-
-
-
-  $(document).on('click', '#dtb_bom tbody tr td', function(event) {
-      var btn = $(this).find('button');
-      if (btn.length == 0) {
-          $(this).parents('tr').toggleClass('DTTT_selected selected');
-          var selected = check_selected();
-          init_selected();
-
-      }
-  });
-
-
-
-  function init_selected() {
-      var selected = check_selected();
-      var btn_hide = $('#select_all, #deselect_all, #bulk_delete, .selected-data');
-      if (selected.length > 0) {
-          btn_hide.show()
-      } else {
-          btn_hide.hide()
-      }
-  }
-
-
-  function check_selected() {
-      var table_select = $('#dtb_bom tbody tr.selected');
-      var array_data_delete = [];
-      table_select.each(function() {
-          var check_data = $(this).find('.hapus_dtb_notif').attr('data-id');
-          if (typeof check_data != 'undefined') {
-              array_data_delete.push(check_data)
-          }
-      });
-      $('.selected-data').text(array_data_delete.length + ' <?=$lang["selected_data"];?>');
-      return array_data_delete
-  }
-
-
-  function select_deselect(type) {
-      if (type == 'select') {
-          $('#dtb_bom tbody tr').addClass('DTTT_selected selected')
-      } else {
-          $('#dtb_bom tbody tr').removeClass('DTTT_selected selected')
-      }
-      init_selected()
-  }
-
-
-
-
-/* Add a click handler for the delete row */
-  $('#bulk_delete').click( function() {
-    var anSelected = fnGetSelected( dtb_bom );
-    var data_array_id = check_selected();
-    var all_ids = data_array_id.toString();
-    $('#ucing').modal({ keyboard: false }).one('click', '#delete', function (e) {
-        $('#loadnya').show();
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '<?=base_admin();?>modul/bom/bom_action.php?act=del_massal',
-            data: {data_ids:all_ids},
-               success: function(responseText) {
-                  $('#loadnya').hide();
-                  console.log(responseText);
-                      $.each(responseText, function(index) {
-                          console.log(responseText[index].status);
-                          if (responseText[index].status=='die') {
-                            $('#informasi').modal('show');
-                          } else if(responseText[index].status=='error') {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          } else if(responseText[index].status=='good') {
-                            $('.error_data_delete').hide();
-                               $('#loadnya').hide();
-                               $(anSelected).remove();
-                               dtb_bom.draw();
-                          } else {
-                             $('.isi_warning_delete').text(responseText[index].error_message);
-                             $('.error_data_delete').fadeIn();
-                             $('html, body').animate({
-                                scrollTop: ($('.error_data_delete').first().offset().top)
-                            },500);
-                          }
-                    });
-                }
-            //async:false
-        });
-
-        $('#ucing').modal('hide');
-
-    });
-
-  });
-
-  /* Get the rows which are currently selected */
-  function fnGetSelected( oTableLocal )
-  {
-      return oTableLocal.$('tr.selected');
-  }
+<?php
+if (!function_exists('prod_t')) {
+  function prod_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('prod_h')) {
+  function prod_h($key, $fallback = '') { return htmlspecialchars((string) prod_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('prod_js')) {
+  function prod_js($key, $fallback = '') { return json_encode(prod_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+$today=date('Y-m-d');$defaultFrom=date('Y-m-01');$defaultTo=date('Y-m-t');
+$plants=$db->query("SELECT id,plant_code,plant_name FROM erp_plant WHERE status='Aktif' ORDER BY plant_code");
+$storages=$db->query("SELECT l.id,l.storage_code,l.storage_name,p.plant_code FROM erp_storage_location l LEFT JOIN erp_plant p ON p.id=l.plant_id WHERE l.status='Aktif' ORDER BY p.plant_code,l.storage_code");
+?>
+<style>
+.bom-hero{background:linear-gradient(135deg,#6d28d9,#0f766e);color:#fff;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 10px 24px rgba(15,23,42,.16)}.bom-hero h1{margin:0 0 6px;font-size:26px;font-weight:700}.bom-hero p{margin:0;opacity:.92}.bom-card{border-radius:12px;background:#fff;border:1px solid #e5edf5;box-shadow:0 5px 16px rgba(15,23,42,.05);margin-bottom:14px}.bom-items th,.bom-items td,#dtb_bom th,#dtb_bom td{font-size:12px;vertical-align:middle}.select2-container{width:100%!important}.required-label:after{content:' *';color:#dd4b39}.bom-action{white-space:nowrap}.bom-pill{display:inline-block;border-radius:999px;background:#ede9fe;color:#5b21b6;padding:3px 9px;font-size:12px;margin-left:6px}.bom-source-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:10px}#modal_bom .modal-dialog{margin-top:12px;margin-bottom:12px}#modal_bom .modal-body{max-height:calc(100vh - 185px);overflow-y:auto;overflow-x:hidden}#modal_bom .table-responsive{overflow-x:auto!important;overflow-y:visible!important}#modal_bom .bom-items{min-width:1750px;margin-bottom:0}.bom-kpi{padding:10px;border-radius:10px;background:#f8fafc;border:1px solid #e2e8f0}.bom-kpi strong{display:block;font-size:18px}
+</style>
+<section class="content-header"><h1>Bill of Material <small>SAP PP BOM Workbench</small></h1><ol class="breadcrumb"><li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=prod_h('common_home', 'Home');?></a></li><li class="active"><?=prod_h('production_bom', 'BOM');?></li></ol></section>
+<section class="content">
+  <div class="bom-hero"><div class="row"><div class="col-md-8"><h1>Bill of Material Workbench</h1><p>Kelola struktur bahan FG/SFG per plant, validity, usage, alternative BOM, dan lifecycle release untuk MRP dan Production Order.</p></div><div class="col-md-4 text-right"><button id="btn_template_bom" class="btn btn-default"><i class="fa fa-download"></i> Template</button> <button id="btn_import_bom" class="btn btn-info"><i class="fa fa-upload"></i> Import Excel</button> <button id="btn_open_bom" class="btn btn-warning"><i class="fa fa-plus"></i> Create BOM</button></div></div></div>
+  <div class="box bom-card"><div class="box-header"><h3 class="box-title"><i class="fa fa-filter"></i> Filter BOM</h3></div><div class="box-body"><form class="form-horizontal" onsubmit="return false;"><div class="form-group"><label class="control-label col-lg-2">Valid From</label><div class="col-lg-2"><div class="input-group date bom-date"><input id="filter_tgl_awal" class="form-control" value="<?=$defaultFrom;?>"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div><div class="col-lg-2"><div class="input-group date bom-date"><input id="filter_tgl_akhir" class="form-control" value="<?=$defaultTo;?>"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div><label class="control-label col-lg-1"><?=prod_h('production_plant', 'Plant');?></label><div class="col-lg-2"><select id="filter_plant" class="form-control"><option value=""><?=prod_h('common_all', 'All');?></option><?php foreach($plants as $p){ ?><option value="<?=htmlspecialchars($p->plant_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($p->plant_code.' - '.$p->plant_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select></div><label class="control-label col-lg-1"><?=prod_h('common_status', 'Status');?></label><div class="col-lg-2"><select id="filter_status" class="form-control"><option value=""><?=prod_h('common_all', 'All');?></option><option>DRAFT</option><option>RELEASED</option><option>INACTIVE</option><option>CANCELLED</option></select></div></div><div class="form-group"><label class="control-label col-lg-2">Usage</label><div class="col-lg-2"><select id="filter_usage" class="form-control"><option value=""><?=prod_h('common_all', 'All');?></option><option value="PRODUCTION">Production</option><option value="COSTING">Costing</option><option value="SALES">Sales</option><option value="ENGINEERING">Engineering</option></select></div><label class="control-label col-lg-1"><?=prod_h('common_search', 'Search');?></label><div class="col-lg-4"><input id="filter_keyword" class="form-control" placeholder="BOM No / material / component / revision"></div><div class="col-lg-3"><button id="btn_filter_bom" class="btn btn-primary"><i class="fa fa-filter"></i> <?=prod_h('common_filter', 'Filter');?></button> <button id="btn_reset_bom" class="btn btn-default"><i class="fa fa-refresh"></i> <?=prod_h('common_reset', 'Reset');?></button> <button id="btn_export_bom" class="btn btn-success"><i class="fa fa-file-excel-o"></i> <?=prod_h('common_export_excel', 'Export Excel');?></button></div></div></form></div></div>
+  <div class="box bom-card"><div class="box-body"><div class="alert alert-warning error_data_delete" style="display:none"><button type="button" class="close hide_alert_notif">&times;</button><span class="isi_warning_delete"></span></div><div class="table-responsive"><table id="dtb_bom" class="table table-bordered table-striped" style="width:100%"><thead><tr><th><?=prod_h('common_no', 'No');?></th><th><?=prod_h('common_action', 'Action');?></th><th><?=prod_h('production_bom', 'BOM');?></th><th><?=prod_h('production_material', 'Material');?></th><th><?=prod_h('production_plant', 'Plant');?></th><th>Usage</th><th>Alternative</th><th>Validity</th><th>Base Qty</th><th><?=prod_h('production_items', 'Items');?></th><th><?=prod_h('common_status', 'Status');?></th><th>Revision</th></tr></thead><tbody></tbody></table></div></div></div>
+  <div id="modal_bom" class="modal fade"><div class="modal-dialog modal-lg" style="width:97%"><div class="modal-content"><form id="form_bom"><input type="hidden" name="id" id="bom_id"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Create BOM</h4></div><div class="modal-body">
+    <div class="alert alert-info">Standar SAP: BOM dibuat per material, plant, usage, alternative, dan validity date. Hanya BOM <strong>RELEASED</strong> yang dipakai MRP/Production Order.</div>
+    <div class="row"><div class="col-md-2 form-group"><label>BOM No</label><input id="bom_no" class="form-control" placeholder="Loading..." readonly><small class="text-muted">Dibuat otomatis saat form add dibuka</small></div><div class="col-md-4 form-group"><label class="required-label">FG/SFG Material</label><select name="kodebj" id="kodebj" class="form-control" required></select><input type="hidden" name="nm_barang" id="nm_barang"><input type="hidden" name="satuan" id="satuan"></div><div class="col-md-2 form-group"><label class="required-label">Base Qty</label><input type="number" min="0.00001" step="0.00001" name="base_qty" id="base_qty" class="form-control text-right" value="1" required></div><div class="col-md-1 form-group"><label><?=prod_h('production_uom', 'UOM');?></label><input name="base_uom" id="base_uom" class="form-control" readonly></div><div class="col-md-3 form-group"><label>Revision / Change No</label><div class="row"><div class="col-xs-5"><input name="revision" id="revision" class="form-control" placeholder="Rev"></div><div class="col-xs-7"><input name="change_number" id="change_number" class="form-control" placeholder="ECO / Change"></div></div></div></div>
+    <div class="row"><div class="col-md-2 form-group"><label class="required-label"><?=prod_h('production_plant', 'Plant');?></label><select name="plant_id" id="plant_id" class="form-control" required><option value=""><?=prod_h('production_select_plant', 'Select Plant');?></option><?php foreach($plants as $p){ ?><option value="<?=intval($p->id);?>" data-code="<?=htmlspecialchars($p->plant_code,ENT_QUOTES,'UTF-8');?>"><?=htmlspecialchars($p->plant_code.' - '.$p->plant_name,ENT_QUOTES,'UTF-8');?></option><?php } ?></select><input type="hidden" name="plant_code" id="plant_code"></div><div class="col-md-2 form-group"><label>BOM Usage</label><select name="bom_usage" id="bom_usage" class="form-control"><option value="PRODUCTION">Production</option><option value="COSTING">Costing</option><option value="SALES">Sales</option><option value="ENGINEERING">Engineering</option></select></div><div class="col-md-1 form-group"><label>Alt</label><input name="alternative_bom" id="alternative_bom" class="form-control" value="01"></div><div class="col-md-2 form-group"><label class="required-label">Valid From</label><input name="valid_from" id="valid_from" class="form-control date-field" value="<?=$today;?>" required></div><div class="col-md-2 form-group"><label>Valid To</label><input name="valid_to" id="valid_to" class="form-control date-field" placeholder="Open ended"></div><div class="col-md-3 form-group"><label>Lot Size From / To</label><div class="row"><div class="col-xs-6"><input type="number" step="0.00001" name="lot_size_from" id="lot_size_from" class="form-control text-right" placeholder="From"></div><div class="col-xs-6"><input type="number" step="0.00001" name="lot_size_to" id="lot_size_to" class="form-control text-right" placeholder="To"></div></div></div></div>
+    <div class="row"><div class="col-md-12 form-group"><label><?=prod_h('common_remarks', 'Remarks');?></label><input name="remarks" id="remarks" class="form-control" placeholder="Catatan engineering / planning"></div></div>
+    <div class="bom-source-box"><button type="button" id="btn_add_line" class="btn btn-default"><i class="fa fa-plus"></i> Add Component</button> <span class="bom-pill">Item category, scrap, operation, storage location, phantom, dan backflush tersedia per komponen</span></div>
+    <div class="table-responsive"><table class="table table-bordered table-condensed bom-items"><thead><tr><th style="width:44px">#</th><th style="width:70px">Line</th><th style="width:240px">Component</th><th>Description</th><th style="width:110px">Item Cat.</th><th style="width:115px"><?=prod_h('production_qty', 'Qty');?></th><th style="width:70px"><?=prod_h('production_uom', 'UOM');?></th><th style="width:90px">Scrap %</th><th style="width:80px">Fixed</th><th style="width:90px">Phantom</th><th style="width:95px">Backflush</th><th style="width:95px"><?=prod_h('production_operation', 'Operation');?></th><th style="width:180px">Issue Storage</th><th style="width:110px">Alt Group</th><th style="width:80px">Priority</th><th><?=prod_h('common_remarks', 'Remarks');?></th></tr></thead><tbody id="bom_lines"></tbody></table></div>
+  </div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><?=prod_h('common_cancel', 'Cancel');?></button><button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?=prod_h('production_save_draft', 'Save Draft');?></button></div></form></div></div></div>
+  <div id="modal_bom_import" class="modal fade"><div class="modal-dialog"><div class="modal-content"><form id="form_bom_import" enctype="multipart/form-data"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Import BOM dari Excel</h4></div><div class="modal-body"><div class="alert alert-info">Gunakan template resmi. Satu baris mewakili satu komponen BOM. BOM No dibuat otomatis oleh sistem.</div><div class="form-group"><label class="required-label">File Excel</label><input type="file" name="file_excel" id="file_excel" class="form-control" accept=".xls,.xlsx" required></div><div class="alert alert-warning" style="margin-bottom:0"><strong>Catatan:</strong> import akan membuat BOM <strong>DRAFT</strong> baru, atau mengganti detail BOM DRAFT yang kombinasi material/plant/usage/alternative/valid from-nya sama. BOM RELEASED tidak akan ditimpa.</div></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><?=prod_h('common_cancel', 'Cancel');?></button><button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button></div></form></div></div></div>
+  <div id="modal_bom_detail" class="modal fade"><div class="modal-dialog modal-lg" style="width:96%"><div class="modal-content"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">BOM Detail</h4></div><div class="modal-body" id="bom_detail_body"></div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal"><?=prod_h('common_close', 'Close');?></button></div></div></div></div>
+</section>
+<script src="<?=base_admin();?>assets/plugins/select2/select2.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function bomError(m){$('.isi_warning_delete').text(m||<?=prod_js('production_bom_process_failed', 'BOM failed to process.');?>);$('.error_data_delete').fadeIn();}
+function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
+var lineNo=0,storageOptions='<?php foreach($storages as $s){ echo '<option value="'.intval($s->id).'" data-code="'.htmlspecialchars($s->storage_code,ENT_QUOTES,'UTF-8').'">'.htmlspecialchars(($s->plant_code?$s->plant_code.' / ':'').$s->storage_code.' - '.$s->storage_name,ENT_QUOTES,'UTF-8').'</option>'; } ?>';
+function filters(){return{tgl_awal:$('#filter_tgl_awal').val(),tgl_akhir:$('#filter_tgl_akhir').val(),status:$('#filter_status').val(),usage:$('#filter_usage').val(),plant:$('#filter_plant').val(),keyword:$('#filter_keyword').val()};}
+function initMaterialSelect(el,parent){if(!$.fn.select2)return;el.select2({width:'100%',dropdownParent:parent||$('#modal_bom'),placeholder:'Cari material...',minimumInputLength:1,ajax:{url:'<?=base_admin();?>modul/bom/bom_action.php?act=material_search',type:'POST',dataType:'json',delay:250,data:function(p){return{term:p.term||''};},processResults:function(d){return{results:d.results||[]};}}}).on('select2:select',function(e){var d=e.params.data,tr=$(this).closest('tr');if($(this).attr('id')==='kodebj'){$('#nm_barang').val(d.material_name||'');$('#satuan,#base_uom').val(d.uom||'');}else{tr.find('input[name="component_name[]"]').val(d.material_name||'');tr.find('input[name="component_uom[]"]').val(d.uom||'');}});}
+function appendLine(x){lineNo++;x=x||{};var rid='bom_line_'+lineNo,opt=x.component_code?'<option value="'+esc(x.component_code)+'" selected>'+esc(x.component_code+' - '+(x.component_name||''))+'</option>':'';var row='<tr id="'+rid+'"><td class="text-center"><button type="button" class="btn btn-xs btn-danger btn-bom-remove-line"><i class="fa fa-trash"></i></button></td><td><input name="line_no[]" class="form-control text-right" value="'+esc(x.line_no||lineNo*10)+'"></td><td><select name="component_code[]" class="form-control bom-component" required>'+opt+'</select></td><td><input name="component_name[]" class="form-control" value="'+esc(x.component_name||'')+'" readonly></td><td><select name="item_category[]" class="form-control"><option value="STOCK" '+(x.item_category==='STOCK'?'selected':'')+'>Stock</option><option value="NON_STOCK" '+(x.item_category==='NON_STOCK'?'selected':'')+'>Non Stock</option><option value="TEXT" '+(x.item_category==='TEXT'?'selected':'')+'>Text</option><option value="DOCUMENT" '+(x.item_category==='DOCUMENT'?'selected':'')+'>Document</option></select></td><td><input type="number" step="0.00001" min="0.00001" name="component_qty[]" class="form-control text-right" value="'+esc(x.component_qty||'')+'" required></td><td><input name="component_uom[]" class="form-control" value="'+esc(x.component_uom||'')+'" readonly></td><td><input type="number" step="0.0001" min="0" name="scrap_percent[]" class="form-control text-right" value="'+esc(x.scrap_percent||0)+'"></td><td><select name="fixed_qty[]" class="form-control"><option value="N" '+(x.fixed_qty!=='Y'?'selected':'')+'><?=prod_h('common_no', 'No');?></option><option value="Y" '+(x.fixed_qty==='Y'?'selected':'')+'>Yes</option></select></td><td><select name="phantom_item[]" class="form-control"><option value="N" '+(x.phantom_item!=='Y'?'selected':'')+'><?=prod_h('common_no', 'No');?></option><option value="Y" '+(x.phantom_item==='Y'?'selected':'')+'>Yes</option></select></td><td><select name="backflush[]" class="form-control"><option value="N" '+(x.backflush!=='Y'?'selected':'')+'><?=prod_h('common_no', 'No');?></option><option value="Y" '+(x.backflush==='Y'?'selected':'')+'>Yes</option></select></td><td><input name="operation_no[]" class="form-control" value="'+esc(x.operation_no||'0010')+'"></td><td><select name="storage_location_id[]" class="form-control bom-storage"><option value="">-</option>'+storageOptions+'</select><input type="hidden" name="storage_location[]" value="'+esc(x.storage_location||'')+'"></td><td><input name="alternative_group[]" class="form-control" value="'+esc(x.alternative_group||'')+'"></td><td><input type="number" name="priority[]" class="form-control text-right" value="'+esc(x.priority||'')+'"></td><td><input name="line_remarks[]" class="form-control" value="'+esc(x.remarks||'')+'"></td></tr>';$('#bom_lines').append(row);initMaterialSelect($('#'+rid+' .bom-component'),$('#modal_bom'));if($.fn.select2){$('#'+rid+' .bom-storage').select2({width:'100%',dropdownParent:$('#modal_bom')});}if(x.storage_location_id)$('#'+rid+' .bom-storage').val(x.storage_location_id).trigger('change');}
+function loadNextBomNo(){ $('#bom_no').val('Loading...'); $.post('<?=base_admin();?>modul/bom/bom_action.php?act=next_no',{},function(r){ if(r.status==='good') $('#bom_no').val(r.bom_no||''); else $('#bom_no').val('Auto'); },'json').fail(function(){ $('#bom_no').val('Auto'); });}
+function openForm(title,isEdit){lineNo=0;$('#form_bom')[0].reset();$('#bom_id,#nm_barang,#satuan,#plant_code').val('');$('#bom_no').val('');$('#kodebj').html('').trigger('change');$('#bom_lines').html('');$('#modal_bom .modal-title').text(title||'Create BOM');$('#bom_usage').val('PRODUCTION').trigger('change');$('#alternative_bom').val('01');$('#valid_from').val('<?=$today;?>');$('#base_qty').val('1');appendLine();$('#modal_bom').modal({backdrop:'static',keyboard:false});if(!isEdit)loadNextBomNo();}
+$(function(){if($.fn.datepicker){$('.bom-date,.date-field').datepicker({format:'yyyy-mm-dd',autoclose:true,todayHighlight:true});}if($.fn.select2){$('#filter_plant,#filter_status,#filter_usage,#plant_id,#bom_usage').select2({width:'100%'});initMaterialSelect($('#kodebj'),$('#modal_bom'));}
+var dt=null;function reloadTable(resetPaging){if(dt&&dt.draw)dt.draw(resetPaging===false?false:undefined);}try{if($.fn.DataTable){dt=$('#dtb_bom').DataTable({bProcessing:true,bServerSide:true,pageLength:25,dom:"<'row'<'col-sm-12'B>>"+"<'row'<'col-sm-6'l><'col-sm-6'f>>"+"<'row'<'col-sm-12'tr>>"+"<'row'<'col-sm-5'i><'col-sm-7'p>>",buttons:[{extend:'collection',text:<?=prod_js('common_export_data', 'Export Data');?>,buttons:['copyHtml5','excelHtml5','csvHtml5','pdfHtml5']}],columnDefs:[{targets:[0,1],orderable:false,searchable:false},{targets:[8,9],className:'text-right'},{width:'42px',targets:0},{width:'170px',targets:1}],ajax:{url:'<?=base_admin();?>modul/bom/bom_data.php',type:'post',data:function(d){$.extend(d,filters());},error:function(xhr){console.log(xhr.responseText);bomError(<?=prod_js('production_bom_load_failed', 'BOM data failed to load.');?>);}}});}}catch(e){console.error(e);bomError(<?=prod_js('production_bom_load_failed_create_available', 'BOM data failed to load. Create button remains available.');?>);}
+$('#btn_open_bom').click(function(){openForm('Create BOM',false);});$('#btn_template_bom').click(function(){window.location='<?=base_admin();?>modul/bom/bom_action.php?act=template';});$('#btn_import_bom').click(function(){$('#form_bom_import')[0].reset();$('#modal_bom_import').modal({backdrop:'static',keyboard:false});});$('#plant_id').change(function(){$('#plant_code').val($('#plant_id option:selected').data('code')||'');});$('#btn_add_line').click(function(){appendLine();});$(document).on('click','.btn-bom-remove-line',function(){$(this).closest('tr').remove();});$(document).on('change','.bom-storage',function(){$(this).closest('td').find('input[type=hidden]').val($(this).find('option:selected').data('code')||'');});$('#btn_filter_bom').click(function(){reloadTable();});$('#filter_keyword').keyup(function(e){if(e.keyCode===13)reloadTable();});$('#btn_reset_bom').click(function(){$('#filter_tgl_awal').val('<?=$defaultFrom;?>');$('#filter_tgl_akhir').val('<?=$defaultTo;?>');$('#filter_status,#filter_usage,#filter_plant').val('').trigger('change');$('#filter_keyword').val('');reloadTable();});$('#btn_export_bom').click(function(){window.location='<?=base_admin();?>modul/bom/bom_action.php?act=excel&'+$.param(filters());});$('.hide_alert_notif').click(function(){$('.error_data_delete').hide();});
+$('#form_bom').submit(function(e){e.preventDefault();var btn=$(this).find('button[type=submit]');btn.prop('disabled',true).html('<i class="fa fa-spinner fa-spin"></i> <?=prod_h('common_saving', 'Saving...');?>');$.post('<?=base_admin();?>modul/bom/bom_action.php?act=save',$(this).serialize(),function(r){if(r.status==='good'){$('#modal_bom').modal('hide');reloadTable(false);}else bomError(r.error_message);btn.prop('disabled',false).html('<i class="fa fa-save"></i> <?=prod_h('production_save_draft', 'Save Draft');?>');},'json').fail(function(xhr){bomError(xhr.responseText);btn.prop('disabled',false).html('<i class="fa fa-save"></i> <?=prod_h('production_save_draft', 'Save Draft');?>');});});
+$('#form_bom_import').submit(function(e){e.preventDefault();var file=$('#file_excel').val();if(!file){bomError('File Excel wajib dipilih.');return;}var fd=new FormData(this);var btn=$(this).find('button[type=submit]');btn.prop('disabled',true).html('<i class="fa fa-spinner fa-spin"></i> Importing...');$.ajax({url:'<?=base_admin();?>modul/bom/bom_action.php?act=import',type:'POST',data:fd,processData:false,contentType:false,dataType:'json',success:function(r){btn.prop('disabled',false).html('<i class="fa fa-upload"></i> Import');if(r.status==='good'){$('#modal_bom_import').modal('hide');Swal.fire('Import berhasil',r.message||'BOM berhasil diimport.','success');reloadTable(false);}else bomError(r.error_message);},error:function(xhr){btn.prop('disabled',false).html('<i class="fa fa-upload"></i> Import');bomError(xhr.responseText||'Import BOM gagal.');}});});
+$(document).on('click','.btn-bom-detail',function(){$.post('<?=base_admin();?>modul/bom/bom_action.php?act=detail',{id:$(this).data('id')},function(html){$('#bom_detail_body').html(html);$('#modal_bom_detail').modal('show');});});
+$(document).on('click','.btn-bom-edit',function(){var id=$(this).data('id');$.post('<?=base_admin();?>modul/bom/bom_action.php?act=get',{id:id},function(r){if(r.status!=='good'){bomError(r.error_message);return;}openForm('Edit BOM',true);var h=r.header||{};$('#bom_id').val(h.id);$('#bom_no').val(h.bom_no);$('#kodebj').html('<option value="'+esc(h.kodebj)+'" selected>'+esc(h.kodebj+' - '+h.nm_barang)+'</option>').trigger('change');$('#nm_barang').val(h.nm_barang);$('#satuan,#base_uom').val(h.base_uom||h.satuan);$('#base_qty').val(h.base_qty||h.jumlah);$('#plant_id').val(h.plant_id||'').trigger('change');$('#plant_code').val(h.plant_code||'');$('#bom_usage').val(h.bom_usage||'PRODUCTION').trigger('change');$('#alternative_bom').val(h.alternative_bom||'01');$('#valid_from').val(h.valid_from);$('#valid_to').val(h.valid_to);$('#revision').val(h.revision);$('#change_number').val(h.change_number);$('#lot_size_from').val(h.lot_size_from);$('#lot_size_to').val(h.lot_size_to);$('#remarks').val(h.remarks);$('#bom_lines').html('');lineNo=0;(r.lines||[]).forEach(appendLine);},'json');});
+function statusAction(act,id,no,title,input){var cfg={title:title,text:no,icon:'question',showCancelButton:true,confirmButtonText:title};if(input){cfg.input='text';cfg.inputLabel='Reason '+no;cfg.inputValidator=function(v){return !v?<?=prod_js('production_reason_required', 'Reason is required');?>:undefined;};}Swal.fire(cfg).then(function(x){if(!x.isConfirmed)return;var data={id:id};if(input)data.reason=x.value;$.post('<?=base_admin();?>modul/bom/bom_action.php?act='+act,data,function(r){if(r.status==='good')reloadTable(false);else bomError(r.error_message);},'json').fail(function(xhr){bomError(xhr.responseText);});});}
+$(document).on('click','.btn-bom-release',function(){statusAction('release',$(this).data('id'),$(this).data('no'),'Release BOM');});$(document).on('click','.btn-bom-inactive',function(){statusAction('inactive',$(this).data('id'),$(this).data('no'),'Set Inactive',true);});$(document).on('click','.btn-bom-delete',function(){statusAction('delete',$(this).data('id'),$(this).data('no'),'Delete Draft');});
+});
 </script>
-            

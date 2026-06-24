@@ -1,77 +1,114 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 include "../../inc/config.php";
+session_check_json();
+
+function tp_h($value) {
+  return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+}
+
+function tp_status_badge($status) {
+  if ($status === '1') return '<span class="tp-badge tp-ok">Received</span>';
+  if ($status === '9') return '<span class="tp-badge tp-rev">Reversed</span>';
+  return '<span class="tp-badge tp-open">Open</span>';
+}
 
 $columns = array(
-    //'v_produksi.nomor',
-   // 'v_produksi.no_transfer',
-   //  'v_produksi.no_transfer',
-    'v_produksi.no_transfer',
-    'v_produksi.tgl_transfer',
-    'v_produksi.no_ro',
-    'v_produksi.tgl_ro',
-    'v_produksi.nm_ke',
-    'v_produksi.user',
-    'v_produksi.ket',
-    'v_produksi.id_transfer',
-  );
+  't.no_transfer',
+  't.tgl_transfer',
+  'src.nm_bagian',
+  'dsl.storage_code',
+  't.no_ro',
+  't.user',
+  't.ket',
+  't.status'
+);
 
-  //if you want to exclude column for searching, put columns name in array
-  //$new_table->disable_search = array('name_ppc','v_produksi.no_spb');
-  
-  //set numbering is true
-  $datatable->set_numbering_status(1);
+$where = " AND t.dari='1' ";
+$params = array();
+if (!empty($_POST['tgl_awal']) && !empty($_POST['tgl_akhir'])) {
+  $where .= " AND DATE(t.tgl_transfer) BETWEEN ? AND ? ";
+  $params[] = $_POST['tgl_awal'];
+  $params[] = $_POST['tgl_akhir'];
+}
+if (!empty($_POST['destination_storage_location_id'])) {
+  $where .= " AND t.destination_storage_location_id=? ";
+  $params[] = $_POST['destination_storage_location_id'];
+} elseif (!empty($_POST['tujuan'])) {
+  $where .= " AND t.ke=? ";
+  $params[] = $_POST['tujuan'];
+}
+if (isset($_POST['status']) && $_POST['status'] !== '') {
+  $where .= " AND t.status=? ";
+  $params[] = $_POST['status'];
+}
+if (!empty($_POST['keyword'])) {
+  $keyword = '%'.trim($_POST['keyword']).'%';
+  $where .= " AND (t.no_transfer LIKE ? OR t.no_ro LIKE ? OR t.user LIKE ? OR t.ket LIKE ? OR EXISTS (SELECT 1 FROM transfer_detail td JOIN barang b ON b.id=td.id_barang WHERE td.id_transfer=t.id_transfer AND (b.kd_barang LIKE ? OR b.nm_barang LIKE ?))) ";
+  for ($i=0; $i<6; $i++) $params[] = $keyword;
+}
 
-  //set order by column
-  $datatable->set_order_by("v_produksi.date_created");
+$datatable->set_numbering_status(1);
+$datatable->set_order_by("t.date_created");
+$datatable->set_order_type("desc");
 
-  //set order by type
-  $datatable->set_order_type("desc"); 
+$query = $datatable->get_custom(
+  "SELECT t.*,src.nm_bagian AS source_name,dst.nm_bagian AS destination_name,
+          dsl.storage_code AS destination_storage_code,
+          dsl.storage_name AS destination_storage_name,
+          dsb.bin_code AS destination_bin_code,
+          dsb.bin_name AS destination_bin_name,
+          COALESCE(ds.item_count,0) AS item_count,
+          COALESCE(ds.total_qty,0) AS total_qty
+   FROM transfer t
+   LEFT JOIN bagian src ON src.id_bagian=t.dari
+   LEFT JOIN bagian dst ON dst.id_bagian=t.ke
+   LEFT JOIN erp_storage_location dsl ON dsl.id=t.destination_storage_location_id
+   LEFT JOIN erp_storage_bin dsb ON dsb.id=t.destination_storage_bin_id
+   LEFT JOIN (
+     SELECT id_transfer,COUNT(DISTINCT no) AS item_count,SUM(jml) AS total_qty
+     FROM transfer_detail
+     GROUP BY id_transfer
+   ) ds ON ds.id_transfer=t.id_transfer
+   WHERE 1=1 $where",
+  $columns,
+  $params
+);
 
-  //set group by column
-  //$new_table->group_by = "group by v_produksi.no_spb";
-
-  $query = $datatable->get_custom("select status, nm_ke, v_produksi.id_transfer as id,v_produksi.jml, v_produksi.no_transfer as no_spb,v_produksi.tgl_transfer as tgl_spb,v_produksi.no_ro as no_request,v_produksi.tgl_ro as tgl_request,v_produksi.user as name_ppc,v_produksi.ket as catatan from v_incoming_produksi v_produksi ",$columns); 
-
-  //buat inisialisasi array data
-  $data = array(); 
-
-  $i=1;
-  foreach ($query as $value) {
-   // $btn_edit = "";
-   $btn_edit = ' <a data-id="'.$value->id.'" href="'.base_url().'index.php/transfer-produksi/edit/'.$value->id.'" class="btn btn-primary btn-sm edit_data " data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a> <button data-id="'.$value->id.'" data-uri="'.base_url().'/modul/transfer_produksi/transfer_produksi_action.php" class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_transfer_produksi"><i class="fa fa-trash"></i></button>';
-    $detail = "<button class='btn btn-primary' onclick='show_detail(\"$value->no_spb\")'>Detail Barang <i class='badge'>$value->jml</i></button>"; 
-
-    if ($value->status=='0') {
-      $status = "<label class='label label-danger'>Belum diterima</label>";
-    }elseif ($value->status=='1') {
-      $status = "<label class='label label-success'>Diterima</label>";
-    }else{
-      $status = "<label class='label label-warning'>Dibatalkan</label>"; 
-    }
-    //array data
-    $ResultData = array();
-    $ResultData[] = $btn_edit;
-    $ResultData[] = $detail;
-  
-   // $ResultData[] = $value->nomor;
-    $ResultData[] = $value->no_spb;
-    $ResultData[] = $value->tgl_spb;
-    $ResultData[] = $value->no_request;
-    $ResultData[] = $value->tgl_request;
-    $ResultData[] = $value->nm_ke;
-    $ResultData[] = $value->name_ppc;
-    $ResultData[] = $value->catatan;
-    $ResultData[] = $status;
-    $ResultData[] = $value->status;
-    $ResultData[] = $value->id;
-
-    $data[] = $ResultData;
-    $i++;
+$data = array();
+$i = 1;
+foreach ($query as $value) {
+  $actions = '<div class="tp-action-buttons"><button type="button" class="btn btn-info btn-xs" onclick="show_detail(\''.tp_h($value->no_transfer).'\')" title="Detail"><i class="fa fa-eye"></i></button>';
+  if ($value->status !== '9') {
+    $actions .= ' <button type="button" class="btn btn-warning btn-xs" onclick="reversal(\''.tp_h($value->no_transfer).'\')" title="Reversal 312"><i class="fa fa-undo"></i></button>';
   }
+  $actions .= '</div>';
 
-//set data
+  $doc = '<strong>'.tp_h($value->no_transfer).'</strong><br><small class="text-muted">Created '.tp_h($value->date_created).'</small>';
+  $movement = $value->status === '9' ? '<strong>312</strong><br><small>Transfer Reversal</small>' : '<strong>311</strong><br><small>Transfer Posting</small>';
+  $reference = '<strong>'.tp_h($value->no_ro).'</strong><br><small class="text-muted">'.tp_h($value->tgl_ro).'</small>';
+  $destinationLabel = trim($value->destination_storage_code.' - '.$value->destination_storage_name.' / '.$value->destination_bin_code.' - '.$value->destination_bin_name, ' -/');
+  if ($destinationLabel === '') $destinationLabel = $value->destination_name;
+
+  $row = array();
+  $row[] = $datatable->number($i);
+  $row[] = $actions;
+  $row[] = $doc;
+  $row[] = tp_h($value->tgl_transfer);
+  $row[] = $movement;
+  $row[] = tp_h($value->source_name ?: 'Gudang');
+  $row[] = tp_h($destinationLabel);
+  $row[] = $reference;
+  $row[] = number_format((float)$value->item_count, 0, ',', '.');
+  $row[] = number_format((float)$value->total_qty, 5, ',', '.');
+  $row[] = tp_status_badge((string)$value->status);
+  $row[] = tp_h($value->user);
+  $data[] = $row;
+  $i++;
+}
+
 $datatable->set_data($data);
-//create our json
 $datatable->create_data();
-
 ?>

@@ -1,12 +1,12 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Manage Ubah Password
+                        <?=erp_h('password_change_title', 'Change Password');?>
                     </h1>
                         <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>ubah-password">Ubah Password</a></li>
-                        <li class="active">Ubah Password List</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=erp_h('common_home', 'Home');?></a></li>
+                        <li><a href="<?=base_index();?>ubah-password"><?=erp_h('password_change_title', 'Change Password');?></a></li>
+                        <li class="active"><?=erp_h('password_change_list', 'Change Password List');?></li>
                     </ol>
                 </section>
 
@@ -39,9 +39,9 @@
                         <table id="dtb_ubah_password" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                  <th>No</th>
+                                  <th><?=erp_h('common_no', 'No');?></th>
                                   <th>group_level</th>
-                                  <th>Action</th>
+                                  <th><?=erp_h('common_action', 'Action');?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,7 +89,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text: window.ERPKB_LANG ? ERPKB_LANG.common_export_data : '<?=erp_h('common_export_data', 'Export Data');?>',
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

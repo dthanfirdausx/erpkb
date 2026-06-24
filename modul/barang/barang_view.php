@@ -1,33 +1,29 @@
 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Barang
+                        <?=erp_h('master_material_master', 'Material Master');?>
                     </h1>
                         <ol class="breadcrumb">
-                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?=base_index();?>barang">Barang</a></li>
-                        <li class="active">Barang List</li>
+                        <li><a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=erp_h('common_home', 'Home');?></a></li>
+                        <li><a href="<?=base_index();?>barang"><?=erp_h('master_material_master', 'Material Master');?></a></li>
+                        <li class="active"><?=erp_h('master_list_title', 'List');?></li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
+<?php
+$mdtActionsHtml = '';
+if (isset($role_act["insert_act"]) && $role_act["insert_act"]=="Y") {
+  $mdtActionsHtml .= '<a id="add_barang" class="btn btn-warning"><i class="fa fa-plus"></i> '.erp_h('common_add_new', 'Add New').'</a>';
+  $mdtActionsHtml .= ' <button id="btn_import_barang" type="button" class="btn btn-info"><i class="fa fa-upload"></i> '.erp_h('common_import', 'Import').' Excel</button>';
+  $mdtActionsHtml .= ' <a href="'.base_admin().'modul/barang/barang_action.php?act=template_import" class="btn btn-default"><i class="fa fa-download"></i> '.erp_h('master_import_template', 'Import Template').'</a>';
+}
+include __DIR__ . "/../master_data_toolbar.php";
+?>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
-                                <div class="box-header">
-                                <?php
-                                  foreach ($db->fetch_all("sys_menu") as $isi) {
-                                      if (uri_segment(1)==$isi->url) {
-                                          if ($role_act["insert_act"]=="Y") {
-                                      ?>
-                                      <a id="add_barang" class="btn btn-primary px-4"><i class="fa fa-plus"></i> <?php echo $lang["add_button"];?></a>
-                                      <?php
-                                          }
-                                      }
-                                  }
-                                ?>
-                            </div><!-- /.box-header -->
                             <div class="box-body table-responsive">
                                 <div class="row">
                                     <div class="col-sm-12" style="text-align: right;margin-bottom: 10px">
@@ -43,12 +39,12 @@
                         <table id="dtb_barang" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                  <th>No</th>
-                                  <th>Kode Barang</th>
-                                  <th>Nama Barang</th>
-                                  <th>Kategori</th>
-                                  <th>Satuan</th>
-                                  <th>Action</th>
+                                  <th><?=erp_h('common_no', 'No');?></th>
+                                  <th><?=erp_h('master_term_kode_barang', 'Material Code');?></th>
+                                  <th><?=erp_h('master_term_nama_barang', 'Material Name');?></th>
+                                  <th><?=erp_h('master_term_kategori', 'Category');?></th>
+                                  <th><?=erp_h('master_term_satuan', 'Unit');?></th>
+                                  <th><?=erp_h('common_action', 'Action');?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,12 +62,12 @@
             if (uri_segment(1)==$isi->url) {
               //check edit permission
               if ($role_act["up_act"]=="Y") {
-                $edit = "<a data-id='+aData[indek]+'  class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"Edit\"><i class=\"fa fa-pencil\"></i></a>";
+                $edit = "<a data-id='+aData[indek]+'  class=\"btn btn-primary btn-sm edit_data \" data-toggle=\"tooltip\" title=\"".erp_attr('common_edit', 'Edit')."\"><i class=\"fa fa-pencil\"></i></a>";
               } else {
                   $edit ="";
               }
             if ($role_act['del_act']=='Y') {
-                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/barang/barang_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="Hapus" data-variable="dtb_barang"><i class="fa fa-trash"></i></button>';
+                $del = "<button data-id='+aData[indek]+' data-uri=".base_admin()."modul/barang/barang_action.php".' class="btn btn-danger hapus_dtb_notif btn-sm" data-toggle="tooltip" title="'.erp_attr('common_delete', 'Delete').'" data-variable="dtb_barang"><i class="fa fa-trash"></i></button>';
             } else {
                 $del="";
             }
@@ -80,7 +76,37 @@
 
         ?>
 
-    <div class="modal" id="modal_barang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog modal-lg"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?php echo $lang["add_button"];?> Barang</h4> </div> <div class="modal-body" id="isi_barang"> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>
+    <div class="modal" id="modal_barang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> <div class="modal-dialog modal-lg"> <div class="modal-content"><div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> <h4 class="modal-title"><?=erp_h('common_add_new', 'Add New');?> <?=erp_h('master_material_master', 'Material Master');?></h4> </div> <div class="modal-body" id="isi_barang"> </div> </div><!-- /.modal-content --> </div><!-- /.modal-dialog --> </div>
+
+    <div class="modal fade" id="modal_import_barang" tabindex="-1" role="dialog" aria-labelledby="modalImportBarangLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form id="form_import_barang" enctype="multipart/form-data">
+            <div class="modal-header bg-info">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+              <h4 class="modal-title" id="modalImportBarangLabel"><i class="fa fa-upload"></i> <?=erp_h('common_import', 'Import');?> <?=erp_h('master_material_master', 'Material Master');?></h4>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-info">
+                <?=erp_h('master_material_import_help', 'Use the official template so category code, UOM, material type, material group, plant, and storage location match ERP master data.');?>
+                <?=erp_h('master_import_required_help', 'Red header columns are mandatory.');?>
+                <br><br>
+                <a href="<?=base_admin();?>modul/barang/barang_action.php?act=template_import" class="btn btn-default btn-sm"><i class="fa fa-download"></i> <?=erp_h('master_download_template', 'Download Template');?></a>
+              </div>
+              <div class="form-group">
+                <label><?=erp_h('master_excel_file', 'Excel File');?> <span class="text-danger">*</span></label>
+                <input type="file" name="file_excel" id="file_excel_barang" class="form-control" accept=".xls,.xlsx" required>
+              </div>
+              <div id="barang_import_result" class="alert" style="display:none;margin-bottom:0"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal"><?=erp_h('common_close', 'Close');?></button>
+              <button type="submit" class="btn btn-info"><i class="fa fa-upload"></i> <?=erp_h('master_upload_import', 'Upload & Import');?></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     
     </section><!-- /.content -->
 
@@ -101,6 +127,48 @@
 
       $('#modal_barang').modal({ keyboard: false,backdrop:'static',show:true });
 
+    });
+
+    $("#btn_import_barang").click(function() {
+      $("#form_import_barang")[0].reset();
+      $("#barang_import_result").hide().removeClass("alert-danger alert-success").html("");
+      $("#modal_import_barang").modal({ keyboard: false, backdrop: "static", show: true });
+    });
+
+    $("#form_import_barang").submit(function(e) {
+      e.preventDefault();
+      if ($("#file_excel_barang").val() === "") {
+        $("#barang_import_result").removeClass("alert-success").addClass("alert-danger").html((window.ERPKB_LANG && ERPKB_LANG.master_excel_required) || "Excel file is required.").show();
+        return;
+      }
+      var formData = new FormData(this);
+      var btn = $(this).find("button[type=submit]");
+      btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i> '+((window.ERPKB_LANG && ERPKB_LANG.common_import) || 'Import')+'...');
+      $.ajax({
+        url: "<?=base_admin();?>modul/barang/barang_action.php?act=import_excel",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function(response) {
+          btn.prop("disabled", false).html('<i class="fa fa-upload"></i> '+((window.ERPKB_LANG && ERPKB_LANG.master_upload_import) || 'Upload & Import'));
+          var res = $.isArray(response) ? response[0] : response;
+          if (res.status === "good") {
+            $("#barang_import_result").removeClass("alert-danger").addClass("alert-success").html(res.message || ((window.ERPKB_LANG && ERPKB_LANG.master_import_success) || "Import successful.")).show();
+            dtb_barang.draw();
+            setTimeout(function() {
+              $("#modal_import_barang").modal("hide");
+            }, 900);
+          } else {
+            $("#barang_import_result").removeClass("alert-success").addClass("alert-danger").html(res.error_message || ((window.ERPKB_LANG && ERPKB_LANG.master_import_failed) || "Import failed.")).show();
+          }
+        },
+        error: function(xhr) {
+          btn.prop("disabled", false).html('<i class="fa fa-upload"></i> '+((window.ERPKB_LANG && ERPKB_LANG.master_upload_import) || 'Upload & Import'));
+          $("#barang_import_result").removeClass("alert-success").addClass("alert-danger").html(xhr.responseText || ((window.ERPKB_LANG && ERPKB_LANG.master_import_failed) || "Import failed.")).show();
+        }
+      });
     });
     
       
@@ -128,7 +196,7 @@
       var dtb_barang = $("#dtb_barang").DataTable({
            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
             var indek = aData.length-1;
-            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>barang/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="Detail"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
+            $('td:eq('+indek+')', nRow).html('<a href="<?=base_index();?>barang/detail/'+aData[indek]+'"  class="btn btn-success btn-sm" data-toggle="tooltip" title="<?=erp_attr('common_detail', 'Detail');?>"><i class="fa fa-eye"></i></a> <?=$edit;?> <?=$del;?>');
               $(nRow).attr('id', 'line_'+aData[indek]);
               },
               "dom": "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" +"<'row'<'col-sm-12'tr>>" +"<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -136,7 +204,7 @@
               buttons: [
               {
                  extend: 'collection',
-                 text: 'Export Data',
+                 text: (window.ERPKB_LANG && ERPKB_LANG.common_export_data) || 'Export Data',
                  buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ],
 
               }

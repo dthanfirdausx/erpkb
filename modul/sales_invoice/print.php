@@ -1,5 +1,15 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php";
+require_once __DIR__ . "/../print_pdf_helper.php";
 $info_pt = infokb();
 
 $q = $db->query("
@@ -12,6 +22,7 @@ LEFT JOIN matauang u ON u.jenis_valas=s.valuta
 WHERE s.id_sales=? LIMIT 1",array($_GET['id'])
 );
 
+ob_start();
 foreach ($q as $k) { 
 ?>
 
@@ -19,7 +30,7 @@ foreach ($q as $k) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Invoice</title>
+<title><?=erp_export_title('Invoice');?></title>
 
 <style>
 body{
@@ -89,15 +100,15 @@ td,th{
     </div>
 
     <div>
-        <div class="title">INVOICE</div>
+        <div class="title"><?=erp_export_title('INVOICE');?></div>
         <div class="info-box">
-            Invoice No : <?= $k->no_sales_invoice ?><br>
-            Date : <?= tgl_indo($k->invoice_date) ?><br>
-            Payment Terms : <?= $k->term ?><br>
-            Shipping Date : <?= $k->ship_date ?><br>
-            Order No : <?= $k->no_sales_order ?><br>
-            PO No : <?= $k->nopo ?><br>
-            Currency : <?= $k->valuta ?>
+            <?=erp_export_label('Invoice No');?> : <?= $k->no_sales_invoice ?><br>
+            <?=erp_export_label('Date');?> : <?= tgl_indo($k->invoice_date) ?><br>
+            <?=erp_export_label('Payment Terms');?> : <?= $k->term ?><br>
+            Shipping <?=erp_export_label('Date');?> : <?= $k->ship_date ?><br>
+            <?=erp_export_label('Order No');?> : <?= $k->no_sales_order ?><br>
+            <?=erp_export_label('PO No');?> : <?= $k->nopo ?><br>
+            <?=erp_export_label('Currency');?> : <?= $k->valuta ?>
         </div>
     </div>
 </div>
@@ -105,13 +116,13 @@ td,th{
 <!-- BILL / SHIP -->
 <div class="section">
     <div class="box">
-        <b>Bill To</b><br>
+        <b><?=erp_export_label('Bill To');?></b><br>
         <?= $k->nama_penerima ?><br>
         <?= $k->alamat ?>
     </div>
 
     <div class="box">
-        <b>Ship To</b><br>
+        <b><?=erp_export_label('Ship To');?></b><br>
         <?= $k->nama_penerima ?><br>
         <?= $k->alamat ?>
     </div>
@@ -122,12 +133,12 @@ td,th{
 <table>
 <tr class="bold center">
     <td>Material Code</td>
-    <td>Item Description</td>
+    <td><?=erp_export_label('Item Description');?></td>
   
     <td>Unit Price</td>
-    <td>Qty</td>
-    <td style="width: 30px">UoM</td>
-    <td>Amount</td>
+    <td><?=sd_h('sales_qty', 'Qty');?></td>
+    <td style="width: 30px"><?=erp_export_label('UOM');?></td>
+    <td><?=sd_h('sales_amount', 'Amount');?></td>
     <th style="width: 100px">Material Number</th>
     <th style="width: 150px">Material Description</th>
 </tr>
@@ -187,12 +198,12 @@ $total_qty += $d->qty;
 
 <?php } ?>
 
-<!-- TOTAL ROW -->
+<!-- <?=erp_export_label('TOTAL');?> ROW -->
 
 <tr class="bold">
 
     <td colspan="3" class="right">
-        TOTAL
+        <?=erp_export_label('TOTAL');?>
     </td>
 
     <td class="center">
@@ -216,7 +227,7 @@ $total_qty += $d->qty;
 </tr>
 <!-- <tr>
     <td colspan="4">
-        Note : <br>
+        <?=erp_export_label('Note');?> : <br>
         <?= $k->catatan ?>
     </td>
     <td colspan="4">
@@ -227,19 +238,19 @@ $total_qty += $d->qty;
 </table>
 
 <?php
-$dasar_pengenaan = $total * 11/12;
-$pajak = ($k->tax=='1') ? (0.12*$dasar_pengenaan) : 0;
-$total_all = $total + $pajak;
+$dasar_pengenaan = isset($k->net_amount) && (float)$k->net_amount > 0 ? (float)$k->net_amount : $total;
+$pajak = isset($k->tax_amount) && (float)$k->tax_amount > 0 ? (float)$k->tax_amount : (($k->tax=='1') ? round($dasar_pengenaan * 0.11, 2) : 0);
+$total_all = isset($k->gross_amount) && (float)$k->gross_amount > 0 ? (float)$k->gross_amount : ($dasar_pengenaan + $pajak);
 ?>
  <div class="section">
  <div class="box" style="width: 55%"> 
             <div style="border: 1px solid black;width: 90%;height: 102px">
-                 Note : <br>
+                 <?=erp_export_label('Note');?> : <br>
         <?= $k->catatan ?>
             </div>
             <br>
 
-            Please apply the payment to our bank account :<br><br>
+            <?=erp_export_label('Please apply the payment to our bank account');?> :<br><br>
 
             <?= infokb()->bank ?> 
         </div>
@@ -248,9 +259,9 @@ $total_all = $total + $pajak;
 <table>
 
 <tr><td style="width: 300px">Sub Total</td><td>:</td><td class="right"><label style="float: left;"><?= $k->valuta ?> </label> <?= formatAngka($total) ?></td></tr>
-<tr><td>Dasar Pengenaan Pajak = Jumlah Harga Jual X 11/12 </td><td>:</td><td class="right"><label style="float: left;"><?= $k->valuta ?> </label> <?= formatAngka($dasar_pengenaan) ?></td></tr>
-<tr><td>PPN = 12% X Dasar Pengenaan Pajak</td><td>:</td><td class="right"><label style="float: left;"><?= $k->valuta ?> </label> <?= formatAngka($pajak) ?></td></tr>
-<tr><td><b>Total</b></td><td>:</td><td class="right"><label style="float: left;"><?= $k->valuta ?> </label> <?= formatAngka($total_all) ?></td></tr>
+<tr><td>Dasar Pengenaan Pajak</td><td>:</td><td class="right"><label style="float: left;"><?= $k->valuta ?> </label> <?= formatAngka($dasar_pengenaan) ?></td></tr>
+<tr><td><?=erp_export_label('PPN');?> <?= isset($k->tax_rate) ? formatAngka($k->tax_rate) : '11' ?>%</td><td>:</td><td class="right"><label style="float: left;"><?= $k->valuta ?> </label> <?= formatAngka($pajak) ?></td></tr>
+<tr><td><b><?=sd_h('sales_total', 'Total');?></b></td><td>:</td><td class="right"><label style="float: left;"><?= $k->valuta ?> </label> <?= formatAngka($total_all) ?></td></tr>
 </table>
 </div>
 </div>
@@ -266,4 +277,8 @@ Regards,<br><br><br><br><br><br><br>
 </body>
 </html>
 
-<?php } ?>
+<?php }
+$html = ob_get_clean();
+$invoiceNo = isset($k) ? $k->no_sales_invoice : ('sales_invoice_'.$id);
+erpkb_pdf_output($html, 'sales_invoice_'.preg_replace('/[^A-Za-z0-9_\-]/', '_', (string)$invoiceNo).'.pdf', 'L');
+?>

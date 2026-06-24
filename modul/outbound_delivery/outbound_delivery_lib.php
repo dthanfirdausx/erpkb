@@ -1,0 +1,25 @@
+<?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+function obd_h($value){return htmlspecialchars((string)$value,ENT_QUOTES,'UTF-8');}
+function obd_input($key,$default=''){if(isset($_POST[$key]))return trim((string)$_POST[$key]);if(isset($_GET[$key]))return trim((string)$_GET[$key]);return $default;}
+function obd_valid_date($date,$default){$date=trim((string)$date);return preg_match('/^\d{4}-\d{2}-\d{2}$/',$date)?$date:$default;}
+function obd_username(){if(isset($_SESSION['username'])&&$_SESSION['username']!=='')return $_SESSION['username'];if(isset($_SESSION['nama_lengkap'])&&$_SESSION['nama_lengkap']!=='')return $_SESSION['nama_lengkap'];return 'system';}
+function obd_next_no($db){$prefix='OD'.date('Ym');$row=$db->fetch("SELECT delivery_no FROM erp_outbound_delivery WHERE delivery_no LIKE ? ORDER BY delivery_no DESC LIMIT 1",array($prefix.'%'));$next=1;if($row&&preg_match('/(\d{5})$/',$row->delivery_no,$m))$next=(int)$m[1]+1;return $prefix.sprintf('%05d',$next);}
+function obd_status_label($status){$map=array('CREATED'=>'default','PICKING'=>'info','PICKED'=>'primary','PACKED'=>'warning','PGI'=>'success','COMPLETED'=>'success','CANCELLED'=>'danger');$class=isset($map[$status])?$map[$status]:'default';return '<span class="label label-'.$class.'">'.obd_h($status?:'CREATED').'</span>';}
+function obd_small_label($status){$map=array('NOT_STARTED'=>'default','NOT_POSTED'=>'default','PARTIAL'=>'warning','COMPLETE'=>'success','POSTED'=>'success');$class=isset($map[$status])?$map[$status]:'default';return '<span class="label label-'.$class.'">'.obd_h($status).'</span>';}
+function obd_filters(){return array('tgl_awal'=>obd_input('tgl_awal',date('Y-01-01')),'tgl_akhir'=>obd_input('tgl_akhir',date('Y-m-d')),'customer'=>obd_input('customer','all'),'status'=>obd_input('status','all'),'shipping_point'=>obd_input('shipping_point'),'sales_order'=>obd_input('sales_order'),'keyword'=>obd_input('keyword'));}
+function obd_filter_sql($input,&$params){$where=" WHERE 1=1 ";$from=obd_valid_date(isset($input['tgl_awal'])?$input['tgl_awal']:'',date('Y-01-01'));$to=obd_valid_date(isset($input['tgl_akhir'])?$input['tgl_akhir']:'',date('Y-m-d'));$where.=" AND od.delivery_date BETWEEN ? AND ? ";$params[]=$from;$params[]=$to;if(!empty($input['customer'])&&$input['customer']!=='all'){$where.=" AND od.customer_code=? ";$params[]=$input['customer'];}if(!empty($input['status'])&&$input['status']!=='all'){$where.=" AND od.status=? ";$params[]=$input['status'];}if(!empty($input['shipping_point'])){$where.=" AND od.shipping_point=? ";$params[]=$input['shipping_point'];}if(!empty($input['sales_order'])){$where.=" AND od.id_sales_order=? ";$params[]=(int)$input['sales_order'];}if(!empty($input['keyword'])){$kw='%'.$input['keyword'].'%';$where.=" AND (od.delivery_no LIKE ? OR od.no_sales_order LIKE ? OR od.customer_name LIKE ? OR od.customer_code LIKE ? OR od.vehicle_no LIKE ? OR od.driver_name LIKE ? OR od.reference_surat_jalan LIKE ? OR od.reference_gi LIKE ?) ";for($i=0;$i<8;$i++)$params[]=$kw;}return $where;}
+function obd_base_sql(){return " FROM erp_outbound_delivery od LEFT JOIN (SELECT delivery_id,COUNT(*) item_count,COALESCE(SUM(delivery_qty),0) delivery_qty,COALESCE(SUM(picked_qty),0) picked_qty,COALESCE(SUM(packed_qty),0) packed_qty,COALESCE(SUM(gi_qty),0) gi_qty,COALESCE(SUM(amount),0) total_amount FROM erp_outbound_delivery_detail GROUP BY delivery_id) d ON d.delivery_id=od.id ";}
+function obd_select_sql(){return "SELECT od.*,COALESCE(d.item_count,0) item_count,COALESCE(d.delivery_qty,0) delivery_qty,COALESCE(d.picked_qty,0) picked_qty,COALESCE(d.packed_qty,0) packed_qty,COALESCE(d.gi_qty,0) gi_qty,COALESCE(d.total_amount,0) total_amount,CASE WHEN COALESCE(d.delivery_qty,0)>0 THEN ROUND((COALESCE(d.gi_qty,0)/d.delivery_qty)*100,2) ELSE 0 END gi_percent ";}
+function obd_load_rows($db,$input,$limit=0,$offset=0){$params=array();$where=obd_filter_sql($input,$params);$sql=obd_select_sql().obd_base_sql().$where." ORDER BY od.delivery_date DESC,od.id DESC";if($limit>0)$sql.=" LIMIT ".(int)$offset.",".(int)$limit;return $db->query($sql,$params);}
+function obd_count_rows($db,$input){$params=array();$where=obd_filter_sql($input,$params);$row=$db->fetch("SELECT COUNT(*) total ".obd_base_sql().$where,$params);return $row?(int)$row->total:0;}
+function obd_summary($db,$input){$params=array();$where=obd_filter_sql($input,$params);return $db->fetch("SELECT COUNT(*) total_docs,SUM(CASE WHEN od.status IN ('PGI','COMPLETED') THEN 1 ELSE 0 END) pgi_docs,SUM(CASE WHEN od.status='CREATED' THEN 1 ELSE 0 END) created_docs,COALESCE(SUM(d.delivery_qty),0) delivery_qty,COALESCE(SUM(d.gi_qty),0) gi_qty,COALESCE(SUM(d.total_amount),0) total_amount ".obd_base_sql().$where,$params);}
+?>

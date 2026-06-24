@@ -4,6 +4,85 @@ include "../../inc/config.php";
 session_check_json();
 switch ($_GET["act"]) {
 
+  case "detail_barang":
+
+$no_ro = $_POST['no_ro'];
+
+$header = $db->fetch_single_row(
+    "ro",
+    "no_ro",$no_ro
+);
+
+echo '<h4>No RO : '.$no_ro.'</h4>';
+
+if($header->jenis_ro=="bom")
+{
+
+    echo '<h4>Barang Jadi</h4>';
+
+    echo '<table class="table table-bordered">';
+    echo '<tr>
+            <th>Kode BJ</th>
+            <th>Qty Order</th>
+          </tr>';
+
+    $bom = $db->query("
+        SELECT *
+        FROM ro_bom
+        WHERE no_ro='$no_ro'
+    ");
+
+    foreach($bom as $b)
+    {
+        echo '<tr>
+                <td>'.$b->kode_bom.'</td>
+                <td>'.number_format($b->qty_order,2).'</td>
+              </tr>';
+    }
+
+    echo '</table>';
+}
+
+echo '<h4>Detail Material</h4>';
+
+echo '<table class="table table-bordered">';
+echo '<tr>
+        <th>No</th>
+        <th>Kode</th>
+        <th>Nama Barang</th>
+        <th>Qty</th>
+        <th>Keterangan</th>
+      </tr>';
+
+$no=1;
+
+$detail = $db->query("
+    SELECT rd.*,
+           b.nm_barang,
+           b.satuan
+    FROM ro_detail rd
+    LEFT JOIN barang b
+        ON b.kd_barang=rd.kode
+    WHERE rd.no_ro='$no_ro'
+");
+
+foreach($detail as $d)
+{
+    echo '<tr>
+            <td>'.$no.'</td>
+            <td>'.$d->kode.'</td>
+            <td>'.$d->nm_barang.'</td>
+            <td align="right">'.number_format($d->jumlah,5).'</td>
+             <td>'.$d->ket.'</td>
+          </tr>';
+
+    $no++;
+}
+
+echo '</table>';
+
+break;
+
   case "cari_bom":
 
     $term = isset($_POST['term']) ? $_POST['term'] : '';
@@ -236,57 +315,227 @@ break;
   <?php
     break;
 
-  case "in":
-    
-  
-  
-  $nomor = get_nomor("ro","id");
-  $no_ro = getNoRO(date("Y",strtotime($_POST["tgl_ro"])));  
-  $data = array(
-      "nomor"    => $nomor, 
-      "no_ro"    => $no_ro,
-      "tgl_ro"   => $_POST["tgl_ro"],
-      "dept"     => $_POST["dept"],
-      "name_ppc" => $_POST["name_ppc"],
-      // "id_bom"   => $_POST["id_bom"],
-      // "jml_brg_jadi" => $_POST["jml_brg_jadi"],
-      "tujuan"   => $_POST["tujuan"],
-      "catatan"  => $_POST["catatan"],
-  );
+   case "in":
 
+    $nomor = get_nomor("ro","id");
+    $no_ro = getNoRO(date("Y",strtotime($_POST["tgl_ro"])));
 
-    $in = $db->insert("ro",$data);
-    $db->query("delete from ro_detail where no_ro='$no_ro' ");
-   $no=1;
-   foreach ($_POST['kode'] as $key => $value) { 
-      $data_detail = array('nomor' => $nomor , 
-                    'no_ro' => $no_ro,
-                    'tgl_ro' => $_POST["tgl_ro"],
-                    'kode' => $_POST['kode_input'][$key],
-                    'jumlah' => ($_POST['jumlah'][$key]),
-                    'row_no' => $no, 
-                    'ket' => $_POST['ket'][$key]
-                  );
-        $db->insert("ro_detail",$data_detail);  
-       // print_r($data_detail);
-      $no++; 
-   }   
+    $data = array(
+        "nomor"      => $nomor,
+        "no_ro"      => $no_ro,
+        "tgl_ro"     => $_POST["tgl_ro"],
+        "dept"       => $_POST["dept"],
+        "name_ppc"   => $_POST["name_ppc"],
+        "jenis_ro"   => $_POST["jenis_ro"],
+        "tujuan"     => $_POST["tujuan"],
+        "catatan"    => $_POST["catatan"]
+    );
 
-  $qr = $db->query("select * from ro_barang_temp where user='".$_SESSION['username']."' ");
-  foreach ($qr as $kr) {
-    $dt = array('no_ro' => $no_ro , 
-                'id_bom' => $kr->kd_barang,
-                'jml_brg' => $kr->jml,
-                'date_created' => date("Y-m-d H:i:s"));
-  //  print_r($dt);
-    $db->insert("ro_bom",$dt);
-  }
-  $db->query("delete from ro_barang_temp where user='".$_SESSION['username']."'"); 
-  
-    
+    $db->insert("ro",$data);
+
+    $db->query("DELETE FROM ro_detail WHERE no_ro='$no_ro'");
+    $db->query("DELETE FROM ro_bom WHERE no_ro='$no_ro'");
+    $db->query("DELETE FROM ro_bom_detail WHERE no_ro='$no_ro'");
+
+    $no = 1;
+
+    /*
+    |--------------------------------------------------------------------------
+    | BOM MODE
+    |--------------------------------------------------------------------------
+    */
+
+    if($_POST["jenis_ro"]=="bom")
+    {
+
+        if(isset($_POST['id_bom']) && is_array($_POST['id_bom']))
+        {
+
+            foreach($_POST['id_bom'] as $k=>$id_bom)
+            {
+
+                if(trim($id_bom)=='')
+                    continue;
+
+                $qty_order = isset($_POST['jml_bom'][$k])
+                    ? floatval($_POST['jml_bom'][$k])
+                    : 1;
+
+                $headerBom = $db->fetch_single_row(
+                    "bom",
+                    "id",
+                    $id_bom
+                );
+
+                if(!$headerBom)
+                    continue;
+
+                $db->insert("ro_bom",array(
+                    "no_ro"        => $no_ro,
+                    "id_bom"       => $id_bom,
+                    "kode_bom"       => $headerBom->kodebj,
+                    "qty_order"    => $qty_order,
+                    "date_created" => date("Y-m-d H:i:s")
+                ));
+
+                $detailBom = $db->query("
+                    SELECT *
+                    FROM bom_detail
+                    WHERE id_bom='".$id_bom."'
+                ");
+
+                foreach($detailBom as $bom)
+                {
+
+                    $qty_kebutuhan =
+                        floatval($bom->jumlah) * $qty_order;
+
+                    $db->insert("ro_bom_detail",array(
+                        "no_ro"          => $no_ro,
+                        "id_bom"         => $id_bom,
+                        "kodebj"         => $headerBom->kodebj,
+                        "kodebb"         => $bom->kodebb,
+                        "qty_bom"        => $bom->jumlah,
+                        "qty_kebutuhan"  => $qty_kebutuhan
+                    ));
+
+                    $db->insert("ro_detail",array(
+                        "nomor"         => $nomor,
+                        "no_ro"         => $no_ro,
+                        "tgl_ro"        => $_POST["tgl_ro"],
+                        "kode"          => $bom->kodebb,
+                        "jumlah"        => $qty_kebutuhan,
+                        "row_no"        => $no,
+                        "ket"           => "Generate BOM ".$headerBom->kodebj,
+                        "jenis_detail"  => "bom",
+                        "id_bom"        => $id_bom
+                    ));
+
+                    $no++;
+                }
+            }
+        }
+
+        $qr = $db->query("
+            SELECT *
+            FROM ro_barang_temp
+            WHERE user='".$_SESSION['username']."'
+        ");
+
+        foreach($qr as $kr)
+        {
+
+            $headerBom = $db->fetch_single_row(
+                "bom",
+                "id",$kr->kd_barang
+            );
+
+            if(!$headerBom)
+                continue; 
+
+            $db->insert("ro_bom",array(
+                "no_ro"        => $no_ro,
+                "id_bom"       => $kr->kd_barang,
+                "kode_bom"       => $headerBom->kodebj,
+                "qty_order"    => $kr->jml,
+                "date_created" => date("Y-m-d H:i:s")
+            ));
+
+            $detailBom = $db->query("
+                SELECT *
+                FROM bom_detail
+                WHERE id_bom='".$kr->kd_barang."'
+            ");
+
+            foreach($detailBom as $bom)
+            {
+
+                $qty_kebutuhan =
+                    floatval($bom->jumlah) * floatval($kr->jml);
+
+                $db->insert("ro_bom_detail",array(
+                    "no_ro"          => $no_ro,
+                    "id_bom"         => $kr->kd_barang,
+                    "kodebj"         => $headerBom->kodebj,
+                    "kodebb"         => $bom->kodebb,
+                    "qty_bom"        => $bom->jumlah,
+                    "qty_kebutuhan"  => $qty_kebutuhan
+                ));
+
+                $db->insert("ro_detail",array(
+                    "nomor"         => $nomor,
+                    "no_ro"         => $no_ro,
+                    "tgl_ro"        => $_POST["tgl_ro"],
+                    "kode"          => $bom->kodebb,
+                    "jumlah"        => $qty_kebutuhan,
+                    "row_no"        => $no,
+                    "ket"           => "Generate BOM ".$headerBom->kodebj,
+                    "jenis_detail"  => "bom",
+                    "id_bom"        => $kr->kd_barang
+                ));
+
+                $no++;
+            }
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MANUAL MODE
+    |--------------------------------------------------------------------------
+    */
+
+    if($_POST["jenis_ro"]=="manual")
+    {
+
+        if(isset($_POST['kode_manual']) && is_array($_POST['kode_manual']))
+        {
+
+            foreach($_POST['kode_manual'] as $key=>$value)
+            {
+
+                $kode_manual = trim($_POST['kode_manual'][$key]);
+
+                if($kode_manual=='')
+                    continue;
+
+                $qty_manual = isset($_POST['qty_manual'][$key])
+                    ? $_POST['qty_manual'][$key]
+                    : 0;
+
+                $ket_manual = isset($_POST['ket_manual'][$key])
+                    ? $_POST['ket_manual'][$key]
+                    : '';
+
+                $db->insert("ro_detail",array(
+                    'nomor'         => $nomor,
+                    'no_ro'         => $no_ro,
+                    'tgl_ro'        => $_POST["tgl_ro"],
+                    'kode'          => $kode_manual,
+                    'jumlah'        => $qty_manual,
+                    'row_no'        => $no,
+                    'ket'           => $ket_manual,
+                    'jenis_detail'  => 'manual',
+                    'id_bom'        => NULL
+                ));
+
+                $no++;
+            }
+        }
+    }
+
+    $db->query("
+        DELETE FROM ro_barang_temp
+        WHERE user='".$_SESSION['username']."'
+    ");
+
     action_response($db->getErrorMessage());
-    break;
-  case "delete":
+
+break;
+
+
+  
+  case "delete": 
     
     
     

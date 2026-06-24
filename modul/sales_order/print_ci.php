@@ -1,14 +1,25 @@
 <?php
+if (!function_exists('sd_t')) {
+  function sd_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('sd_h')) {
+  function sd_h($key, $fallback = '') { return htmlspecialchars((string) sd_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('sd_js')) {
+  function sd_js($key, $fallback = '') { return json_encode(sd_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
 include "../../inc/config.php"; 
+require_once __DIR__ . "/../print_pdf_helper.php";
 $info_pt = info_pt();
 $q = $db->query("select s.*,p.nama as nama_penerima,p.npwp,p.no_izin,p.alamat from sales_order s left join penerima p on p.kode_penerima=s.kode_penerima where s.id_sales_order=?",array($_GET['id']));
+ob_start();
 foreach ($q as $k) {
   ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Commercial Invoice</title>
+  <title><?=erp_export_title('Commercial Invoice');?></title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -62,7 +73,7 @@ foreach ($q as $k) {
       TEL: ___________ &nbsp; FAX: ___________
     </td>
     <td>
-      <b>Invoice No. and Date</b><br> 
+      <b><?=erp_export_label('Invoice No. and Date');?></b><br> 
       <?= $k->no_sales_order ?>
       <br>
       <?= tgl_indo($k->so_date) ?>
@@ -81,7 +92,7 @@ foreach ($q as $k) {
   </tr>
   <tr>
     <td>
-      <b>Notify Party</b><br><?=  $k->notify_party ?><br><br>
+      <b><?=erp_export_label('Notify Party');?></b><br><?=  $k->notify_party ?><br><br>
     </td>
     <td>
       <b>Other Reference</b><br><?=  $k->other_reference ?><br><br>
@@ -89,14 +100,14 @@ foreach ($q as $k) {
   </tr>
   <tr>
     <td>
-      <b>Departure Date</b>: <?=  tgl_indo($k->delivery_date) ?> <br>
+      <b><?=erp_export_label('Departure Date');?></b>: <?=  tgl_indo($k->delivery_date) ?> <br>
       <b>Vessel or Flight</b>: <?=  $k->vessel ?><br>
       <b>From</b>: <?=  $k->dari ?><br>
       <b>To</b>: <?=  $k->ke ?>
     </td>
     <td>
       <b>Delivery Term</b>: <?= $k->delivery_term ?><br>
-      <b>Payment Term</b>: <?= $k->term ?>
+      <b><?=sd_h('sales_payment_term', 'Payment Term');?></b>: <?= $k->term ?>
     </td>
   </tr>
 </table>
@@ -144,7 +155,7 @@ if ($k->tax=='exclude') {
 }
   ?>
   <tr>
-    <td colspan="2" class="right"><b>TOTAL</b></td>
+    <td colspan="2" class="right"><b><?=erp_export_label('TOTAL');?></b></td>
     <td></td>
     <td></td>
     <td></td>
@@ -164,4 +175,7 @@ if ($k->tax=='exclude') {
 </html>
 <?php
 }
+$html = ob_get_clean();
+$docNo = isset($k) ? $k->no_sales_order : ('commercial_invoice_'.$_GET['id']);
+erpkb_pdf_output($html, 'commercial_invoice_'.preg_replace('/[^A-Za-z0-9_\-]/', '_', (string)$docNo).'.pdf', 'P');
 ?>

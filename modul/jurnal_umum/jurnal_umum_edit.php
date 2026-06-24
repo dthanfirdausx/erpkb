@@ -1,12 +1,23 @@
+<?php
+if (!function_exists('fin_t')) {
+  function fin_t($key, $fallback = '') { return lang_text($key, $fallback); }
+}
+if (!function_exists('fin_h')) {
+  function fin_h($key, $fallback = '') { return htmlspecialchars((string) fin_t($key, $fallback), ENT_QUOTES, 'UTF-8'); }
+}
+if (!function_exists('fin_js')) {
+  function fin_js($key, $fallback = '') { return json_encode(fin_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); }
+}
+?>
 <!-- Content Header (Page header) -->
               <section class="content-header">
-                  <h1>Jurnal Umum</h1>
+                  <h1><?=fin_h('finance_general_journal', 'General Journal');?></h1>
                     <ol class="breadcrumb">
                         <li>
-                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> Home</a>
+                        <a href="<?=base_index();?>"><i class="fa fa-dashboard"></i> <?=fin_h('common_home', 'Home');?></a>
                         </li>
                         <li>
-                        <a href="<?=base_index();?>jurnal-umum">Jurnal Umum</a>
+                        <a href="<?=base_index();?>jurnal-umum"><?=fin_h('finance_general_journal', 'General Journal');?></a>
                         </li>
                         <li class="active">Edit Jurnal Umum</li>
                     </ol>
@@ -63,7 +74,7 @@
                 </div>
               </div><!-- /.form-group -->
               <div class="form-group">
-                        <label for="COA" class="control-label col-lg-2">COA </label>
+                        <label for="COA" class="control-label col-lg-2"><?=fin_h('finance_coa', 'COA');?> </label>
                         <div class="col-lg-10">
               <select  id="no_rek" name="no_rek" data-placeholder="Pilih COA..." class="form-control chzn-select" tabindex="2" >
                <option value=""></option>

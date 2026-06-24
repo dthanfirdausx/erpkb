@@ -2,8 +2,16 @@
 session_start();
 include "../../inc/config.php";
 session_check_json();
+function sbsjp_traceability_locked_response() {
+  echo json_encode(array(
+    'status' => 'error',
+    'error_message' => 'Input/Edit manual Stock Barang Setengah Jadi Produksi dikunci. Gunakan GR from Production Order agar setiap barang setengah jadi bisa ditrace sampai bahan baku asal dan dokumen BC.'
+  ));
+  exit;
+}
 switch ($_GET["act"]) {
   case "in":
+    sbsjp_traceability_locked_response();
     
   
   
@@ -26,6 +34,7 @@ switch ($_GET["act"]) {
     action_response($db->getErrorMessage());
     break;
   case "delete":
+    sbsjp_traceability_locked_response();
     
     
     
@@ -33,6 +42,7 @@ switch ($_GET["act"]) {
     action_response($db->getErrorMessage());
     break;
    case "del_massal":
+    sbsjp_traceability_locked_response();
     $data_ids = $_REQUEST["data_ids"];
     $data_id_array = explode(",", $data_ids);
     if(!empty($data_id_array)) {
@@ -43,6 +53,7 @@ switch ($_GET["act"]) {
     action_response($db->getErrorMessage());
     break;
   case "up":
+    sbsjp_traceability_locked_response();
     
    $data = array(
       "kd_barang" => $_POST["kd_barang"],

@@ -39,6 +39,9 @@ class My_pagination
 	//total pages
 	public $total_pages;
 
+	//number of records displayed per page
+	public $perpage;
+
 	//parameter
 	private $param;  
 
