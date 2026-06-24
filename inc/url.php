@@ -7,14 +7,20 @@ function parse_path() {
     $request_path = explode('?', $_SERVER['REQUEST_URI']);
     $path['base'] = rtrim(dirname($_SERVER['SCRIPT_NAME']), '\/');
     $path['call_utf8'] = substr(urldecode($request_path[0]), strlen($path['base']) + 1);
-    $path['call'] = utf8_decode($path['call_utf8']);
-    if ($path['call'] == basename($_SERVER['PHP_SELF'])) {
+    $path['call'] = $path['call_utf8'];
+    if ($path['call'] === 'index.php') {
       $path['call'] = '';
     }
     $path['call_parts'] = explode('/', $path['call']);
-    if ($request_path[1]='') {
+    if (isset($path['call_parts'][0]) && $path['call_parts'][0] === 'index.php') {
+      array_shift($path['call_parts']);
+    }
+    if (!isset($path['call_parts'][0]) || $path['call_parts'][0] !== '') {
+      array_unshift($path['call_parts'], '');
+    }
+    if (isset($request_path[1]) && $request_path[1] !== '') {
       $path['query_utf8'] = urldecode($request_path[1]);
-       $path['query'] = utf8_decode(urldecode($request_path[1]));
+       $path['query'] = urldecode($request_path[1]);
     $vars = explode('&', $path['query']);
     foreach ($vars as $var) {
       $t = explode('=', $var);

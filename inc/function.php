@@ -23,16 +23,106 @@ function infokb(){
   }
 }  
 
-function formatNumber($number){ 
-  $number = str_replace(".", "#", $number);
-   $number = str_replace(",", ".", $number); 
-   $number = str_replace("#", "", $number);
-   return $number;
-} 
+function erp_config_get($key, $default = null)
+{
+  global $db;
+  static $cache = null;
 
-function formatAngka($angka,$belakang=NULL){ 
-   return number_format($angka,2,",",".");
-}  
+  if ($cache === null) {
+    $cache = array();
+    if (isset($db)) {
+      try {
+        foreach ($db->query("SELECT config_key, config_value, default_value FROM erp_system_config") as $row) {
+          $value = ($row->config_value !== null && $row->config_value !== '') ? $row->config_value : $row->default_value;
+          $cache[$row->config_key] = $value;
+        }
+      } catch (Exception $e) {
+        $cache = array();
+      }
+    }
+  }
+
+  return array_key_exists($key, $cache) ? $cache[$key] : $default;
+}
+
+function erp_separator_value($value, $fallback = '')
+{
+  $value = (string)$value;
+  if ($value === 'SPACE') return ' ';
+  if ($value === 'NONE') return '';
+  if ($value === '\\t') return "\t";
+  return $value !== '' ? $value : $fallback;
+}
+
+function erp_number_format_settings()
+{
+  $thousand = erp_separator_value(erp_config_get('number_thousand_separator', '.'), '.');
+  $decimal = erp_separator_value(erp_config_get('number_decimal_separator', ','), ',');
+  if ($decimal === '') $decimal = ',';
+  if ($thousand === $decimal) $thousand = $decimal === ',' ? '.' : ',';
+
+  return array(
+    'thousand_separator' => $thousand,
+    'decimal_separator' => $decimal,
+    'decimal_precision' => max(0, min(8, (int)erp_config_get('number_decimal_precision', 2))),
+    'qty_precision' => max(0, min(8, (int)erp_config_get('number_qty_precision', 5))),
+    'negative_format' => erp_config_get('number_negative_format', 'MINUS')
+  );
+}
+
+function erp_format_number($value, $decimals = null)
+{
+  $settings = erp_number_format_settings();
+  if ($decimals === null) $decimals = $settings['decimal_precision'];
+  $formatted = number_format((float)$value, (int)$decimals, $settings['decimal_separator'], $settings['thousand_separator']);
+  if ((float)$value < 0 && $settings['negative_format'] === 'PARENTHESES') {
+    $formatted = '('.str_replace('-', '', $formatted).')';
+  }
+  return $formatted;
+}
+
+function erp_format_qty($value, $decimals = null)
+{
+  $settings = erp_number_format_settings();
+  return erp_format_number($value, $decimals === null ? $settings['qty_precision'] : $decimals);
+}
+
+function erp_parse_number($number)
+{
+  $settings = erp_number_format_settings();
+  $number = trim((string)$number);
+  if ($number === '') return 0;
+
+  $negative = false;
+  if (preg_match('/^\((.*)\)$/', $number, $match)) {
+    $negative = true;
+    $number = $match[1];
+  }
+
+  if ($settings['thousand_separator'] !== '') {
+    $number = str_replace($settings['thousand_separator'], '', $number);
+  }
+  if ($settings['decimal_separator'] !== '.') {
+    $number = str_replace($settings['decimal_separator'], '.', $number);
+  }
+  $number = preg_replace('/[^0-9\.\-]/', '', $number);
+  $value = (float)$number;
+  return $negative ? -abs($value) : $value;
+}
+
+function erp_excel_number_format($decimals = 2)
+{
+  $decimals = max(0, (int)$decimals);
+  return '#,##0'.($decimals > 0 ? '.'.str_repeat('0', $decimals) : '');
+}
+
+function formatNumber($number){
+   return erp_parse_number($number);
+}
+
+function formatAngka($angka,$belakang=NULL){
+   return erp_format_number($angka, $belakang === NULL ? null : (int)$belakang);
+}
 
 function get_nomor_transaksi($ket){
 
@@ -399,15 +489,202 @@ function generate_po_no($tahun=NULL,$bulan=NULL) {
 function getLangUser($username){
   global $db;
   $language = '';
+  $available = erpkb_available_languages();
+  if ($username === '' && isset($_SESSION['language']) && isset($available[$_SESSION['language']])) {
+    return $_SESSION['language'];
+  }
   $q = $db->query("select lang from sys_users where username=?",array($username));
   foreach ($q as $k) {
    $language = $k->lang;
-  
   }
-  if ($language == '') {
+  if ($language == '' || !isset($available[$language])) {
      $language = 'en';
   }
   return $language;
+}
+
+function erpkb_available_languages()
+{
+  return array(
+    'id' => array('label' => 'Indonesia', 'short' => 'ID'),
+    'en' => array('label' => 'English', 'short' => 'EN'),
+    'ko' => array('label' => 'Korean', 'short' => 'KO'),
+    'zh' => array('label' => 'Chinese', 'short' => 'ZH'),
+    'ja' => array('label' => '日本語', 'short' => 'JA')
+  );
+}
+
+function erpkb_language_label($code)
+{
+  $languages = erpkb_available_languages();
+  return isset($languages[$code]) ? $languages[$code]['label'] : strtoupper((string)$code);
+}
+
+function erpkb_month_name($month)
+{
+  $month = (int)$month;
+  if ($month < 1 || $month > 12) {
+    return '';
+  }
+  return lang_text('month_' . sprintf('%02d', $month), date('F', mktime(0, 0, 0, $month, 1)));
+}
+
+function lang_text($key, $fallback = '')
+{
+  global $lang;
+  if (isset($lang[$key]) && $lang[$key] !== '') {
+    return $lang[$key];
+  }
+  return $fallback !== '' ? $fallback : $key;
+}
+
+function erp_t($key, $fallback = '')
+{
+  return lang_text($key, $fallback);
+}
+
+function erp_e($value)
+{
+  return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+}
+
+function erp_h($key, $fallback = '')
+{
+  return erp_e(erp_t($key, $fallback));
+}
+
+function erp_attr($key, $fallback = '')
+{
+  return erp_h($key, $fallback);
+}
+
+function erp_placeholder($key, $fallback = '')
+{
+  return erp_attr($key, $fallback);
+}
+
+function erp_js($key, $fallback = '')
+{
+  return json_encode(erp_t($key, $fallback), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+}
+
+function erp_js_value($value)
+{
+  return json_encode((string)$value, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+}
+
+function erp_lang_bundle($keys)
+{
+  global $lang;
+  $bundle = array();
+  foreach ($keys as $key => $fallback) {
+    if (is_int($key)) {
+      $key = $fallback;
+      $fallback = '';
+    }
+    if (!isset($lang[$key]) && isset($lang[$fallback])) {
+      $bundle[$key] = erp_t($fallback);
+    } else {
+      $bundle[$key] = erp_t($key, $fallback);
+    }
+  }
+  return $bundle;
+}
+
+function erp_lang_js_bundle($keys)
+{
+  return json_encode(erp_lang_bundle($keys), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+}
+
+function erp_export_key($text)
+{
+  $text = strtolower(trim((string)$text));
+  $text = preg_replace('/[^a-z0-9]+/', '_', $text);
+  $text = trim($text, '_');
+  return $text === '' ? 'text' : $text;
+}
+
+function erp_export_label($fallback)
+{
+  return erp_t('export_label_' . erp_export_key($fallback), $fallback);
+}
+
+function erp_export_title($fallback)
+{
+  return erp_t('export_title_' . erp_export_key($fallback), $fallback);
+}
+
+function erp_export_status($fallback)
+{
+  return erp_t('export_status_' . erp_export_key($fallback), $fallback);
+}
+
+function erp_export_sheet_title($fallback)
+{
+  $title = erp_export_title($fallback);
+  $title = preg_replace('/[\\\\\\/\\?\\*\\[\\]\\:]/', ' ', (string)$title);
+  $title = trim($title);
+  if ($title === '') $title = trim((string)$fallback);
+  if (function_exists('mb_substr')) {
+    return mb_substr($title, 0, 31, 'UTF-8');
+  }
+  return substr($title, 0, 31);
+}
+
+function erp_export_all_text()
+{
+  return erp_t('common_all', 'All');
+}
+
+function erp_export_generated_text($datetime = null)
+{
+  if ($datetime === null || $datetime === '') $datetime = date('Y-m-d H:i:s');
+  return erp_t('export_generated', 'Generated') . ': ' . $datetime;
+}
+
+function erp_export_period_text($from, $to)
+{
+  return trim((string)$from) . ' ' . erp_t('export_period_to', 'to') . ' ' . trim((string)$to);
+}
+
+function erp_module_t($prefix, $key, $fallback = '')
+{
+  return erp_t($prefix . '_' . $key, $fallback);
+}
+
+function erp_module_h($prefix, $key, $fallback = '')
+{
+  return erp_e(erp_module_t($prefix, $key, $fallback));
+}
+
+function erp_module_attr($prefix, $key, $fallback = '')
+{
+  return erp_module_h($prefix, $key, $fallback);
+}
+
+function erp_module_js($prefix, $key, $fallback = '')
+{
+  return erp_js($prefix . '_' . $key, $fallback);
+}
+
+function customs_t($key, $fallback = '')
+{
+  return lang_text('customs_' . $key, $fallback);
+}
+
+function customs_h($key, $fallback = '')
+{
+  return erp_e(customs_t($key, $fallback));
+}
+
+function customs_attr($key, $fallback = '')
+{
+  return customs_h($key, $fallback);
+}
+
+function customs_js($key, $fallback = '')
+{
+  return erp_js('customs_' . $key, $fallback);
 }
 
 function GetNextPemasokNo() {
@@ -526,10 +803,11 @@ function getUjung($jml,$panjang)
 
 function att_barang($kd_barang){
   global $db;
-  $q = $db->query("select * from barang where kd_barang='$kd_barang' ");
+  $q = $db->query("select * from barang where kd_barang=? limit 1", array($kd_barang));
   foreach ($q as $k) {
      return $k;
   }
+  return null;
 }
 
 function update_stock($jml,$status,$jenis_dokpab,$posisi,$kd_barang,$user,$saldo_awal=NULL,$baru=NULL){
@@ -571,53 +849,294 @@ function update_stock($jml,$status,$jenis_dokpab,$posisi,$kd_barang,$user,$saldo
 
 function simpan_log($desksipsi,$user){
   global $db;
+  $GLOBALS['_module_action_has_explicit_log'] = true;
   $data = array('deskripsi' => $desksipsi ,
                 'user' => $user,
                 'tgl' => date("Y-m-d H:i:s"));
   $db->insert("log_aktifitas",$data);
 }
 
-function rekap_stock($posisi,$kd_barang=NULL){ 
-     global $db;
-     $q = $db->query("select id_barang, jenis_dokpab,kd_barang,sum(ifnull(jumlah,0)) as jumlah,sum(ifnull(masuk,0)) as masuk, sum(ifnull(keluar,0)) as keluar,((sum(ifnull(jumlah,0))+sum(ifnull(masuk,0)))-sum(ifnull(keluar,0))) as stock from v_stock_pemasukan where  id_barang='$kd_barang' group by jenis_dokpab order by tgl_bpb asc");
-     if ($q->rowCount()>0) {
-       foreach ($q as $k){ 
-        $db->query("update stock_barang set stock='$k->stock' where id_barang='$k->id_barang' 
-                    and jenis_dokpab='$k->jenis_dokpab' and id_bagian='$posisi' "); 
+function module_audit_action_label($action)
+{
+  $action = strtolower(trim($action));
+  $labels = array(
+    'in' => 'menambahkan data',
+    'insert' => 'menambahkan data',
+    'add' => 'menambahkan data',
+    'create' => 'menambahkan data',
+    'tambah' => 'menambahkan data',
+    'up' => 'mengubah data',
+    'update' => 'mengubah data',
+    'edit' => 'mengubah data',
+    'delete' => 'menghapus data',
+    'del' => 'menghapus data',
+    'del_massal' => 'menghapus beberapa data',
+    'import' => 'mengimpor data',
+    'excel' => 'mengekspor laporan Excel',
+    'csv' => 'mengekspor laporan CSV',
+    'export' => 'mengekspor data',
+    'filter' => 'menampilkan laporan',
+    'detail' => 'melihat detail data',
+    'posting' => 'melakukan posting data',
+    'approve' => 'menyetujui data',
+    'terima' => 'menerima data'
+  );
+
+  return isset($labels[$action]) ? $labels[$action] : 'menjalankan aksi '.$action;
+}
+
+function module_audit_format_data($data)
+{
+  $parts = array();
+  foreach ((array) $data as $key => $value) {
+    $parts[] = $key.'='.$value;
+  }
+
+  return implode(', ', $parts);
+}
+
+function module_audit_operation_description($operation)
+{
+  $verbs = array(
+    'insert' => 'menambahkan data ke tabel',
+    'update' => 'mengubah data pada tabel',
+    'delete' => 'menghapus data dari tabel'
+  );
+  $verb = isset($verbs[$operation['operation']])
+    ? $verbs[$operation['operation']]
+    : 'memproses tabel';
+  $description = $verb.' '.$operation['table'];
+  $formattedData = module_audit_format_data($operation['data']);
+
+  if ($formattedData !== '') {
+    $description .= ' dengan data '.$formattedData;
+  }
+
+  if ($operation['condition'] !== '') {
+    $description .= ' untuk '.$operation['condition'];
+  }
+
+  return $description;
+}
+
+/**
+ * Register one audit record for every direct request to a module endpoint.
+ * A separate PDO connection keeps the audit record outside module transactions.
+ */
+function register_module_action_audit($host, $port, $dbUsername, $dbPassword, $dbName)
+{
+  if (PHP_SAPI === 'cli' || empty($_SERVER['SCRIPT_FILENAME'])) {
+    return;
+  }
+
+  $script = str_replace('\\', '/', $_SERVER['SCRIPT_FILENAME']);
+  if (!preg_match('~/(modul|system)/([^/]+)/(.+)\.php$~i', $script, $matches)) {
+    return;
+  }
+
+  $area = strtolower($matches[1]);
+  $module = strtolower($matches[2]);
+  $endpoint = strtolower(str_replace('/', '.', $matches[3]));
+  $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'UNKNOWN';
+  $action = '';
+
+  if (isset($_REQUEST['act']) && is_scalar($_REQUEST['act'])) {
+    $action = trim((string) $_REQUEST['act']);
+  }
+
+  if ($action === '') {
+    $action = preg_replace('/_(action|data)$/', '', basename($endpoint));
+  }
+
+  $references = array();
+  $referenceKeys = array(
+    'id', 'data_ids', 'no_jurnal', 'no_ro', 'no_transfer',
+    'no_dokpab', 'no_aju', 'no_bukti', 'no_po', 'no_so'
+  );
+
+  foreach ($referenceKeys as $key) {
+    if (!isset($_REQUEST[$key]) || !is_scalar($_REQUEST[$key])) {
+      continue;
+    }
+
+    $value = trim((string) $_REQUEST[$key]);
+    if ($value === '') {
+      continue;
+    }
+
+    $value = preg_replace('/[^a-zA-Z0-9._,\/-]/', '', $value);
+    if ($value !== '') {
+      $references[] = $key.'='.substr($value, 0, 100);
+    }
+  }
+
+  $activeProfile = array(
+    'id_user' => isset($_SESSION['id_user']) ? (string) $_SESSION['id_user'] : '',
+    'username' => isset($_SESSION['username']) ? (string) $_SESSION['username'] : '',
+    'nama' => isset($_SESSION['nama']) ? (string) $_SESSION['nama'] : ''
+  );
+
+  register_shutdown_function(function () use (
+    $host,
+    $port,
+    $dbUsername,
+    $dbPassword,
+    $dbName,
+    $area,
+    $module,
+    $endpoint,
+    $method,
+    $action,
+    $references,
+    $activeProfile
+  ) {
+    if (!empty($GLOBALS['_module_action_has_explicit_log'])) {
+      return;
+    }
+
+    $profile = $activeProfile;
+    if (isset($_SESSION['id_user']) && $_SESSION['id_user'] !== '') {
+      $profile['id_user'] = (string) $_SESSION['id_user'];
+    }
+    if (isset($_SESSION['username']) && $_SESSION['username'] !== '') {
+      $profile['username'] = (string) $_SESSION['username'];
+    }
+    if (isset($_SESSION['nama']) && $_SESSION['nama'] !== '') {
+      $profile['nama'] = (string) $_SESSION['nama'];
+    }
+
+    $username = trim($profile['username']);
+    $profileName = trim($profile['nama']);
+    $profileLabel = $profileName !== ''
+      ? $profileName.($username !== '' ? ' ('.$username.')' : '')
+      : $username;
+
+    if ($profileLabel === '') {
+      $username = 'guest';
+      $profileLabel = 'guest';
+    }
+
+    $httpStatus = http_response_code();
+    if (!$httpStatus) {
+      $httpStatus = 200;
+    }
+
+    $lastError = error_get_last();
+    $fatalTypes = array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR);
+    $isFatal = $lastError && in_array($lastError['type'], $fatalTypes, true);
+    $status = ($isFatal || $httpStatus >= 400) ? 'ERROR' : 'SELESAI';
+
+    $operations = isset($GLOBALS['_module_audit_operations'])
+      ? $GLOBALS['_module_audit_operations']
+      : array();
+    if (!empty($operations)) {
+      $operationDescriptions = array();
+      $maxOperations = 4;
+
+      foreach (array_slice($operations, 0, $maxOperations) as $operation) {
+        $operationDescriptions[] = module_audit_operation_description($operation);
+      }
+
+      $description = 'User '.$profileLabel.' '.implode('; kemudian ', $operationDescriptions);
+      if (count($operations) > $maxOperations) {
+        $description .= '; serta '.(count($operations) - $maxOperations).' operasi database lainnya';
+      }
+      $description .= ' melalui modul '.$module.' pada tanggal '.date('d-m-Y').' pukul '.date('H:i:s').'.';
+    } else {
+      $description = 'User '.$profileLabel.' '.module_audit_action_label($action).
+        ' pada modul '.$module;
+
+      if (!empty($references)) {
+        $description .= ' dengan referensi '.implode(', ', $references);
+      }
+
+      $description .= ' pada tanggal '.date('d-m-Y').' pukul '.date('H:i:s').'.';
+    }
+
+    if ($status === 'ERROR') {
+      $description .= ' Proses berakhir dengan error HTTP '.$httpStatus;
+      if ($isFatal) {
+        $description .= ': '.substr(preg_replace('/\s+/', ' ', $lastError['message']), 0, 180);
+      }
+      $description .= '.';
+    }
+
+    try {
+      $auditDsn = strpos($host, '/') === 0
+        ? 'mysql:unix_socket='.$host.';dbname='.$dbName.';charset=utf8mb4'
+        : 'mysql:host='.$host.';dbname='.$dbName.';port='.$port.';charset=utf8mb4';
+      $auditPdo = new PDO(
+        $auditDsn,
+        $dbUsername,
+        $dbPassword,
+        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+      );
+      $statement = $auditPdo->prepare(
+        'INSERT INTO log_aktifitas (deskripsi, user, tgl) VALUES (?, ?, ?)'
+      );
+      $statement->execute(array($description, substr($username, 0, 30), date('Y-m-d H:i:s')));
+    } catch (Exception $auditException) {
+      error_log('Audit log gagal disimpan: '.$auditException->getMessage());
+    }
+  });
+}
+
+function rekap_stock($posisi,$kd_barang=NULL){
+	     global $db;
+	     $q = $db->query("SELECT b.id id_barang, sl.jenis_dokpab, b.kd_barang, COALESCE(SUM(sl.qty_masuk),0) jumlah, 0 masuk, 0 keluar, COALESCE(SUM(sl.qty_sisa),0) stock
+             FROM stock_layer sl
+             INNER JOIN barang b ON b.kd_barang=sl.kode
+             WHERE b.id=? AND sl.lokasi='GUDANG'
+             GROUP BY b.id,sl.jenis_dokpab,b.kd_barang
+             ORDER BY MIN(sl.tgl_masuk) ASC", array($kd_barang));
+	     if ($q->rowCount()>0) {
+	       foreach ($q as $k){ 
+	        $db->query("update stock_barang set stock=? where id_barang=? 
+	                    and jenis_dokpab=? and id_bagian=? ", array($k->stock,$k->id_barang,$k->jenis_dokpab,$posisi)); 
         // echo "update stock_barang set stock='$k->stock' where id_barang='$k->id_barang' 
         //             and jenis_dokpab='$k->jenis_dokpab' and id_bagian='$posisi' <br>";
       }
-     }else{
-        $db->query("update stock_barang set stock='0' where id_barang='$kd_barang'  and id_bagian='$posisi' "); 
-     }
-} 
-
-function rekap_stock_produksi($posisi,$kd_barang=NULL){ 
-     global $db;
-     $q = $db->query("select id_barang, jenis_dokpab,kd_barang,sum(ifnull(jumlah,0)) as jumlah,sum(ifnull(masuk,0)) as masuk, sum(ifnull(keluar,0)) as keluar,((sum(ifnull(masuk,0)))-sum(ifnull(keluar,0))) as stock from v_rekap_stok_produksi where ((masuk)-keluar)>0 and id_barang='$kd_barang' group by jenis_dokpab order by tgl_bpb asc"); 
-     if ($q->rowCount()>0) {
-       foreach ($q as $k){ 
-        $db->query("update stock_barang set stock='$k->stock' where id_barang='$k->id_barang' 
-                    and jenis_dokpab='$k->jenis_dokpab' and id_bagian='$posisi' "); 
-      }
-     }else{
-        $db->query("update stock_barang set stock='0' where id_barang='$kd_barang'  and id_bagian='$posisi' "); 
-     } 
-     
-}  
-  
-function rekap_stock_outgoing($posisi,$kd_barang=NULL){ 
-     global $db;
-     $q = $db->query("select id_barang, jenis_dokpab,kd_barang,sum(ifnull(jumlah,0)) as jumlah,sum(ifnull(masuk,0)) as masuk, sum(ifnull(keluar,0)) as keluar,((sum(ifnull(masuk,0)))-sum(ifnull(keluar,0))) as stock from v_rekap_stok_outgoing2 where ((masuk)-keluar)>0 and id_barang='$kd_barang' group by jenis_dokpab order by tgl_bpb asc");   
-    if ($q->rowCount()>0) {
-       foreach ($q as $k){ 
-        $db->query("update stock_barang set stock='$k->stock' where id_barang='$k->id_barang' 
-                    and jenis_dokpab='$k->jenis_dokpab' and id_bagian='$posisi' "); 
-      }
-     }else{
-        $db->query("update stock_barang set stock='0' where id_barang='$kd_barang'  and id_bagian='$posisi' "); 
-     }
-}  
+	     }else{
+	        $db->query("update stock_barang set stock='0' where id_barang=?  and id_bagian=? ", array($kd_barang,$posisi)); 
+	     }
+	} 
+	
+	function rekap_stock_produksi($posisi,$kd_barang=NULL){ 
+	     global $db;
+	     $q = $db->query("SELECT b.id id_barang, sl.jenis_dokpab, b.kd_barang, 0 jumlah, COALESCE(SUM(sl.qty_masuk),0) masuk, 0 keluar, COALESCE(SUM(sl.qty_sisa),0) stock
+             FROM stock_layer sl
+             INNER JOIN barang b ON b.kd_barang=sl.kode
+             WHERE b.id=? AND sl.lokasi='PRODUKSI' AND sl.qty_sisa>0
+             GROUP BY b.id,sl.jenis_dokpab,b.kd_barang
+             ORDER BY MIN(sl.tgl_masuk) ASC", array($kd_barang)); 
+	     if ($q->rowCount()>0) {
+	       foreach ($q as $k){ 
+	        $db->query("update stock_barang set stock=? where id_barang=? 
+	                    and jenis_dokpab=? and id_bagian=? ", array($k->stock,$k->id_barang,$k->jenis_dokpab,$posisi)); 
+	      }
+	     }else{
+	        $db->query("update stock_barang set stock='0' where id_barang=?  and id_bagian=? ", array($kd_barang,$posisi)); 
+	     } 
+	     
+	}  
+	  
+	function rekap_stock_outgoing($posisi,$kd_barang=NULL){ 
+	     global $db;
+	     $q = $db->query("SELECT b.id id_barang, sl.jenis_dokpab, b.kd_barang, 0 jumlah, COALESCE(SUM(sl.qty_masuk),0) masuk, 0 keluar, COALESCE(SUM(sl.qty_sisa),0) stock
+             FROM stock_layer sl
+             INNER JOIN barang b ON b.kd_barang=sl.kode
+             WHERE b.id=? AND sl.lokasi='OUTGOING' AND sl.qty_sisa>0
+             GROUP BY b.id,sl.jenis_dokpab,b.kd_barang
+             ORDER BY MIN(sl.tgl_masuk) ASC", array($kd_barang));   
+	    if ($q->rowCount()>0) {
+	       foreach ($q as $k){ 
+	        $db->query("update stock_barang set stock=? where id_barang=? 
+	                    and jenis_dokpab=? and id_bagian=? ", array($k->stock,$k->id_barang,$k->jenis_dokpab,$posisi)); 
+	      }
+	     }else{
+	        $db->query("update stock_barang set stock='0' where id_barang=?  and id_bagian=? ", array($kd_barang,$posisi)); 
+	     }
+	}  
 
 
 function get_nomor($table,$kolom)
@@ -966,25 +1485,23 @@ function base_admin()
   return $root;
 }
 
-//base admin is url until index.php, ex:https://localhost/backend/admina/index.php
+//base admin is clean front-controller url, ex:https://localhost/backend/admina/
 function base_index()
 {
   $root='';
    $protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
   $root = $protocol.$_SERVER['HTTP_HOST'];
   $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-  $root .='index.php/';
   return $root;
 }
 
-//base admin is url until index.php, ex:https://localhost/backend/admina/index.php
+//base admin is clean front-controller url, ex:https://localhost/backend/admina/
 function base_index_end()
 {
   $root='';
    $protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
   $root = $protocol.$_SERVER['HTTP_HOST'];
-  $root .= SITE_ROOT;
-  $root .='index.php/';
+  $root .= "/".DIR_ADMIN."/";
   return $root;
 }
 
@@ -1544,6 +2061,24 @@ function get_foto($username)
 //return $data;
 }
 
+function erpkb_user_photo_url($foto_user, $folder = 'data_user')
+{
+  $default = base_admin().'assets/dist/img/default-user-neutral.svg';
+  $filename = trim((string) $foto_user);
+  if ($filename === '') {
+    return $default;
+  }
+
+  $filename = basename($filename);
+  $folder = trim((string) $folder, '/');
+  $path = rtrim(SITE_ROOT, '/').'/upload/'.$folder.'/'.$filename;
+  if (!is_file($path)) {
+    return $default;
+  }
+
+  return base_url().'upload/'.$folder.'/'.rawurlencode($filename);
+}
+
 function get_jenjang($kode_jur)
 {
   global $db;
@@ -1665,7 +2200,7 @@ function trimmer($value)
 function cek_barang($kd_barang){
   global $db;
   $res  = array();
-  $q = $db->query("select * from barang where kd_barang='$kd_barang' ");
+  $q = $db->query("select * from barang where kd_barang=? limit 1", array($kd_barang));
   if ($q->rowCount()>0) {
      foreach ($q as $k) {
        $res= (array) $k; 
@@ -1675,6 +2210,7 @@ function cek_barang($kd_barang){
      $res['status'] = '0';
      $res['kd_kategori'] = '0';
   }
+  return $res;
 }
 function reset_lp_gabungan($user){
   global $db;
@@ -1849,20 +2385,7 @@ function get_last_no(){
    foreach ($q as $k) {
       $jml = $k->jml + 1;
    }
-   if ($jml<10) {
-      $nomor = "0000".$jml;
-   }elseif ($jml>=10 && $jml<100) {  
-       $nomor = "000".$jml;
-   }elseif ($jml>=100 && $jml<1000) {
-       $nomor = "00".$jml;
-   }elseif ($jml>=1000 && $jml<10000) {
-       $nomor = "0".$jml;
-   }elseif ($jml>=10000 && $jml<100000) {
-       $nomor = "".$jml;
-   }elseif ($jml>=100000 && $jml<1000000) {
-       $nomor = $jml;
-   }
-   return $nomor;
+   return str_pad($jml, 6, "0", STR_PAD_LEFT);
 }
 
 function buat_no_aju($jenis_dokpab){
@@ -1873,7 +2396,7 @@ function buat_no_aju($jenis_dokpab){
      $kantor = $k->kantor_pengawas;
   }
   $kp = explode(" - ", $kantor);
-  $id_kantor = substr($kp[0], 0,4);
+  $id_kantor = str_pad(substr(preg_replace('/\D/', '', $kp[0]), 0, 6), 6, "0", STR_PAD_RIGHT);
   if (strlen($jenis_dokpab)==2) {
     $jenis_dokpab = "0".$jenis_dokpab;
   }
@@ -2124,6 +2647,37 @@ function generate_no_jurnal()
     return $prefix . $tanggal . $nomor;
 
 }
+
+function erpkb_datatable_search_value()
+{
+    if (isset($_POST['search']) && is_array($_POST['search']) && isset($_POST['search']['value'])) {
+        return trim((string) $_POST['search']['value']);
+    }
+
+    if (isset($_REQUEST['search']) && is_array($_REQUEST['search']) && isset($_REQUEST['search']['value'])) {
+        return trim((string) $_REQUEST['search']['value']);
+    }
+
+    return '';
+}
+
+function erpkb_normalize_datatable_search()
+{
+    $search = erpkb_datatable_search_value();
+    if ($search === '') {
+        return;
+    }
+
+    if (!isset($_POST['keyword']) || trim((string) $_POST['keyword']) === '') {
+        $_POST['keyword'] = $search;
+    }
+
+    if (!isset($_REQUEST['keyword']) || trim((string) $_REQUEST['keyword']) === '') {
+        $_REQUEST['keyword'] = $search;
+    }
+}
+
+erpkb_normalize_datatable_search();
 
 
 ?>
